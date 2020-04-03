@@ -4,9 +4,17 @@
 * @brief Implements mandatory user class DetectorConstruction.
 */
 
+// Default libraries
+#include <fstream>
+
+// Local headers
 #include "DetectorConstruction.hh"
 #include "DetectorMessenger.hh"
+#include "MagneticField.hh"
+#include "MagneticField2.hh"
+#include "SensitiveDetector.hh"
 
+// Geant4 headers
 #include "G4Material.hh"
 #include "G4Box.hh"
 #include "G4Tubs.hh"
@@ -14,25 +22,17 @@
 #include "G4PVPlacement.hh"
 #include "G4PVReplica.hh"
 #include "G4Transform3D.hh"
-
 #include "G4GeometryTolerance.hh"
 #include "G4GeometryManager.hh"
 #include "G4NistManager.hh"
-
 #include "G4VisAttributes.hh"
 #include "G4Colour.hh"
-
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
-
-#include "SensitiveDetector.hh"
 #include "G4SDManager.hh"
-
 #include "G4SubtractionSolid.hh"
-
 #include "G4UserLimits.hh"
-
 #include "G4UniformElectricField.hh"
 #include "G4UniformMagField.hh"
 #include "G4MagneticField.hh"
@@ -44,8 +44,6 @@
 #include "G4MagIntegratorStepper.hh"
 #include "G4MagIntegratorDriver.hh"
 #include "G4ChordFinder.hh"
-#include <fstream>
-
 #include "G4ExplicitEuler.hh"
 #include "G4ImplicitEuler.hh"
 #include "G4SimpleRunge.hh"
@@ -57,13 +55,8 @@
 #include "G4CashKarpRKF45.hh"
 #include "G4RKG3_Stepper.hh"
 
-#include "MagneticField.hh"
-#include "MagneticField2.hh"
-
 using namespace std;
 using namespace CLHEP;
-
-//  Inputs* Inputs = &Inputs::GetInputs();
 
 DetectorConstruction::DetectorConstruction()
 {
@@ -93,7 +86,7 @@ void DetectorConstruction::DefineMaterials()
   G4int ncomponents, natoms;
   G4String name, symbol;             // a=mass of a CLHEP::mole;
 
-  // define Elements
+  // Define Elements
   a = 1.01*CLHEP::g/CLHEP::mole;
   G4Element* elH  = new G4Element(name="Hydrogen",symbol="H" , z= 1., a);
   density     = 1.33e-11*CLHEP::g/CLHEP::cm3;
@@ -104,7 +97,7 @@ void DetectorConstruction::DefineMaterials()
   H2->AddElement(elH, natoms=2);
 
 
-  //define the AlN
+  // Define the AlN
   G4Element* elC  = new G4Element(name="Carbono",symbol="C" , z= 6., a=12.01*CLHEP::g/CLHEP::mole);
   G4Element* elHi  = new G4Element(name="Hidrogênio",symbol="H" , z= 1., a=1.01*CLHEP::g/CLHEP::mole);
   density = 0.98*CLHEP::kg/CLHEP::m3;
@@ -114,11 +107,11 @@ void DetectorConstruction::DefineMaterials()
   CH4->AddElement(elC, natoms=1);
   CH4->AddElement(elHi, natoms=4);
 
-  //Get Materials from NIST database
+  // Get Materials from NIST database
   G4NistManager* man = G4NistManager::Instance();
   man->SetVerbose(0);
 
-  //Define NIST materials
+  // Define NIST materials
   air     = man->FindOrBuildMaterial("G4_AIR");
   silicon = man->FindOrBuildMaterial("G4_Si");
   vacuum  = man->FindOrBuildMaterial("G4_Galactic");
@@ -226,9 +219,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   logicWorld -> SetVisAttributes(G4VisAttributes::Invisible);         //Turn the world invisible
 
 
-  //
-  //  Solenoide 1
-  //
+///////////////////
+//  Solenoide 1  //
+///////////////////
 
 
 G4double Solenoid_length = 100.0*CLHEP::cm;
@@ -251,11 +244,9 @@ G4Color green(0.0, 1.0, 0.0),
 
 Log_Solenoid -> SetVisAttributes(new G4VisAttributes(green));
 
-
-
-/////////////////////////////
-/// Magnetic field region ///
-/////////////////////////////
+///////////////////////////////
+/// Magnetic field region 1 ///
+///////////////////////////////
 
 G4double Mag_diameter = 30.0*cm;
 G4double Mag_length = 68.0*cm; //coil length
@@ -272,14 +263,9 @@ G4UserLimits* userLimits = new G4UserLimits(1.e-5*mm);
 Log_Magnet->SetUserLimits(userLimits);
 
 
-
-
-
-
-
-    //
-    // Solenoide 2
-    //
+///////////////////
+//  Solenoide 2  //
+///////////////////
 
 G4ThreeVector position = G4ThreeVector(0., 0., 301.*CLHEP::cm);
 G4double raiointerno = 30.05*CLHEP::cm;
@@ -294,13 +280,12 @@ solenoidef = new G4PVPlacement(0, position, logsolenoide, "solenoidef", logicWor
 
 logsolenoide -> SetVisAttributes(new G4VisAttributes(green));
 
-    //
-    // Região do campo magnético do solenóide 2
-    //
+///////////////////////////////
+/// Magnetic field region 2 ///
+///////////////////////////////
 
 G4double diametromag = 30.0*cm;
 G4double comprimentomag = 68.0*cm; //coil length
-//G4int zero = 0;
 
 G4VSolid* magsolenoide = new G4Tubs("magsolenoide",0.,diametromag/2.0,comprimentomag/2.0,0.,360.*deg);
 
@@ -315,21 +300,20 @@ G4VPhysicalVolume* magneticof = new G4PVPlacement(0,
               0,
               true);
 
-// set "user limits" for drawing smooth curve
+// Set "user limits" for drawing smooth curve
 G4UserLimits* limiteuser = new G4UserLimits(1.e-5*mm);
 logmagnetico->SetUserLimits(limiteuser);
 //logicWorld->SetUserLimits(limiteuser);
 
-//
-// Alvo
-//
+////////////
+//  Alvo  //
+////////////
 
 G4ThreeVector Target_pos = Inputs->target_pos;
 G4Material* TargetMaterial = G4NistManager::Instance()->FindOrBuildMaterial(Inputs->g4_material_name);
 Inputs->TargetMaterial = TargetMaterial;
 
 G4Box* alvo = new G4Box("alvo",7.5*CLHEP::cm,7.5*CLHEP::cm,Inputs->width *CLHEP::mm);
-//G4VSolid* alvo = new G4Tubs("alvo", 0., raiointerno/2.0, 0.5*CLHEP::mm, 0., 360.*deg);
 
 G4LogicalVolume* alvolog = new G4LogicalVolume(alvo, TargetMaterial, "alvolog");
 
@@ -344,27 +328,17 @@ alvolog -> SetVisAttributes(new G4VisAttributes(red));
 G4bool fieldIsInitialized = false;
 if(!fieldIsInitialized)
 {
-
-  //magneticField->SetCurrent(21.336); //electric current of solenoid 1 (Amp)
-
-  // G4cout<<"Creating Magnetic Field 1: I = "<<magneticField->GetCurrent()<<" Amp"<<G4endl;
-  // G4cout<<"Creating Magnetic Field 2: I = "<<magneticField2->GetCurrent()<<" Amp"<<G4endl;
-
-
   G4MagIntegratorStepper* fStepper;
-
 
   G4FieldManager* fieldMgr = G4TransportationManager::GetTransportationManager()->GetFieldManager();
   fieldMgr->SetDetectorField(magneticField);
   fieldMgr->CreateChordFinder(magneticField);
 
-
   G4double minEps= 1.0e-10*cm;  //   Minimum & value for smallest steps
-  G4double maxEps= 1.0e-8*cm;  //   Maximum & value for largest steps
+  G4double maxEps= 1.0e-8*cm;   //   Maximum & value for largest steps
 
   fieldMgr->SetMinimumEpsilonStep( minEps );
   fieldMgr->SetMaximumEpsilonStep( maxEps );
-
 
   fieldMgr->GetChordFinder()->SetDeltaChord( 0.001*mm);
 
@@ -372,22 +346,19 @@ if(!fieldIsInitialized)
   //G4EqMagElectricField* fEquation = new G4EqMagElectricField(magneticField);
 
   // Note that for magnetic field that do not vary with time,
-  //  the default number of variables suffices.
-  // or ..
+
   fStepper = new G4HelixExplicitEuler( fEquation );   // mais indicado para campos intensos e não suaves
   //fStepper = new G4HelixSimpleRunge( fEquation );
   //fStepper = new G4HelixImplicitEuler( fEquation );
   //fStepper = new G4CashKarpRKF45( fEquation );
-  // fStepper = new G4ClassicalRK4( fEquation );   // integrador mais usado
+  //fStepper = new G4ClassicalRK4( fEquation );       // integrador mais usado
 
   fieldMgr->SetDeltaIntersection(0.1*mm);
   fieldMgr->SetAccuraciesWithDeltaOneStep(0.01*mm );
   fieldMgr->SetDeltaOneStep( 0.01*mm );  // 0.5 micrometer
 
-  /* G4ChordFinder( magneticField,
-                1.0e-2 * mm,
-              0 );
-*/
+  /* G4ChordFinder( magneticField,1.0e-2 * mm, 0);*/
+
   fieldIsInitialized = true;
 }
 
@@ -403,17 +374,12 @@ G4VPhysicalVolume* DetectorConstruction::ConstructDetectors()
   ConstructRing_D_0_1();
   //ConstructRing_D_0_2();
 
-
-
-
 static SensitiveDetector* sensitive = 0;
 if (!sensitive)
 {
-
   sensitive = new SensitiveDetector("/myDet/SiStripSD");
   //We register now the SD with the manager
   G4SDManager::GetSDMpointer()->AddNewDetector(sensitive);
-
 }
 
 
@@ -436,11 +402,11 @@ if (!sensitive)
 G4VPhysicalVolume* DetectorConstruction::ConstructRing_D_0_0()
 {
 
-//
-// Detectores
-//
+//////////////////
+//  Detectores  //
+//////////////////
 
-// Coordenadas detectores
+// Coordenadas dos detectores
 
 G4ThreeVector posicao_detector1 = G4ThreeVector(-6.5*CLHEP::cm , 0., 276.*CLHEP::cm);
 G4ThreeVector posicao_detector1teste = G4ThreeVector( -65.*CLHEP::cm, 0., 276.*CLHEP::cm);
@@ -490,9 +456,9 @@ std::ostringstream nombre_d_0_0;
                         jd00);
 //}
 
-  //
-  // Strips
-  //
+//////////////
+//  Strips  //
+//////////////
 
   G4double halfSensorStripSizeX = Lengthx_dssd_t1/(2.0*noOfSensorStrips);
   G4double halfSensorStripSizeY = Lengthy_dssd_t1/2.;
@@ -706,8 +672,6 @@ static G4double valores[3];
 return valores;
 }
 
-
-
 #include "G4RunManager.hh"
 #include "G4PhysicalVolumeStore.hh"
 #include "G4LogicalVolumeStore.hh"
@@ -715,12 +679,10 @@ return valores;
 
 void DetectorConstruction::UpdateGeometry()
 {
-
   // Cleanup old geometry
   G4GeometryManager::GetInstance()->OpenGeometry();
   G4PhysicalVolumeStore::GetInstance()->Clean();
   G4LogicalVolumeStore::GetInstance()->Clean();
   G4SolidStore::GetInstance()->Clean();
   G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
-
 }

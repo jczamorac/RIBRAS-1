@@ -67,18 +67,17 @@ void EventAction::BeginOfEventAction(const G4Event* anEvent )
 	if ( anEvent->GetEventID() % 1000000 == 0 ){
 		G4cout << "Starting Event: " << anEvent->GetEventID() << G4endl;
 	}
-//Retrieve the ID for the hit collection
+	//Retrieve the ID for the hit collection
 	if ( hitsCollID == -1 ){
 		G4SDManager * SDman = G4SDManager::GetSDMpointer();
 		hitsCollID = SDman->GetCollectionID(hitsCollName);
 	}
 
-//Setting Z of reaction in target
-	G4double thickness = (Inputs->arial_density / (mg / cm2)) / (Inputs->TargetMaterial->GetDensity() / (g / cm3));
-	thickness /= 1000.0; // mg -> g
+	// G4double thickness = (Inputs->arial_density / (mg / cm2)) / (Inputs->TargetMaterial->GetDensity() / (g / cm3));
+	// thickness /= 1000.0; // mg -> g
 //Pick the interaction point in the target that the CEReaction will
 //Happen at. 
-	rZOfReactionInTarget = (CLHEP::RandFlat::shoot() * thickness - thickness / 2.0)*cm;
+	// rZOfReactionInTarget = (CLHEP::RandFlat::shoot() * thickness - thickness / 2.0)*cm;
 //At the Beginning of each event set the flag to allow a Reaction to happen.
 //This ensures that the reaction happens exactly once in each event.
 //This is an issue because the Charge exchange process is added not to the beam
@@ -88,7 +87,7 @@ void EventAction::BeginOfEventAction(const G4Event* anEvent )
 	rThereWasACEReactionThisEvent = false;
 
 
-//Setting particle definitions
+	//Setting particle definitions
 	G4int ZOfEjectile = Inputs->ejectile_Z;
 	G4int AOfEjectile = Inputs->ejectile_A;
 	G4int ZOfRecoil = Inputs->recoil_Z;
@@ -97,59 +96,38 @@ void EventAction::BeginOfEventAction(const G4Event* anEvent )
 	G4float ExOfEjectile = Inputs->ejectile_Ex;
 	G4float ExOfRecoil = Inputs->recoil_Ex;
 	
-//Check to see if the ejectile is a  protons/neutrons
-//If the Ejectile is a proton
+	//Check to see if the ejectile is a proton, neutron or ion
+	//If the Ejectile is a proton
 	if (ZOfEjectile == 1 && AOfEjectile == 1) {Inputs->EjectileParticle = G4Proton::Definition();}
 
-//If the Ejectile is a neutron
+	//If the Ejectile is a neutron
 	else if (ZOfEjectile == 0 && AOfEjectile == 1) {Inputs->EjectileParticle = G4Neutron::Definition();}
 
-//If the Ejectile is a ion
+	//If the Ejectile is a ion
 	else {
 		G4IonTable* ionTable =  G4IonTable::GetIonTable();
   		G4ParticleDefinition* part = 0;
   		part = ionTable->GetIon(Inputs->ejectile_Z,Inputs->ejectile_A,Inputs->ejectile_Ex);
 		Inputs->EjectileParticle = part;
-	
-	// Inputs->EjectileParticle = reinterpret_cast<G4Ions*>( myIonTable.GetIon(ZOfEjectile, AOfEjectile, ExOfEjectile) );
+	}
 
-//Ask the ion table for the ion
-        // if (G4ParticleTable::GetParticleTable()->FindIon(ZOfEjectile, AOfEjectile, ExOfEjectile) == 0) {
-		// 		Inputs->EjectileParticle = reinterpret_cast<G4Ions*>(myIonTable.GetIon(ZOfEjectile, AOfEjectile, ExOfEjectile));
-        // }
-        // else {
-        //         Inputs->EjectileParticle = reinterpret_cast<G4Ions*>(G4ParticleTable::GetIonTable()->FindIon(ZOfEjectile, AOfEjectile, ExOfEjectile));
-        // }
-	Saver << "Event: " << anEvent->GetEventID() + 1 << G4endl;
-}
-
-
-//Check to see if the Recoil is a  protons/neutrons
-//If the Recoil is a Proton
+	//Check to see if the Recoil is a proton, neutron or ion
+	//If the Recoil is a Proton
 	if (ZOfRecoil == 1 && AOfRecoil == 1) {Inputs->RecoilParticle = G4Proton::Definition();}
 
-//If the Recoil is a neutron
+	//If the Recoil is a neutron
 	else if (ZOfRecoil == 0 && AOfRecoil == 1) {Inputs->RecoilParticle = G4Neutron::Definition();}
 
-//If the Recoil is a ion
+	//If the Recoil is a ion
 	else {
 		G4IonTable* ionTable =  G4IonTable::GetIonTable();
   		G4ParticleDefinition* part = 0;
   		part = ionTable->GetIon(Inputs->recoil_Z,Inputs->recoil_A,Inputs->ejectile_Ex);
 		Inputs->RecoilParticle = part;
-	
-// 	Inputs->RecoilParticle = reinterpret_cast<G4Ions*>(myIonTable.GetIon(ZOfRecoil, AOfRecoil, ExOfRecoil));
-// G4cout << "Teste" << G4endl;
-
-	// if (G4ParticleTable::GetParticleTable()->FindIon(ZOfRecoil, AOfRecoil, ExOfRecoil) == 0) {
-
-	// 		Inputs->RecoilParticle = reinterpret_cast<G4Ions*> (myIonTable.GetIon(ZOfRecoil, AOfRecoil, ExOfRecoil));
-	// }
-	// else {
-
-	// 		Inputs->RecoilParticle = reinterpret_cast<G4Ions*> (G4ParticleTable::GetIonTable()->FindIon(ZOfRecoil, AOfRecoil, ExOfRecoil));
-	// }
 	}
+
+	// Saving event ID
+	Saver << "Event: " << anEvent->GetEventID() + 1 << G4endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -183,6 +161,7 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
 			rootSaver->AddEvent(hits,pos,mom);
 	}
 
+	// If there wasn't a reaction, save "No Hit" in .txt
 	if (!gCESimulationManager->GetWasThereACEReaction()){
 		Saver << "No Hit" << G4endl;
 		Saver << " " << G4endl;
@@ -190,49 +169,45 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack, G4double CMScatteringAngle, G4double phi, G4LorentzVector & RecoilOut, G4LorentzVector & EjectileOut) {
+void EventAction::CalculateLab4Vectors (const G4Track &BeamTrack,
+ 									    G4double CMScatteringAngle,
+  								        G4double phi,
+                                        G4LorentzVector & RecoilOut,
+                                        G4LorentzVector & EjectileOut) {
 
-// Retrieve inputs for CE related info
+// Retrieve inputs
 Inputs* Inputs = &Inputs::GetInputs();
+
 // Retrieve instance of NIST database
 //G4NistManager* nist = G4NistManager::Instance();
 
 //  Chose a random phi between 0 and 2 pi
-G4double randomPhiInCM = phi;// CLHEP::RandFlat::shoot()*2*pi;
+G4double randomPhiInCM = phi;
 G4double x = sin(CMScatteringAngle)*cos(randomPhiInCM);
 G4double y = sin(CMScatteringAngle)*sin(randomPhiInCM);
 G4double z = cos(CMScatteringAngle);
 G4ThreeVector RecoilDirectionInCM(-x, -y, -z); // Updated these so that the ejectile is moving forward
 G4ThreeVector EjectileDirectionInCM(x, y, z);  // Before the Ejectile was backward focused. I also 
-// had to adjust the boost, as it was boosting with -beta, and it should have been +beta
+											   // had to adjust the boost, as it was boosting with -beta, and it should have been +beta
 
 G4double BeamKineticEnergy = BeamTrack.GetKineticEnergy();
 rInteractionPointBeamEnergy = BeamKineticEnergy;
 G4double BeamMass = BeamTrack.GetParticleDefinition()->GetPDGMass();
-
-// G4cout << "Beam Energy: " << BeamKineticEnergy /MeV << " MeV" << G4endl;
-// G4cout << "Beam Mass: " << BeamMass /MeV << " MeV" << G4endl;
 
 G4NistManager* nist = G4NistManager::Instance();
 G4double TargetMass = (Inputs->target_mass == 0.0)
 	? nist->GetAtomicMass(Inputs->target_Z, Inputs->target_A)
 	: Inputs->target_mass;
 	
-// G4cout << "Target - Z , A , Mass: " << Inputs->target_Z << " " << Inputs->target_A << " " << TargetMass << G4endl;
-
 G4double RecoilMass = (Inputs->recoil_mass == 0.0)
 	? RecoilParticle->GetAtomicMass()*amu_c2 // Atomic mass (with electrons)
 	: Inputs->recoil_mass;
 RecoilMass += Inputs->recoil_Ex;
 
-// G4cout << "Recoil - Z , A , Mass: " << Inputs->recoil_Z << " " << Inputs->recoil_A << " " << RecoilMass << G4endl;
-
 G4double EjectileMass = (Inputs->ejectile_mass == 0.0)
 	? EjectileParticle->GetPDGMass() // Isotopic mass (without electrons)
 	: Inputs->ejectile_mass;
 EjectileMass += Inputs->ejectile_Ex;
-
-// G4cout << "Ejectile - Z , A , Mass: " << Inputs->ejectile_Z << " " << Inputs->ejectile_A << " " << EjectileMass << G4endl;
 
 if (!TargetMass || !EjectileMass || !RecoilMass) {
 	G4cout << G4endl << "CE: Found zero mass in Target/Ejectile/Recoil" << G4endl << G4endl;
@@ -305,6 +280,7 @@ G4double LabKineticEnergy = Recoil4Vec.e() - Mass;
 
 G4DynamicParticle * par = new G4DynamicParticle(Inputs->RecoilParticle, Vec.unit(), LabKineticEnergy);
 
+// Saving Recoil Kinect Energy and Theta
 Saver << "Recoil Kinect Energy: " << LabKineticEnergy /MeV << " MeV" << G4endl;
 Saver << "Recoil Theta: " << rRecoilTheta /degree << "°" << G4endl;
 
@@ -329,14 +305,14 @@ G4ThreeVector IncidentVectorInGlobalSystem = BeamTrack.GetMomentumDirection();
 G4double thetaForIncidentVector = acos(IncidentVectorInGlobalSystem.z() / IncidentVectorInGlobalSystem.r());
 G4double phiForIncidentVector = atan2(IncidentVectorInGlobalSystem.y(), IncidentVectorInGlobalSystem.x());
 
-// //rotate vec
-// G4cout<<" VEC Before Rotation is "<<vec<<G4endl;
+// Rotating Vec
+// G4cout << "VEC Before Rotation is " << vec << G4endl;
 
 // Vec.rotateZ(-phiForIncidentVector);
 
 // Vec.rotateY(-thetaForIncidentVector);
 
-//  G4cout<<" VEC After Rotation is "<<vec<<G4endl;
+// G4cout <<"VEC After Rotation is "<< vec << G4endl;
 
 rEjectileTheta = acos(Vec.z() / Vec.r()) / degree;
 
@@ -346,6 +322,7 @@ G4double LabKineticEnergy = Ejectile4Vec.e() - Mass;
 
 G4DynamicParticle * par = new G4DynamicParticle(Inputs->EjectileParticle, Vec.unit(), LabKineticEnergy);
 
+// Saving informations
 Saver << "Ejectile Kinetic Energy: " << LabKineticEnergy /MeV << " MeV" << G4endl;
 Saver << "Ejectile Theta: " << rEjectileTheta /degree << "°" << G4endl;
 Saver << " " << G4endl;

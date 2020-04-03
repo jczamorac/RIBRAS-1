@@ -217,8 +217,7 @@ void PhysicsList::ConstructEM()
     G4ParticleDefinition* particle = theParticleIterator->value();
     G4String particleName = particle->GetParticleName();
 
-    if (particleName == "GenericIon") {
-      //Ions
+    if (particleName == "GenericIon") { //Define physics for ions
       ph->RegisterProcess(new Reaction, particle);
       ph->RegisterProcess(new G4hMultipleScattering, particle);
       ph->RegisterProcess(new G4ionIonisation, particle);
