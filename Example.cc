@@ -1,7 +1,7 @@
 // $Id: task2.cc 26 2010-01-06 08:09:34Z schaelic $
 /**
 * @file
-* @brief Main program.
+* @brief Main program. lol
 */
 
 #include <fstream>
@@ -48,11 +48,11 @@ int main(int argc,char** argv)
   runManager->SetUserInitialization(detector);
 
   // Local user Physics List
-  G4VUserPhysicsList* physics = new PhysicsList();
+  // G4VUserPhysicsList* physics = new PhysicsList();
   // G4VModularPhysicsList* physics1 = new QGSP_BERT();
   // Reference Physics List from Geant4 kernel
   // G4VUserPhysicsList* physics )= new QGSP_BERT();
-  // G4VUserPhysicsList* physics = new FTFP_BERT();
+  G4VUserPhysicsList* physics = new FTFP_BERT();
 
 
   // mandatory User class
