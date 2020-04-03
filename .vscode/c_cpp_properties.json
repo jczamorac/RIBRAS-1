@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "~/G4/geant4-install/include/Geant4",
+                "~/CLHEP-install/include/CLHEP/Random",
+                "/home/leo/CLHEP-install/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang-6.0",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "forcedInclude": [],
+            "browse": {
+                "path": [
+                    "~/CLHEP-install/include/CLHEP"
+                ]
+            },
+            "compileCommands": "/home/leo/ROOT/compile_commands.json"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,81 @@
+Event: 1
+Recoil Kinect Energy: 2.44031 MeV
+Recoil Theta: 4.38212°
+Ejectile Kinetic Energy: 35.535 MeV
+Ejectile Theta: 8.18995°
+ 
+Event: 2
+No Hit
+ 
+Event: 3
+No Hit
+ 
+Event: 4
+No Hit
+ 
+Event: 5
+No Hit
+ 
+Event: 6
+No Hit
+ 
+Event: 7
+Recoil Kinect Energy: 2.43905 MeV
+Recoil Theta: 4.40778°
+Ejectile Kinetic Energy: 35.5362 MeV
+Ejectile Theta: 7.33238°
+ 
+Event: 8
+No Hit
+ 
+Event: 9
+No Hit
+ 
+Event: 10
+No Hit
+ 
+Event: 11
+Recoil Kinect Energy: 2.43783 MeV
+Recoil Theta: 4.00661°
+Ejectile Kinetic Energy: 35.5375 MeV
+Ejectile Theta: 6.38823°
+ 
+Event: 12
+Recoil Kinect Energy: 2.44118 MeV
+Recoil Theta: 2.85112°
+Ejectile Kinetic Energy: 35.5341 MeV
+Ejectile Theta: 8.72986°
+ 
+Event: 13
+No Hit
+ 
+Event: 14
+No Hit
+ 
+Event: 15
+No Hit
+ 
+Event: 16
+No Hit
+ 
+Event: 17
+Recoil Kinect Energy: 2.43645 MeV
+Recoil Theta: 4.35657°
+Ejectile Kinetic Energy: 35.5388 MeV
+Ejectile Theta: 5.12807°
+ 
+Event: 18
+Recoil Kinect Energy: 2.44016 MeV
+Recoil Theta: 5.09924°
+Ejectile Kinetic Energy: 35.5351 MeV
+Ejectile Theta: 8.08766°
+ 
+Event: 19
+Recoil Kinect Energy: 2.43439 MeV
+Recoil Theta: 4.36427°
+Ejectile Kinetic Energy: 35.5409 MeV
+Ejectile Theta: 2.11921°
+ 
+Event: 20
+No Hit
+ 
