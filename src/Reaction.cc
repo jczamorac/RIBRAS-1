@@ -36,7 +36,7 @@ G4VParticleChange* Reaction::PostStepDoIt( const G4Track& aTrack,
     gCESimulationManager->ThereWasAReaction();                // A reaction ocurred
     aParticleChange.ProposeTrackStatus(fStopAndKill);         // Kill the incident Particle
 
-    G4double ThetaInCM =(5*CLHEP::RandFlat::shoot())*degree;  // 0 - 5 deg from z
+    G4double ThetaInCM =(10*CLHEP::RandFlat::shoot())*degree;  // 0 - 50 deg from z
     G4double randomPhiInCM = CLHEP::RandFlat::shoot()*2*pi;   // 0 - 2pi in transverse angle (azimuth)
     G4LorentzVector recoil4VecLab;
     G4LorentzVector ejectile4VecLab;
@@ -75,6 +75,7 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track& aTrack,
     
     // Get z position of the target
     G4double ZCEReaction = /*gCESimulationManager->GetReactionZPoint()*/ Inputs->target_pos.getZ() + 301 *cm;
+    //301 cm correspods to the center of the second solenoid?	
 
     // Get z position of the particle
     G4double ZCurrent = aTrack.GetPosition().getZ();

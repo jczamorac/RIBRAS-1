@@ -190,6 +190,12 @@ G4ThreeVector RecoilDirectionInCM(-x, -y, -z); // Updated these so that the ejec
 G4ThreeVector EjectileDirectionInCM(x, y, z);  // Before the Ejectile was backward focused. I also 
 											   // had to adjust the boost, as it was boosting with -beta, and it should have been +beta
 
+G4ThreeVector BeamDirection = BeamTrack.GetMomentumDirection(); 
+G4ThreeVector BeamMomentum = BeamTrack.GetMomentum(); 
+
+
+
+
 G4double BeamKineticEnergy = BeamTrack.GetKineticEnergy();
 rInteractionPointBeamEnergy = BeamKineticEnergy;
 G4double BeamMass = BeamTrack.GetParticleDefinition()->GetPDGMass();
@@ -214,41 +220,48 @@ if (!TargetMass || !EjectileMass || !RecoilMass) {
 	G4Exception("CESimulationManager::CalculateLab4Vectors", 0, FatalErrorInArgument, "Error in masses");
 }
 
+
+
 // Kinematics in Center of Momentum frame
-G4double ELabBeam = BeamKineticEnergy + BeamMass;
+	G4double ELabBeam = BeamKineticEnergy + BeamMass;
+	G4double ELabTarget = TargetMass;
 
-G4double ELabTarget = TargetMass;
+//  get COM parameters
+	G4double beta_cm = BeamMomentum.z()/(ELabBeam + TargetMass);
+        G4double  gamma_cm = 1.0/sqrt(1.0- pow(beta_cm,2.0));
+        G4double  S = 2.*ELabBeam*TargetMass + pow(BeamMass,2.0) + pow(TargetMass,2.0);
+        G4double  Pcm = 0.5*sqrt(pow(S,2.0) + pow(RecoilMass,4.0) + pow(EjectileMass,4.0) -2*S*pow(RecoilMass,2.0) -2*pow(RecoilMass,2.0)*pow(EjectileMass,2.0) - 2*S*pow(EjectileMass,2.0))/sqrt(S);
 
-G4double PLabBeam = sqrt(ELabBeam*ELabBeam - BeamMass*BeamMass);
-
-G4double TotalCMEnergy = sqrt(pow((ELabBeam + ELabTarget), 2) - pow(PLabBeam, 2));
-
-G4double beta = PLabBeam / (ELabBeam + TargetMass); // COM velocity
-
-G4double gamma = 1.0 / (sqrt(1 - beta*beta));
-
-G4double RecoilCMEnergy = TotalCMEnergy / 2.0 + (pow(RecoilMass, 2) - pow(EjectileMass, 2)) / (2 * TotalCMEnergy);
-
-G4double EjectileCMEnergy = TotalCMEnergy / 2.0 - (pow(RecoilMass, 2) - pow(EjectileMass, 2)) / (2 * TotalCMEnergy);
-
-G4double RecoilCMMomentum = sqrt(pow(RecoilCMEnergy, 2) - pow(RecoilMass, 2));
-
-G4double EjectileCMMomentum = sqrt(pow(EjectileCMEnergy, 2) - pow(EjectileMass, 2));
-
-RecoilDirectionInCM = RecoilDirectionInCM*RecoilCMMomentum;
-
-EjectileDirectionInCM = EjectileDirectionInCM*EjectileCMMomentum;
-
-G4LorentzVector CMRecoil4Vec(RecoilCMEnergy, RecoilDirectionInCM);
-
-G4LorentzVector CMEjectile4Vec(EjectileCMEnergy, EjectileDirectionInCM);
+//generate com  momenta (for now isotropic) 
+	RecoilDirectionInCM = RecoilDirectionInCM*Pcm;
+	G4double RecoilCMEnergy = sqrt( pow(Pcm,2.0) + pow(RecoilMass,2.0));
+	EjectileDirectionInCM = EjectileDirectionInCM*Pcm;
+	G4double EjectileCMEnergy = sqrt( pow(Pcm,2.0) + pow(EjectileMass,2.0));
+	G4LorentzVector CMRecoil4Vec(RecoilCMEnergy, RecoilDirectionInCM);
+	G4LorentzVector CMEjectile4Vec(EjectileCMEnergy, EjectileDirectionInCM);
 
 // Boost to Lab frame
-RecoilOut = CMRecoil4Vec.boostZ(beta);
+	RecoilOut = CMRecoil4Vec.boostZ(beta_cm);
+	EjectileOut = CMEjectile4Vec.boostZ(beta_cm);
 
-EjectileOut = CMEjectile4Vec.boostZ(beta);
+// rotate back to the beam axis
+	RecoilOut = RecoilOut.rotateUz(BeamDirection);
+	EjectileOut = EjectileOut.rotateUz(BeamDirection);
+	
+	/*
+	rRecoilKineticEnergy = RecoilOut.e() - RecoilOut.m();
+	G4ThreeVector Vec = RecoilOut.getV();
+	G4double recoangle = acos(Vec.z()/Vec.r());
 
-rRecoilKineticEnergy = RecoilOut.e() - RecoilOut.m();
+	G4double rEjeKineticEnergy = EjectileOut.e() - EjectileOut.m();
+	G4ThreeVector Vec2 = EjectileOut.getV();
+	G4double ejeangle = acos(Vec2.z()/Vec2.r());
+	G4double bangle = acos(BeamDirection.z()/BeamDirection.r());
+
+
+	//G4cout<<recoangle/deg<<"  "<<ejeangle/deg<<"  "<<bangle/deg<<"  "<<CMScatteringAngle/deg<<G4endl;
+	G4cout<<Vec2<<"  "<<EjectileOut<<G4endl;
+	*/
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -259,20 +272,8 @@ Inputs* Inputs = &Inputs::GetInputs();
 
 G4ThreeVector Vec = Recoil4Vec.getV().unit();
 
-//Vec is the lab unit vector for the directioin of the particle in the frame of the reaction
-//Ie assuming that the incident beam direction was along the Z axis.  Need to rotate this vector
-//such it aligns with the incident particle direction coordinate system
 
-G4ThreeVector IncidentVectorInGlobalSystem = BeamTrack.GetMomentumDirection();
-
-G4double thetaForIncidentVector = acos(IncidentVectorInGlobalSystem.z() / IncidentVectorInGlobalSystem.r());
-G4double phiForIncidentVector = atan2(IncidentVectorInGlobalSystem.y(), IncidentVectorInGlobalSystem.x());
-
-//Rotating Vec
-Vec.rotateZ(-phiForIncidentVector);
-Vec.rotateY(-thetaForIncidentVector);
-
-rRecoilTheta = acos(Vec.z() / Vec.r())/* / degree*/;
+rRecoilTheta = acos(Vec.z() / Vec.r());
 
 G4double Mass = Recoil4Vec.m();
 
@@ -296,29 +297,14 @@ Inputs* Inputs = &Inputs::GetInputs();
 
 G4ThreeVector Vec = Ejectile4Vec.getV().unit();
 
-//Vec is the lab unit vector for the directioin of the particle in the frame of the reaction
-//Ie assuming that the incident beam direction was along the Z axis.  Need to rotate this vector
-//such it aligns with the incident particle direction coordinate system
 
-G4ThreeVector IncidentVectorInGlobalSystem = BeamTrack.GetMomentumDirection();
-
-G4double thetaForIncidentVector = acos(IncidentVectorInGlobalSystem.z() / IncidentVectorInGlobalSystem.r());
-G4double phiForIncidentVector = atan2(IncidentVectorInGlobalSystem.y(), IncidentVectorInGlobalSystem.x());
-
-// Rotating Vec
-// G4cout << "VEC Before Rotation is " << vec << G4endl;
-
-// Vec.rotateZ(-phiForIncidentVector);
-
-// Vec.rotateY(-thetaForIncidentVector);
-
-// G4cout <<"VEC After Rotation is "<< vec << G4endl;
-
-rEjectileTheta = acos(Vec.z() / Vec.r()) / degree;
+rEjectileTheta = acos(Vec.z() / Vec.r()) ;
 
 G4double Mass = Ejectile4Vec.m();
 
 G4double LabKineticEnergy = Ejectile4Vec.e() - Mass;
+
+//G4cout<<Vec<<"  "<<Ejectile4Vec<<"  "<<acos(Vec.z() / Vec.r())/deg<<G4endl;
 
 G4DynamicParticle * par = new G4DynamicParticle(Inputs->EjectileParticle, Vec.unit(), LabKineticEnergy);
 

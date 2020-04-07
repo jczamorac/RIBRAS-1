@@ -1,84 +1,60 @@
 Event: 1
-Recoil Kinect Energy: 2.43465 MeV
-Recoil Theta: 4.1973°
-Ejectile Kinetic Energy: 35.5406 MeV
-Ejectile Theta: 2.68353°
+Recoil Kinect Energy: 2.42677 MeV
+Recoil Theta: 4.44158°
+Ejectile Kinetic Energy: 35.42 MeV
+Ejectile Theta: 3.24314°
  
 Event: 2
-No Hit
+Recoil Kinect Energy: 2.42942 MeV
+Recoil Theta: 4.83273°
+Ejectile Kinetic Energy: 35.4182 MeV
+Ejectile Theta: 3.19088°
  
 Event: 3
-Recoil Kinect Energy: 2.44144 MeV
-Recoil Theta: 2.00579°
-Ejectile Kinetic Energy: 35.5338 MeV
-Ejectile Theta: 8.8845°
+Recoil Kinect Energy: 2.43137 MeV
+Recoil Theta: 4.09827°
+Ejectile Kinetic Energy: 35.4499 MeV
+Ejectile Theta: 2.74868°
  
 Event: 4
-Recoil Kinect Energy: 2.43769 MeV
-Recoil Theta: 2.95819°
-Ejectile Kinetic Energy: 35.5376 MeV
-Ejectile Theta: 6.27659°
+Recoil Kinect Energy: 2.45565 MeV
+Recoil Theta: 4.63778°
+Ejectile Kinetic Energy: 35.462 MeV
+Ejectile Theta: 2.09788°
  
 Event: 5
-Recoil Kinect Energy: 2.43397 MeV
-Recoil Theta: 3.50205°
-Ejectile Kinetic Energy: 35.5413 MeV
-Ejectile Theta: 0.236281°
+Recoil Kinect Energy: 2.42337 MeV
+Recoil Theta: 3.54834°
+Ejectile Kinetic Energy: 35.4282 MeV
+Ejectile Theta: 3.25488°
  
 Event: 6
-No Hit
+Recoil Kinect Energy: 2.4412 MeV
+Recoil Theta: 2.66721°
+Ejectile Kinetic Energy: 35.4189 MeV
+Ejectile Theta: 3.30681°
  
 Event: 7
-Recoil Kinect Energy: 2.4374 MeV
-Recoil Theta: 5.11561°
-Ejectile Kinetic Energy: 35.5379 MeV
-Ejectile Theta: 6.02802°
+Recoil Kinect Energy: 2.45782 MeV
+Recoil Theta: 1.87106°
+Ejectile Kinetic Energy: 35.3991 MeV
+Ejectile Theta: 3.493°
  
 Event: 8
-No Hit
+Recoil Kinect Energy: 2.43407 MeV
+Recoil Theta: 5.0665°
+Ejectile Kinetic Energy: 35.4219 MeV
+Ejectile Theta: 3.04972°
  
 Event: 9
-No Hit
+Recoil Kinect Energy: 2.45693 MeV
+Recoil Theta: 3.77463°
+Ejectile Kinetic Energy: 35.4577 MeV
+Ejectile Theta: 2.33326°
  
 Event: 10
-No Hit
- 
-Event: 11
-No Hit
- 
-Event: 12
-No Hit
- 
-Event: 13
-Recoil Kinect Energy: 2.43573 MeV
-Recoil Theta: 2.61506°
-Ejectile Kinetic Energy: 35.5395 MeV
-Ejectile Theta: 4.3219°
- 
-Event: 14
-Recoil Kinect Energy: 2.43771 MeV
-Recoil Theta: 6.12521°
-Ejectile Kinetic Energy: 35.5376 MeV
-Ejectile Theta: 6.2962°
- 
-Event: 15
-No Hit
- 
-Event: 16
-No Hit
- 
-Event: 17
-No Hit
- 
-Event: 18
-No Hit
- 
-Event: 19
-Recoil Kinect Energy: 2.43409 MeV
-Recoil Theta: 4.27883°
-Ejectile Kinetic Energy: 35.5412 MeV
-Ejectile Theta: 1.16149°
- 
-Event: 20
-No Hit
+Recoil Kinect Energy: 2.45259 MeV
+Recoil Theta: 5.4625°
+Ejectile Kinetic Energy: 35.4271 MeV
+Ejectile Theta: 2.68988°
  
