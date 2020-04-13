@@ -23,17 +23,8 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-//  advanced example for Geant4
-// See more at: https://twiki.cern.ch/twiki/bin/view/Geant4/AdvancedExamples
-//
-//
-//    ******      SUGGESTED PHYSICS FOR ACCURATE SIMULATIONS    *********
-//    ******            IN MEDICAL PHYSICS APPLI    CATIONS         *********
-//
-// 'HADRONTHERAPY_1' and 'HADRONTHERAPY_2' are both suggested;
-// It can be activated inside any macro file using the command:
-// /Physics/addPhysics HADRONTHERAPY_1 (HADRONTHERAPY_2)
 
+//Local
 #include "PhysicsList.hh"
 #include "PhysicsListMessenger.hh"
 #include "StepMax.hh"
@@ -79,29 +70,26 @@
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
-PhysicsList::PhysicsList() : G4VUserPhysicsList()
-{
-    G4LossTableManager::Instance();
-    defaultCutValue = 1.*mm;
-    cutForGamma     = defaultCutValue;
-    cutForElectron  = defaultCutValue;
-    cutForPositron  = defaultCutValue;
+PhysicsList::PhysicsList() : G4VUserPhysicsList(){
+  G4LossTableManager::Instance();
+  defaultCutValue = 1.*mm;
+  cutForGamma     = defaultCutValue;
+  cutForElectron  = defaultCutValue;
+  cutForPositron  = defaultCutValue;
 
-    pMessenger = new PhysicsListMessenger(this);
+  pMessenger = new PhysicsListMessenger(this);
 
-    SetVerboseLevel(1);
+  SetVerboseLevel(0);
 
-    fEmPhysicsList = new G4EmStandardPhysics_option4;
+  fEmPhysicsList = new G4EmStandardPhysics_option4;
   }
 
 /////////////////////////////////////////////////////////////////////////////
-PhysicsList::~PhysicsList()
-{
+PhysicsList::~PhysicsList(){
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PhysicsList::ConstructParticle()
-{
+void PhysicsList::ConstructParticle(){
   G4BosonConstructor  pBosonConstructor;
   pBosonConstructor.ConstructParticle();
 
@@ -122,8 +110,7 @@ void PhysicsList::ConstructParticle()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-//Geant4 classes need for adding physics processes to
-//the simulation
+//Geant4 classes need for adding physics processes to the simulation
 #include "G4PhysicsListHelper.hh"
 #include "G4ProcessManager.hh"
 
@@ -135,6 +122,8 @@ void PhysicsList::ConstructParticle()
 #include "G4eIonisation.hh"
 #include "G4eBremsstrahlung.hh"
 #include "G4eplusAnnihilation.hh"
+#include "Reaction.hh"
+#include "G4ionIonisation.hh"
 
 #include "G4MuMultipleScattering.hh"
 #include "G4MuIonisation.hh"
@@ -146,13 +135,7 @@ void PhysicsList::ConstructParticle()
 #include "G4hBremsstrahlung.hh"
 #include "G4hPairProduction.hh"
 
-//#include "G4RadioactiveDecayPhysics.hh"
-//#include "G4RadioactiveDecay.hh"
-#include "G4ionIonisation.hh"
-
 #include "G4ParticleTable.hh"
-
-#include "Reaction.hh"
 
 /////////Neutron Stuff////////////
 //Neutron DATA
@@ -173,34 +156,29 @@ void PhysicsList::ConstructProcess()
     ConstructEM();
     AddStepMax();
 
-    // Reaction* Reacao = new Reaction();
-    // G4PhysicsListHelper* ph = G4PhysicsListHelper::GetPhysicsListHelper();
-    
-    // ph->RegisterProcess(Reacao, G4GenericIon::Definition());
+/*     // For example Elastic scattering below 20 MeV
+  	G4HadronElasticProcess* theNeutronElasticProcess = new G4HadronElasticProcess();
 
-    //For example Elastic scattering below 20 MeV
-  	// G4HadronElasticProcess* theNeutronElasticProcess = new G4HadronElasticProcess();
+  	// Cross Section Data set
+  	G4NeutronHPElasticData* theHPElasticData = new G4NeutronHPElasticData();
+  	theHPElasticData->DumpPhysicsTable(*G4Neutron::Neutron());
+  	theNeutronElasticProcess->AddDataSet( theHPElasticData );
 
-  	// // Cross Section Data set
-  	// G4NeutronHPElasticData* theHPElasticData = new G4NeutronHPElasticData();
-  	// //  theHPElasticData->DumpPhysicsTable(*G4Neutron::Neutron());
-  	// theNeutronElasticProcess->AddDataSet( theHPElasticData );
+  	// Model
+  	G4NeutronHPElastic* theNeutronElasticModel = new G4NeutronHPElastic();
+  	theNeutronElasticProcess->RegisterMe(theNeutronElasticModel);
 
-  	// // Model
-  	// G4NeutronHPElastic* theNeutronElasticModel = new G4NeutronHPElastic();
-  	// theNeutronElasticProcess->RegisterMe(theNeutronElasticModel);
+  	G4NeutronInelasticProcess * theNeutronInelasticProcess = new G4NeutronInelasticProcess();
+  	G4NeutronHPInelasticData* theHPInelasticData = new G4NeutronHPInelasticData();
+  	//  theHPInelasticData->DumpPhysicsTable(*G4Neutron::Neutron());
+  	theNeutronInelasticProcess->AddDataSet( theHPInelasticData );
 
-  	// G4NeutronInelasticProcess * theNeutronInelasticProcess = new G4NeutronInelasticProcess();
-  	// G4NeutronHPInelasticData* theHPInelasticData = new G4NeutronHPInelasticData();
-  	// //  theHPInelasticData->DumpPhysicsTable(*G4Neutron::Neutron());
-  	// theNeutronInelasticProcess->AddDataSet( theHPInelasticData );
+  	G4NeutronHPInelastic* theNeutronInelasticModel = new G4NeutronHPInelastic();
+  	theNeutronInelasticProcess->RegisterMe(theNeutronInelasticModel);
 
-  	// G4NeutronHPInelastic* theNeutronInelasticModel = new G4NeutronHPInelastic();
-  	// theNeutronInelasticProcess->RegisterMe(theNeutronInelasticModel);
-
-  	// G4ProcessManager* pmanager = G4Neutron::Neutron()->GetProcessManager();
-  	// pmanager->AddDiscreteProcess( theNeutronElasticProcess );
-  	// pmanager->AddDiscreteProcess( theNeutronInelasticProcess );
+  	G4ProcessManager* pmanager = G4Neutron::Neutron()->GetProcessManager();
+  	pmanager->AddDiscreteProcess( theNeutronElasticProcess );
+  	pmanager->AddDiscreteProcess( theNeutronInelasticProcess ); */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -222,43 +200,43 @@ void PhysicsList::ConstructEM()
       ph->RegisterProcess(new G4hMultipleScattering, particle);
       ph->RegisterProcess(new G4ionIonisation, particle);
     }
-    // else if (particleName == "gamma") {
-    //   // gamma
-    //   ph->RegisterProcess(new G4PhotoElectricEffect, particle);
-    //   ph->RegisterProcess(new G4ComptonScattering, particle);
-    //   ph->RegisterProcess(new G4GammaConversion, particle);
+/*     else if (particleName == "gamma") {
+      // gamma
+      ph->RegisterProcess(new G4PhotoElectricEffect, particle);
+      ph->RegisterProcess(new G4ComptonScattering, particle);
+      ph->RegisterProcess(new G4GammaConversion, particle);
 
-    // }
-    // else if (particleName == "e-") {
-    //   //electron
-    //   ph->RegisterProcess(new G4eMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4eIonisation, particle);
-    //   ph->RegisterProcess(new G4eBremsstrahlung, particle);
+    }
+    else if (particleName == "e-") {
+      //electron
+      ph->RegisterProcess(new G4eMultipleScattering, particle);
+      ph->RegisterProcess(new G4eIonisation, particle);
+      ph->RegisterProcess(new G4eBremsstrahlung, particle);
 
-    // }
-    // else if (particleName == "e+") {
-    //   //positron
-    //   ph->RegisterProcess(new G4eMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4eIonisation, particle);
-    //   ph->RegisterProcess(new G4eBremsstrahlung, particle);
-    //   ph->RegisterProcess(new G4eplusAnnihilation, particle);
+    }
+    else if (particleName == "e+") {
+      //positron
+      ph->RegisterProcess(new G4eMultipleScattering, particle);
+      ph->RegisterProcess(new G4eIonisation, particle);
+      ph->RegisterProcess(new G4eBremsstrahlung, particle);
+      ph->RegisterProcess(new G4eplusAnnihilation, particle);
 
-    // }
-    // else if (particleName == "proton" ||
-    //   particleName == "pi-" ||
-    //   particleName == "pi+") {
-    //   //proton
-    //   ph->RegisterProcess(new G4hMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4hIonisation, particle);
-    //   ph->RegisterProcess(new G4hBremsstrahlung, particle);
-    //   ph->RegisterProcess(new G4hPairProduction, particle);
-    // }
-    // else if (particleName == "alpha" ||
-    //   particleName == "He3") {
-    //   //alpha
-    //   ph->RegisterProcess(new G4hMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4ionIonisation, particle);
-    // }
+    }
+    else if (particleName == "proton" ||
+      particleName == "pi-" ||
+      particleName == "pi+") {
+      //proton
+      ph->RegisterProcess(new G4hMultipleScattering, particle);
+      ph->RegisterProcess(new G4hIonisation, particle);
+      ph->RegisterProcess(new G4hBremsstrahlung, particle);
+      ph->RegisterProcess(new G4hPairProduction, particle);
+    }
+    else if (particleName == "alpha" ||
+      particleName == "He3") {
+      //alpha
+      ph->RegisterProcess(new G4hMultipleScattering, particle);
+      ph->RegisterProcess(new G4ionIonisation, particle);
+    }*/
   }
 }
 
@@ -267,7 +245,7 @@ void PhysicsList::AddStepMax()
 {
     // Step limitation seen as a process
     // This process must exist in all threads.
-    //
+
     StepMax* stepMaxProcess  = new StepMax();
     G4AutoDelete::Register( stepMaxProcess );
 

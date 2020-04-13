@@ -358,33 +358,6 @@ src/MagneticField.cc.s:
 	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticField.cc.s
 .PHONY : src/MagneticField.cc.s
 
-src/MagneticField2.o: src/MagneticField2.cc.o
-
-.PHONY : src/MagneticField2.o
-
-# target to build an object file
-src/MagneticField2.cc.o:
-	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o
-.PHONY : src/MagneticField2.cc.o
-
-src/MagneticField2.i: src/MagneticField2.cc.i
-
-.PHONY : src/MagneticField2.i
-
-# target to preprocess a source file
-src/MagneticField2.cc.i:
-	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.i
-.PHONY : src/MagneticField2.cc.i
-
-src/MagneticField2.s: src/MagneticField2.cc.s
-
-.PHONY : src/MagneticField2.s
-
-# target to generate assembly for a file
-src/MagneticField2.cc.s:
-	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.s
-.PHONY : src/MagneticField2.cc.s
-
 src/MagneticFieldMessenger.o: src/MagneticFieldMessenger.cc.o
 
 .PHONY : src/MagneticFieldMessenger.o
@@ -411,33 +384,6 @@ src/MagneticFieldMessenger.s: src/MagneticFieldMessenger.cc.s
 src/MagneticFieldMessenger.cc.s:
 	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.s
 .PHONY : src/MagneticFieldMessenger.cc.s
-
-src/MagneticFieldMessenger2.o: src/MagneticFieldMessenger2.cc.o
-
-.PHONY : src/MagneticFieldMessenger2.o
-
-# target to build an object file
-src/MagneticFieldMessenger2.cc.o:
-	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o
-.PHONY : src/MagneticFieldMessenger2.cc.o
-
-src/MagneticFieldMessenger2.i: src/MagneticFieldMessenger2.cc.i
-
-.PHONY : src/MagneticFieldMessenger2.i
-
-# target to preprocess a source file
-src/MagneticFieldMessenger2.cc.i:
-	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.i
-.PHONY : src/MagneticFieldMessenger2.cc.i
-
-src/MagneticFieldMessenger2.s: src/MagneticFieldMessenger2.cc.s
-
-.PHONY : src/MagneticFieldMessenger2.s
-
-# target to generate assembly for a file
-src/MagneticFieldMessenger2.cc.s:
-	$(MAKE) -f CMakeFiles/arquivobinario.dir/build.make CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.s
-.PHONY : src/MagneticFieldMessenger2.cc.s
 
 src/PhysicsList.o: src/PhysicsList.cc.o
 
@@ -716,15 +662,9 @@ help:
 	@echo "... src/MagneticField.o"
 	@echo "... src/MagneticField.i"
 	@echo "... src/MagneticField.s"
-	@echo "... src/MagneticField2.o"
-	@echo "... src/MagneticField2.i"
-	@echo "... src/MagneticField2.s"
 	@echo "... src/MagneticFieldMessenger.o"
 	@echo "... src/MagneticFieldMessenger.i"
 	@echo "... src/MagneticFieldMessenger.s"
-	@echo "... src/MagneticFieldMessenger2.o"
-	@echo "... src/MagneticFieldMessenger2.i"
-	@echo "... src/MagneticFieldMessenger2.s"
 	@echo "... src/PhysicsList.o"
 	@echo "... src/PhysicsList.i"
 	@echo "... src/PhysicsList.s"

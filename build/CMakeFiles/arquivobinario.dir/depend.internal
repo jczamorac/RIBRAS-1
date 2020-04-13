@@ -694,7 +694,6 @@ CMakeFiles/arquivobinario.dir/src/DetectorConstruction.cc.o
  ../include/DetectorConstruction.hh
  ../include/DetectorMessenger.hh
  ../include/MagneticField.hh
- ../include/MagneticField2.hh
  ../include/SensitiveDetector.hh
  ../include/SiHit.hh
  /home/leo/CLHEP-install/include/CLHEP/Geometry/BasicVector3D.h
@@ -1615,66 +1614,6 @@ CMakeFiles/arquivobinario.dir/src/MagneticField.cc.o
  /home/leo/G4/geant4-install/include/Geant4/templates.hh
  /home/leo/G4/geant4-install/include/Geant4/tls.hh
  /home/leo/G4/geant4-install/include/Geant4/trkdefs.hh
-CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o
- ../include/MagneticField2.hh
- ../include/MagneticFieldMessenger2.hh
- /home/leo/CLHEP-install/include/CLHEP/Units/PhysicalConstants.h
- /home/leo/CLHEP-install/include/CLHEP/Units/SystemOfUnits.h
- /home/leo/CLHEP-install/include/CLHEP/Units/defs.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/AxisAngle.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/AxisAngle.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/LorentzVector.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/LorentzVector.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/Rotation.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/Rotation.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationInterfaces.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationInterfaces.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationX.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationX.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationY.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationY.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationZ.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/RotationZ.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/ZMxpv.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/defs.h
- /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticField2.cc
- /home/leo/G4/geant4-install/include/Geant4/G4ApplicationState.hh
- /home/leo/G4/geant4-install/include/Geant4/G4EnvironmentUtils.hh
- /home/leo/G4/geant4-install/include/Geant4/G4Exception.hh
- /home/leo/G4/geant4-install/include/Geant4/G4ExceptionSeverity.hh
- /home/leo/G4/geant4-install/include/Geant4/G4Field.hh
- /home/leo/G4/geant4-install/include/Geant4/G4GlobalConfig.hh
- /home/leo/G4/geant4-install/include/Geant4/G4MagneticField.hh
- /home/leo/G4/geant4-install/include/Geant4/G4PhysicalConstants.hh
- /home/leo/G4/geant4-install/include/Geant4/G4RotationMatrix.hh
- /home/leo/G4/geant4-install/include/Geant4/G4String.hh
- /home/leo/G4/geant4-install/include/Geant4/G4String.icc
- /home/leo/G4/geant4-install/include/Geant4/G4SystemOfUnits.hh
- /home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
- /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIcommandStatus.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIdirectory.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UImanager.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UImessenger.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIparameter.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIsession.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIterminal.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UItokenNum.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UnitsTable.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UnitsTable.icc
- /home/leo/G4/geant4-install/include/Geant4/G4VBasicShell.hh
- /home/leo/G4/geant4-install/include/Geant4/G4VExceptionHandler.hh
- /home/leo/G4/geant4-install/include/Geant4/G4VStateDependent.hh
- /home/leo/G4/geant4-install/include/Geant4/G4VUIshell.hh
- /home/leo/G4/geant4-install/include/Geant4/G4coutDestination.hh
- /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
- /home/leo/G4/geant4-install/include/Geant4/globals.hh
- /home/leo/G4/geant4-install/include/Geant4/icomsdefs.hh
- /home/leo/G4/geant4-install/include/Geant4/templates.hh
- /home/leo/G4/geant4-install/include/Geant4/tls.hh
 CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o
  ../include/MagneticField.hh
  ../include/MagneticFieldMessenger.hh
@@ -1682,35 +1621,6 @@ CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o
  /home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.icc
  /home/leo/CLHEP-install/include/CLHEP/Vector/defs.h
  /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger.cc
- /home/leo/G4/geant4-install/include/Geant4/G4ApplicationState.hh
- /home/leo/G4/geant4-install/include/Geant4/G4EnvironmentUtils.hh
- /home/leo/G4/geant4-install/include/Geant4/G4Exception.hh
- /home/leo/G4/geant4-install/include/Geant4/G4ExceptionSeverity.hh
- /home/leo/G4/geant4-install/include/Geant4/G4Field.hh
- /home/leo/G4/geant4-install/include/Geant4/G4GlobalConfig.hh
- /home/leo/G4/geant4-install/include/Geant4/G4MagneticField.hh
- /home/leo/G4/geant4-install/include/Geant4/G4String.hh
- /home/leo/G4/geant4-install/include/Geant4/G4String.icc
- /home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
- /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIcmdWithADoubleAndUnit.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIdirectory.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UImessenger.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UIparameter.hh
- /home/leo/G4/geant4-install/include/Geant4/G4UItokenNum.hh
- /home/leo/G4/geant4-install/include/Geant4/G4VExceptionHandler.hh
- /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
- /home/leo/G4/geant4-install/include/Geant4/globals.hh
- /home/leo/G4/geant4-install/include/Geant4/templates.hh
- /home/leo/G4/geant4-install/include/Geant4/tls.hh
-CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o
- ../include/MagneticField2.hh
- ../include/MagneticFieldMessenger2.hh
- /home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.h
- /home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.icc
- /home/leo/CLHEP-install/include/CLHEP/Vector/defs.h
- /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger2.cc
  /home/leo/G4/geant4-install/include/Geant4/G4ApplicationState.hh
  /home/leo/G4/geant4-install/include/Geant4/G4EnvironmentUtils.hh
  /home/leo/G4/geant4-install/include/Geant4/G4Exception.hh

@@ -66,6 +66,7 @@
  #include "G4ThreeVector.hh"
  #include "G4RotationMatrix.hh"
 
+///////////////////////////////////////////////////////////////////////////////////
 MagneticField::MagneticField()
 {
   messenger = new MagneticFieldMessenger(this);
@@ -73,59 +74,22 @@ MagneticField::MagneticField()
   rmax = 19.2034*cm;     // coil radiusBz
   rmin = 1.*mm;          // mini tube
   l_med = 33.9979*cm;    // half coil length
-  current = 20.*tesla;  //electric current [Amp] (tesla units are included just for B)
-  current2 = 20.*tesla; //electric current [Amp] (tesla units are included just for B)
+  current = 20.*tesla;   //electric current [Amp] (tesla units are included just for B)
+  current2 = 20.*tesla;  //electric current [Amp] (tesla units are included just for B)
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 MagneticField::~MagneticField()
 {
   delete messenger;
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 void MagneticField::InicializaMag()
 {
-
-/*
-  magneticField = new MagneticField();
-  //G4cout<<"Creating Magnetic Field 1: I = "<<magneticField->GetCurrent()<<" Amp"<<G4endl;
-  G4MagIntegratorStepper* fStepper;
-  G4FieldManager* fieldMgr = G4TransportationManager::GetTransportationManager()->GetFieldManager();
-  fieldMgr->SetDetectorField(magneticField);
-  fieldMgr->CreateChordFinder(magneticField);
-  G4double minEps= 1.0e-9*cm;
-  G4double maxEps= 1.0e-8*cm;
-  fieldMgr->SetMinimumEpsilonStep( minEps );
-  fieldMgr->SetMaximumEpsilonStep( maxEps );
-  fieldMgr->GetChordFinder()->SetDeltaChord( 0.001*mm);
-  G4Mag_UsualEqRhs* fEquation = new G4Mag_UsualEqRhs(magneticField);
-  fStepper = new G4HelixExplicitEuler( fEquation );   // mais indicado para campos intensos e não suaves
-  fieldMgr->SetDeltaIntersection(0.1*mm);
-  fieldMgr->SetAccuraciesWithDeltaOneStep(0.01*mm );
-  fieldMgr->SetDeltaOneStep( 0.01*mm );
-*/
-
 }
 
-// void StepMax::UserSteppingAction(const G4Step* aStep)
-// {
-//   G4StepPoint* prePoint = aStep->GetPreStepPoint();
-//   G4StepPoint* postPoint = aStep -> GetPostStepPoint();
-//
-//   //Getting step length
-//   G4double StepLength = prePoint -> GetStepStatus();
-//   G4cout << StepLength << G4endl;
-// }
-
-// G4SteppingManager* aStep = new G4SteppingManager();
-// G4double previousStepSize = aStep -> GetfPreviousStepSize();
-//
-// G4Step* aStep = new G4Step();
-// G4Track* aTrack = aStep -> GetTrack();
-// G4int CurrentStep const = aTrack -> GetCurrentStepNumber();
-
-// G4Track* aTrack = new G4Track();
-// G4double CurrentStep = aTrack -> GetTrackLength();
-
+///////////////////////////////////////////////////////////////////////////////////
 void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
 {
   Inputs* Inputs = &Inputs::GetInputs();
@@ -162,8 +126,6 @@ void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
       Bfield[0] = br*Point[0]/r;
       Bfield[1] = br*Point[1]/r;
 
-      // G4cout << Bfield[0] << "  " << CurrentStep << G4endl;
-
         if (Point[2] > 181.*cm)
         {
 
@@ -191,11 +153,5 @@ void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
       Bfield[2] = 0.;
       Bfield[0] = 0.;
       Bfield[1] = 0.;
-      // G4cout << Bz <<G4endl;
     }
-
-  //G4cout << "Posicao (z)  |  Campo magnetico(z)" << G4endl;
-  //G4cout << Point[2]/cm <<"     |     "<< Bfield[2] << G4endl;
-
-
 }

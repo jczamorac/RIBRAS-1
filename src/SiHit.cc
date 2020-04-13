@@ -19,7 +19,6 @@
  {
  }
  
- void SiHit::Print()
- {
-         G4cout<<"Hit: Plane= "<<planeNumber<<" Strip= "<<stripNumber<<" E= "<<eDep/CLHEP::MeV<<" CLHEP::MeV isPrimary="<<(isPrimary?"true":"false")<<G4endl;
+ void SiHit::Print(){
+    G4cout << "Hit: Plane = " << planeNumber << " || " << "Strip= "<< stripNumber << " || " << "E = " << eDep/CLHEP::MeV <<" MeV || Primary = " << (isPrimary?"true":"false") << G4endl;
  }

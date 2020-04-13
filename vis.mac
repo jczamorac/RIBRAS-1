@@ -1,14 +1,18 @@
 /control/verbose 0
 /run/verbose 0
+/process/verbose 0
+/particle/verbose 0
+/geometry/navigator/verbose 0
+/event/verbose 0
+/tracking/verbose 0
 
 #Visual
 /vis/scene/add/hits
-/vis/modeling/trajectories/select drawByParticleID-1
 /vis/open HepRepFile
 /vis/drawVolume
 #/vis/scene/add/axes 0 0 0 10 cm
 /vis/viewer/set/viewpointThetaPhi 180 90 deg
-/vis/viewer/zoom 0.1
+#/vis/viewer/zoom 0.1
 /vis/scene/add/trajectories smooth
 
 #Turn On/Off the magnetic field
@@ -20,7 +24,6 @@
 /det/target/Z 1
 /det/target/A 1
 /det/target/mass 938.2719995
-
 /det/target/width 0.01
 
 #Define target position (x, y, z)(cm)
@@ -48,5 +51,7 @@
 /vis/reviewKeptEvents
 
 #Essencial
+#This this command updates the geometry with all the inputs above
 /det/update
+
 /run/beamOn 10

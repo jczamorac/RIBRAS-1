@@ -74,8 +74,7 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track& aTrack,
   if(name=="alvolog" && gCESimulationManager->GetWasThereACEReaction()==false){
     
     // Get z position of the target
-    G4double ZCEReaction = /*gCESimulationManager->GetReactionZPoint()*/ Inputs->target_pos.getZ() + 301 *cm;
-    //301 cm correspods to the center of the second solenoid?	
+    G4double ZCEReaction = Inputs->target_pos.getZ() + 301 *cm;    //301 cm correspods to the center of the second solenoid
 
     // Get z position of the particle
     G4double ZCurrent = aTrack.GetPosition().getZ();

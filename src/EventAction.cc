@@ -178,9 +178,6 @@ void EventAction::CalculateLab4Vectors (const G4Track &BeamTrack,
 // Retrieve inputs
 Inputs* Inputs = &Inputs::GetInputs();
 
-// Retrieve instance of NIST database
-//G4NistManager* nist = G4NistManager::Instance();
-
 //  Chose a random phi between 0 and 2 pi
 G4double randomPhiInCM = phi;
 G4double x = sin(CMScatteringAngle)*cos(randomPhiInCM);
@@ -192,9 +189,6 @@ G4ThreeVector EjectileDirectionInCM(x, y, z);  // Before the Ejectile was backwa
 
 G4ThreeVector BeamDirection = BeamTrack.GetMomentumDirection(); 
 G4ThreeVector BeamMomentum = BeamTrack.GetMomentum(); 
-
-
-
 
 G4double BeamKineticEnergy = BeamTrack.GetKineticEnergy();
 rInteractionPointBeamEnergy = BeamKineticEnergy;
@@ -228,9 +222,9 @@ if (!TargetMass || !EjectileMass || !RecoilMass) {
 
 //  get COM parameters
 	G4double beta_cm = BeamMomentum.z()/(ELabBeam + TargetMass);
-        G4double  gamma_cm = 1.0/sqrt(1.0- pow(beta_cm,2.0));
-        G4double  S = 2.*ELabBeam*TargetMass + pow(BeamMass,2.0) + pow(TargetMass,2.0);
-        G4double  Pcm = 0.5*sqrt(pow(S,2.0) + pow(RecoilMass,4.0) + pow(EjectileMass,4.0) -2*S*pow(RecoilMass,2.0) -2*pow(RecoilMass,2.0)*pow(EjectileMass,2.0) - 2*S*pow(EjectileMass,2.0))/sqrt(S);
+	G4double  gamma_cm = 1.0/sqrt(1.0- pow(beta_cm,2.0));
+	G4double  S = 2.*ELabBeam*TargetMass + pow(BeamMass,2.0) + pow(TargetMass,2.0);
+	G4double  Pcm = 0.5*sqrt(pow(S,2.0) + pow(RecoilMass,4.0) + pow(EjectileMass,4.0) -2*S*pow(RecoilMass,2.0) -2*pow(RecoilMass,2.0)*pow(EjectileMass,2.0) - 2*S*pow(EjectileMass,2.0))/sqrt(S);
 
 //generate com  momenta (for now isotropic) 
 	RecoilDirectionInCM = RecoilDirectionInCM*Pcm;

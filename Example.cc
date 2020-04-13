@@ -49,11 +49,6 @@ int main(int argc,char** argv)
 
   // Local user Physics List
   G4VUserPhysicsList* physics = new PhysicsList();
-  // G4VModularPhysicsList* physics1 = new QGSP_BERT();
-  // Reference Physics List from Geant4 kernel
-  // G4VUserPhysicsList* physics )= new QGSP_BERT();
-  // G4VUserPhysicsList* physics = new FTFP_BERT();
-
 
   // mandatory User class
   runManager->SetUserInitialization(physics);

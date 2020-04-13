@@ -148,22 +148,9 @@ CMakeFiles/arquivobinario.dir/src/MagneticField.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arquivobinario.dir/src/MagneticField.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticField.cc -o CMakeFiles/arquivobinario.dir/src/MagneticField.cc.s
 
-CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o: CMakeFiles/arquivobinario.dir/flags.make
-CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o: ../src/MagneticField2.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticField2.cc
-
-CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticField2.cc > CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.i
-
-CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticField2.cc -o CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.s
-
 CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o: ../src/MagneticFieldMessenger.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger.cc
 
 CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.i: cmake_force
@@ -174,22 +161,9 @@ CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger.cc -o CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.s
 
-CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o: CMakeFiles/arquivobinario.dir/flags.make
-CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o: ../src/MagneticFieldMessenger2.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger2.cc
-
-CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger2.cc > CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.i
-
-CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticFieldMessenger2.cc -o CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.s
-
 CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o: ../src/PhysicsList.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/PhysicsList.cc
 
 CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.i: cmake_force
@@ -202,7 +176,7 @@ CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o: ../src/PhysicsListMessenger.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/PhysicsListMessenger.cc
 
 CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.i: cmake_force
@@ -215,7 +189,7 @@ CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/Reaction.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/Reaction.cc.o: ../src/Reaction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/arquivobinario.dir/src/Reaction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/arquivobinario.dir/src/Reaction.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/Reaction.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/Reaction.cc
 
 CMakeFiles/arquivobinario.dir/src/Reaction.cc.i: cmake_force
@@ -228,7 +202,7 @@ CMakeFiles/arquivobinario.dir/src/Reaction.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o: ../src/RootSaver.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/RootSaver.cc
 
 CMakeFiles/arquivobinario.dir/src/RootSaver.cc.i: cmake_force
@@ -241,7 +215,7 @@ CMakeFiles/arquivobinario.dir/src/RootSaver.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/RunAction.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/RunAction.cc.o: ../src/RunAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/arquivobinario.dir/src/RunAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/arquivobinario.dir/src/RunAction.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/RunAction.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/RunAction.cc
 
 CMakeFiles/arquivobinario.dir/src/RunAction.cc.i: cmake_force
@@ -254,7 +228,7 @@ CMakeFiles/arquivobinario.dir/src/RunAction.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o: ../src/SensitiveDetector.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/SensitiveDetector.cc
 
 CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.i: cmake_force
@@ -267,7 +241,7 @@ CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/SiHit.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/SiHit.cc.o: ../src/SiHit.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/arquivobinario.dir/src/SiHit.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/arquivobinario.dir/src/SiHit.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/SiHit.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/SiHit.cc
 
 CMakeFiles/arquivobinario.dir/src/SiHit.cc.i: cmake_force
@@ -280,7 +254,7 @@ CMakeFiles/arquivobinario.dir/src/SiHit.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/StepMax.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/StepMax.cc.o: ../src/StepMax.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/arquivobinario.dir/src/StepMax.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/arquivobinario.dir/src/StepMax.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/StepMax.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/StepMax.cc
 
 CMakeFiles/arquivobinario.dir/src/StepMax.cc.i: cmake_force
@@ -293,7 +267,7 @@ CMakeFiles/arquivobinario.dir/src/StepMax.cc.s: cmake_force
 
 CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o: CMakeFiles/arquivobinario.dir/flags.make
 CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o: ../src/StepMaxMessenger.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/src/StepMaxMessenger.cc
 
 CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.i: cmake_force
@@ -313,9 +287,7 @@ arquivobinario_OBJECTS = \
 "CMakeFiles/arquivobinario.dir/src/DetectorMessenger.cc.o" \
 "CMakeFiles/arquivobinario.dir/src/EventAction.cc.o" \
 "CMakeFiles/arquivobinario.dir/src/MagneticField.cc.o" \
-"CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o" \
 "CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o" \
-"CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o" \
 "CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o" \
 "CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o" \
 "CMakeFiles/arquivobinario.dir/src/Reaction.cc.o" \
@@ -336,9 +308,7 @@ arquivobinario: CMakeFiles/arquivobinario.dir/src/DetectorConstruction.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/DetectorMessenger.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/EventAction.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/MagneticField.cc.o
-arquivobinario: CMakeFiles/arquivobinario.dir/src/MagneticField2.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o
-arquivobinario: CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger2.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o
 arquivobinario: CMakeFiles/arquivobinario.dir/src/Reaction.cc.o
@@ -393,7 +363,7 @@ arquivobinario: /home/leo/G4/geant4-install/lib/libG4intercoms.so
 arquivobinario: /home/leo/G4/geant4-install/lib/libG4global.so
 arquivobinario: /home/leo/CLHEP-install/lib/libCLHEP-2.4.1.3.so
 arquivobinario: CMakeFiles/arquivobinario.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking CXX executable arquivobinario"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable arquivobinario"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/arquivobinario.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

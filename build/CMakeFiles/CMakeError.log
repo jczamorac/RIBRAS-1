@@ -1,17 +1,17 @@
 Determining if the Q_WS_WIN exist failed with the following output:
 Change Dir: /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_95619/fast && /usr/bin/make -f CMakeFiles/cmTC_95619.dir/build.make CMakeFiles/cmTC_95619.dir/build
+Run Build Command(s):/usr/bin/make cmTC_2b978/fast && /usr/bin/make -f CMakeFiles/cmTC_2b978.dir/build.make CMakeFiles/cmTC_2b978.dir/build
 make[1]: Entering directory '/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_95619.dir/CheckSymbolExists.cxx.o
-/usr/bin/c++   -I/usr/include/qt4  -std=c++11 -O3 -Wall -Wextra    -o CMakeFiles/cmTC_95619.dir/CheckSymbolExists.cxx.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Building CXX object CMakeFiles/cmTC_2b978.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -I/usr/include/qt4  -std=c++11 -O3 -Wall -Wextra    -o CMakeFiles/cmTC_2b978.dir/CheckSymbolExists.cxx.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
 /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
 /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_WIN’ was not declared in this scope
     8 |   return ((int*)(&Q_WS_WIN))[argc];
       |                   ^~~~~~~~
-make[1]: *** [CMakeFiles/cmTC_95619.dir/build.make:66: CMakeFiles/cmTC_95619.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: *** [CMakeFiles/cmTC_2b978.dir/build.make:66: CMakeFiles/cmTC_2b978.dir/CheckSymbolExists.cxx.o] Error 1
 make[1]: Leaving directory '/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_95619/fast] Error 2
+make: *** [Makefile:121: cmTC_2b978/fast] Error 2
 
 
 File /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
@@ -31,17 +31,17 @@ int main(int argc, char** argv)
 Determining if the Q_WS_QWS exist failed with the following output:
 Change Dir: /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_70a5e/fast && /usr/bin/make -f CMakeFiles/cmTC_70a5e.dir/build.make CMakeFiles/cmTC_70a5e.dir/build
+Run Build Command(s):/usr/bin/make cmTC_e661d/fast && /usr/bin/make -f CMakeFiles/cmTC_e661d.dir/build.make CMakeFiles/cmTC_e661d.dir/build
 make[1]: Entering directory '/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_70a5e.dir/CheckSymbolExists.cxx.o
-/usr/bin/c++   -I/usr/include/qt4  -std=c++11 -O3 -Wall -Wextra    -o CMakeFiles/cmTC_70a5e.dir/CheckSymbolExists.cxx.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Building CXX object CMakeFiles/cmTC_e661d.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -I/usr/include/qt4  -std=c++11 -O3 -Wall -Wextra    -o CMakeFiles/cmTC_e661d.dir/CheckSymbolExists.cxx.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
 /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
 /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_QWS’ was not declared in this scope
     8 |   return ((int*)(&Q_WS_QWS))[argc];
       |                   ^~~~~~~~
-make[1]: *** [CMakeFiles/cmTC_70a5e.dir/build.make:66: CMakeFiles/cmTC_70a5e.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: *** [CMakeFiles/cmTC_e661d.dir/build.make:66: CMakeFiles/cmTC_e661d.dir/CheckSymbolExists.cxx.o] Error 1
 make[1]: Leaving directory '/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_70a5e/fast] Error 2
+make: *** [Makefile:121: cmTC_e661d/fast] Error 2
 
 
 File /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
@@ -61,17 +61,17 @@ int main(int argc, char** argv)
 Determining if the Q_WS_MAC exist failed with the following output:
 Change Dir: /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_f9d5f/fast && /usr/bin/make -f CMakeFiles/cmTC_f9d5f.dir/build.make CMakeFiles/cmTC_f9d5f.dir/build
+Run Build Command(s):/usr/bin/make cmTC_10d2c/fast && /usr/bin/make -f CMakeFiles/cmTC_10d2c.dir/build.make CMakeFiles/cmTC_10d2c.dir/build
 make[1]: Entering directory '/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_f9d5f.dir/CheckSymbolExists.cxx.o
-/usr/bin/c++   -I/usr/include/qt4  -std=c++11 -O3 -Wall -Wextra    -o CMakeFiles/cmTC_f9d5f.dir/CheckSymbolExists.cxx.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Building CXX object CMakeFiles/cmTC_10d2c.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -I/usr/include/qt4  -std=c++11 -O3 -Wall -Wextra    -o CMakeFiles/cmTC_10d2c.dir/CheckSymbolExists.cxx.o -c /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
 /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
 /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_MAC’ was not declared in this scope
     8 |   return ((int*)(&Q_WS_MAC))[argc];
       |                   ^~~~~~~~
-make[1]: *** [CMakeFiles/cmTC_f9d5f.dir/build.make:66: CMakeFiles/cmTC_f9d5f.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: *** [CMakeFiles/cmTC_10d2c.dir/build.make:66: CMakeFiles/cmTC_10d2c.dir/CheckSymbolExists.cxx.o] Error 1
 make[1]: Leaving directory '/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_f9d5f/fast] Error 2
+make: *** [Makefile:121: cmTC_10d2c/fast] Error 2
 
 
 File /home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
