@@ -62,14 +62,13 @@ DetectorConstruction::DetectorConstruction()
   //Create a messanger (defines custom UI commands)
   messenger = new DetectorMessenger(this);
 
-  //--------- Material definition ---------
+  //--------- Material definition ---------//
   DefineMaterials();
 
-  //--------- Sizes of the principal geometrical components (solids)  ---------
+  //--------- Sizes of the principal geometrical components (solids)  ---------//
   ComputeParameters();
   ConstructSetup();
   magneticField = new MagneticField();
-  /* magneticField2 = new MagneticField2(); */
 }
 
 DetectorConstruction::~DetectorConstruction()
@@ -122,53 +121,18 @@ void DetectorConstruction::DefineMaterials()
 
 void DetectorConstruction::ComputeParameters()
 {
-  //This function defines the defaults
-  //of the geometry construction
-
-  // ** World **
+  // This function defines the defaults of the geometry construction
+  // World size
   halfWorldLength = 20.0 * CLHEP::m;
 
-  // ** Esta simulacion ya no tiene strips (sub-det dentro de los volumenes) **
-  // por eso el tamanho de strip es el mismo del detector
+  // Number of strips in the detector
   noOfSensorStrips = 60;
-  Lengthy_sili = 100. * CLHEP::mm;
-  Thickness_sili = 6.5 * CLHEP::mm;
-  Lengthx_sili = 56. * CLHEP::mm;
 
-  Lengthy_dssd = 64. * CLHEP::mm;
-  Thickness_dssd = 285.0 * CLHEP::um;
-  Thickness_dssd_gr = 1.0 * CLHEP::mm;
-  //Thickness_dssd = 0.005*CLHEP::um;
-  Lengthx_dssd = 64. * CLHEP::mm;
-
-  fwhm_beam = 3.1 * CLHEP::mm;
-  fwhm_target = 5.5 * CLHEP::mm;
-
-  //--------------------ponemos algunos mensajes----------------------------
-
-  //slit_z = GetSlit_z();
-  //slit_x = GetSlit_x();
-
-  //pocket_x = GetPocket1_x();
-
-  //-------------------------------------------------------------------------
-
+  // Detector Parameters
   Lengthy_dssd_t1 = 5.0 * CLHEP::cm;
   Thickness_dssd_t1 = 300. * CLHEP::um;
   Lengthx_dssd_t1 = 30.0 * CLHEP::cm;
 
-  theta_D_0_0 = /*15.71059*/ 90. * CLHEP::deg;
-  theta_D_0_1 = -15.71059 * CLHEP::deg;
-
-  // ** RingD00
-  coorx_D_0_0 = -(450. * CLHEP::mm) * cos(-(90. - theta_D_0_0 / CLHEP::deg) * 3.141562 / 180.);
-  coory_D_0_0 = 0. * CLHEP::mm;
-  coorz_D_0_0 = -(450. * CLHEP::mm) * sin(-(90. - theta_D_0_0 / CLHEP::deg) * 3.141562 / 180.);
-
-  // ** RingD01
-  coorx_D_0_1 = -(550. * CLHEP::mm) * cos(-(90. - theta_D_0_1 / CLHEP::deg) * 3.141562 / 180.);
-  coory_D_0_1 = 0. * CLHEP::mm;
-  coorz_D_0_1 = -(550. * CLHEP::mm) * sin(-(90. - theta_D_0_1 / CLHEP::deg) * 3.141562 / 180.);
 }
 
 void DetectorConstruction::ConstructSetup(void)
@@ -187,7 +151,6 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //------------------------------
 
   G4GeometryManager::GetInstance()->SetWorldMaximumExtent(2. * halfWorldLength);
-  /* G4cout << "Computed tolerance = " << G4GeometryTolerance::GetInstance()->GetSurfaceTolerance()/CLHEP::mm << " mm" << G4endl; */
 
   G4Box *solidWorld = new G4Box("world", halfWorldLength, halfWorldLength, halfWorldLength);
   logicWorld = new G4LogicalVolume(solidWorld, vacuum, "World", 0, 0, 0);
@@ -206,30 +169,37 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //  Solenoide 1  //
   ///////////////////
 
+  // Solenoid 1 parameters
   G4double Solenoid_length = 100.0 * CLHEP::cm;
   G4double Solenoid_diameter_inner = 30.05 * CLHEP::cm;
   G4double Solenoid_diameter_outer = 100.0 * CLHEP::cm;
 
+  // Position
   G4ThreeVector Pos_Solenoid = G4ThreeVector();
 
+  // Creating Solenoid 1
   G4VSolid *Sol_Solenoid = new G4Tubs("magneticexterior", Solenoid_diameter_inner / 2.0, Solenoid_diameter_outer / 2.0, Solenoid_length / 2.0, 0., 360. * CLHEP::deg);
 
   G4LogicalVolume *Log_Solenoid = new G4LogicalVolume(Sol_Solenoid, G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe"), "Log_Solenoid");
 
+  // Placing Solenoid 1
   Phy_Solenoid = new G4PVPlacement(0, Pos_Solenoid, Log_Solenoid, "P_Solenoid", logicWorld, false, 0, true);
 
+  // Available colors
   G4Color green(0.0, 1.0, 0.0),
-      red(1.0, 0.0, 0.0),
-      yellow(1.0, 1.0, 0.0),
-      orange(1.0, 1.0, 0.5),
-      blue(0.0, 0.0, 1.0);
+          red(1.0, 0.0, 0.0),
+          yellow(1.0, 1.0, 0.0),
+          orange(1.0, 1.0, 0.5),
+          blue(0.0, 0.0, 1.0);
 
+  // Setting Solenoid 1 color
   Log_Solenoid->SetVisAttributes(new G4VisAttributes(green));
 
   ///////////////////////////////
   /// Magnetic field region 1 ///
   ///////////////////////////////
 
+  // Creating Solenoid 1 magnetic field
   G4double Mag_diameter = 30.0 * cm;
   G4double Mag_length = 68.0 * cm; //coil length
 
@@ -247,6 +217,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //  Solenoide 2  //
   ///////////////////
 
+  // Creating Solenoid 2
   G4ThreeVector position = G4ThreeVector(0., 0., 301. * CLHEP::cm);
   G4double raiointerno = 30.05 * CLHEP::cm;
   G4double raioexterno = 100.0 * CLHEP::cm;
@@ -264,6 +235,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   /// Magnetic field region 2 ///
   ///////////////////////////////
 
+  //Creating Solenoid 2 magnetic field
   G4double diametromag = 30.0 * cm;
   G4double comprimentomag = 68.0 * cm; //coil length
 
@@ -288,19 +260,24 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //  Target  //
   //////////////
 
+  // Target position
   G4ThreeVector Target_pos = Inputs->target_pos;
+
+  // Target Material
   G4Material *TargetMaterial = G4NistManager::Instance()->FindOrBuildMaterial(Inputs->g4_material_name);
   Inputs->TargetMaterial = TargetMaterial;
 
+  // Creating Target
   G4Box *alvo = new G4Box("alvo", 7.5 * CLHEP::cm, 7.5 * CLHEP::cm, Inputs->width * CLHEP::mm);
-
   G4LogicalVolume *alvolog = new G4LogicalVolume(alvo, TargetMaterial, "alvolog");
 
+  // Placing Target
   G4VPhysicalVolume *alvophys = new G4PVPlacement(0, Target_pos, alvolog, "alvof", logmagnetico, false, 0, true);
 
+  // Color
   alvolog->SetVisAttributes(new G4VisAttributes(red));
 
-  // This method construct the detectors
+  // This method create the detectors
   ConstructDetectors();
 
   ////////////////////
@@ -348,7 +325,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 G4VPhysicalVolume *DetectorConstruction::ConstructDetectors()
 {
 
-  // Construindo os detectores
+  // Constructing detectors
   ConstructRing_D_0_0();
   ConstructRing_D_0_1();
 
@@ -382,18 +359,18 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_0()
   // Retrieving Inputs
   Inputs *Inputs = &Inputs::GetInputs();
 
-  // Coordenadas do detector 1
+  // Detector 1 position
   G4ThreeVector posicao_detector1 = Inputs->detector1_pos;
 
-  // Criando o detector
+  // Creating the detector
   G4Box *detector1 = new G4Box("detector1", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
   G4LogicalVolume *detector1log = new G4LogicalVolume(detector1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector1");
 
-  // Rodando os detectores em 90 graus
+  // Rotating detector
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
   rotacaox->rotateY(90. * CLHEP::deg);
 
-  // Alocando o detector 1
+  // Placing detector 1
   detector1phys = new G4PVPlacement(rotacaox,
                                     posicao_detector1,
                                     detector1log,
@@ -406,14 +383,17 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_0()
   //  Strips  //
   //////////////
 
+  // Creating Strips
+  // Strips parameters
   G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
   G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
   G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
 
+  // Creating physical strips
   G4Box *solidSensorStripD00 = new G4Box("SensorStripD00", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-
   G4LogicalVolume *logicSensorStripD00 = new G4LogicalVolume(solidSensorStripD00, silicon, "SensorStripD00");
 
+  // Placing Strips
   physiSensorStripD_0_0 = new G4PVReplica("SensorStripD00",    //its name
                                           logicSensorStripD00, //its logical volume
                                           detector1log,        //its mother
@@ -422,10 +402,11 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_0()
                                           2.0 * halfSensorStripSizeX);
   //                                      Lengthx_sili);          //witdth of replica
 
-  // set "user limits" StepSize
+  // Set "user limits" StepSize
   G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
   logicSensorStripD00->SetUserLimits(userLimits);
 
+  // Colors
   G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
   detector1log->SetVisAttributes(new G4VisAttributes(yellow));
   logicSensorStripD00->SetVisAttributes(new G4VisAttributes(green));
@@ -443,18 +424,18 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_1()
   // Retrieving Inputs
   Inputs *Inputs = &Inputs::GetInputs();
 
-  // Coordenada do detector 2
+  // Detector position
   G4ThreeVector posicao_detector2 = Inputs->detector2_pos;
 
-  // Criando os detectores
+  // Creating Detector
   G4Box *solidSensor_D_0_1 = new G4Box("SensorD_0_1", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
   G4LogicalVolume *logicSensorPlane = new G4LogicalVolume(solidSensor_D_0_1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "SensorL_D_0_1");
 
-  // Rodando os detectores em 90 graus
+  // Rotating detectors
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
   rotacaox->rotateY(90.0 * CLHEP::deg);
 
-  // Alocando o detector 2
+  // Placing Detector 2
   physiSensorRing_D_0_1 = new G4PVPlacement(rotacaox,
                                             posicao_detector2,
                                             logicSensorPlane,
@@ -468,6 +449,7 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_1()
   //  Strips  //
   //////////////
 
+  // Creating Strips for the second detector
   G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
   G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
   G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
@@ -493,16 +475,6 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_1()
   logicSensorStripD01->SetVisAttributes(new G4VisAttributes(red));
 
   return physiSensorRing_D_0_1;
-}
-
-G4double *DetectorConstruction::rotacion(G4double dx, G4double dy, G4double dz, G4double angulo)
-{
-  static G4double valores[3];
-  valores[0] = dx * cos(angulo * 3.141562 / 180.) - dy * sin(angulo * 3.141562 / 180.);
-  valores[1] = dx * sin(angulo * 3.141562 / 180.) + dy * cos(angulo * 3.141562 / 180.);
-  valores[2] = dz;
-
-  return valores;
 }
 
 #include "G4RunManager.hh"
