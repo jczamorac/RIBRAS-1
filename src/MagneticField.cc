@@ -69,13 +69,17 @@
 ///////////////////////////////////////////////////////////////////////////////////
 MagneticField::MagneticField()
 {
+  // Retrieving Inputs
+  Inputs* Inputs = &Inputs::GetInputs();
+
   messenger = new MagneticFieldMessenger(this);
   k = 0.04078336599;     //constant of RIBRAS solenoids
   rmax = 19.2034*cm;     // coil radiusBz
   rmin = 1.*mm;          // mini tube
   l_med = 33.9979*cm;    // half coil length
-  current = 20.*tesla;   //electric current [Amp] (tesla units are included just for B)
-  current2 = 20.*tesla;  //electric current [Amp] (tesla units are included just for B)
+  current = 25.;   //electric current [Amp] (tesla units are included just for B)
+  current2 = 50.;  //electric current [Amp] (tesla units are included just for B)
+  G4cout << "Current "<< current << G4endl;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

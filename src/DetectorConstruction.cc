@@ -275,7 +275,7 @@ G4double comprimentomag = 68.0*cm; //coil length
 
 G4VSolid* magsolenoide = new G4Tubs("magsolenoide",0.,diametromag/2.0,comprimentomag/2.0,0.,360.*deg);
 
-G4LogicalVolume* logmagnetico  = new G4LogicalVolume(magsolenoide, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "logmagnetico");
+logmagnetico  = new G4LogicalVolume(magsolenoide, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "logmagnetico");
 
 G4VPhysicalVolume* magneticof = new G4PVPlacement(0,
               position,
@@ -381,8 +381,11 @@ G4VPhysicalVolume* DetectorConstruction::ConstructDetectors()
 
 G4VPhysicalVolume* DetectorConstruction::ConstructRing_D_0_0(){
 
+// Retrieving Inputs
+Inputs* Inputs = &Inputs::GetInputs();
+
 // Coordenadas dos detectores
-G4ThreeVector posicao_detector1 = G4ThreeVector(-6.5*CLHEP::cm , 0., 276.*CLHEP::cm);
+G4ThreeVector posicao_detector1 = Inputs->detector1_pos + G4ThreeVector(0, 0, -301);
 
 // Criando os detectores físicos
 G4Box* detector1 = new G4Box("detector1", Lengthx_dssd_t1/2.,Lengthy_dssd_t1/2.,Thickness_dssd_t1/2.);
@@ -393,7 +396,7 @@ int jd00 = 0;
 G4RotationMatrix * rot_D_0_0 = new G4RotationMatrix;
 rot_D_0_0->rotateY(theta_D_0_0);
 G4RotationMatrix * rotacaox = new G4RotationMatrix;
-rotacaox -> rotateY(90.0*CLHEP::deg);
+rotacaox -> rotateY(90.*CLHEP::deg);
 
 std::ostringstream nombre_d_0_0;
 nombre_d_0_0 << "D_0_0_" << jd00 ;
@@ -406,7 +409,6 @@ detector1phys = new G4PVPlacement(rotacaox,
                                   logicWorld,
                                   false,
                                   jd00);
-
 //////////////
 //  Strips  //
 //////////////
@@ -444,8 +446,11 @@ return detector1phys;
 
 G4VPhysicalVolume* DetectorConstruction::ConstructRing_D_0_1(){
 
+// Retrieving Inputs
+Inputs* Inputs = &Inputs::GetInputs();
+
 // Coordenada dos detectores
-G4ThreeVector posicao_detector2 = G4ThreeVector(-6.5*CLHEP::cm,0.*CLHEP::cm , 326.*CLHEP::cm);
+G4ThreeVector posicao_detector2 = Inputs->detector2_pos;
 
 // Criando os detectores físicos
 G4Box * solidSensor_D_0_1 = new G4Box("SensorD_0_1", Lengthx_dssd_t1/2., Lengthy_dssd_t1/2., Thickness_dssd_t1/2.);

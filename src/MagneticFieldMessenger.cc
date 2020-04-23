@@ -31,39 +31,39 @@
 MagneticFieldMessenger::MagneticFieldMessenger(MagneticField * mpga)
 :target(mpga)
 {
-  fieldCmd = new G4UIcmdWithADoubleAndUnit("/mydet/currentValue",this);
+  fieldCmd = new G4UIcmdWithADoubleAndUnit("/det/currentValue",this);
   fieldCmd->SetGuidance("solenoid current");
   fieldCmd->SetParameterName("current",true);
   fieldCmd->SetDefaultValue(22.);
   fieldCmd->SetDefaultUnit("tesla");
 
-  /*fieldCmd2 = new G4UIcmdWithADoubleAndUnit("/mydet/currentValue2",this);
+  fieldCmd2 = new G4UIcmdWithADoubleAndUnit("/det/currentValue2",this);
   fieldCmd2->SetGuidance("solenoid 2 current");
   fieldCmd2->SetParameterName("current2",true);
   fieldCmd2->SetDefaultValue(22.);
-  fieldCmd2->SetDefaultUnit("tesla");*/
+  fieldCmd2->SetDefaultUnit("tesla");
 }
 
 MagneticFieldMessenger::~MagneticFieldMessenger()
 {
-  delete fieldCmd;
- // delete fieldCmd2;
+delete fieldCmd;
+delete fieldCmd2;
 }
 
 void MagneticFieldMessenger::SetNewValue(G4UIcommand * command,G4String newValue)
 {
-  if( command==fieldCmd )
-  { target->SetCurrent(fieldCmd->GetNewDoubleValue(newValue)); 
-   /*target->SetCurrent2(fieldCmd2->GetNewDoubleValue(newValue));*/ }
+  if( command==fieldCmd ){
+    target->SetCurrent(fieldCmd->GetNewDoubleValue(newValue)); 
+    target->SetCurrent2(fieldCmd2->GetNewDoubleValue(newValue)); }
 }
 
 G4String MagneticFieldMessenger::GetCurrentValue(G4UIcommand * command)
 {
   G4String cv;
-  //G4String cv2;
+  G4String cv2;
   if( command==fieldCmd )
   { cv = fieldCmd->ConvertToString(target->GetCurrent(),""); 
-    /*cv2 = fieldCmd2->ConvertToString(target->GetCurrent2(),"");*/}
+    cv2 = fieldCmd2->ConvertToString(target->GetCurrent2(),"");}
 
   return cv;
 }

@@ -34,12 +34,10 @@
         TruthPosx(0), TruthPosy(0), TruthPosz(0), TruthAngle_theta(0), TruthAngle_phi(0),
         Px_dssd(0), Py_dssd(0), Pz_dssd(0),    
         T_dssd(0), T_sili1(0), T_sili2(0), T_dssd2(0),
-        Ekin_dssd2(0)              
- {
- }
+        Ekin_dssd2(0) {}
  
- RootSaver::~RootSaver()
- {
+ RootSaver::~RootSaver(){
+
         //Close current file if needed
         if ( rootTree )
         {
@@ -47,11 +45,11 @@
         }
  }
  
-void RootSaver::CreateTree( const std::string& fileName , const std::string& treeName )
-{
+void RootSaver::CreateTree( const std::string& fileName , const std::string& treeName ){
+
         if ( rootTree )
         {
-                std::cerr<<"TTree already created, first call CloseTree"<<std::endl;
+                std::cerr << "TTree already created, first call CloseTree" << std::endl;
                 return;
         }
 
@@ -84,7 +82,7 @@ void RootSaver::CreateTree( const std::string& fileName , const std::string& tre
 
         //Digits variables
         rootTree->Branch( "E0", Signal0 ,   "E0[128]/F");
-        rootTree->Branch( "E1", Signal1 , "E1[128]/F");
+        rootTree->Branch( "E1", Signal1 ,   "E1[128]/F");
         rootTree->Branch( "E2", Signal2 ,   "E2[128]/F");
         
         //Hits variables
@@ -150,49 +148,47 @@ void RootSaver::CloseTree()
         }
 }
 
-void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector& primPos, const G4ThreeVector& primMom )
-{
+void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector& primPos, const G4ThreeVector& primMom ){
+
         //If root TTree is not created ends
         if ( rootTree == 0 )
         {
-                return;
+                 return;
         }
 
-
-        //Store Hits infromation
+        // Store Hits infromation
         if ( hits )
         {
-        G4int nHits = hits->entries();
+                G4int nHits = hits->entries();
 
-        //Set defaults
-        E_det0 = 0;
-        E_det1 = 0;
-        E_det2 = 0;
-        
-        Ekin_dssd2 = 0;
+                // Set defaults
+                E_det0 = 0;
+                E_det1 = 0;
+                E_det2 = 0;
 
-        Pos_x_det0 = -1000;
-        Pos_x_det1 = -1000;
-        Pos_x_det2 = -1000;
-                
-        Pos_y_det0 = -1000;
-        Pos_z_det0 = -1000;
-        
-        Pos_y_det1 = -1000;
-        Pos_z_det1 = -1000;
-  
-        Pos_y_det2 = -1000;
-        Pos_z_det2 = -1000;
-        
-        Px_dssd = -1000;
-        Py_dssd = -1000;
-        Pz_dssd = -1000;    
+                Ekin_dssd2 = 0;
 
-        T_dssd = -1000;
-        T_sili1 = -1000;
-        T_sili2 = -1000;
-        T_dssd2 = -1000;
+                Pos_x_det0 = -1000;
+                Pos_x_det1 = -1000;
+                Pos_x_det2 = -1000;
+                        
+                Pos_y_det0 = -1000;
+                Pos_z_det0 = -1000;
 
+                Pos_y_det1 = -1000;
+                Pos_z_det1 = -1000;
+
+                Pos_y_det2 = -1000;
+                Pos_z_det2 = -1000;
+
+                Px_dssd = -1000;
+                Py_dssd = -1000;
+                Pz_dssd = -1000;    
+
+                T_dssd = -1000;
+                T_sili1 = -1000;
+                T_sili2 = -1000;
+                T_dssd2 = -1000;
 
                 //Loop on all hits, consider only the hits with isPrimary flag
                 //Position is weighted average of hit x()
@@ -252,7 +248,7 @@ void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector
                                         Py_dssd = momet_y;
                                         Pz_dssd = momet_z;
                                         T_dssd = tiempo;
-                                        //G4cout<<"energia:  "<<E_dssd<<G4endl;
+                                        // G4cout<< "Energia: " << E_dssd << G4endl;
                                 }
                                 double Econv = Digital(edep);
                                 E_det1 += Econv;

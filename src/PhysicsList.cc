@@ -141,6 +141,7 @@ void PhysicsList::ConstructParticle(){
 //Neutron DATA
 #include "G4NeutronHPInelasticData.hh"
 #include "G4NeutronHPElasticData.hh"
+#include "G4Neutron.hh"
 
 //Processes for the neutrons
 #include "G4HadronElasticProcess.hh"
@@ -156,12 +157,12 @@ void PhysicsList::ConstructProcess()
     ConstructEM();
     AddStepMax();
 
-/*     // For example Elastic scattering below 20 MeV
+    // For example Elastic scattering below 20 MeV
   	G4HadronElasticProcess* theNeutronElasticProcess = new G4HadronElasticProcess();
 
   	// Cross Section Data set
   	G4NeutronHPElasticData* theHPElasticData = new G4NeutronHPElasticData();
-  	theHPElasticData->DumpPhysicsTable(*G4Neutron::Neutron());
+  	/* theHPElasticData->DumpPhysicsTable(*G4Neutron::NeutronDefinition()); */
   	theNeutronElasticProcess->AddDataSet( theHPElasticData );
 
   	// Model
@@ -178,7 +179,7 @@ void PhysicsList::ConstructProcess()
 
   	G4ProcessManager* pmanager = G4Neutron::Neutron()->GetProcessManager();
   	pmanager->AddDiscreteProcess( theNeutronElasticProcess );
-  	pmanager->AddDiscreteProcess( theNeutronInelasticProcess ); */
+  	pmanager->AddDiscreteProcess( theNeutronInelasticProcess );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -200,7 +201,7 @@ void PhysicsList::ConstructEM()
       ph->RegisterProcess(new G4hMultipleScattering, particle);
       ph->RegisterProcess(new G4ionIonisation, particle);
     }
-/*     else if (particleName == "gamma") {
+    else if (particleName == "gamma") {
       // gamma
       ph->RegisterProcess(new G4PhotoElectricEffect, particle);
       ph->RegisterProcess(new G4ComptonScattering, particle);
@@ -236,7 +237,7 @@ void PhysicsList::ConstructEM()
       //alpha
       ph->RegisterProcess(new G4hMultipleScattering, particle);
       ph->RegisterProcess(new G4ionIonisation, particle);
-    }*/
+    }
   }
 }
 

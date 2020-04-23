@@ -66,23 +66,12 @@ BeamTestPrimaryGeneratorAction::BeamTestPrimaryGeneratorAction()
 {
   G4int n_particle = 1;
   particleGun  = new G4ParticleGun(n_particle);
-  //gun = new  G4GeneralParticleSource();
-  fposition = G4ThreeVector(0.*mm,0.*mm,301.*cm);
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName;
-  G4ParticleDefinition* particle = particleTable->FindParticle(particleName="alpha");
-  particleGun->SetParticleDefinition(particle);
-  //particleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.5,0.5));
-  particleGun->SetParticlePosition(fposition);
   gunMessenger = new BeamTestPrimaryGeneratorMessenger(this);
 }
 
 
 BeamTestPrimaryGeneratorAction::~BeamTestPrimaryGeneratorAction()
 {
-  //delete gun;
-  //delete particleGun;
-
   delete particleGun;
   delete gunMessenger;
 }
@@ -124,6 +113,8 @@ void BeamTestPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   ;}
 
     while(abs(theta) < 0.0349);
+
+    // theta = 0.;
 
   particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta)));
   particleGun->GeneratePrimaryVertex(anEvent);

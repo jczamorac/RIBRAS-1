@@ -115,8 +115,8 @@ private:
   //@{
 
   //! global mother volume
-  G4LogicalVolume * logicWorld;
-
+  G4LogicalVolume* logicWorld;
+  G4LogicalVolume* logmagnetico;
 
   MagneticField* magneticField;
   MagneticField2* magneticField2;
@@ -243,17 +243,22 @@ private:
  	G4int ejectile_A, ejectile_Z;
   G4ParticleDefinition* RecoilParticle;
   G4ParticleDefinition* EjectileParticle;  
-  public: //Primary beam
+ public: // Primary beam
   G4double primary_energy;
   G4int primary_Z, primary_A;
   G4ThreeVector primary_pos;
+ public: // Detectors
+  G4ThreeVector detector1_pos;
+  G4ThreeVector detector2_pos;
+ public: // Magnetic field
+  G4double current_1, current_2;
+
   
  private:
- 	Inputs() :
+ 	Inputs() : // Initializing parameters
  		initialized(false),
  		using_lh2(false), using_recfoil(false),
- 		using_cylfoil(false), using_lenda(false),
- 		using_cagra(false), using_source(false), using_magneticfield(false),
+    using_magneticfield(false),
  		source_energy(0.0), TargetMaterial(nullptr),
  		radius(0.0), height(0.0), width(1),
  		arial_density(0.0),	g4_material_name(""),
@@ -263,7 +268,9 @@ private:
  		ejectile_mass(0.0), ejectile_Ex(0.0),
  		ejectile_A(0), ejectile_Z(0),
     primary_energy(0), primary_Z(0), primary_A(0),
-    primary_pos(0), RecoilParticle(0), EjectileParticle(0) {};
+    primary_pos(0), RecoilParticle(0), EjectileParticle(0),
+    detector1_pos(0), detector2_pos(0),
+    current_1(0), current_2(0){};
  	Inputs(Inputs const&) = delete;
  	void operator=(Inputs const&) = delete;
  };

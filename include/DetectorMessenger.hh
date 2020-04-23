@@ -38,53 +38,72 @@
 
  private:
 
-   DetectorConstruction*      detector;
+  DetectorConstruction*      detector;
 
-   G4UIdirectory*             detDir;
-   G4UIdirectory*             secondSensorDir;
-   G4UIdirectory*             Dir;
-   G4UIdirectory*             targetDir;
-   G4UIdirectory*             recoilDir;
-   G4UIdirectory*             ejectileDir;
-   G4UIdirectory*             primaryDir;
+  // Creating directories
+  G4UIdirectory*             detDir;
+  G4UIdirectory*             secondSensorDir;
+  G4UIdirectory*             Dir;
+  G4UIdirectory*             targetDir;
+  G4UIdirectory*             recoilDir;
+  G4UIdirectory*             ejectileDir;
+  G4UIdirectory*             primaryDir;
+  G4UIdirectory*             detectorDir;
+  G4UIdirectory*             magneticDir;
 
-   G4UIcmdWithADoubleAndUnit* xShiftCmd;
-   G4UIcmdWithADoubleAndUnit* yShiftCmd;
-   G4UIcmdWithADoubleAndUnit* thetaCmd;
+  G4UIcmdWithADoubleAndUnit* xShiftCmd;
+  G4UIcmdWithADoubleAndUnit* yShiftCmd;
+  G4UIcmdWithADoubleAndUnit* thetaCmd;
 
-   G4UIcmdWithADoubleAndUnit* z_slitCmd;
-   G4UIcmdWithADoubleAndUnit* x_slitCmd;
-   G4UIcmdWithADoubleAndUnit* xShiftPocketCmd;
+  G4UIcmdWithADoubleAndUnit* z_slitCmd;
+  G4UIcmdWithADoubleAndUnit* x_slitCmd;
+  G4UIcmdWithADoubleAndUnit* xShiftPocketCmd;
 
-   G4UIcmdWithoutParameter*   updateCmd;
+  G4UIcmdWithoutParameter*   updateCmd;
 
-   G4UIcmdWithABool*                      setDUTsetupCmd;
+  G4UIcmdWithABool*          setDUTsetupCmd;
 
-   G4UIcmdWithAString*        target_material;
- 	 G4UIcmdWithADoubleAndUnit* target_width_cmd;
- 	 G4UIcmdWithADoubleAndUnit* target_height_cmd;
- 	 G4UIcmdWithADoubleAndUnit* target_radius_cmd;
- 	 G4UIcmdWithADoubleAndUnit* target_arial_density_cmd;
- 	 G4UIcmdWithABool*          target_recfoil;
- 	 G4UIcmdWithABool*          target_cylfoil;
- 	 G4UIcmdWithABool*          target_lh2;
-   G4UIcmdWithABool*          magneticfieldon;
- 	 G4UIcmdWithADoubleAndUnit* target_mass;
- 	 G4UIcmdWithADoubleAndUnit* recoil_mass;
- 	 G4UIcmdWithADoubleAndUnit* ejectile_mass;
- 	 G4UIcmdWithADoubleAndUnit* recoil_Ex;
- 	 G4UIcmdWithADoubleAndUnit* ejectile_Ex;
- 	 G4UIcmdWithAnInteger*      target_A;
- 	 G4UIcmdWithAnInteger*      recoil_A;
- 	 G4UIcmdWithAnInteger*      ejectile_A;
- 	 G4UIcmdWithAnInteger*      target_Z;
- 	 G4UIcmdWithAnInteger*      recoil_Z;
- 	 G4UIcmdWithAnInteger*      ejectile_Z;
-   G4UIcmdWithADoubleAndUnit* primary_energy;
-   G4UIcmdWithAnInteger*      primary_A;
- 	 G4UIcmdWithAnInteger*      primary_Z;
-   G4UIcmdWith3VectorAndUnit* primary_pos;
-   G4UIcmdWith3VectorAndUnit* target_pos;
+  // Commands for target
+  G4UIcmdWithAString*        target_material;
+  G4UIcmdWithADoubleAndUnit* target_width_cmd;
+  G4UIcmdWithADoubleAndUnit* target_height_cmd;
+  G4UIcmdWithADoubleAndUnit* target_radius_cmd;
+  G4UIcmdWithADoubleAndUnit* target_arial_density_cmd;
+  G4UIcmdWithADoubleAndUnit* target_mass;
+  G4UIcmdWithAnInteger*      target_A;
+  G4UIcmdWithAnInteger*      target_Z;
+  G4UIcmdWith3VectorAndUnit* target_pos;    
+
+  // Turn On/Off magnetic field
+  G4UIcmdWithABool*          magneticfieldon;
+
+  // Commands for magnetic field
+  G4UIcmdWithADoubleAndUnit* current_1;
+  G4UIcmdWithADoubleAndUnit* current_2;
+
+  // Commands for recoil particle
+  G4UIcmdWithADoubleAndUnit* recoil_Ex;
+  G4UIcmdWithADoubleAndUnit* recoil_mass;
+  G4UIcmdWithAnInteger*      recoil_A;
+  G4UIcmdWithAnInteger*      recoil_Z;
+
+  // Commands for ejectile particle
+  G4UIcmdWithADoubleAndUnit* ejectile_mass;
+  G4UIcmdWithADoubleAndUnit* ejectile_Ex;
+  G4UIcmdWithAnInteger*      ejectile_A;
+  G4UIcmdWithAnInteger*      ejectile_Z;
+
+  // Commands for primary beam
+  G4UIcmdWithADoubleAndUnit* primary_energy;
+  G4UIcmdWithAnInteger*      primary_A;
+  G4UIcmdWithAnInteger*      primary_Z;
+  G4UIcmdWith3VectorAndUnit* primary_pos;
+
+  // Commands for detectors
+  G4UIcmdWith3VectorAndUnit* detector1_pos;
+  G4UIcmdWith3VectorAndUnit* detector2_pos;
+
+
  };
 
  //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

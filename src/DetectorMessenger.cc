@@ -27,28 +27,34 @@ using namespace std;
 DetectorMessenger::DetectorMessenger(DetectorConstruction * det)
 :detector(det)
 {
+
+// Main Directory
 detDir = new G4UIdirectory("/det/");
 detDir->SetGuidance("detector construction commands");
 
-//Target Directory
+// Target Directory
 targetDir = new G4UIdirectory("/det/target/");
 targetDir->SetGuidance("target control");
 
-//Recoil Directory
+// Recoil Directory
 recoilDir = new G4UIdirectory("/det/recoil/");
 recoilDir->SetGuidance("recoil control");
 
-//Ejectile Directory
+// Ejectile Directory
 ejectileDir = new G4UIdirectory("/det/ejectile/");
 ejectileDir->SetGuidance("ejectile control");
 
-//Primary Directory
+// Primary Directory
 primaryDir = new G4UIdirectory("/det/primary/");
 primaryDir->SetGuidance("Primary Beam control");
 
-//Sensor Directory
+// Sensor Directory
 secondSensorDir = new G4UIdirectory("/det/secondSensor/");
 secondSensorDir->SetGuidance("comands related to the second sensor plane");
+
+// Magnetic field Directory
+magneticDir = new G4UIdirectory("/det/magnetic/");
+magneticDir->SetGuidance("magnetic field control");
 
 xShiftCmd = new G4UIcmdWithADoubleAndUnit("/det/secondSensor/xShift",this);
 xShiftCmd->SetGuidance("Define x-shift of second sensor plane");
@@ -91,6 +97,7 @@ updateCmd->SetGuidance("This command MUST be applied before \"beamOn\" ");
 updateCmd->SetGuidance("if you changed geometrical value(s).");
 updateCmd->AvailableForStates(G4State_Idle);
 
+// Commands for target
 target_material = new G4UIcmdWithAString("/det/target/material", this);
 target_material->SetGuidance("Specify the foil material name. This should be the G4_Material name (e.g. G4_lh2)");
 
@@ -104,6 +111,19 @@ target_mass = new G4UIcmdWithADoubleAndUnit("/det/target/mass", this);
 target_mass->SetGuidance("Set target atomic mass (MeV)");
 target_mass->SetDefaultUnit("MeV");
 
+target_pos = new G4UIcmdWith3VectorAndUnit("/det/target/pos", this);
+target_pos->SetGuidance("Set target position");
+target_pos->SetParameterName("X","Y","Z",true,true);
+target_pos->SetDefaultUnit("cm");
+
+target_arial_density_cmd = new G4UIcmdWithADoubleAndUnit("/det/target/thickness", this);
+target_arial_density_cmd->SetGuidance("Specify a target thickness (arial density) in units mg/cm2");
+
+target_width_cmd = new G4UIcmdWithADoubleAndUnit("/det/target/width" ,this);
+target_width_cmd->SetGuidance("Specify the target width in units mm");
+target_width_cmd->SetDefaultUnit("mm");
+
+// Commands for recoil
 recoil_mass = new G4UIcmdWithADoubleAndUnit("/det/recoil/mass", this);
 recoil_mass->SetGuidance("(Optional) Specify an atomic recoil mass in MeV");
 
@@ -116,6 +136,7 @@ recoil_A->SetGuidance("Specify a recoil mass number");
 recoil_Z = new G4UIcmdWithAnInteger("/det/recoil/Z", this);
 recoil_Z->SetGuidance("Specify a recoil atomic number");
 
+// Commands for ejectile
 ejectile_mass = new G4UIcmdWithADoubleAndUnit("/det/ejectile/mass", this);
 ejectile_mass->SetGuidance("(Optional) Specify an atomic ejectile mass in MeV");
 
@@ -128,6 +149,7 @@ ejectile_A->SetGuidance("Specify a ejectile mass number");
 ejectile_Z = new G4UIcmdWithAnInteger("/det/ejectile/Z", this);
 ejectile_Z->SetGuidance("Specify a ejectile atomic number");
 
+// Commands for primary beam
 primary_energy = new G4UIcmdWithADoubleAndUnit("/det/primary/energy", this);
 primary_energy->SetGuidance("Set primary beam energy in MeV");
 
@@ -142,20 +164,27 @@ primary_pos->SetGuidance("Set primary beam position");
 primary_pos->SetParameterName("X","Y","Z",true,true);
 primary_pos->SetDefaultUnit("cm");
 
+//Switch for magnetic field
 magneticfieldon = new G4UIcmdWithABool("/det/field", this);
 magneticfieldon->SetGuidance("Turn On (1), Turn Off (0)");
 
-target_pos = new G4UIcmdWith3VectorAndUnit("/det/target/pos", this);
-target_pos->SetGuidance("Set target position");
-target_pos->SetParameterName("X","Y","Z",true,true);
-target_pos->SetDefaultUnit("cm");
+// Detector commands
+detector1_pos = new G4UIcmdWith3VectorAndUnit("/det/detector1/pos", this);
+detector1_pos->SetGuidance("Set detector 1 position");
+detector1_pos->SetParameterName("X", "Y", "Z", true, true);
+detector1_pos->SetDefaultUnit("cm");
 
-target_arial_density_cmd = new G4UIcmdWithADoubleAndUnit("/det/target/thickness", this);
-target_arial_density_cmd->SetGuidance("Specify a target thickness (arial density) in units mg/cm2");
+detector2_pos = new G4UIcmdWith3VectorAndUnit("/det/detector2/pos", this);
+detector2_pos->SetGuidance("Set detector 2 position");
+detector2_pos->SetParameterName("X", "Y", "Z", true, true);
+detector2_pos->SetDefaultUnit("cm");
 
-target_width_cmd = new G4UIcmdWithADoubleAndUnit("/det/target/width" ,this);
-target_width_cmd->SetGuidance("Specify the target width in units mm");
-target_width_cmd->SetDefaultUnit("mm");
+// Magnetic Field commands
+current_1 = new G4UIcmdWithADoubleAndUnit("/det/magnetic/current1", this);
+current_1->SetGuidance("Set magnetic field 1 current");
+
+current_2 = new G4UIcmdWithADoubleAndUnit("/det/magnetic/current2", this);
+current_2->SetGuidance("Set magnetic field 2 current");
 }
 
 DetectorMessenger::~DetectorMessenger()
@@ -232,5 +261,11 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
   else if (command == primary_pos){Inputs->primary_pos = primary_pos->GetNew3VectorValue(newValue);}
 
   else if (command == magneticfieldon){Inputs->using_magneticfield = magneticfieldon->GetNewBoolValue(newValue);}
+
+  else if (command == detector1_pos){Inputs->detector1_pos = detector1_pos->GetNew3VectorValue(newValue);}
+  else if (command == detector2_pos){Inputs->detector2_pos = detector2_pos->GetNew3VectorValue(newValue);}
+
+  else if (command == current_1){Inputs->current_1 = current_1->GetNewDoubleValue(newValue);}
+  else if (command == current_2){Inputs->current_2 = current_2->GetNewDoubleValue(newValue);}
 }
 

@@ -35,7 +35,7 @@
 #include "BeamTestPrimaryGeneratorMessenger.hh"
 
 #include "BeamTestPrimaryGeneratorAction.hh"
- #include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
