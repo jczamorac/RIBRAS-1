@@ -1,0 +1,60 @@
+/control/verbose 0
+/run/verbose 0
+/process/verbose 0
+/particle/verbose 0
+/geometry/navigator/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+#Visual
+/vis/scene/add/hits
+/vis/open HepRepFile
+/vis/drawVolume
+#/vis/scene/add/axes 0 0 0 10 cm
+/vis/viewer/set/viewpointThetaPhi 180 90 deg
+#/vis/viewer/zoom 0.1
+/vis/scene/add/trajectories smooth
+
+#Turn On/Off the magnetic field
+/det/field 1
+
+#Set Detector 1 position
+/det/detector1/pos -8. 0 290.
+#/det/detector1/pos -7.5 0 200.
+
+#Set Detector 2 position
+/det/detector2/pos -7.5 0 326
+
+#Define the target material
+/det/target/material G4_lH2
+/det/target/Z 1
+/det/target/A 1
+/det/target/width 0.01
+
+#Define target position (x, y, z)(cm)
+/det/target/pos 0. 0. 300
+
+#Define the primary particle
+/det/primary/energy 40 MeV
+/det/primary/Z 6
+/det/primary/A 16
+/det/primary/pos 0 0 -115
+
+#Define the recoil particle
+/det/recoil/A 4
+/det/recoil/Z 2
+
+#Define the ejectile particle
+/det/ejectile/A 13
+/det/ejectile/Z 5
+
+/det/currentValue 31.
+/det/currentValue2 200.
+
+/vis/scene/endOfEventAction accumulate
+/vis/reviewKeptEvents
+
+#This this command updates the geometry with all the inputs above
+/det/update
+
+/run/beamOn 10
