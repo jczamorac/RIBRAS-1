@@ -79,7 +79,6 @@ MagneticField::MagneticField()
   l_med = 33.9979*cm;    // half coil length
   current = 25.;   //electric current [Amp] (tesla units are included just for B)
   current2 = 50.;  //electric current [Amp] (tesla units are included just for B)
-  G4cout << "Current "<< current << G4endl;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

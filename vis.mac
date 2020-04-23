@@ -19,11 +19,10 @@
 /det/field 1
 
 #Set Detector 1 position
-/det/detector1/pos -8. 0 290.
-#/det/detector1/pos -7.5 0 200.
+/det/detector1/pos -7.5 0 -18.
 
 #Set Detector 2 position
-/det/detector2/pos -7.5 0 326
+/det/detector2/pos -7.5 0 18.
 
 #Define the target material
 /det/target/material G4_lH2
@@ -32,7 +31,7 @@
 /det/target/width 0.01
 
 #Define target position (x, y, z)(cm)
-/det/target/pos 0. 0. 300
+/det/target/pos 0. 0. 301.
 
 #Define the primary particle
 /det/primary/energy 40 MeV
@@ -48,8 +47,8 @@
 /det/ejectile/A 13
 /det/ejectile/Z 5
 
-/det/currentValue 31.
-/det/currentValue2 200.
+/det/currentValue 25.
+/det/currentValue2 0.
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents
