@@ -34,7 +34,7 @@
         TruthPosx(0), TruthPosy(0), TruthPosz(0), TruthAngle_theta(0), TruthAngle_phi(0),
         Px_dssd(0), Py_dssd(0), Pz_dssd(0),    
         T_dssd(0), T_sili1(0), T_sili2(0), T_dssd2(0),
-        Ekin_dssd2(0) {}
+        Ekin_dssd2(0), StripNumber(0) {}
  
  RootSaver::~RootSaver(){
 
@@ -67,7 +67,7 @@ void RootSaver::CreateTree( const std::string& fileName , const std::string& tre
 
         rootTree = new TTree( treeName.data() , treeName.data() );
         //TODO: Get detector strip numbers automatically
-        nStrips = 128;
+        nStrips = 60;
         Signal0 = new Float_t[nStrips];
         Signal1 = new Float_t[nStrips];
         Signal2 = new Float_t[nStrips];
@@ -81,9 +81,10 @@ void RootSaver::CreateTree( const std::string& fileName , const std::string& tre
         }
 
         //Digits variables
-        rootTree->Branch( "E0", Signal0 ,   "E0[128]/F");
-        rootTree->Branch( "E1", Signal1 ,   "E1[128]/F");
-        rootTree->Branch( "E2", Signal2 ,   "E2[128]/F");
+        // Energia total por strip
+        rootTree->Branch( "E0", Signal0 ,   "E0[60]/F");
+        rootTree->Branch( "E1", Signal1 ,   "E1[60]/F");
+        rootTree->Branch( "E2", Signal2 ,   "E2[60]/F");
         
         //Hits variables
         rootTree->Branch( "pos_x_det0" , &Pos_x_det0 );
@@ -98,6 +99,7 @@ void RootSaver::CreateTree( const std::string& fileName , const std::string& tre
         rootTree->Branch( "pos_y_det2" , &Pos_y_det2 );
         rootTree->Branch( "pos_z_det2" , &Pos_z_det2 );
         
+        // Energia total no detector
         rootTree->Branch( "ener_det0" , &E_det0 );
         rootTree->Branch( "ener_det1" , &E_det1 );
         rootTree->Branch( "ener_det2" , &E_det2 );
@@ -118,6 +120,9 @@ void RootSaver::CreateTree( const std::string& fileName , const std::string& tre
         rootTree->Branch( "t_sili2" , &T_sili2 );
         rootTree->Branch( "t_dssd2" , &T_dssd2 );
         rootTree->Branch( "Ekin_dssd2" , &Ekin_dssd2 );    
+
+        rootTree->Branch( "Strip_Number" , &StripNumber );    
+
 }	
 
 void RootSaver::CloseTree()
@@ -190,6 +195,8 @@ void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector
                 T_sili2 = -1000;
                 T_dssd2 = -1000;
 
+                StripNumber = -1000;
+
                 //Loop on all hits, consider only the hits with isPrimary flag
                 //Position is weighted average of hit x()
                 for ( G4int h = 0 ; (h<nHits) ; ++h )
@@ -199,6 +206,7 @@ void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector
                         //primary energy depositions
                         //if ( hit->GetIsPrimary() == false ) continue;
                         G4int stripNum = hit->GetStripNumber();
+                        StripNumber = stripNum;
                         G4int planeNum = hit->GetPlaneNumber();
                         G4ThreeVector pos = hit->GetPosition();
                         G4ThreeVector momentum = hit->GetIncidenceMomentumDirection();
@@ -236,7 +244,7 @@ void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector
                                 }
                                 double Econv = Digital(edep);
                                 E_det0 += Econv;
-                                Signal0[stripNum] += Econv;
+                                Signal0[stripNum] = E_det0;
                         }
                         else if ( planeNum == 1)
                         {

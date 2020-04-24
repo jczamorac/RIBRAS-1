@@ -16,43 +16,39 @@
 /vis/scene/add/trajectories smooth
 
 #Turn On/Off the magnetic field
-/det/field 1
+/det/field 0
 
 #Set Detector 1 position
-/det/detector1/pos -8. 0 290.
-#/det/detector1/pos -7.5 0 200.
+/det/detector1/pos -7.5 0 -18.
 
 #Set Detector 2 position
-/det/detector2/pos -7.5 0 326
+/det/detector2/pos -7.5 0 18.
 
 #Define the target material
 /det/target/material G4_lH2
 /det/target/Z 1
 /det/target/A 1
-/det/target/mass 938.2719995
 /det/target/width 0.01
 
 #Define target position (x, y, z)(cm)
-/det/target/pos 0. 0. 300
+/det/target/pos 0. 0. 301.
 
 #Define the primary particle
 /det/primary/energy 40 MeV
 /det/primary/Z 6
 /det/primary/A 16
-/det/primary/pos 0 0 -115
+/det/primary/pos -0.25 2.0 -115
 
 #Define the recoil particle
 /det/recoil/A 4
 /det/recoil/Z 2
-/det/recoil/mass 3727.37902963 MeV
 
 #Define the ejectile particle
 /det/ejectile/A 13
 /det/ejectile/Z 5
-/det/ejectile/mass 12123.429534 MeV
 
-/det/currentValue 31.
-/det/currentValue2 200.
+/det/currentValue 25.
+/det/currentValue2 0.
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents
@@ -60,4 +56,4 @@
 #This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 10
+/run/beamOn 20

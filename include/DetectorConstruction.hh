@@ -89,7 +89,7 @@ private:
   //! Construct geometry of the 2Pocket
   G4VPhysicalVolume* ConstructRing_D_0_1();
 
-/* G4VPhysicalVolume* ConstructRing_D_0_2(); */
+  G4VPhysicalVolume* ConstructRing_D_0_2();
 
   G4double* rotacion(G4double dx , G4double dy, G4double dz, G4double angulo);
 
@@ -198,6 +198,8 @@ private:
   G4double Lengthy_dssd_t1;
   G4double Thickness_dssd_t1;
   G4double Lengthx_dssd_t1;
+
+  G4VPhysicalVolume* detector2phys;
 
   //! \name UI Messenger
   //@{
