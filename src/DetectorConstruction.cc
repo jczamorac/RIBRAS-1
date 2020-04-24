@@ -328,6 +328,7 @@ G4VPhysicalVolume *DetectorConstruction::ConstructDetectors()
   // Constructing detectors
   ConstructRing_D_0_0();
   ConstructRing_D_0_1();
+  ConstructRing_D_0_2();
 
   static SensitiveDetector *sensitive = 0;
   if (!sensitive)
@@ -345,6 +346,9 @@ G4VPhysicalVolume *DetectorConstruction::ConstructDetectors()
 
   const G4LogicalVolume *ring_sen_D01 = physiSensorRing_D_0_1->GetLogicalVolume();
   ring_sen_D01->GetDaughter(0)->GetLogicalVolume()->SetSensitiveDetector(sensitive);
+
+  const G4LogicalVolume *ring_sen_D02 = detector2phys->GetLogicalVolume();
+  ring_sen_D02->GetDaughter(0)->GetLogicalVolume()->SetSensitiveDetector(sensitive);
 
   return detector1phys;
 }
@@ -442,7 +446,7 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_1()
                                             "Detector_2",
                                             logmagnetico,
                                             false,
-                                            0,
+                                            1,
                                             true);
 
   //////////////
@@ -477,6 +481,77 @@ G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_1()
   return physiSensorRing_D_0_1;
 }
 
+<<<<<<< HEAD
+=======
+G4VPhysicalVolume *DetectorConstruction::ConstructRing_D_0_2()
+{
+
+  // Retrieving Inputs
+  Inputs *Inputs = &Inputs::GetInputs();
+
+  // Coordenadas do detector 2
+  G4ThreeVector posicao_detector2 = G4ThreeVector(7.5, 0., -18);
+
+  // Criando o detector
+  G4Box *detector2 = new G4Box("detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
+  G4LogicalVolume *detector2log = new G4LogicalVolume(detector2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector2");
+
+  // Rodando os detectores em 90 graus
+  G4RotationMatrix *rotacaox = new G4RotationMatrix;
+  rotacaox->rotateY(0. * CLHEP::deg);
+
+  // Alocando o detector 1
+  detector2phys = new G4PVPlacement(rotacaox,
+                                    posicao_detector2,
+                                    detector2log,
+                                    "Detector_3",
+                                    logmagnetico,
+                                    false,
+                                    2,
+                                    true);
+  //////////////
+  //  Strips  //
+  //////////////
+
+  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
+  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
+  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
+
+  G4Box *solidSensorStripD02 = new G4Box("SensorStripD02", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
+
+  G4LogicalVolume *logicSensorStripD02 = new G4LogicalVolume(solidSensorStripD02, silicon, "SensorStripD02");
+
+  physiSensorStripD_0_0 = new G4PVReplica("SensorStripD02",    //its name
+                                          logicSensorStripD02, //its logical volume
+                                          detector2log,        //its mother
+                                          kXAxis,              //axis of replication
+                                          noOfSensorStrips,    //number of replica
+                                          2.0 * halfSensorStripSizeX);
+  //                                      Lengthx_sili);          //witdth of replica
+
+  // set "user limits" StepSize
+  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
+  logicSensorStripD02->SetUserLimits(userLimits);
+
+  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
+  detector2log->SetVisAttributes(new G4VisAttributes(yellow));
+  logicSensorStripD02->SetVisAttributes(new G4VisAttributes(green));
+
+  return detector2phys;
+}
+
+
+G4double *DetectorConstruction::rotacion(G4double dx, G4double dy, G4double dz, G4double angulo)
+{
+  static G4double valores[3];
+  valores[0] = dx * cos(angulo * 3.141562 / 180.) - dy * sin(angulo * 3.141562 / 180.);
+  valores[1] = dx * sin(angulo * 3.141562 / 180.) + dy * cos(angulo * 3.141562 / 180.);
+  valores[2] = dz;
+
+  return valores;
+}
+
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 #include "G4RunManager.hh"
 #include "G4PhysicalVolumeStore.hh"
 #include "G4LogicalVolumeStore.hh"

@@ -6,6 +6,7 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 ../include/BeamTestPrimaryGeneratorAction.hh
 G4VUserPrimaryGeneratorAction.hh
 ../include/G4VUserPrimaryGeneratorAction.hh
@@ -22,6 +23,8 @@ G4UImessenger.hh
 globals.hh
 ../include/globals.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 ../include/DetectorConstruction.hh
 globals.hh
 ../include/globals.hh
@@ -40,6 +43,7 @@ G4UImessenger.hh
 G4UIcmdWithAnInteger.hh
 ../include/G4UIcmdWithAnInteger.hh
 
+<<<<<<< HEAD
 ../include/EventAction.hh
 G4UserEventAction.hh
 ../include/G4UserEventAction.hh
@@ -66,6 +70,8 @@ G4ParticleDefinition.hh
 DetectorConstruction.hh
 ../include/DetectorConstruction.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 ../include/MagneticField.hh
 globals.hh
 ../include/globals.hh
@@ -74,6 +80,7 @@ G4MagneticField.hh
 G4ThreeVector.hh
 ../include/G4ThreeVector.hh
 
+<<<<<<< HEAD
 ../include/MagneticFieldMessenger.hh
 G4UImessenger.hh
 ../include/G4UImessenger.hh
@@ -138,6 +145,8 @@ G4UserRunAction.hh
 RootSaver.hh
 ../include/RootSaver.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 ../include/SensitiveDetector.hh
 G4VSensitiveDetector.hh
 ../include/G4VSensitiveDetector.hh
@@ -162,6 +171,7 @@ G4Transform3D.hh
 G4ParticleDefinition.hh
 ../include/G4ParticleDefinition.hh
 
+<<<<<<< HEAD
 ../include/StepMax.hh
 globals.hh
 ../include/globals.hh
@@ -175,11 +185,15 @@ G4UserSteppingAction.hh
 ../include/G4UserSteppingAction.hh
 
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Geometry/BasicVector3D.h
+=======
+/home/leo/CLHEP-install/include/CLHEP/Geometry/BasicVector3D.h
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 iosfwd
 -
 type_traits
 -
 CLHEP/Geometry/defs.h
+<<<<<<< HEAD
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Geometry/CLHEP/Geometry/defs.h
 CLHEP/Vector/ThreeVector.h
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
@@ -543,6 +557,371 @@ CLHEP/Random/Random.icc
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Random/Random.icc
 
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Random/RandomEngine.h
+=======
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/Normal3D.h
+iosfwd
+-
+CLHEP/Geometry/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
+CLHEP/Geometry/BasicVector3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/BasicVector3D.h
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/Plane3D.h
+iosfwd
+-
+CLHEP/Geometry/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/defs.h
+CLHEP/Geometry/Point3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Point3D.h
+CLHEP/Geometry/Normal3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Normal3D.h
+CLHEP/Geometry/Transform3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Transform3D.h
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/Point3D.h
+iosfwd
+-
+CLHEP/Geometry/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
+CLHEP/Geometry/BasicVector3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/BasicVector3D.h
+CLHEP/config/CLHEP.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/config/CLHEP.h
+CLHEP/Geometry/Normal3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Normal3D.h
+CLHEP/Geometry/Transform3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Transform3D.h
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/Transform3D.h
+CLHEP/Geometry/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
+CLHEP/Geometry/Transform3D.icc
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Transform3D.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/Transform3D.icc
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
+CLHEP/Vector/Rotation.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/Rotation.h
+CLHEP/Geometry/Point3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Point3D.h
+CLHEP/Geometry/Vector3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Vector3D.h
+CLHEP/Geometry/Normal3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/Normal3D.h
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/Vector3D.h
+iosfwd
+-
+CLHEP/Geometry/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Vector/ThreeVector.h
+CLHEP/Geometry/BasicVector3D.h
+/home/leo/CLHEP-install/include/CLHEP/Geometry/CLHEP/Geometry/BasicVector3D.h
+
+/home/leo/CLHEP-install/include/CLHEP/Geometry/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/DRand48Engine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+CLHEP/Utility/noncopyable.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/noncopyable.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/DualRand.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Hurd160Engine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Hurd288Engine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/JamesRandom.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/MTwistEngine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/MixMaxRng.h
+array
+-
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandBinomial.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandBinomial.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandBinomial.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandBinomial.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandBit.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandFlat.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandFlat.h
+CLHEP/Random/RandBit.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandBit.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandBit.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandBreitWigner.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandFlat.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandFlat.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandBreitWigner.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandBreitWigner.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandBreitWigner.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandChiSquare.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandChiSquare.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandChiSquare.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandChiSquare.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandEngine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandExpZiggurat.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Utility/thread_local.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/thread_local.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandExponential.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandExponential.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandExponential.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandExponential.icc
+cmath
+-
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandFlat.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Utility/thread_local.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/thread_local.h
+CLHEP/Random/RandFlat.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandFlat.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandFlat.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGamma.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandGamma.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGamma.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGamma.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGauss.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Utility/thread_local.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/thread_local.h
+CLHEP/Random/RandGauss.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGauss.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGauss.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGaussQ.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandGauss.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGauss.h
+CLHEP/Random/RandGaussQ.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGaussQ.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGaussQ.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGaussT.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandGauss.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGauss.h
+CLHEP/Random/Stat.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Stat.h
+CLHEP/Random/RandGaussT.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGaussT.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGaussT.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGaussZiggurat.h
+cmath
+/home/leo/CLHEP-install/include/CLHEP/Random/cmath
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandGauss.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGauss.h
+CLHEP/Utility/thread_local.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/thread_local.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGeneral.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+vector
+-
+CLHEP/Random/RandGeneral.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGeneral.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandGeneral.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandLandau.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandLandau.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandLandau.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandLandau.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandPoisson.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Utility/thread_local.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/thread_local.h
+CLHEP/Random/RandPoisson.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoisson.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandPoisson.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandPoissonQ.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Random/RandPoisson.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoisson.h
+CLHEP/Random/RandPoissonQ.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoissonQ.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandPoissonQ.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandPoissonT.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandPoisson.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoisson.h
+CLHEP/Random/RandPoissonT.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoissonT.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandPoissonT.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandSkewNormal.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandSkewNormal.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandSkewNormal.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandSkewNormal.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandStudentT.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/Random.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.h
+CLHEP/Utility/memory.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Utility/memory.h
+CLHEP/Random/RandStudentT.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandStudentT.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandStudentT.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Random.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+CLHEP/Random/Random.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Random.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Random.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandomEngine.h
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 iostream
 -
 fstream
@@ -556,6 +935,7 @@ sstream
 vector
 -
 CLHEP/Random/defs.h
+<<<<<<< HEAD
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Random/CLHEP/Random/defs.h
 CLHEP/Random/RandomEngine.icc
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Random/CLHEP/Random/RandomEngine.icc
@@ -887,11 +1267,267 @@ cmath
 -
 
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Vector/ZMxpv.h
+=======
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.icc
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RandomEngine.icc
+cmath
+-
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Randomize.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/DRand48Engine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/DRand48Engine.h
+CLHEP/Random/DualRand.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/DualRand.h
+CLHEP/Random/Hurd160Engine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Hurd160Engine.h
+CLHEP/Random/Hurd288Engine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Hurd288Engine.h
+CLHEP/Random/JamesRandom.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/JamesRandom.h
+CLHEP/Random/MixMaxRng.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/MixMaxRng.h
+CLHEP/Random/MTwistEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/MTwistEngine.h
+CLHEP/Random/RandEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandEngine.h
+CLHEP/Random/RanecuEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RanecuEngine.h
+CLHEP/Random/RanluxEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RanluxEngine.h
+CLHEP/Random/Ranlux64Engine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Ranlux64Engine.h
+CLHEP/Random/RanshiEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RanshiEngine.h
+CLHEP/Random/TripleRand.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/TripleRand.h
+CLHEP/Random/RandBinomial.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandBinomial.h
+CLHEP/Random/RandBreitWigner.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandBreitWigner.h
+CLHEP/Random/RandChiSquare.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandChiSquare.h
+CLHEP/Random/RandExponential.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandExponential.h
+CLHEP/Random/RandExpZiggurat.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandExpZiggurat.h
+CLHEP/Random/RandFlat.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandFlat.h
+CLHEP/Random/RandBit.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandBit.h
+CLHEP/Random/RandGamma.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGamma.h
+CLHEP/Random/RandGauss.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGauss.h
+CLHEP/Random/RandGaussQ.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGaussQ.h
+CLHEP/Random/RandGaussT.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGaussT.h
+CLHEP/Random/RandGaussZiggurat.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGaussZiggurat.h
+CLHEP/Random/RandGeneral.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandGeneral.h
+CLHEP/Random/RandLandau.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandLandau.h
+CLHEP/Random/RandPoissonQ.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoissonQ.h
+CLHEP/Random/RandPoissonT.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandPoissonT.h
+CLHEP/Random/RandSkewNormal.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandSkewNormal.h
+CLHEP/Random/RandStudentT.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandStudentT.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RanecuEngine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Ranlux64Engine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RanluxEngine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/RanshiEngine.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/Stat.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/TripleRand.h
+CLHEP/Random/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/defs.h
+CLHEP/Random/RandomEngine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/RandomEngine.h
+CLHEP/Random/Hurd288Engine.h
+/home/leo/CLHEP-install/include/CLHEP/Random/CLHEP/Random/Hurd288Engine.h
+
+/home/leo/CLHEP-install/include/CLHEP/Random/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Units/PhysicalConstants.h
+CLHEP/Units/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Units/CLHEP/Units/defs.h
+CLHEP/Units/SystemOfUnits.h
+/home/leo/CLHEP-install/include/CLHEP/Units/CLHEP/Units/SystemOfUnits.h
+
+/home/leo/CLHEP-install/include/CLHEP/Units/SystemOfUnits.h
+CLHEP/Units/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Units/CLHEP/Units/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Units/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Utility/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Utility/memory.h
+CLHEP/Utility/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Utility/CLHEP/Utility/defs.h
+memory
+-
+
+/home/leo/CLHEP-install/include/CLHEP/Utility/noncopyable.h
+CLHEP/Utility/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Utility/CLHEP/Utility/defs.h
+
+/home/leo/CLHEP-install/include/CLHEP/Utility/thread_local.h
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/AxisAngle.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/ThreeVector.h
+iostream
+-
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/AxisAngle.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/AxisAngle.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/AxisAngle.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/LorentzVector.h
+iostream
+-
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/ThreeVector.h
+CLHEP/Vector/LorentzVector.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/LorentzVector.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/LorentzVector.icc
+CLHEP/Vector/ZMxpv.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/ZMxpv.h
+cmath
+-
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/Rotation.h
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/RotationInterfaces.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationInterfaces.h
+CLHEP/Vector/RotationX.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationX.h
+CLHEP/Vector/RotationY.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationY.h
+CLHEP/Vector/RotationZ.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationZ.h
+CLHEP/Vector/LorentzVector.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/LorentzVector.h
+CLHEP/Vector/Rotation.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/Rotation.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/Rotation.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationInterfaces.h
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/ThreeVector.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/ThreeVector.h
+CLHEP/Vector/LorentzVector.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/LorentzVector.h
+CLHEP/Vector/AxisAngle.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/AxisAngle.h
+CLHEP/Vector/RotationInterfaces.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationInterfaces.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationInterfaces.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationX.h
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/RotationInterfaces.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationInterfaces.h
+CLHEP/Vector/RotationX.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationX.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationX.icc
+cmath
+-
+CLHEP/Units/PhysicalConstants.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Units/PhysicalConstants.h
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationY.h
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/RotationInterfaces.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationInterfaces.h
+CLHEP/Vector/RotationY.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationY.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationY.icc
+cmath
+-
+CLHEP/Units/PhysicalConstants.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Units/PhysicalConstants.h
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationZ.h
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/RotationInterfaces.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationInterfaces.h
+CLHEP/Vector/RotationZ.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/RotationZ.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/RotationZ.icc
+cmath
+-
+CLHEP/Units/PhysicalConstants.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Units/PhysicalConstants.h
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.h
+iostream
+-
+CLHEP/Vector/defs.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/defs.h
+CLHEP/Vector/ThreeVector.icc
+/home/leo/CLHEP-install/include/CLHEP/Vector/CLHEP/Vector/ThreeVector.icc
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/ThreeVector.icc
+cmath
+-
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/ZMxpv.h
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 string
 -
 exception
 -
 Exceptions/ZMexception.h
+<<<<<<< HEAD
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Vector/Exceptions/ZMexception.h
 Exceptions/ZMthrow.h
 /home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include/CLHEP/Vector/Exceptions/ZMthrow.h
@@ -1445,6 +2081,111 @@ G4VModularPhysicsList.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ASCIITree.hh
 G4VTree.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VTree.hh
+=======
+/home/leo/CLHEP-install/include/CLHEP/Vector/Exceptions/ZMexception.h
+Exceptions/ZMthrow.h
+/home/leo/CLHEP-install/include/CLHEP/Vector/Exceptions/ZMthrow.h
+
+/home/leo/CLHEP-install/include/CLHEP/Vector/defs.h
+
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/DetectorConstruction.cc
+fstream
+-
+DetectorConstruction.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/DetectorConstruction.hh
+DetectorMessenger.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/DetectorMessenger.hh
+MagneticField.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/MagneticField.hh
+SensitiveDetector.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/SensitiveDetector.hh
+G4Material.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4Material.hh
+G4Box.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4Box.hh
+G4Tubs.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4Tubs.hh
+G4LogicalVolume.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4LogicalVolume.hh
+G4PVPlacement.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4PVPlacement.hh
+G4PVReplica.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4PVReplica.hh
+G4Transform3D.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4Transform3D.hh
+G4GeometryTolerance.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4GeometryTolerance.hh
+G4GeometryManager.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4GeometryManager.hh
+G4NistManager.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4NistManager.hh
+G4VisAttributes.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4VisAttributes.hh
+G4Colour.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4Colour.hh
+G4UnitsTable.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4UnitsTable.hh
+G4SystemOfUnits.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4SystemOfUnits.hh
+G4PhysicalConstants.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4PhysicalConstants.hh
+G4SDManager.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4SDManager.hh
+G4SubtractionSolid.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4SubtractionSolid.hh
+G4UserLimits.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4UserLimits.hh
+G4UniformElectricField.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4UniformElectricField.hh
+G4UniformMagField.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4UniformMagField.hh
+G4MagneticField.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4MagneticField.hh
+G4FieldManager.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4FieldManager.hh
+G4TransportationManager.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4TransportationManager.hh
+G4EquationOfMotion.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4EquationOfMotion.hh
+G4EqMagElectricField.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4EqMagElectricField.hh
+G4Mag_UsualEqRhs.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4Mag_UsualEqRhs.hh
+G4MagIntegratorStepper.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4MagIntegratorStepper.hh
+G4MagIntegratorDriver.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4MagIntegratorDriver.hh
+G4ChordFinder.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4ChordFinder.hh
+G4ExplicitEuler.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4ExplicitEuler.hh
+G4ImplicitEuler.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4ImplicitEuler.hh
+G4SimpleRunge.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4SimpleRunge.hh
+G4SimpleHeum.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4SimpleHeum.hh
+G4ClassicalRK4.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4ClassicalRK4.hh
+G4HelixExplicitEuler.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4HelixExplicitEuler.hh
+G4HelixImplicitEuler.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4HelixImplicitEuler.hh
+G4HelixSimpleRunge.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4HelixSimpleRunge.hh
+G4CashKarpRKF45.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4CashKarpRKF45.hh
+G4RKG3_Stepper.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4RKG3_Stepper.hh
+G4RunManager.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4RunManager.hh
+G4PhysicalVolumeStore.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4PhysicalVolumeStore.hh
+G4LogicalVolumeStore.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4LogicalVolumeStore.hh
+G4SolidStore.hh
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/src/G4SolidStore.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4AffineTransform.hh
 G4Types.hh
@@ -1470,6 +2211,7 @@ G4AllocatorPool.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4AllocatorPool.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Alpha.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -1765,6 +2507,9 @@ G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4AutoDelete.hh
 G4ThreadLocalSingleton.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ThreadLocalSingleton.hh
+=======
+/home/leo/G4/geant4-install/include/Geant4/G4ApplicationState.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4AutoLock.hh
 G4Threading.hh
@@ -1792,6 +2537,7 @@ G4AuxiliaryNavServices.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4AuxiliaryNavServices.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4BMesonMinus.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -1822,6 +2568,8 @@ globals.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4BlockingList.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -1846,12 +2594,15 @@ G4BooleanSolid.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4BooleanSolid.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4BosonConstructor.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4BoundingEnvelope.hh
 vector
 -
@@ -1882,6 +2633,7 @@ G4Box.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4Box.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4BsMesonZero.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -1890,10 +2642,13 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4CSGSolid.hh
 G4VSolid.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Cache.hh
 system_error
 -
@@ -1914,6 +2669,8 @@ G4Threading.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4CashKarpRKF45.hh
 G4MagIntegratorStepper.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MagIntegratorStepper.hh
@@ -1922,6 +2679,7 @@ G4MagIntegratorStepper.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4ChargedGeantino.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -1930,6 +2688,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4ChordFinder.hh
 G4VIntegrationDriver.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VIntegrationDriver.hh
@@ -1978,6 +2738,7 @@ iostream
 map
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4ComptonScattering.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2014,6 +2775,8 @@ iostream
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4DCofThisEvent.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2024,6 +2787,7 @@ G4VDigiCollection.hh
 vector
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4DMesonMinus.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2050,6 +2814,8 @@ G4ParticleDefinition.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4DNAModelSubType.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4DataVector.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2066,6 +2832,7 @@ G4DataVector.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4DataVector.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4DecayProducts.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
@@ -2106,6 +2873,8 @@ G4VModelFactory.hh
 G4VDigi.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VDigi.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4DisplacedSolid.hh
 G4VSolid.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
@@ -2118,6 +2887,7 @@ G4Transform3D.hh
 G4AffineTransform.hh
 /home/leo/G4/geant4-install/include/Geant4/G4AffineTransform.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4DsMesonMinus.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2134,6 +2904,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4DynamicParticle.hh
 cmath
 -
@@ -2162,6 +2934,7 @@ G4DynamicParticle.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4DynamicParticle.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4DynamicParticleVector.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2188,6 +2961,8 @@ globals.hh
 G4FFGEnumerations.hh
 /home/leo/G4/geant4-install/include/Geant4/G4FFGEnumerations.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4ElectricField.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -2198,6 +2973,7 @@ G4ElectroMagneticField.hh
 G4Field.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Field.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Electron.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2206,6 +2982,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4ElectronOccupancy.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2242,6 +3020,7 @@ vector
 G4Element.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Element.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4EmConfigurator.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2398,6 +3177,8 @@ G4HadronicInteraction.hh
 vector
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4EnvironmentUtils.hh
 cstdlib
 -
@@ -2442,6 +3223,7 @@ G4EquationOfMotion.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4EquationOfMotion.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Eta.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2466,6 +3248,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Event.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2526,6 +3310,7 @@ G4Types.hh
 G4MagErrorStepper.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MagErrorStepper.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4FFGDefaultValues.hh
 CLHEP/Units/SystemOfUnits.h
 -
@@ -2589,6 +3374,17 @@ G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
+=======
+/home/leo/G4/geant4-install/include/Geant4/G4FastVector.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4Field.hh
+G4Types.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Types.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4FieldManager.hh
 globals.hh
@@ -2608,6 +3404,7 @@ G4FieldTrack.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4FieldTrack.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4FissionFragmentGenerator.hh
 G4Ions.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Ions.hh
@@ -2660,6 +3457,10 @@ G4FPYTreeStructures.hh
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
 
+=======
+/home/leo/G4/geant4-install/include/Geant4/G4ForceCondition.hh
+
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4GPILSelection.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4GRSSolid.hh
@@ -2690,6 +3491,7 @@ G4GRSVolume.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4GRSVolume.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Gamma.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2724,6 +3526,8 @@ G4ParticleDefinition.hh
 G4Ions.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Ions.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4GeomConfig.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4GeomSplitter.hh
@@ -2752,12 +3556,15 @@ G4Types.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4GlobalConfig.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4GraphicsSystemList.hh
 vector
 -
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4HCofThisEvent.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2774,6 +3581,7 @@ globals.hh
 vector
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4HadFinalState.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2902,6 +3710,8 @@ G4ParticleDefinition.hh
 G4Ions.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Ions.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4HelixExplicitEuler.hh
 G4MagHelicalStepper.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MagHelicalStepper.hh
@@ -2914,6 +3724,7 @@ G4MagHelicalStepper.hh
 G4MagHelicalStepper.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MagHelicalStepper.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4HepRep.hh
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
@@ -2938,6 +3749,8 @@ G4VModelFactory.hh
 G4VHit.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VHit.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4ICRU90StoppingData.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2950,6 +3763,7 @@ G4LPhysicsFreeVector.hh
 G4MagErrorStepper.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MagErrorStepper.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4InterpolationManager.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -2990,6 +3804,8 @@ vector
 map
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4IonisParamElm.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
@@ -3008,6 +3824,7 @@ G4Exp.hh
 G4Threading.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Threading.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Ions.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -3016,6 +3833,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Isotope.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -3030,6 +3849,7 @@ vector
 G4Isotope.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Isotope.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4JPsi.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -3078,10 +3898,13 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4LPhysicsFreeVector.hh
 G4PhysicsFreeVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicsFreeVector.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Lambda.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -3112,6 +3935,8 @@ globals.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Log.hh
 limits
 -
@@ -3146,18 +3971,22 @@ G4LogicalVolume.hh
 G4VStoreNotifier.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VStoreNotifier.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4LorentzRotation.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 CLHEP/Vector/LorentzRotation.h
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4LorentzVector.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 CLHEP/Vector/LorentzVector.h
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4LossTableManager.hh
 map
 -
@@ -3178,6 +4007,8 @@ globals.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4MagErrorStepper.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -3276,6 +4107,7 @@ G4MaterialTable.hh
 G4Threading.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Threading.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4MaterialCutsCouple.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -3286,6 +4118,8 @@ G4ProductionCuts.hh
 G4ProductionCuts.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ProductionCuts.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4MaterialPropertiesIndex.hh
 vector
 -
@@ -3316,6 +4150,7 @@ G4PhysicsOrderedFreeVector.hh
 vector
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4MesonConstructor.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -3394,6 +4229,8 @@ G4ReactionProduct.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4NavigationHistory.hh
 assert.h
 -
@@ -3511,6 +4348,7 @@ G4Navigator.icc
 /home/leo/G4/geant4-install/include/Geant4/G4Navigator.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4Navigator.icc
+<<<<<<< HEAD
 
 /home/leo/G4/geant4-install/include/Geant4/G4NeutrinoE.hh
 globals.hh
@@ -4840,11 +5678,29 @@ G4ParticleHPPhotonDist.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleHPNBodyPhaseSpace.hh
 fstream
+=======
+
+/home/leo/G4/geant4-install/include/Geant4/G4NistElementBuilder.hh
+vector
 -
 CLHEP/Units/PhysicalConstants.h
 -
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
+G4Element.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Element.hh
+G4Threading.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Threading.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4NistManager.hh
+vector
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
+-
+CLHEP/Units/PhysicalConstants.h
+-
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+<<<<<<< HEAD
 G4Pow.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Pow.hh
 G4ios.hh
@@ -5268,11 +6124,143 @@ float.h
 fstream
 -
 CLHEP/Units/SystemOfUnits.h
+=======
+G4Material.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Material.hh
+G4NistElementBuilder.hh
+/home/leo/G4/geant4-install/include/Geant4/G4NistElementBuilder.hh
+G4NistMaterialBuilder.hh
+/home/leo/G4/geant4-install/include/Geant4/G4NistMaterialBuilder.hh
+G4ICRU90StoppingData.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ICRU90StoppingData.hh
+G4Pow.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Pow.hh
+G4Threading.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Threading.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4NistMaterialBuilder.hh
+vector
+-
+CLHEP/Units/PhysicalConstants.h
+-
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+G4Material.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Material.hh
+G4Threading.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Threading.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4Normal3D.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+CLHEP/Geometry/Normal3D.h
+-
+
+/home/leo/G4/geant4-install/include/Geant4/G4NormalNavigation.hh
+iomanip
+-
+G4NavigationHistory.hh
+/home/leo/G4/geant4-install/include/Geant4/G4NavigationHistory.hh
+G4VPhysicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
+G4LogicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4LogicalVolume.hh
+G4VSolid.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
+G4ThreeVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
+G4AuxiliaryNavServices.hh
+/home/leo/G4/geant4-install/include/Geant4/G4AuxiliaryNavServices.hh
+G4NormalNavigation.icc
+/home/leo/G4/geant4-install/include/Geant4/G4NormalNavigation.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4NormalNavigation.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4OrderedTable.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+vector
+-
+G4DataVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4DataVector.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4PDefManager.hh
+stdlib.h
+-
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+pwdefs.hh
+/home/leo/G4/geant4-install/include/Geant4/pwdefs.hh
+G4AutoLock.hh
+/home/leo/G4/geant4-install/include/Geant4/G4AutoLock.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4PVPlacement.hh
+G4VPhysicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
+G4Transform3D.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Transform3D.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4PVReplica.hh
+G4VPhysicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
+G4GeomSplitter.hh
+/home/leo/G4/geant4-install/include/Geant4/G4GeomSplitter.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4ParameterisedNavigation.hh
+G4Types.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Types.hh
+vector
+-
+G4VoxelNavigation.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VoxelNavigation.hh
+G4NavigationHistory.hh
+/home/leo/G4/geant4-install/include/Geant4/G4NavigationHistory.hh
+G4AffineTransform.hh
+/home/leo/G4/geant4-install/include/Geant4/G4AffineTransform.hh
+G4VPhysicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
+G4VPVParameterisation.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VPVParameterisation.hh
+G4LogicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4LogicalVolume.hh
+G4VSolid.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
+G4ThreeVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
+G4BlockingList.hh
+/home/leo/G4/geant4-install/include/Geant4/G4BlockingList.hh
+G4ParameterisedNavigation.icc
+/home/leo/G4/geant4-install/include/Geant4/G4ParameterisedNavigation.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4ParameterisedNavigation.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4ParticleChange.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+G4ios.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ios.hh
+G4ThreeVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
+G4ThreeVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
+G4VParticleChange.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VParticleChange.hh
+G4ParticleChange.icc
+/home/leo/G4/geant4-install/include/Geant4/G4ParticleChange.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4ParticleChange.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
+vector
+-
+CLHEP/Units/PhysicalConstants.h
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 -
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
+<<<<<<< HEAD
 Randomize.hh
 /home/leo/G4/geant4-install/include/Geant4/Randomize.hh
 G4Exp.hh
@@ -5281,6 +6269,14 @@ G4ParticleHPVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleHPVector.hh
 G4VParticleHPEDis.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VParticleHPEDis.hh
+=======
+G4PDefManager.hh
+/home/leo/G4/geant4-install/include/Geant4/G4PDefManager.hh
+G4ParticleDefinition.icc
+/home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.icc
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleMomentum.hh
 G4ThreeVector.hh
@@ -5310,6 +6306,7 @@ map
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleTypes.hh
 G4ChargedGeantino.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ChargedGeantino.hh
@@ -5522,10 +6519,13 @@ G4VModularPhysicsList.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicalConstants.hh
 CLHEP/Units/PhysicalConstants.h
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicalVolumeModel.hh
 G4VModel.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VModel.hh
@@ -5544,10 +6544,13 @@ vector
 map
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicalVolumeStore.hh
 vector
 -
 G4VPhysicalVolume.hh
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
 G4VStoreNotifier.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VStoreNotifier.hh
@@ -5583,10 +6586,22 @@ G4ios.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicsLogVector.hh
+=======
+/home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
+G4VStoreNotifier.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VStoreNotifier.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4PhysicsFreeVector.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 G4PhysicsVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicsVector.hh
+<<<<<<< HEAD
+=======
+G4DataVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4DataVector.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicsModelCatalog.hh
 globals.hh
@@ -5636,6 +6651,7 @@ G4PhysicsVector.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4PhysicsVectorType.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4PionMinus.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -5660,6 +6676,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Plane3D.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -5684,6 +6702,7 @@ HepPolyhedron.h
 G4Visible.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Visible.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Positron.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -5692,6 +6711,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Pow.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -5768,6 +6789,7 @@ G4ProcessVector.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4ProcessVector.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4ProductionCuts.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -5804,6 +6826,8 @@ G4ParticleDefinition.hh
 G4Ions.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Ions.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4RKG3_Stepper.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -5812,6 +6836,7 @@ G4MagIntegratorStepper.hh
 G4ThreeVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4RayTracer.hh
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
@@ -5838,6 +6863,8 @@ G4ReactionProduct.hh
 vector
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4ReferenceCountedHandle.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -5862,6 +6889,7 @@ G4Region.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4Region.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4RegionStore.hh
 vector
 -
@@ -5872,6 +6900,8 @@ G4String.hh
 G4VStoreNotifier.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VStoreNotifier.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4RegularNavigation.hh
 vector
 -
@@ -5910,12 +6940,15 @@ G4ThreeVector.hh
 CLHEP/Vector/Rotation.h
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Run.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 vector
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4RunManager.hh
 G4RunManagerKernel.hh
 /home/leo/G4/geant4-install/include/Geant4/G4RunManagerKernel.hh
@@ -5980,6 +7013,7 @@ vector
 CLHEP/Units/PhysicalConstants.h
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Scene.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6010,6 +7044,8 @@ G4Scene.hh
 vector
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4SensitiveVolumeList.hh
 vector
 -
@@ -6018,6 +7054,7 @@ G4LogicalVolume.hh
 G4VPhysicalVolume.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4ShiftedGaussian.hh
 utility
 -
@@ -6104,6 +7141,8 @@ G4ios.hh
 G4ParticleDefinition.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ParticleDefinition.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4SimpleHeum.hh
 G4MagErrorStepper.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MagErrorStepper.hh
@@ -6168,10 +7207,13 @@ G4VSolid.hh
 G4VStoreNotifier.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VStoreNotifier.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4StableIsotopes.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4StackManager.hh
 G4UserStackingAction.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UserStackingAction.hh
@@ -6338,6 +7380,7 @@ globals.hh
 vector
 -
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4THitsMap.hh
 G4THitsCollection.hh
 /home/leo/G4/geant4-install/include/Geant4/G4THitsCollection.hh
@@ -6380,6 +7423,8 @@ list
 G4AutoLock.hh
 /home/leo/G4/geant4-install/include/Geant4/G4AutoLock.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Threading.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6516,6 +7561,7 @@ G4VTrajectory.hh
 G4UImessenger.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UImessenger.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4TrajectoriesModel.hh
 G4VModel.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VModel.hh
@@ -6524,6 +7570,8 @@ vector
 map
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4TrajectoryContainer.hh
 vector
 -
@@ -6536,6 +7584,7 @@ G4VTrajectory.hh
 G4Allocator.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Allocator.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4TrajectoryFilterFactories.hh
 G4VFilter.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VFilter.hh
@@ -6550,6 +7599,8 @@ G4VModelFactory.hh
 G4VTrajectoryModel.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VTrajectoryModel.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Transform3D.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6568,6 +7619,7 @@ G4TransportationManager.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4TransportationManager.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Triton.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6578,6 +7630,8 @@ G4ParticleDefinition.hh
 G4Ions.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Ions.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Tubs.hh
 G4GeomTypes.hh
 /home/leo/G4/geant4-install/include/Geant4/G4GeomTypes.hh
@@ -6632,6 +7686,7 @@ base/Vector3D.h
 G4UAdapter.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UAdapter.hh
 volumes/UnplacedBox.h
+<<<<<<< HEAD
 -
 G4Polyhedron.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Polyhedron.hh
@@ -6663,15 +7718,23 @@ G4UIcommand.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIcmdWithAString.hh
 G4UIcommand.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
+=======
+-
+G4Polyhedron.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Polyhedron.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4UIcmdWithAnInteger.hh
 G4UIcommand.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4UIcmdWithoutParameter.hh
 G4UIcommand.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
 G4UIparameter.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIparameter.hh
@@ -6686,6 +7749,7 @@ G4UItokenNum.hh
 G4ThreeVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommandStatus.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommandTree.hh
@@ -6696,10 +7760,13 @@ globals.hh
 vector
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4UIdirectory.hh
 G4UIcommand.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommand.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4UImanager.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6714,6 +7781,8 @@ G4VStateDependent.hh
 G4UIcommandStatus.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIcommandStatus.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4UImessenger.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6728,6 +7797,7 @@ globals.hh
 G4UItokenNum.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UItokenNum.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4UIsession.hh
 G4coutDestination.hh
 /home/leo/G4/geant4-install/include/Geant4/G4coutDestination.hh
@@ -6758,6 +7828,8 @@ G4VBasicShell.hh
 G4VUIshell.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VUIshell.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4UItokenNum.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6798,6 +7870,7 @@ G4UnitsTable.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4UnitsTable.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4UnknownParticle.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6816,6 +7889,8 @@ G4ParticleDefinition.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4UserEventAction.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4UserLimits.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6824,10 +7899,13 @@ G4UserLimits.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4UserLimits.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4UserRunAction.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4UserStackingAction.hh
 G4ClassificationOfNewTrack.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ClassificationOfNewTrack.hh
@@ -6836,6 +7914,7 @@ G4ClassificationOfNewTrack.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4UserTrackingAction.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VBasicShell.hh
 G4UIsession.hh
 /home/leo/G4/geant4-install/include/Geant4/G4UIsession.hh
@@ -6884,10 +7963,13 @@ vector
 map
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VDigiCollection.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VDiscreteProcess.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -6994,6 +8076,8 @@ G4PhysicsVector.hh
 G4EmParameters.hh
 /home/leo/G4/geant4-install/include/Geant4/G4EmParameters.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VExceptionHandler.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -7007,6 +8091,7 @@ G4VPhysicalVolume.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
 G4LogicalVolume.hh
 /home/leo/G4/geant4-install/include/Geant4/G4LogicalVolume.hh
+<<<<<<< HEAD
 G4VSolid.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
 G4ThreeVector.hh
@@ -7169,6 +8254,38 @@ G4EmParameters.hh
 /home/leo/G4/geant4-install/include/Geant4/G4EmParameters.hh
 G4MscStepLimitType.hh
 /home/leo/G4/geant4-install/include/Geant4/G4MscStepLimitType.hh
+=======
+G4VSolid.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
+G4ThreeVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4VGraphicsScene.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+G4Transform3D.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Transform3D.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4VHit.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+vector
+-
+map
+-
+
+/home/leo/G4/geant4-install/include/Geant4/G4VHitsCollection.hh
+globals.hh
+/home/leo/G4/geant4-install/include/Geant4/globals.hh
+
+/home/leo/G4/geant4-install/include/Geant4/G4VIntegrationDriver.hh
+G4Types.hh
+/home/leo/G4/geant4-install/include/Geant4/G4Types.hh
+G4FieldTrack.hh
+/home/leo/G4/geant4-install/include/Geant4/G4FieldTrack.hh
+G4MagIntegratorStepper.hh
+/home/leo/G4/geant4-install/include/Geant4/G4MagIntegratorStepper.hh
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4VNotifier.hh
 
@@ -7200,6 +8317,7 @@ G4VParticleChange.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VParticleChange.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VParticleHPEDis.hh
 fstream
 -
@@ -7224,6 +8342,8 @@ G4ReactionProduct.hh
 G4Cache.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Cache.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
@@ -7242,6 +8362,7 @@ G4VPhysicalVolume.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VPhysicsConstructor.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7262,6 +8383,8 @@ vector
 G4ThreeVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VProcess.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7284,6 +8407,7 @@ G4ProcessType.hh
 Randomize.hh
 /home/leo/G4/geant4-install/include/Geant4/Randomize.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VRML1File.hh
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
@@ -7292,6 +8416,8 @@ G4VGraphicsSystem.hh
 G4VGraphicsSystem.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VGraphicsSystem.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VReadOutGeometry.hh
 G4SensitiveVolumeList.hh
 /home/leo/G4/geant4-install/include/Geant4/G4SensitiveVolumeList.hh
@@ -7304,6 +8430,7 @@ G4TouchableHistory.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VSceneHandler.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7320,6 +8447,8 @@ G4VSceneHandler.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VSceneHandler.icc
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VSensitiveDetector.hh
 G4VHit.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VHit.hh
@@ -7352,12 +8481,15 @@ G4VSolid.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VSolid.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VStateDependent.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 G4ApplicationState.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ApplicationState.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VSteppingVerbose.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7402,6 +8534,7 @@ map
 G4ThreeVector.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VTrajectoryModel.hh
 G4String.hh
 /home/leo/G4/geant4-install/include/Geant4/G4String.hh
@@ -7426,6 +8559,8 @@ rundefs.hh
 G4AutoLock.hh
 /home/leo/G4/geant4-install/include/Geant4/G4AutoLock.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VUserDetectorConstruction.hh
 vector
 -
@@ -7434,6 +8569,7 @@ globals.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4VUserEventInformation.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VUserPhysicsList.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7456,10 +8592,13 @@ G4Threading.hh
 
 /home/leo/G4/geant4-install/include/Geant4/G4VUserPrimaryGeneratorAction.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VUserTrackInformation.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VViewer.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7480,10 +8619,13 @@ G4ThreeVector.hh
 G4RotationMatrix.hh
 /home/leo/G4/geant4-install/include/Geant4/G4RotationMatrix.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VVolumeMaterialScanner.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4Vector3D.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7526,6 +8668,8 @@ vector
 G4VViewer.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VViewer.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VisAttributes.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7546,6 +8690,7 @@ G4VisAttributes.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VisAttributes.icc
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VisExecutive.hh
 G4VisManager.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VisManager.hh
@@ -7612,6 +8757,8 @@ G4VRML1.hh
 G4VRML2.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VRML2.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4VisExtent.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7620,6 +8767,7 @@ G4Point3D.hh
 G4Transform3D.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Transform3D.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VisManager.hh
 G4VVisManager.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VVisManager.hh
@@ -7654,6 +8802,8 @@ G4VisManager.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VisManager.icc
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/G4Visible.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
@@ -7674,6 +8824,7 @@ G4ThreeVector.hh
 assert.h
 -
 G4VoxelLimits.icc
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/G4VoxelLimits.icc
 
 /home/leo/G4/geant4-install/include/Geant4/G4VoxelLimits.icc
@@ -7845,6 +8996,45 @@ G4MuPairProduction.hh
 /home/leo/G4/geant4-install/include/Geant4/G4ionIonisation.hh
 G4VEnergyLossProcess.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VEnergyLossProcess.hh
+=======
+/home/leo/G4/geant4-install/include/Geant4/G4VoxelLimits.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4VoxelLimits.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4VoxelNavigation.hh
+geomdefs.hh
+/home/leo/G4/geant4-install/include/Geant4/geomdefs.hh
+G4NavigationHistory.hh
+/home/leo/G4/geant4-install/include/Geant4/G4NavigationHistory.hh
+G4NavigationLogger.hh
+/home/leo/G4/geant4-install/include/Geant4/G4NavigationLogger.hh
+G4AffineTransform.hh
+/home/leo/G4/geant4-install/include/Geant4/G4AffineTransform.hh
+G4VPhysicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VPhysicalVolume.hh
+G4LogicalVolume.hh
+/home/leo/G4/geant4-install/include/Geant4/G4LogicalVolume.hh
+G4VSolid.hh
+/home/leo/G4/geant4-install/include/Geant4/G4VSolid.hh
+G4ThreeVector.hh
+/home/leo/G4/geant4-install/include/Geant4/G4ThreeVector.hh
+G4BlockingList.hh
+/home/leo/G4/geant4-install/include/Geant4/G4BlockingList.hh
+G4AuxiliaryNavServices.hh
+/home/leo/G4/geant4-install/include/Geant4/G4AuxiliaryNavServices.hh
+vector
+-
+G4SmartVoxelProxy.hh
+/home/leo/G4/geant4-install/include/Geant4/G4SmartVoxelProxy.hh
+G4SmartVoxelNode.hh
+/home/leo/G4/geant4-install/include/Geant4/G4SmartVoxelNode.hh
+G4SmartVoxelHeader.hh
+/home/leo/G4/geant4-install/include/Geant4/G4SmartVoxelHeader.hh
+G4VoxelNavigation.icc
+/home/leo/G4/geant4-install/include/Geant4/G4VoxelNavigation.icc
+
+/home/leo/G4/geant4-install/include/Geant4/G4VoxelNavigation.icc
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 /home/leo/G4/geant4-install/include/Geant4/G4ios.hh
 G4Types.hh
@@ -7862,12 +9052,15 @@ G4Normal3D.hh
 G4Transform3D.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Transform3D.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/QGSP_BERT.hh
 globals.hh
 /home/leo/G4/geant4-install/include/Geant4/globals.hh
 G4VModularPhysicsList.hh
 /home/leo/G4/geant4-install/include/Geant4/G4VModularPhysicsList.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/Randomize.hh
 CLHEP/Random/Randomize.h
 -
@@ -7922,18 +9115,24 @@ G4EnvironmentUtils.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/icomsdefs.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/pwdefs.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+<<<<<<< HEAD
 /home/leo/G4/geant4-install/include/Geant4/rundefs.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 /home/leo/G4/geant4-install/include/Geant4/templates.hh
 limits
 -
@@ -7950,6 +9149,7 @@ G4GlobalConfig.hh
 G4Types.hh
 /home/leo/G4/geant4-install/include/Geant4/G4Types.hh
 
+<<<<<<< HEAD
 /home/leo/ROOT/build/include/Bytes.h
 Rtypes.h
 /home/leo/ROOT/build/include/Rtypes.h
@@ -8542,3 +9742,5 @@ unistd.h
 sys/types.h
 -
 
+=======
+>>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191

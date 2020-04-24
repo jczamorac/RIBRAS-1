@@ -117,6 +117,7 @@
 	 Float_t T_dssd2;
          //@}
  
+        Int_t StripNumber;
  };
  
  #endif /* ROOTSAVER_HH_ */

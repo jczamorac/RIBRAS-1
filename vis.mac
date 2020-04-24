@@ -16,7 +16,7 @@
 /vis/scene/add/trajectories smooth
 
 #Turn On/Off the magnetic field
-/det/field 1
+/det/field 0
 
 #Set Detector 1 position
 /det/detector1/pos -7.5 0 -18.
@@ -37,7 +37,7 @@
 /det/primary/energy 40 MeV
 /det/primary/Z 6
 /det/primary/A 16
-/det/primary/pos 0 0 -115
+/det/primary/pos -0.25 2.0 -115
 
 #Define the recoil particle
 /det/recoil/A 4
@@ -56,4 +56,4 @@
 #This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 10
+/run/beamOn 20
