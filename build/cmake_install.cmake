@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Install script for directory: /home/leo/Desktop/RIBRAS
-=======
-# Install script for directory: /home/leo/Desktop/RIBRAS/RIBRAS/Example
->>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -48,20 +44,12 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/arquivobinario"
          RPATH "")
   endif()
-<<<<<<< HEAD
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/leo/Desktop/RIBRAS/build/arquivobinario")
-=======
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/arquivobinario")
->>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/arquivobinario" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/arquivobinario")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/arquivobinario"
-<<<<<<< HEAD
          OLD_RPATH "/home/leo/ROOT/build/lib:/home/leo/G4/geant4-install/lib:/home/leo/CLHEP/CLHEP-install/lib:"
-=======
-         OLD_RPATH "/home/leo/ROOT/lib:/home/leo/G4/geant4-install/lib:/home/leo/CLHEP-install/lib:"
->>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/arquivobinario")
@@ -77,9 +65,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-<<<<<<< HEAD
 file(WRITE "/home/leo/Desktop/RIBRAS/build/${CMAKE_INSTALL_MANIFEST}"
-=======
-file(WRITE "/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/${CMAKE_INSTALL_MANIFEST}"
->>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

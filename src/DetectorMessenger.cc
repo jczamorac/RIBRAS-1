@@ -62,41 +62,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   magneticDir = new G4UIdirectory("/det/magnetic/");
   magneticDir->SetGuidance("magnetic field control");
 
-  xShiftCmd = new G4UIcmdWithADoubleAndUnit("/det/secondSensor/xShift", this);
-  xShiftCmd->SetGuidance("Define x-shift of second sensor plane");
-  xShiftCmd->SetParameterName("xShift", true);
-  xShiftCmd->SetDefaultValue(0.);
-  xShiftCmd->SetUnitCategory("Length");
-  xShiftCmd->SetDefaultUnit("um");
-
-  yShiftCmd = new G4UIcmdWithADoubleAndUnit("/det/secondSensor/yShift", this);
-  yShiftCmd->SetGuidance("Define y-shift of second sensor plane");
-  yShiftCmd->SetParameterName("yShift", true);
-  yShiftCmd->SetDefaultValue(0.);
-  yShiftCmd->SetUnitCategory("Length");
-  yShiftCmd->SetDefaultUnit("um");
-
-  z_slitCmd = new G4UIcmdWithADoubleAndUnit("/det/slit/z", this);
-  z_slitCmd->SetGuidance("Define z pos of slit");
-  z_slitCmd->SetParameterName("z_slit", true);
-  z_slitCmd->SetDefaultValue(30.);
-  z_slitCmd->SetUnitCategory("Length");
-  z_slitCmd->SetDefaultUnit("mm");
-
-  x_slitCmd = new G4UIcmdWithADoubleAndUnit("/det/slit/x", this);
-  x_slitCmd->SetGuidance("Define x pos of slit");
-  x_slitCmd->SetParameterName("x_slit", true);
-  x_slitCmd->SetDefaultValue(0.);
-  x_slitCmd->SetUnitCategory("Length");
-  x_slitCmd->SetDefaultUnit("mm");
-
-  xShiftPocketCmd = new G4UIcmdWithADoubleAndUnit("/det/pocket/xShiftPocket", this);
-  xShiftPocketCmd->SetGuidance("Define x-shift of firtst pocket");
-  xShiftPocketCmd->SetParameterName("xShiftPocket", true);
-  xShiftPocketCmd->SetDefaultValue(0.);
-  xShiftPocketCmd->SetUnitCategory("Length");
-  xShiftPocketCmd->SetDefaultUnit("mm");
-
+  // Update geometry command
   updateCmd = new G4UIcmdWithoutParameter("/det/update", this);
   updateCmd->SetGuidance("force to recompute geometry.");
   updateCmd->SetGuidance("This command MUST be applied before \"beamOn\" ");
@@ -121,9 +87,6 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   target_pos->SetGuidance("Set target position");
   target_pos->SetParameterName("X", "Y", "Z", true, true);
   target_pos->SetDefaultUnit("cm");
-
-  target_arial_density_cmd = new G4UIcmdWithADoubleAndUnit("/det/target/thickness", this);
-  target_arial_density_cmd->SetGuidance("Specify a target thickness (arial density) in units mg/cm2");
 
   target_width_cmd = new G4UIcmdWithADoubleAndUnit("/det/target/width", this);
   target_width_cmd->SetGuidance("Specify the target width in units mm");
@@ -184,22 +147,10 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   detector2_pos->SetGuidance("Set detector 2 position");
   detector2_pos->SetParameterName("X", "Y", "Z", true, true);
   detector2_pos->SetDefaultUnit("cm");
-
-  // Magnetic Field commands
-  current_1 = new G4UIcmdWithADoubleAndUnit("/det/magnetic/current1", this);
-  current_1->SetGuidance("Set magnetic field 1 current");
-
-  current_2 = new G4UIcmdWithADoubleAndUnit("/det/magnetic/current2", this);
-  current_2->SetGuidance("Set magnetic field 2 current");
 }
 
 DetectorMessenger::~DetectorMessenger()
 {
-  delete xShiftCmd;
-  delete yShiftCmd;
-  delete x_slitCmd;
-  delete z_slitCmd;
-  delete xShiftPocketCmd;
   delete secondSensorDir;
   delete target_material;
   delete target_Z;
@@ -223,36 +174,7 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
 {
   Inputs *Inputs = &Inputs::GetInputs();
 
-  if (command == xShiftCmd)
-  {
-    G4ThreeVector pos = detector->SecondSensorPosition();
-    pos.setX(xShiftCmd->GetNewDoubleValue(newValue));
-    detector->SetSecondSensorPosition(pos);
-  }
-
-  else if (command == yShiftCmd)
-  {
-    G4ThreeVector pos = detector->SecondSensorPosition();
-    pos.setY(yShiftCmd->GetNewDoubleValue(newValue));
-    detector->SetSecondSensorPosition(pos);
-  }
-
-  else if (command == z_slitCmd)
-  {
-    detector->SetSlit_z(z_slitCmd->GetNewDoubleValue(newValue));
-  }
-
-  else if (command == x_slitCmd)
-  {
-    detector->SetSlit_x(x_slitCmd->GetNewDoubleValue(newValue));
-  }
-
-  else if (command == xShiftPocketCmd)
-  {
-    detector->SetPocket1_x(xShiftPocketCmd->GetNewDoubleValue(newValue));
-  }
-
-  else if (command == updateCmd)
+  if (command == updateCmd)
   {
     detector->UpdateGeometry();
   }
@@ -268,10 +190,6 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
   else if (command == target_material)
   {
     Inputs->g4_material_name = newValue;
-  }
-  else if (command == target_arial_density_cmd)
-  {
-    Inputs->arial_density = target_arial_density_cmd->GetNewDoubleValue(newValue);
   }
   else if (command == target_pos)
   {
@@ -349,14 +267,5 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
   else if (command == detector2_pos)
   {
     Inputs->detector2_pos = detector2_pos->GetNew3VectorValue(newValue);
-  }
-
-  else if (command == current_1)
-  {
-    Inputs->current_1 = current_1->GetNewDoubleValue(newValue);
-  }
-  else if (command == current_2)
-  {
-    Inputs->current_2 = current_2->GetNewDoubleValue(newValue);
   }
 }

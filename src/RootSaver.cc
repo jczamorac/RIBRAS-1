@@ -1,5 +1,5 @@
- // $Id: RootSaver.cc 94 2010-01-26 13:18:30Z adotti $
- /**
+// $Id: RootSaver.cc 94 2010-01-26 13:18:30Z adotti $
+/**
   * @file   RootSaver.cc
   *
   * @date   17 Dec 2009
@@ -7,47 +7,61 @@
   * 
   * @brief  Implements class RootSaver.
   */
- 
- #include "DetectorConstruction.hh"
- #include "RootSaver.hh"
- //#include "SiDigi.hh"
- #include "SiHit.hh"
- #include "TTree.h"
- #include "TFile.h"
- #include "TMath.h"
- #include "TRandom3.h"
- 
- #include <fstream>
- #include <sstream>
- #include <iostream>
- #include <cassert>
 
- using namespace std;
- 
- RootSaver::RootSaver() : //Initializing parameters
-        rootTree(0), runCounter(0), nStrips(0),
-        Signal0(0), Signal1(0), Signal2(0),
-        Pos_x_det0(0), Pos_y_det0(0), Pos_z_det0(0),
-        Pos_x_det1(0), Pos_y_det1(0), Pos_z_det1(0),
-        Pos_x_det2(0), Pos_y_det2(0), Pos_z_det2(0),	 
-        E_det0(0), E_det1(0), E_det2(0),	 
-        TruthPosx(0), TruthPosy(0), TruthPosz(0), TruthAngle_theta(0), TruthAngle_phi(0),
-        Px_dssd(0), Py_dssd(0), Pz_dssd(0),    
-        T_dssd(0), T_sili1(0), T_sili2(0), T_dssd2(0),
-        Ekin_dssd2(0), StripNumber(0) {}
- 
- RootSaver::~RootSaver(){
+// Local Headers
+#include "DetectorConstruction.hh"
+#include "RootSaver.hh"
+//#include "SiDigi.hh"
+#include "SiHit.hh"
+#include "G4DigiManager.hh"
 
+// Root headers
+#include "TTree.h"
+#include "TFile.h"
+#include "TMath.h"
+#include "TRandom3.h"
+
+// Default headers
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+using namespace CLHEP;
+
+//-------------------------------------------------------------------------//
+
+RootSaver::RootSaver() : //Initializing parameters
+                         rootTree(0), runCounter(0), nStrips(0),
+                         Signal0(0), Signal1(0), Signal2(0),
+                         Signal3(0), Signal5(0), Signal6(0),
+                         Signal7(0),
+                         TruthPosx(0), TruthPosy(0), TruthPosz(0),
+                         TruthAngle_theta(0), TruthAngle_phi(0),
+                         Px_dssd(0), Py_dssd(0), Pz_dssd(0),
+                         T_dssd(0),
+                         Ekin_dssd2(0), StripNumber(0)
+{
+}
+
+//-------------------------------------------------------------------------//
+
+RootSaver::~RootSaver()
+{
         //Close current file if needed
-        if ( rootTree )
+        if (rootTree)
         {
                 CloseTree();
         }
- }
- 
-void RootSaver::CreateTree( const std::string& fileName , const std::string& treeName ){
+}
 
-        if ( rootTree )
+//-------------------------------------------------------------------------//
+
+void RootSaver::CreateTree(const std::string &fileName, const std::string &treeName)
+{
+
+        if (rootTree)
         {
                 std::cerr << "TTree already created, first call CloseTree" << std::endl;
                 return;
@@ -57,280 +71,400 @@ void RootSaver::CreateTree( const std::string& fileName , const std::string& tre
         fn << fileName << "_run_" << runCounter++ << ".root";
         //Create a new file and open it for writing, if the file already exists the file is overwritten
 
-        TFile* rootFile = TFile::Open( fn.str().data() , "recreate" );
+        TFile *rootFile = TFile::Open(fn.str().data(), "recreate");
 
-        if ( rootFile == 0 || rootFile->IsZombie() )
+        if (rootFile == 0 || rootFile->IsZombie())
         {
-                G4cerr<<"Error opening the file: "<<fn.str() <<" TTree will not be saved."<<G4endl;
+                G4cerr << "Error opening the file: " << fn.str() << " TTree will not be saved." << G4endl;
                 return;
         }
 
-        rootTree = new TTree( treeName.data() , treeName.data() );
+        rootTree = new TTree(treeName.data(), treeName.data());
         //TODO: Get detector strip numbers automatically
         nStrips = 60;
         Signal0 = new Float_t[nStrips];
         Signal1 = new Float_t[nStrips];
         Signal2 = new Float_t[nStrips];
-        
-        for ( Int_t strip = 0 ; strip < nStrips ; ++strip )
+        Signal3 = new Float_t[nStrips];
+        Signal4 = new Float_t[nStrips];
+        Signal5 = new Float_t[nStrips];
+        Signal6 = new Float_t[nStrips];
+        Signal7 = new Float_t[nStrips];
+
+        for (Int_t strip = 0; strip < nStrips; ++strip)
         {
                 Signal0[strip] = 0;
                 Signal1[strip] = 0;
                 Signal2[strip] = 0;
-                
+                Signal3[strip] = 0;
+                Signal4[strip] = 0;
+                Signal5[strip] = 0;
+                Signal6[strip] = 0;
+                Signal7[strip] = 0;
         }
 
-        //Digits variables
+        // Digits variables
         // Energia total por strip
-        rootTree->Branch( "E0", Signal0 ,   "E0[60]/F");
-        rootTree->Branch( "E1", Signal1 ,   "E1[60]/F");
-        rootTree->Branch( "E2", Signal2 ,   "E2[60]/F");
-        
-        //Hits variables
-        rootTree->Branch( "pos_x_det0" , &Pos_x_det0 );
-        rootTree->Branch( "pos_y_det0" , &Pos_y_det0 );
-        rootTree->Branch( "pos_z_det0" , &Pos_z_det0 );
+        rootTree->Branch("E0", Signal0, "E0[60]/F");
+        rootTree->Branch("E1", Signal1, "E1[60]/F");
+        rootTree->Branch("E2", Signal2, "E2[60]/F");
+        rootTree->Branch("E3", Signal3, "E3[60]/F");
+        rootTree->Branch("E4", Signal4, "E4[60]/F");
+        rootTree->Branch("E5", Signal5, "E5[60]/F");
+        rootTree->Branch("E6", Signal6, "E6[60]/F");
+        rootTree->Branch("E7", Signal7, "E7[60]/F");
 
-        rootTree->Branch( "pos_x_det1" , &Pos_x_det1 );
-        rootTree->Branch( "pos_y_det1" , &Pos_y_det1 );
-        rootTree->Branch( "pos_z_det1" , &Pos_z_det1 );
+        // Hits variables
+        rootTree->Branch("pos_x_det0", &Pos_x_det[0]);
+        rootTree->Branch("pos_y_det0", &Pos_y_det[0]);
+        rootTree->Branch("pos_z_det0", &Pos_z_det[0]);
 
-        rootTree->Branch( "pos_x_det2" , &Pos_x_det2 );
-        rootTree->Branch( "pos_y_det2" , &Pos_y_det2 );
-        rootTree->Branch( "pos_z_det2" , &Pos_z_det2 );
-        
+        rootTree->Branch("pos_x_det1", &Pos_x_det[1]);
+        rootTree->Branch("pos_y_det1", &Pos_y_det[1]);
+        rootTree->Branch("pos_z_det1", &Pos_z_det[1]);
+
+        rootTree->Branch("pos_x_det2", &Pos_x_det[2]);
+        rootTree->Branch("pos_y_det2", &Pos_y_det[2]);
+        rootTree->Branch("pos_z_det2", &Pos_z_det[2]);
+
+        rootTree->Branch("pos_x_det3", &Pos_x_det[3]);
+        rootTree->Branch("pos_y_det3", &Pos_y_det[3]);
+        rootTree->Branch("pos_z_det3", &Pos_z_det[3]);
+
+        rootTree->Branch("pos_x_det4", &Pos_x_det[4]);
+        rootTree->Branch("pos_y_det4", &Pos_y_det[4]);
+        rootTree->Branch("pos_z_det4", &Pos_z_det[4]);
+
+        rootTree->Branch("pos_x_det5", &Pos_x_det[5]);
+        rootTree->Branch("pos_y_det5", &Pos_y_det[5]);
+        rootTree->Branch("pos_z_det5", &Pos_z_det[5]);
+
+        rootTree->Branch("pos_x_det6", &Pos_x_det[6]);
+        rootTree->Branch("pos_y_det6", &Pos_y_det[6]);
+        rootTree->Branch("pos_z_det6", &Pos_z_det[6]);
+
+        rootTree->Branch("pos_x_det7", &Pos_x_det[7]);
+        rootTree->Branch("pos_y_det7", &Pos_y_det[7]);
+        rootTree->Branch("pos_z_det7", &Pos_z_det[7]);
+
         // Energia total no detector
-        rootTree->Branch( "ener_det0" , &E_det0 );
-        rootTree->Branch( "ener_det1" , &E_det1 );
-        rootTree->Branch( "ener_det2" , &E_det2 );
-        
-        rootTree->Branch( "truthPosx" , &TruthPosx );
-        rootTree->Branch( "truthPosy" , &TruthPosy );
-        rootTree->Branch( "truthPosz" , &TruthPosz );
+        rootTree->Branch("ener_det0", &E_det[1]);
+        rootTree->Branch("ener_det1", &E_det[2]);
+        rootTree->Branch("ener_det2", &E_det[3]);
+        rootTree->Branch("ener_det3", &E_det[4]);
+        rootTree->Branch("ener_det4", &E_det[5]);
+        rootTree->Branch("ener_det5", &E_det[6]);
+        rootTree->Branch("ener_det6", &E_det[7]);
+        rootTree->Branch("ener_det7", &E_det[8]);
 
-        rootTree->Branch( "truthAngle_theta" , &TruthAngle_theta );
-        rootTree->Branch( "truthAngle_phi" , &TruthAngle_phi );
+        rootTree->Branch("truthPosx", &TruthPosx);
+        rootTree->Branch("truthPosy", &TruthPosy);
+        rootTree->Branch("truthPosz", &TruthPosz);
 
-        rootTree->Branch( "px_dssd" , &Px_dssd );
-        rootTree->Branch( "py_dssd" , &Py_dssd );
-        rootTree->Branch( "pz_dssd" , &Pz_dssd );
+        rootTree->Branch("truthAngle_theta", &TruthAngle_theta);
+        rootTree->Branch("truthAngle_phi", &TruthAngle_phi);
 
-        rootTree->Branch( "t_dssd" , &T_dssd );
-        rootTree->Branch( "t_sili1" , &T_sili1 );
-        rootTree->Branch( "t_sili2" , &T_sili2 );
-        rootTree->Branch( "t_dssd2" , &T_dssd2 );
-        rootTree->Branch( "Ekin_dssd2" , &Ekin_dssd2 );    
+        rootTree->Branch("px_dssd", &Px_dssd);
+        rootTree->Branch("py_dssd", &Py_dssd);
+        rootTree->Branch("pz_dssd", &Pz_dssd);
 
-        rootTree->Branch( "Strip_Number" , &StripNumber );    
+        rootTree->Branch("t_dssd", &T_dssd);
+        rootTree->Branch("t_sili1", &T_sili[1]);
+        rootTree->Branch("t_sili2", &T_sili[2]);
+        rootTree->Branch("t_dssd2", &T_dssd);
+        rootTree->Branch("Ekin_dssd2", &Ekin_dssd2);
 
-}	
+        rootTree->Branch("Strip_Number", &StripNumber);
+}
+
+//-------------------------------------------------------------------------//
 
 void RootSaver::CloseTree()
 {
-        //Check if ROOT TTree exists,
-        //in case get the associated file and close it.
-        //Note that if a TFile goes above 2GB a new file
-        //will be automatically opened. We have thus to get,
-        //from the TTree the current opened file
-        if ( rootTree )
+        // Check if ROOT TTree exists,
+        // in case get the associated file and close it.
+        // Note that if a TFile goes above 2GB a new file
+        // will be automatically opened. We have thus to get,
+        // from the TTree the current opened file
+        if (rootTree)
         {
-                G4cout<<"Writing ROOT TTree: "<<rootTree->GetName()<<G4endl;
+                G4cout << "Writing ROOT TTree: " << rootTree->GetName() << G4endl;
                 //rootTree->Print();
                 rootTree->Write();
-                TFile* currentFile = rootTree->GetCurrentFile();
-                if ( currentFile == 0 || currentFile->IsZombie() )
+                TFile *currentFile = rootTree->GetCurrentFile();
+                if (currentFile == 0 || currentFile->IsZombie())
                 {
-                        G4cerr<<"Error closing TFile "<<G4endl;
+                        G4cerr << "Error closing TFile " << G4endl;
                         return;
                 }
                 currentFile->Close();
                 //The root is automatically deleted.
+
                 rootTree = 0;
                 delete[] Signal0;
                 delete[] Signal1;
                 delete[] Signal2;
-                
+                delete[] Signal3;
+                delete[] Signal4;
+                delete[] Signal5;
+                delete[] Signal6;
+                delete[] Signal7;
         }
+        G4cout << "Total of hits during simulation (including target): " << TotalHits << G4endl;
 }
 
-void RootSaver::AddEvent( const SiHitCollection* const hits, const G4ThreeVector& primPos, const G4ThreeVector& primMom ){
+//-------------------------------------------------------------------------//
 
+void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector &primPos, const G4ThreeVector &primMom)
+{
         //If root TTree is not created ends
-        if ( rootTree == 0 )
+        if (rootTree == 0)
         {
-                 return;
+                return;
         }
-
-        // Store Hits infromation
-        if ( hits )
+        
+        // Store Hits information
+        if (hits)
         {
                 G4int nHits = hits->entries();
-
-                // Set defaults
-                E_det0 = 0;
-                E_det1 = 0;
-                E_det2 = 0;
-
+                TotalHits++;
+                // Set defaults values
                 Ekin_dssd2 = 0;
-
-                Pos_x_det0 = -1000;
-                Pos_x_det1 = -1000;
-                Pos_x_det2 = -1000;
-                        
-                Pos_y_det0 = -1000;
-                Pos_z_det0 = -1000;
-
-                Pos_y_det1 = -1000;
-                Pos_z_det1 = -1000;
-
-                Pos_y_det2 = -1000;
-                Pos_z_det2 = -1000;
 
                 Px_dssd = -1000;
                 Py_dssd = -1000;
-                Pz_dssd = -1000;    
+                Pz_dssd = -1000;
 
                 T_dssd = -1000;
-                T_sili1 = -1000;
-                T_sili2 = -1000;
-                T_dssd2 = -1000;
 
                 StripNumber = -1000;
 
-                //Loop on all hits, consider only the hits with isPrimary flag
-                //Position is weighted average of hit x()
-                for ( G4int h = 0 ; (h<nHits) ; ++h )
+                // Loop on all hits, consider only the hits with isPrimary flag
+                // Position is weighted average of hit x()
+
+                for (G4int h = 0; (h < nHits); ++h)
                 {
-                        const SiHit* hit = static_cast<const SiHit*>( hits->GetHit( h ) );
-                        //Uncomment this line if you want to record only
-                        //primary energy depositions
-                        //if ( hit->GetIsPrimary() == false ) continue;
+                        const SiHit *hit = static_cast<const SiHit *>(hits->GetHit(h));
+
+                        // Getting what strip ocurred a hit
                         G4int stripNum = hit->GetStripNumber();
                         StripNumber = stripNum;
+
+                        // Same for detector
                         G4int planeNum = hit->GetPlaneNumber();
+
+                        // Getting position of hit (detector reference)
                         G4ThreeVector pos = hit->GetPosition();
-                        G4ThreeVector momentum = hit->GetIncidenceMomentumDirection();
                         G4double x = pos.x();
                         G4double y = pos.y();
                         G4double z = pos.z();
 
+                        // Getting momentum
+                        G4ThreeVector momentum = hit->GetIncidenceMomentumDirection();
                         G4double momet_x = momentum.x();
                         G4double momet_y = momentum.y();
                         G4double momet_z = momentum.z();
 
+                        // Hit time
                         G4double tiempo = hit->GetIncidenceTime();
-                        G4double ekine = hit->GetIncidenceKineticEnergy();
 
-                        //We save xyz in CLHEP::mm (detector coordinates)
+                        // We save xyz in mm (detector coordinates)
                         x /= CLHEP::mm;
                         y /= CLHEP::mm;
                         z /= CLHEP::mm;
+
+                        // Time in nanoseconds
                         tiempo /= CLHEP::ns;
-                        ekine /= CLHEP::MeV;
-                        //We save energy in MeV
+
+                        // We save energy in MeV
                         Float_t edep = static_cast<Float_t>(hit->GetEdep());
                         edep /= CLHEP::MeV;
 
-                        G4cout.precision(7);
-                        G4cout << "Strip: " << stripNum << " ||" << " Detector "<< planeNum <<" ||" <<" x: "<< x << " ||" <<" y: "<< y << " ||" << " Hits: " << nHits << G4endl;
-
-                        if ( planeNum == 0 )
+                        // Saving information for each detector
+                        if (planeNum == 0)
                         {
-                                if ( hit->GetIsPrimary() == true ){ 
-                                        Pos_x_det0 = x;
-                                        Pos_y_det0 = y;
-                                        Pos_z_det0 = z;
-                                        T_sili1 = tiempo;
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[1] = x;
+                                        Pos_y_det[1] = y;
+                                        Pos_z_det[1] = z;
+                                        T_sili[1] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det0 += Econv;
-                                Signal0[stripNum] = E_det0;
+                                E_det[1] += Econv;
+                                Signal0[stripNum] = E_det[1];
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
-                        else if ( planeNum == 1)
+                        else if (planeNum == 1)
                         {
-                                if ( hit->GetIsPrimary() == true ){ 
-                                        Pos_x_det1 = x;
-                                        Pos_y_det1 = y;
-                                        Pos_z_det1 = z;
-                                        Px_dssd = momet_x;
-                                        Py_dssd = momet_y;
-                                        Pz_dssd = momet_z;
-                                        T_dssd = tiempo;
-                                        // G4cout<< "Energia: " << E_dssd << G4endl;
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[2] = x;
+                                        Pos_y_det[2] = y;
+                                        Pos_z_det[2] = z;
+                                        T_sili[2] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det1 += Econv;
+                                E_det[2] += Econv;
                                 Signal1[stripNum] += Econv;
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
-                                else if ( planeNum == 2)
+                        else if (planeNum == 2)
                         {
-                                if ( hit->GetIsPrimary() == true ){
-                                        Pos_x_det2 = x;
-                                        Pos_y_det2 = y;
-                                        Pos_z_det2 = z;
-                                        T_sili2 = tiempo;
-                                        }
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[3] = x;
+                                        Pos_y_det[3] = y;
+                                        Pos_z_det[3] = z;
+                                        T_sili[3] = tiempo;
+                                }
                                 double Econv = Digital(edep);
-                                E_det2 += Econv;
+                                E_det[3] += Econv;
                                 Signal2[stripNum] += Econv;
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
-
-                        
+                        else if (planeNum == 3)
+                        {
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[4] = x;
+                                        Pos_y_det[4] = y;
+                                        Pos_z_det[4] = z;
+                                        T_sili[4] = tiempo;
+                                }
+                                double Econv = Digital(edep);
+                                E_det[4] += Econv;
+                                Signal3[stripNum] += Econv;
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
+                        }
+                        else if (planeNum == 4)
+                        {
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[5] = x;
+                                        Pos_y_det[5] = y;
+                                        Pos_z_det[5] = z;
+                                        T_sili[5] = tiempo;
+                                }
+                                double Econv = Digital(edep);
+                                E_det[5] += Econv;
+                                Signal4[stripNum] += Econv;
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
+                        }
+                        else if (planeNum == 6)
+                        {
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[7] = x;
+                                        Pos_y_det[7] = y;
+                                        Pos_z_det[7] = z;
+                                        T_sili[7] = tiempo;
+                                }
+                                double Econv = Digital(edep);
+                                E_det[7] += Econv;
+                                Signal6[stripNum] += Econv;
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
+                        }
+                        else if (planeNum == 7)
+                        {
+                                if (hit->GetIsPrimary() == true)
+                                {
+                                        Pos_x_det[8] = x;
+                                        Pos_y_det[8] = y;
+                                        Pos_z_det[8] = z;
+                                        T_sili[8] = tiempo;
+                                }
+                                double Econv = Digital(edep);
+                                E_det[8] += Econv;
+                                Signal7[stripNum] += Econv;
+                                G4cout.precision(7);
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
+                        }
                         else
                         {
-                                G4cerr<<"Hit Error: Plane number "<<planeNum<<" expected max value: 9"<<G4endl;
+                                G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
                                 continue;
                         }
-
                 }
         }
         else
         {
-                G4cerr<<"Error: No hits collection passed to RootSaver"<<G4endl;
+                G4cerr << "Error: No hits collection passed to RootSaver" << G4endl;
         }
-        TruthPosx = static_cast<Float_t>( primPos.x() );
-        TruthPosy = static_cast<Float_t>( primPos.y() );
-        TruthPosz = static_cast<Float_t>( primPos.z() );
+        TruthPosx = static_cast<Float_t>(primPos.x());
+        TruthPosy = static_cast<Float_t>(primPos.y());
+        TruthPosz = static_cast<Float_t>(primPos.z());
         //Measure angle of the beam in xz plane measured from z+ direction
         // -pi<Angle<=pi (positive when close to x positiove direction)
-        Float_t sign_z = ( primMom.z()>= 0 ) ? +1 : -1;
-        Float_t sign_x = ( primMom.x()>= 0 ) ? +1 : -1;
-        TruthAngle_theta = ( primMom.z() != 0 ) ?
-                        TMath::PiOver2()*sign_x*(1-sign_z)+std::atan( primMom.x()/primMom.z() )
-                        : sign_x*TMath::PiOver2(); //beam perpendicular to z
+        Float_t sign_z = (primMom.z() >= 0) ? +1 : -1;
+        Float_t sign_x = (primMom.x() >= 0) ? +1 : -1;
+        TruthAngle_theta = (primMom.z() != 0) ? TMath::PiOver2() * sign_x * (1 - sign_z) + std::atan(primMom.x() / primMom.z())
+                                              : sign_x * TMath::PiOver2(); //beam perpendicular to z
         TruthAngle_theta /= CLHEP::deg;
 
         //Measure angle of the beam in xy. Phi
-        // -pi/2<Phi<=pi/2 
+        // -pi/2<Phi<=pi/2
 
-        Float_t sign_y = ( primMom.y()>= 0 ) ? +1 : -1;
-        TruthAngle_phi = ( primMom.x() != 0 ) ?
-                        sign_y*std::abs(atan( primMom.y()/primMom.x()) )
-                        : sign_y*TMath::PiOver2(); //beam perpendicular to x
+        Float_t sign_y = (primMom.y() >= 0) ? +1 : -1;
+        TruthAngle_phi = (primMom.x() != 0) ? sign_y * std::abs(atan(primMom.y() / primMom.x()))
+                                            : sign_y * TMath::PiOver2(); //beam perpendicular to x
         TruthAngle_phi /= CLHEP::deg;
-        //G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<G4endl;        
+        //G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<G4endl;
         //if(TruthAngle_phi>7 && E_dssd2 > 0)G4cout<<"atan "<<std::abs(atan( primMom.y()/primMom.x() ))<<" en degree "<<TruthAngle_phi<<G4endl;
         //if(TruthAngle_phi>9 && E_dssd2 > 2)G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<" z mom "<< primMom.z()<<" pos x  "<<TruthPosx<<" pos y  "<<TruthPosy<<" pos z "<<TruthPosz<<" posy "<< Pos_y_dssd2<<G4endl;
 
         rootTree->Fill();
 }
 
+//-------------------------------------------------------------------------//
 
-double RootSaver::Digital(double Eraw){
+double RootSaver::Digital(double Eraw)
+{
 
-//TRandom3* myRandom = new TRandom3();
-double ion_pot = 3.6e-6; //eV
-double fanofactor = 0.1;
-double sigmaElnoise = 11.75e-3; //keV
-int Nelectrons = floor(Eraw/ion_pot);
-Nelectrons = gRandom -> Gaus(Nelectrons, sqrt(Nelectrons*fanofactor));
-double energypoint = Nelectrons*ion_pot;
-energypoint = gRandom -> Gaus(energypoint, sigmaElnoise); //electronic noise
+        //TRandom3* myRandom = new TRandom3();
+        double ion_pot = 3.6e-6; //eV
+        double fanofactor = 0.1;
+        double sigmaElnoise = 11.75e-3; //keV
+        int Nelectrons = floor(Eraw / ion_pot);
+        Nelectrons = gRandom->Gaus(Nelectrons, sqrt(Nelectrons * fanofactor));
+        double energypoint = Nelectrons * ion_pot;
+        energypoint = gRandom->Gaus(energypoint, sigmaElnoise); //electronic noise
 
-//delete myRandom;
+        //delete myRandom;
 
-return energypoint;
-
+        return energypoint;
 }
-
-

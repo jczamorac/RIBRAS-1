@@ -136,14 +136,6 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 //////////////////////////////////////////////////////////////////////////////////////////
 void EventAction::EndOfEventAction(const G4Event *anEvent)
 {
-	//Digitize!!
-	/*G4DigiManager * digiManager = G4DigiManager::GetDMpointer();
-	SiDigitizer* digiModule = static_cast<SiDigitizer*>( digiManager->FindDigitizerModule("SiDigitizer") );
-	if ( digiModule )
-	{
-			digiModule->Digitize();
-	}
-*/
 	//Store information
 	if (rootSaver)
 	{
@@ -198,12 +190,12 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 							  : Inputs->target_mass;
 
 	G4double RecoilMass = (Inputs->recoil_mass == 0.0)
-							  ? getMass(Inputs->recoil_Z, Inputs->recoil_A) /* RecoilParticle->GetPDGMass() *MeV /* getMass(Inputs->recoil_Z, Inputs->recoil_A) */ // Atomic mass (with electrons) */
+							  ? getMass(Inputs->recoil_Z, Inputs->recoil_A) 	  // Atomic mass (without electrons) 
 							  : Inputs->recoil_mass;
 	RecoilMass += Inputs->recoil_Ex;
 
 	G4double EjectileMass = (Inputs->ejectile_mass == 0.0)
-								? getMass(Inputs->ejectile_Z, Inputs->ejectile_A) /* EjectileParticle->GetPDGMass() /* getMass(Inputs->ejectile_Z, Inputs->ejectile_A) */ // Isotopic mass (without electrons) */
+								? getMass(Inputs->ejectile_Z, Inputs->ejectile_A) // Isotopic mass (without electrons) */
 								: Inputs->ejectile_mass;
 	EjectileMass += Inputs->ejectile_Ex;
 

@@ -38,8 +38,7 @@
    /// @name methods from base class G4VSensitiveDetector
    //@{
    /// Mandatory base class method : it must to be overloaded:
-    G4bool ProcessHits(G4Step *step, G4TouchableHistory *ROhist);
- 
+   G4bool ProcessHits(G4Step *step, G4TouchableHistory *ROhist);
    /// (optional) method of base class G4VSensitiveDetector
    void Initialize(G4HCofThisEvent* HCE);
    /// (optional) method of base class G4VSensitiveDetector

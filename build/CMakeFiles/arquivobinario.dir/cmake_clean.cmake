@@ -16,13 +16,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/arquivobinario.dir/src/SiHit.cc.o"
   "CMakeFiles/arquivobinario.dir/src/StepMax.cc.o"
   "CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o"
-<<<<<<< HEAD
   "arquivobinario.pdb"
   "arquivobinario"
-=======
-  "arquivobinario"
-  "arquivobinario.pdb"
->>>>>>> cb07d2e02789bdab2dbb7f4d731366b95fb38191
 )
 
 # Per-language clean rules from dependency scanning.

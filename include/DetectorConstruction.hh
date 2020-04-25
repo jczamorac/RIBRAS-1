@@ -1,16 +1,18 @@
-// $Id: DetectorConstruction.hh 33 2010-01-14 17:08:18Z adotti $
 #ifndef DetectorConstruction_h
 #define DetectorConstruction_h 1
 
-/**
-* @file
-* @brief Defines mandatory user class DetectorConstruction.
-*/
-
+// Local headers
+#include "DetectorConstruction.hh"
+#include "DetectorMessenger.hh"
+#include "MagneticField.hh"
+#include "SensitiveDetector.hh"
 #include "globals.hh"
+
+// Geant4 headers
 #include "G4VUserDetectorConstruction.hh"
 #include "G4ThreeVector.hh"
-#include "G4ParticleDefinition.hh"
+#include "G4Box.hh"
+#include "G4Tubs.hh"
 
 class MagneticField;
 class MagneticField2;
@@ -22,258 +24,177 @@ class G4Ions;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-/*!
-\brief This mandatory user class defines the geometry.
-
-It is responsible for
-- Definition of material, and
-- Construction of geometry
-
-\sa Construct()
-*/
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
-  //! Constructor
+  // Constructor
   DetectorConstruction();
-  //! Destructor
+  // Destructor
   ~DetectorConstruction();
-public:
-  //! Construct geometry of the setup
-  G4VPhysicalVolume* Construct();
-
-  //! Update geometry
+  // Construct geometry of the setup
+  G4VPhysicalVolume *Construct();
+  // Update geometry
   void UpdateGeometry();
 
-  //! \name some simple set & get functions
-  //@{
-  G4ThreeVector FirstSensorPosition() const  { return vector_D_0_0; }
-  G4ThreeVector SecondSensorPosition() const { return vector_D_0_1; }
-  //G4ThreeVector ThirdSensorPosition() const { return vector_D_0_2; }
-  //G4ThreeVector CuartoSensorPosition() const { return posCuartoSensor; }
-
-  G4ThreeVector SetFirstSensorPosition(const G4ThreeVector & pos) { return vector_D_0_0=pos; }
-  G4ThreeVector SetSecondSensorPosition(const G4ThreeVector & pos) { return vector_D_0_1=pos; }
-  // G4ThreeVector SetThirdSensorPosition(const G4ThreeVector & pos) { return vector_D_0_2=pos; }
-  //G4ThreeVector SetCuartoSensorPosition(const G4ThreeVector & pos) { return posCuartoSensor=pos; }
-
-
-
-//-------------------------algunos mensajes------------------------------
-  G4double GetSlit_z() const { return slit_z; }
-  G4double SetSlit_z(const G4double el_z)  { return slit_z=el_z; }
-
-  G4double GetSlit_x() const { return slit_x; }
-  G4double SetSlit_x(const G4double el_x)  { return slit_x=el_x; }
-
-  G4double GetPocket1_x() const { return pocket_x; }
-  G4double SetPocket1_x(const G4double el_x_pocket)  { return pocket_x=el_x_pocket; }
-//-----------------------------------------------------------------------
-
-
-  //@}
 private:
-  //! define needed materials
+  // Define needed materials
   void DefineMaterials();
-  //! initialize geometry parameters
+  // Initialize geometry parameters
   void ComputeParameters();
-  //! Construct geometry of the Beam Telescope
-  G4VPhysicalVolume* ConstructDetectors();
-  //! Construct geometry of the Device-under-test
+  // Construct geometry of the Beam Telescope
+  void ConstructDetectors();
+  // Construct geometry of the Device-under-test
   void ConstructSetup(void);
 
-
-  //G4VPhysicalVolume* ConstructRings();
-  //! Construct geometry of the Device-under-test
-  G4VPhysicalVolume* ConstructRing_D_0_0();
-  //! Construct geometry of the 2Pocket
-  G4VPhysicalVolume* ConstructRing_D_0_1();
-
-  G4VPhysicalVolume* ConstructRing_D_0_2();
-
-  G4double* rotacion(G4double dx , G4double dy, G4double dz, G4double angulo);
+  // Function to construct detectors
+  G4VPhysicalVolume *Construct_D_0_0();
+  G4VPhysicalVolume *Construct_D_0_1();
+  G4VPhysicalVolume *Construct_D_0_2();
+  G4VPhysicalVolume *Construct_D_0_3();
+  G4VPhysicalVolume *Construct_D_0_4();
+  G4VPhysicalVolume *Construct_D_0_5();
+  G4VPhysicalVolume *Construct_D_0_6();
+  G4VPhysicalVolume *Construct_D_0_7();
 
 private:
+  // -------------------------------------------------------------------------  //
 
-  //! \name Materials
-  //@{
-  G4Material* air;
-  G4Material* silicon;
-  G4Material* vacuum;
-  G4Material* H2;
-  G4Material* AlN;
-  G4Material* steel;
-  G4Material* tungsten;
-  G4Material* lead;
-  G4Material* tantalum;
-  G4Material* sio2;
-  G4Material* CH4;
+  // Messenger
+  DetectorMessenger *messenger;
 
-  //@}
+  // -------------------------------------------------------------------------  //
 
-  //! \name Geometry
-  //@{
+  // Materials
+  G4Material *air;
+  G4Material *silicon;
+  G4Material *vacuum;
+  G4Material *H2;
+  G4Material *AlN;
+  G4Material *steel;
+  G4Material *tungsten;
+  G4Material *lead;
+  G4Material *tantalum;
+  G4Material *sio2;
+  G4Material *CH4;
 
-  //! global mother volume
-  G4LogicalVolume* logicWorld;
-  G4LogicalVolume* logmagnetico;
+  // -------------------------------------------------------------------------  //
 
-  MagneticField* magneticField;
-  MagneticField2* magneticField2;
+  // Logical Volumes
+  G4LogicalVolume *logicWorld;          // World
 
+  G4LogicalVolume *Log_Solenoid1;       // Solenoid 1
+  G4LogicalVolume *Log_Solenoid2;       // Solenoid 2
 
-  //G4VPhysicalVolume * physiSensorslit;
+  G4LogicalVolume *Log_Magnet1;         // Magnetic Field 1
+  G4LogicalVolume *Log_Magnet2;         // Magnetic Field 2
 
-  G4VPhysicalVolume * physiTarget;
-  G4VPhysicalVolume * physiCilindro;
-  G4VPhysicalVolume* solenoidef;
-  G4VPhysicalVolume* Phy_Solenoid;
+  G4LogicalVolume *Log_Target;          // Target
 
-  //  Região do campo magnético
+  G4LogicalVolume *logicSensorStripD00; // Strips
+  G4LogicalVolume *logicSensorStripD01;
+  G4LogicalVolume *logicSensorStripD02;
+  G4LogicalVolume *logicSensorStripD03;
+  G4LogicalVolume *logicSensorStripD04;
+  G4LogicalVolume *logicSensorStripD05;
+  G4LogicalVolume *logicSensorStripD06;
+  G4LogicalVolume *logicSensorStripD07;
 
+  // -------------------------------------------------------------------------  //
 
-  //G4VPhysicalVolume* Phy_Magnet;
-  //G4VPhysicalVolume* magneticof;
+  // Physical Volumes
+  G4VPhysicalVolume *Phys_Solenoid1;    // Solenoid 1
+  G4VPhysicalVolume *Phys_Solenoid2;    // Solenoid 2
+  G4VPhysicalVolume *Phys_Magnet1;      // Magnetic Field 1
+  G4VPhysicalVolume *Phys_Magnet2;      // Magnetic Field 2
+  G4VPhysicalVolume *Phys_Target;       // Target
 
+  // -------------------------------------------------------------------------  //
 
+  // Solid Volumes
+  G4Tubs *Sol_Solenoid1;                // Solenoid 1
+  G4Tubs *Sol_Solenoid2;                // Solenoid 2
+  G4Tubs *Sol_Magnet1;                  // Magnetic Field 1
+  G4Tubs *Sol_Magnet2;                  // Magnetic Field 2
+  G4Box  *Sol_Target;                   // Target
 
+  // -------------------------------------------------------------------------  //
 
-//@}
+  // Magnetic Field
+  MagneticField *magneticField;
 
-  //! \name Parameters
-  //@{
-  G4double halfWorldLength;
+  // -------------------------------------------------------------------------  //
 
-  G4int noOfSensorStrips;
-  G4double Lengthy_sili;
-  G4double Thickness_sili;
+  // Parameters
+  G4double halfWorldLength;             // World half length
+  G4int noOfSensorStrips;               // Number of Strips in each detector
 
-  G4double Lengthx_sili;
+  // -------------------------------------------------------------------------  //
 
-  G4double Lengthy_dssd;
-  G4double Thickness_dssd;
-  G4double Thickness_dssd_gr;
-  G4double Lengthx_dssd;
+  // Detectors parameters
+  G4double Lengthy_dssd_t1;             // Detectors height
+  G4double Thickness_dssd_t1;           // Detectors thickness
+  G4double Lengthx_dssd_t1;             // Detectors length
 
-  G4ThreeVector posFirstSensor;
-  G4ThreeVector posSecondSensor;
-  G4ThreeVector posSecondSensor1a;
-  G4ThreeVector posThirdSensor;
+  // -------------------------------------------------------------------------  //
+};
 
-  G4double slit_x;
-  G4double slit_z;
-  G4double pocket_x;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-  G4double fwhm_beam;
-  G4double fwhm_target;
-  //@}
+// This class contain all the inputs needed by the simulation
+class Inputs
+{
+public:
+  static Inputs &GetInputs()
+  {
+    static Inputs instance;
+    return instance;
+  }
 
-  //------------ring D_0_0
-  G4VPhysicalVolume * physiSensorStripD_0_0;
-  G4VPhysicalVolume* detector1phys;
-  G4ThreeVector vector_D_0_0;
-  G4double phi_D_0_0;
-  G4double coorx_D_0_0;
-  G4double coory_D_0_0;
-  G4double coorz_D_0_0;
-  G4double coorx_D_0_0_e;
-  G4double coory_D_0_0_e;
-  G4double coorz_D_0_0_e;
-  G4double theta_D_0_0;
-
-
-  //------------ring D_0_1
-  G4VPhysicalVolume* physiSensorStripD_0_1;
-  G4VPhysicalVolume* physiSensorRing_D_0_1;
-  G4ThreeVector vector_D_0_1;
-  G4double phi_D_0_1;
-  G4double coorx_D_0_1;
-  G4double coory_D_0_1;
-  G4double coorz_D_0_1;
-  G4double coorx_D_0_1_e;
-  G4double coory_D_0_1_e;
-  G4double coorz_D_0_1_e;
-  G4double theta_D_0_1;
-
-  G4double Lengthy_dssd_t1;
-  G4double Thickness_dssd_t1;
-  G4double Lengthx_dssd_t1;
-
-  G4VPhysicalVolume* detector2phys;
-
-  //! \name UI Messenger
-  //@{
-  DetectorMessenger * messenger;
-  //@}
-  //
- };
-
- //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-// Static singleton to handle inputs for CESimulations across translation units (*.hh/*.cc file pairs)
- class Inputs {
- public:
- 	static Inputs& GetInputs() {
- 		static Inputs    instance;
- 		return instance;
- 	}
- public: // Flags:
- 	G4bool initialized;
- 	G4bool using_lh2;
- 	G4bool using_recfoil;
- 	G4bool using_cylfoil;
- 	G4bool using_lenda;
- 	G4bool using_cagra;
- 	G4bool using_source;
+public: // Flags:
+  G4bool initialized;
   G4bool using_magneticfield;
- 	G4double source_energy;
- public: // Target
- 	// Uppercase -> set internally (may derive from input file down the line)
- 	G4Material* TargetMaterial;
-  G4ThreeVector target_pos;
- 	// Lowercase -> set externally (mac file)
- 	G4double radius;
- 	G4double height, width;
- 	G4double arial_density;
- 	G4String g4_material_name;
- public: // Recoil / Ejectile
- 	G4double recoil_mass, recoil_Ex;
- 	G4int recoil_A, recoil_Z;
- 	G4double target_mass;
- 	G4int target_A, target_Z;
- 	G4double ejectile_mass, ejectile_Ex;
- 	G4int ejectile_A, ejectile_Z;
-  G4ParticleDefinition* RecoilParticle;
-  G4ParticleDefinition* EjectileParticle;  
- public: // Primary beam
-  G4double primary_energy;
-  G4int primary_Z, primary_A;
-  G4ThreeVector primary_pos;
- public: // Detectors
-  G4ThreeVector detector1_pos;
-  G4ThreeVector detector2_pos;
- public: // Magnetic field
-  G4double current_1, current_2;
 
-  
- private:
- 	Inputs() : // Initializing parameters
- 		initialized(false),
- 		using_lh2(false), using_recfoil(false),
-    using_magneticfield(false),
- 		source_energy(0.0), TargetMaterial(nullptr),
- 		radius(0.0), height(0.0), width(1),
- 		arial_density(0.0),	g4_material_name(""),
- 		recoil_mass(0.0), recoil_Ex(0.0),
- 		recoil_A(0), recoil_Z(0), target_mass(0),
- 		target_A(0), target_Z(0), target_pos(0),
- 		ejectile_mass(0.0), ejectile_Ex(0.0),
- 		ejectile_A(0), ejectile_Z(0),
-    primary_energy(0), primary_Z(0), primary_A(0),
-    primary_pos(0), RecoilParticle(0), EjectileParticle(0),
-    detector1_pos(0), detector2_pos(0),
-    current_1(0), current_2(0){};
- 	Inputs(Inputs const&) = delete;
- 	void operator=(Inputs const&) = delete;
- };
- #endif
+public: // Target
+  G4Material *TargetMaterial;                 // Target material
+  G4ThreeVector target_pos;                   // Target Position 
+  G4double width;                             // Target thickness
+  G4String g4_material_name;      
+  G4double target_mass;                       // Target Mass
+  G4int target_A, target_Z;                   // Target A , Z
+
+public: // Recoil / Ejectile
+  G4double recoil_mass, recoil_Ex;            // Recoil particle mass, excitation energy
+  G4int recoil_A, recoil_Z;                   // Recoil particle A , Z
+
+  G4double ejectile_mass, ejectile_Ex;        // Ejectile particle mass, excitation energy
+  G4int ejectile_A, ejectile_Z;               // Ejectile particle A , Z
+
+  G4ParticleDefinition *RecoilParticle;
+  G4ParticleDefinition *EjectileParticle;
+
+public: // Primary beam
+  G4double primary_energy;                    // Primary beam energy
+  G4int primary_Z, primary_A;                 // Primary beam Z , A
+  G4ThreeVector primary_pos;                  // Primary beam vertex position
+
+public: // Detectors
+  G4ThreeVector detector1_pos;                
+  G4ThreeVector detector2_pos;
+
+private:
+  Inputs() : // Initializing parameters
+             initialized(false),
+             using_magneticfield(false), TargetMaterial(nullptr),
+             width(1), g4_material_name(""),
+             recoil_mass(0.0), recoil_Ex(0.0),
+             recoil_A(0), recoil_Z(0), target_mass(0),
+             target_A(0), target_Z(0), target_pos(0),
+             ejectile_mass(0.0), ejectile_Ex(0.0),
+             ejectile_A(0), ejectile_Z(0),
+             primary_energy(0), primary_Z(0), primary_A(0),
+             primary_pos(0), RecoilParticle(0), EjectileParticle(0),
+             detector1_pos(0), detector2_pos(0){};
+  Inputs(Inputs const &) = delete;
+  void operator=(Inputs const &) = delete;
+};
+#endif

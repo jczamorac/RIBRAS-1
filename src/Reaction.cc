@@ -70,8 +70,8 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track& aTrack,
   *condition=NotForced;
 
   G4String name = aTrack.GetVolume()->GetLogicalVolume()->GetName();
-
-  if(name=="alvolog" && gCESimulationManager->GetWasThereACEReaction()==false){
+  
+  if(name=="Log_Target" && gCESimulationManager->GetWasThereACEReaction()==false){
     
     // Get z position of the target
     G4double ZCEReaction = Inputs->target_pos.getZ() + 301 *cm;    //301 cm correspods to the center of the second solenoid

@@ -31,7 +31,6 @@ public:
   DetectorMessenger(DetectorConstruction *);
   //! Destructor
   ~DetectorMessenger();
-
   //! handle user commands
   void SetNewValue(G4UIcommand *command, G4String newValue);
 
@@ -49,14 +48,6 @@ private:
   G4UIdirectory *detectorDir;
   G4UIdirectory *magneticDir;
 
-  G4UIcmdWithADoubleAndUnit *xShiftCmd;
-  G4UIcmdWithADoubleAndUnit *yShiftCmd;
-  G4UIcmdWithADoubleAndUnit *thetaCmd;
-
-  G4UIcmdWithADoubleAndUnit *z_slitCmd;
-  G4UIcmdWithADoubleAndUnit *x_slitCmd;
-  G4UIcmdWithADoubleAndUnit *xShiftPocketCmd;
-
   G4UIcmdWithoutParameter *updateCmd;
 
   G4UIcmdWithABool *setDUTsetupCmd;
@@ -64,9 +55,6 @@ private:
   // Commands for target
   G4UIcmdWithAString *target_material;
   G4UIcmdWithADoubleAndUnit *target_width_cmd;
-  G4UIcmdWithADoubleAndUnit *target_height_cmd;
-  G4UIcmdWithADoubleAndUnit *target_radius_cmd;
-  G4UIcmdWithADoubleAndUnit *target_arial_density_cmd;
   G4UIcmdWithADoubleAndUnit *target_mass;
   G4UIcmdWithAnInteger *target_A;
   G4UIcmdWithAnInteger *target_Z;
@@ -74,10 +62,6 @@ private:
 
   // Turn On/Off magnetic field
   G4UIcmdWithABool *magneticfieldon;
-
-  // Commands for magnetic field
-  G4UIcmdWithADoubleAndUnit *current_1;
-  G4UIcmdWithADoubleAndUnit *current_2;
 
   // Commands for recoil particle
   G4UIcmdWithADoubleAndUnit *recoil_Ex;
