@@ -487,7 +487,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_1()
                                                         "Detector_1",
                                                         Log_Magnet2,
                                                         false,
-                                                        1,
+                                                        0,
                                                         true);
 
   //////////////
@@ -547,7 +547,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
                                                         "Detector_2",
                                                         Log_Magnet2,
                                                         false,
-                                                        2,
+                                                        0,
                                                         true);
   //////////////
   //  Strips  //
@@ -604,7 +604,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
                                                         "Detector_3",
                                                         Log_Magnet2,
                                                         false,
-                                                        3,
+                                                        0,
                                                         true);
   //////////////
   //  Strips  //
@@ -666,7 +666,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
                                                         "Detector_4",
                                                         Log_Magnet2,
                                                         false,
-                                                        4,
+                                                        0,
                                                         true);
   //////////////
   //  Strips  //
@@ -728,7 +728,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
                                                         "Detector_5",
                                                         Log_Magnet2,
                                                         false,
-                                                        5,
+                                                        0,
                                                         true);
   //////////////
   //  Strips  //
@@ -790,7 +790,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
                                                         "Detector_6",
                                                         Log_Magnet2,
                                                         false,
-                                                        6,
+                                                        0,
                                                         true);
   //////////////
   //  Strips  //
@@ -852,7 +852,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
                                                         "Detector_7",
                                                         Log_Magnet2,
                                                         false,
-                                                        7,
+                                                        0,
                                                         true);
   //////////////
   //  Strips  //

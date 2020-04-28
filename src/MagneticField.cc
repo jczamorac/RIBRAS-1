@@ -78,7 +78,7 @@ MagneticField::MagneticField()
   rmin = 1.*mm;          // mini tube
   l_med = 33.9979*cm;    // half coil length
   current = 25.;         //electric current [Amp] (tesla units are included just for B)
-  current2 = 30.;        //electric current [Amp] (tesla units are included just for B)
+  current2 = 50.;        //electric current [Amp] (tesla units are included just for B)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -129,7 +129,7 @@ void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
       Bfield[0] = br*Point[0]/r;
       Bfield[1] = br*Point[1]/r;
 
-        if (Point[2] > 181.*cm)
+        if (Point[2] > 181. *cm)
         {
 
          r = sqrt(Point[0]*Point[0]+Point[1]*Point[1]);

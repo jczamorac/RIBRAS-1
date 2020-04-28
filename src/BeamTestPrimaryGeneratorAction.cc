@@ -114,8 +114,7 @@ void BeamTestPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
     while(abs(theta) < 0.0349);
 
-    // theta = 0.;
-
+    // theta = 0.001;
   particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta)));
   particleGun->GeneratePrimaryVertex(anEvent);
 
