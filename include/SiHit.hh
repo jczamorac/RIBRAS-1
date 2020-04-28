@@ -17,8 +17,7 @@
 #include "G4LogicalVolume.hh"
 #include "G4RotationMatrix.hh"
 #include "G4Transform3D.hh"
-#include "G4ParticleDefinition.hh" 
-
+#include "G4ParticleDefinition.hh"
 
 /*!
 * \brief This class stores information of a hit.
@@ -29,66 +28,67 @@
 *  - position information
 */
 
-class SiHit : public G4VHit {
+class SiHit : public G4VHit
+{
 public:
-/// Constructor
-SiHit(const G4int strip, const G4int plane, const G4bool isPrimary);
+  /// Constructor
+  SiHit(const G4int strip, const G4int plane, const G4bool isPrimary);
 
-/// Destructor
-~SiHit();
+  /// Destructor
+  ~SiHit();
 
-//! Print on screen a Hit
-void Print();
-  
+  //! Print on screen a Hit
+  void Print();
+
 public:
   //! \name The new and delete operators are overloaded for performances reasons:
   /*! -- Tricky business here... :-(, but provided for you below */
   //@{
-  inline void *operator    new(size_t);
-  inline void  operator delete(void *aHit);
+  inline void *operator new(size_t);
+  inline void operator delete(void *aHit);
   //@}
 
 public:
   //! \name  simple set and get methods
   //@{
-  void          AddEdep(const double e)                { eDep += e; }
-  void          SetPosition(const G4ThreeVector & pos) { position = pos; }
+  void AddEdep(const double e) { eDep += e; }
+  void SetPosition(const G4ThreeVector &pos) { position = pos; }
 
-// Rotation matrix
-inline void SetRotation(G4RotationMatrix rotation) {fRotation = rotation;}
-inline G4RotationMatrix GetRotation() const {return fRotation;}
-// Logical volume
-inline void SetLogicalVolume(G4LogicalVolume* volume) {pLogicalVolume = volume;}
-inline const G4LogicalVolume* GetLogicalVolume() const {return pLogicalVolume;}
-// Get time
-inline void SetIncidenceTime(G4double time) {fITime = time;}
-inline G4double GetIncidenceTime() const {return fITime;}
-// Momentum
-inline void SetIncidenceMomentumDirection(G4ThreeVector momentum) {fIMomentumD = momentum;}
-inline G4ThreeVector GetIncidenceMomentumDirection() const {return fIMomentumD;}
+  // Rotation matrix
+  inline void SetRotation(G4RotationMatrix rotation) { fRotation = rotation; }
+  inline G4RotationMatrix GetRotation() const { return fRotation; }
+  // Logical volume
+  inline void SetLogicalVolume(G4LogicalVolume *volume) { pLogicalVolume = volume; }
+  inline const G4LogicalVolume *GetLogicalVolume() const { return pLogicalVolume; }
+  // Get time
+  inline void SetIncidenceTime(G4double time) { fITime = time; }
+  inline G4double GetIncidenceTime() const { return fITime; }
+  // Momentum
+  inline void SetIncidenceMomentumDirection(G4ThreeVector momentum) { fIMomentumD = momentum; }
+  inline G4ThreeVector GetIncidenceMomentumDirection() const { return fIMomentumD; }
 
-// Kinect Energy
-inline void SetIncidenceKineticEnergy(G4double ekin) {fIKEnergy = ekin;}
-inline G4double GetIncidenceKineticEnergy() const {return fIKEnergy;}
+  // Kinect Energy
+  inline void SetIncidenceKineticEnergy(G4double ekin) { fIKEnergy = ekin; }
+  inline G4double GetIncidenceKineticEnergy() const { return fIKEnergy; }
 
-G4double      GetEdep()        const { return eDep;}
-G4ThreeVector GetPosition()    const { return position; }
-G4int         GetStripNumber() const { return stripNumber; }
-G4int         GetPlaneNumber() const { return planeNumber; }
-G4bool            GetIsPrimary()   const { return isPrimary; }
-//@}
+  G4double GetEdep() const { return eDep; }
+  G4ThreeVector GetPosition() const { return position; }
+  G4int GetStripNumber() const { return stripNumber; }
+  G4int GetPlaneNumber() const { return planeNumber; }
+  G4bool GetIsPrimary() const { return isPrimary; }
+  //@}
 
 private:
-const G4int   stripNumber, planeNumber;
-G4double      eDep;
-G4ThreeVector position;
-const G4bool  isPrimary;
-G4double fITime;
-G4ThreeVector fIMomentumD;
-G4double fIKEnergy;
+  const G4int stripNumber, planeNumber;
+  G4double eDep;
+  G4ThreeVector position;
+  const G4bool isPrimary;
+  G4double fITime;
+  G4ThreeVector fIMomentumD;
+  G4double fIKEnergy;
 
-G4RotationMatrix fRotation;
-const G4LogicalVolume* pLogicalVolume;
+  G4RotationMatrix fRotation;
+  const G4LogicalVolume *pLogicalVolume;
 };
 
 // Define the "hit collection" using the template class G4THitsCollection:
@@ -97,15 +97,15 @@ typedef G4THitsCollection<SiHit> SiHitCollection;
 // -- new and delete overloaded operators:
 extern G4Allocator<SiHit> SiHitAllocator;
 
-inline void* SiHit::operator new(size_t)
+inline void *SiHit::operator new(size_t)
 {
   void *aHit;
-  aHit = (void *) SiHitAllocator.MallocSingle();
+  aHit = (void *)SiHitAllocator.MallocSingle();
   return aHit;
 }
 inline void SiHit::operator delete(void *aHit)
 {
-  SiHitAllocator.FreeSingle((SiHit*) aHit);
+  SiHitAllocator.FreeSingle((SiHit *)aHit);
 }
 
 #endif

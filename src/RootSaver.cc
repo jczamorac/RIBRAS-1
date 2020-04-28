@@ -175,6 +175,10 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         rootTree->Branch("Ekin_dssd2", &Ekin_dssd2);
 
         rootTree->Branch("Strip_Number", &StripNumber);
+
+        rootTree->Branch("pos_x_target", &Pos_x_det[8]);
+        rootTree->Branch("pos_y_target", &Pos_y_det[8]);
+        rootTree->Branch("pos_z_target", &Pos_z_det[8]);
 }
 
 //-------------------------------------------------------------------------//
@@ -265,6 +269,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         G4double momet_y = momentum.y();
                         G4double momet_z = momentum.z();
 
+                        // G4String name = hit->GetLogicalVolume()->GetName();
+                        // G4cout << name << G4endl;
+
                         // Hit time
                         G4double tiempo = hit->GetIncidenceTime();
 
@@ -278,21 +285,21 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
 
                         // We save energy in MeV
                         Float_t edep = static_cast<Float_t>(hit->GetEdep());
-                        edep /= CLHEP::MeV;
+                        edep /= CLHEP::MeV;                        
 
                         // Saving information for each detector
                         if (planeNum == 0)
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[1] = x;
-                                        Pos_y_det[1] = y;
-                                        Pos_z_det[1] = z;
-                                        T_sili[1] = tiempo;
+                                        Pos_x_det[0] = x;
+                                        Pos_y_det[0] = y;
+                                        Pos_z_det[0] = z;
+                                        T_sili[0] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[1] += Econv;
-                                Signal0[stripNum] = E_det[1];
+                                E_det[0] += Econv;
+                                Signal0[stripNum] = E_det[0];
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
                                        << " Detector " << planeNum << " ||"
@@ -304,13 +311,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[2] = x;
-                                        Pos_y_det[2] = y;
-                                        Pos_z_det[2] = z;
-                                        T_sili[2] = tiempo;
+                                        Pos_x_det[1] = x;
+                                        Pos_y_det[1] = y;
+                                        Pos_z_det[1] = z;
+                                        T_sili[1] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[2] += Econv;
+                                E_det[1] += Econv;
                                 Signal1[stripNum] += Econv;
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
@@ -323,13 +330,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[3] = x;
-                                        Pos_y_det[3] = y;
-                                        Pos_z_det[3] = z;
-                                        T_sili[3] = tiempo;
+                                        Pos_x_det[2] = x;
+                                        Pos_y_det[2] = y;
+                                        Pos_z_det[2] = z;
+                                        T_sili[2] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[3] += Econv;
+                                E_det[2] += Econv;
                                 Signal2[stripNum] += Econv;
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
@@ -342,13 +349,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[4] = x;
-                                        Pos_y_det[4] = y;
-                                        Pos_z_det[4] = z;
-                                        T_sili[4] = tiempo;
+                                        Pos_x_det[3] = x;
+                                        Pos_y_det[3] = y;
+                                        Pos_z_det[3] = z;
+                                        T_sili[3] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[4] += Econv;
+                                E_det[3] += Econv;
                                 Signal3[stripNum] += Econv;
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
@@ -361,13 +368,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[5] = x;
-                                        Pos_y_det[5] = y;
-                                        Pos_z_det[5] = z;
-                                        T_sili[5] = tiempo;
+                                        Pos_x_det[planeNum] = x;
+                                        Pos_y_det[planeNum] = y;
+                                        Pos_z_det[planeNum] = z;
+                                        T_sili[planeNum] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[5] += Econv;
+                                E_det[planeNum] += Econv;
                                 Signal4[stripNum] += Econv;
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
@@ -380,13 +387,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[7] = x;
-                                        Pos_y_det[7] = y;
-                                        Pos_z_det[7] = z;
-                                        T_sili[7] = tiempo;
+                                        Pos_x_det[planeNum] = x;
+                                        Pos_y_det[planeNum] = y;
+                                        Pos_z_det[planeNum] = z;
+                                        T_sili[planeNum] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[7] += Econv;
+                                E_det[planeNum] += Econv;
                                 Signal6[stripNum] += Econv;
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
@@ -399,13 +406,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         {
                                 if (hit->GetIsPrimary() == true)
                                 {
-                                        Pos_x_det[8] = x;
-                                        Pos_y_det[8] = y;
-                                        Pos_z_det[8] = z;
-                                        T_sili[8] = tiempo;
+                                        Pos_x_det[planeNum] = x;
+                                        Pos_y_det[planeNum] = y;
+                                        Pos_z_det[planeNum] = z;
+                                        T_sili[planeNum] = tiempo;
                                 }
                                 double Econv = Digital(edep);
-                                E_det[8] += Econv;
+                                E_det[planeNum] += Econv;
                                 Signal7[stripNum] += Econv;
                                 G4cout.precision(7);
                                 G4cout << "Strip: " << stripNum << " ||"
@@ -414,6 +421,15 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                        << " y: " << y << " ||"
                                        << " Hits: " << nHits << G4endl;
                         }
+                        // else if(name == "Log_Target"){
+                        //         if (hit->GetIsPrimary() == true)
+                        //         {
+                        //                 Pos_x_det[8] = x;
+                        //                 Pos_y_det[8] = y;
+                        //                 Pos_z_det[8] = z;
+                        //                 G4cout << x << y << z << G4endl;
+                        //         }
+                        // }
                         else
                         {
                                 G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
