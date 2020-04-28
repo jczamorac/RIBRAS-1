@@ -388,6 +388,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   logicSensorStripD05->SetSensitiveDetector(sensitive);
   logicSensorStripD06->SetSensitiveDetector(sensitive);
   logicSensorStripD07->SetSensitiveDetector(sensitive);
+  Log_Target->SetSensitiveDetector(sensitive);
 }
 
 //--------------------------------------------------------------------------------------------------------------//
