@@ -107,6 +107,12 @@ void DetectorConstruction::DefineMaterials()
   CH4->AddElement(elC, natoms = 1);
   CH4->AddElement(elHi, natoms = 4);
 
+  // Define POLYETHYLENE deuterado
+  G4Element *deuteron = new G4Element(name = "Deuteron", symbol = "D", z = 1., a = 2. * CLHEP::g / CLHEP::mole);
+  CD2 = new G4Material(name = "CD2", 0.94 *g/cm3, ncomponents = 2, kStateSolid);/* , temperature, pressure); */
+  CD2->AddElement(elC, natoms = 1);
+  CD2->AddElement(elHi, natoms = 2);
+
   // Get Materials from NIST database
   G4NistManager *man = G4NistManager::Instance();
   man->SetVerbose(0);
@@ -120,6 +126,7 @@ void DetectorConstruction::DefineMaterials()
   //lead  = man->FindOrBuildMaterial("G4_Pb");
   tantalum = man->FindOrBuildMaterial("G4_Ta");
   sio2 = man->FindOrBuildMaterial("G4_SILICON_DIOXIDE");
+  CH2 = man->FindOrBuildMaterial("G4_POLYETHYLENE");
 }
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -179,7 +186,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
                                                     false,           // no boolean operations
                                                     0);              // copy number
 
-  logicWorld->SetVisAttributes(G4VisAttributes::Invisible);          // Turn the world invisible
+  logicWorld->SetVisAttributes(G4VisAttributes::Invisible); // Turn the world invisible
 
   // ---------------------------------------------------------------------------------------------------- //
 
@@ -225,9 +232,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4UserLimits *userLimits = new G4UserLimits(1.e-5 * mm);
   Log_Magnet1->SetUserLimits(userLimits);
 
-  
   //------ Building Second Solenoid ------//
-
 
   ///////////////////
   //  Solenoid 2  //
@@ -276,9 +281,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4UserLimits *limiteuser = new G4UserLimits(1.e-5 * mm);
   Log_Magnet2->SetUserLimits(limiteuser);
 
-
   //------- Building Target -------//
-
 
   //////////////
   //  Target  //
@@ -293,7 +296,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // Creating Target
   Sol_Target = new G4Box("Sol_Target", 7.5 * CLHEP::cm, 7.5 * CLHEP::cm, Inputs->width * CLHEP::mm);
-  Log_Target = new G4LogicalVolume(Sol_Target, TargetMaterial, "Log_Target");
+  Log_Target = new G4LogicalVolume(Sol_Target, CD2, "Log_Target");
 
   // Placing Target
   Phys_Target = new G4PVPlacement(0, Target_pos, Log_Target, "Target", Log_Magnet2, false, 0, true);
@@ -301,9 +304,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // Color
   Log_Target->SetVisAttributes(new G4VisAttributes(red));
 
-
   //--------- Setting magnetic field ---------//
-
 
   ////////////////////
   // Magnetic field //
@@ -339,9 +340,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     fieldIsInitialized = true;
   }
 
-
-    //--------- Building All Detectors -----------//
-
+  //--------- Building All Detectors -----------//
 
   ///////////////
   // Detectors //

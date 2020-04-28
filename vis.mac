@@ -34,7 +34,7 @@
 /det/target/pos 0. 0. 301.
 
 #Define the primary particle
-/det/primary/energy 40 MeV
+/det/primary/energy 30 MeV
 /det/primary/Z 6
 /det/primary/A 16
 /det/primary/pos 0. 0. -115
@@ -47,7 +47,10 @@
 /det/ejectile/A 13
 /det/ejectile/Z 5
 
-/det/currentValue 25.
+/vis/disable
+
+/det/currentValue {corriente}
+#/det/currentValue 25.
 /det/currentValue2 0.
 
 /vis/scene/endOfEventAction accumulate
@@ -56,4 +59,4 @@
 #This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 5
+/run/beamOn 25

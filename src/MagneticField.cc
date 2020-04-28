@@ -78,7 +78,7 @@ MagneticField::MagneticField()
   rmin = 1.*mm;          // mini tube
   l_med = 33.9979*cm;    // half coil length
   current = 25.;         //electric current [Amp] (tesla units are included just for B)
-  current2 = 50.;        //electric current [Amp] (tesla units are included just for B)
+  current2 = 30.;        //electric current [Amp] (tesla units are included just for B)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

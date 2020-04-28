@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /home/leo/Desktop/RIBRAS/build/CMakeFiles/install/strip.dir
 /home/leo/Desktop/RIBRAS/build/CMakeFiles/install/local.dir
 /home/leo/Desktop/RIBRAS/build/CMakeFiles/install.dir
@@ -5,3 +6,12 @@
 /home/leo/Desktop/RIBRAS/build/CMakeFiles/rebuild_cache.dir
 /home/leo/Desktop/RIBRAS/build/CMakeFiles/edit_cache.dir
 /home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir
+=======
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/install/strip.dir
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/install/local.dir
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/install.dir
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/list_install_components.dir
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/rebuild_cache.dir
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/edit_cache.dir
+/home/leo/Desktop/RIBRAS/RIBRAS/Example/build/CMakeFiles/arquivobinario.dir
+>>>>>>> 3bb1f8372638db98012b98df718577c0e812009a

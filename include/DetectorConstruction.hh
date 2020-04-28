@@ -76,6 +76,8 @@ private:
   G4Material *tantalum;
   G4Material *sio2;
   G4Material *CH4;
+  G4Material *CD2;
+  G4Material *CH2;
 
   // -------------------------------------------------------------------------  //
 
