@@ -262,7 +262,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // Creating Solenoid 2 magnetic field
   G4double diametromag = 30.0 * cm;
-  G4double comprimentomag = 68.0 * cm; //coil length
+  G4double comprimentomag = 100/* 68.0 */ * cm; //coil length
 
   Sol_Magnet2 = new G4Tubs("Sol_Magnet2", 0., diametromag / 2.0, comprimentomag / 2.0, 0., 360. * deg);
 
@@ -294,12 +294,16 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4Material *TargetMaterial = G4NistManager::Instance()->FindOrBuildMaterial(Inputs->g4_material_name);
   Inputs->TargetMaterial = TargetMaterial;
 
+  // Rotataing target
+  G4RotationMatrix *rotation = new G4RotationMatrix;
+  rotation->rotateZ(180. * CLHEP::deg);
+
   // Creating Target
   Sol_Target = new G4Box("Sol_Target", 7.5 * CLHEP::cm, 7.5 * CLHEP::cm, Inputs->width * CLHEP::mm);
   Log_Target = new G4LogicalVolume(Sol_Target, CD2, "Log_Target");
 
   // Placing Target
-  Phys_Target = new G4PVPlacement(0, Target_pos, Log_Target, "Target", Log_Magnet2, false, 0, true);
+  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet2, false, 0, true);
 
   // Color
   Log_Target->SetVisAttributes(new G4VisAttributes(red));
@@ -387,7 +391,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   logicSensorStripD05->SetSensitiveDetector(sensitive);
   logicSensorStripD06->SetSensitiveDetector(sensitive);
   logicSensorStripD07->SetSensitiveDetector(sensitive);
-  Log_Target->SetSensitiveDetector(sensitive);
+  // Log_Target->SetSensitiveDetector(sensitive);
 }
 
 //--------------------------------------------------------------------------------------------------------------//

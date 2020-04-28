@@ -21,6 +21,12 @@
 #include "TMath.h"
 #include "TRandom3.h"
 #include "TF1.h"
+#include "TTreeReader.h"
+#include "TTreeReaderValue.h"
+#include "TCanvas.h"
+#include "TGraphErrors.h"
+#include "TH1F.h"
+#include "TGraph.h"
 
 // Default headers
 #include <fstream>
@@ -31,7 +37,6 @@
 using namespace std;
 using namespace CLHEP;
 
-ofstream Saver("Posicao.txt");
 //-------------------------------------------------------------------------//
 
 RootSaver::RootSaver() : //Initializing parameters
@@ -165,7 +170,6 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         rootTree->Branch("ener_det7", &E_det[8]);
         //-------------------------------------------//
 
-
         rootTree->Branch("truthPosx", &TruthPosx);
         rootTree->Branch("truthPosy", &TruthPosy);
         rootTree->Branch("truthPosz", &TruthPosz);
@@ -184,8 +188,6 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         rootTree->Branch("Ekin_dssd2", &Ekin_dssd2);
 
         rootTree->Branch("Strip_Number", &StripNumber);
-
-        
 }
 
 //-------------------------------------------------------------------------//
@@ -199,6 +201,7 @@ void RootSaver::CloseTree()
         // from the TTree the current opened file
         if (rootTree)
         {
+
                 G4cout << "Writing ROOT TTree: " << rootTree->GetName() << G4endl;
                 //rootTree->Print();
                 rootTree->Write();
@@ -210,6 +213,38 @@ void RootSaver::CloseTree()
                 }
                 currentFile->Close();
                 //The root is automatically deleted.
+
+                // n = 0;
+                // auto canvas = new TCanvas();
+                // G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
+                // std::ostringstream f;
+                // f << root << runCounter-1 << ".root";
+                // TFile *File = TFile::Open(f.str().data());
+                // TTreeReader myReader("SiTelescope", File);
+
+                // TTreeReaderValue<Float_t> posx(myReader, "pos_x_det0");
+                // TTreeReaderValue<Float_t> posy(myReader, "pos_y_det0");
+
+                // G4double x[100], y[100];
+
+                // while (myReader.Next())
+                // {
+                //         x[n] = *posx;
+                //         y[n] = *posy;
+                //         n++;
+                // }
+
+                // TGraph graph(n, x, y);
+
+                // graph.SetMarkerColor(kBlue);
+                // graph.SetMarkerStyle(kOpenCircle);
+                // graph.DrawClone("APE");
+
+                // std::ostringstream fn;
+                // G4String Path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/";
+                // fn << Path << "posicao"
+                //    << "_run_" << runCounter << ".png";
+                // canvas->Print(fn.str().data());
 
                 rootTree = 0;
                 delete[] Signal0;
@@ -263,6 +298,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
 
                         // Same for detector
                         G4int planeNum = hit->GetPlaneNumber();
+                        // G4cout << planeNum << G4endl;
 
                         // Getting position of hit (detector reference)
                         G4ThreeVector pos = hit->GetPosition();
@@ -294,22 +330,22 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         // Saving information for each detector
                         if (planeNum == 0)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
-                                }
+                                // if (hit->GetIsPrimary() == true)
+                                // {
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal0[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 1)
                         {
@@ -324,11 +360,11 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal1[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 2)
                         {
@@ -343,11 +379,11 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal2[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 3)
                         {
@@ -362,11 +398,11 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal3[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 4)
                         {
@@ -381,11 +417,11 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal4[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 5)
                         {
@@ -400,11 +436,11 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal5[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 6)
                         {
@@ -419,11 +455,11 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal6[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 7)
                         {
@@ -438,21 +474,12 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal7[stripNum] += Econv;
                                 G4cout.precision(7);
-                                // G4cout << "Strip: " << stripNum << " ||"
-                                //        << " Detector " << planeNum << " ||"
-                                //        << " x: " << x << " ||"
-                                //        << " y: " << y << " ||"
-                                //        << " Hits: " << nHits << G4endl;
+                                G4cout << "Strip: " << stripNum << " ||"
+                                       << " Detector " << planeNum << " ||"
+                                       << " x: " << x << " ||"
+                                       << " y: " << y << " ||"
+                                       << " Hits: " << nHits << G4endl;
                         }
-                        // else if(z == Inputs->target_pos.z()){
-                        //         if (hit->GetIsPrimary() == true)
-                        //         {
-                        //                 Pos_x_det[8] = x;
-                        //                 Pos_y_det[8] = y;
-                        //                 Pos_z_det[8] = z;
-                        //                 G4cout << x << y << z << G4endl;
-                        //         }
-                        // }
                         else
                         {
                                 G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;

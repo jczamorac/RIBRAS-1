@@ -60,7 +60,8 @@ private:
   unsigned int runCounter; //!< Run counter to uniquely identify ROOT file
 
   G4int TotalHits = 0;
-
+  G4int n = 0;
+  
   //! \name TTree variables
   //@{
   //! Number of strips of each module
