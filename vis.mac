@@ -53,9 +53,10 @@
 #/vis/disable
 
 #Set current
-#/det/currentValue {corriente}
-/det/currentValue 27.6
-/det/currentValue2 28.
+/det/currentValue {corriente}
+/det/currentValue2 {corrente}
+#/det/currentValue 27.6
+#/det/currentValue2 28.
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents

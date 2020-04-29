@@ -369,10 +369,10 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // Construct_D_0_1();
   // Construct_D_0_2();
   // Construct_D_0_3();
-  Construct_D_0_4();
-  Construct_D_0_5();
-  Construct_D_0_6();
-  Construct_D_0_7();
+  // Construct_D_0_4();
+  // Construct_D_0_5();
+  // Construct_D_0_6();
+  // Construct_D_0_7();
 
   static SensitiveDetector *sensitive = 0;
   if (!sensitive)
@@ -387,11 +387,11 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // logicSensorStripD01->SetSensitiveDetector(sensitive);
   // logicSensorStripD02->SetSensitiveDetector(sensitive);
   // logicSensorStripD03->SetSensitiveDetector(sensitive);
-  logicSensorStripD04->SetSensitiveDetector(sensitive);
-  logicSensorStripD05->SetSensitiveDetector(sensitive);
-  logicSensorStripD06->SetSensitiveDetector(sensitive);
-  logicSensorStripD07->SetSensitiveDetector(sensitive);
-  // Log_Target->SetSensitiveDetector(sensitive);
+  // logicSensorStripD04->SetSensitiveDetector(sensitive);
+  // logicSensorStripD05->SetSensitiveDetector(sensitive);
+  // logicSensorStripD06->SetSensitiveDetector(sensitive);
+  // logicSensorStripD07->SetSensitiveDetector(sensitive);
+  Log_Target->SetSensitiveDetector(sensitive);
 }
 
 //--------------------------------------------------------------------------------------------------------------//
