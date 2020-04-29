@@ -214,37 +214,37 @@ void RootSaver::CloseTree()
                 currentFile->Close();
                 //The root is automatically deleted.
 
-                // n = 0;
-                // auto canvas = new TCanvas();
-                // G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
-                // std::ostringstream f;
-                // f << root << runCounter-1 << ".root";
-                // TFile *File = TFile::Open(f.str().data());
-                // TTreeReader myReader("SiTelescope", File);
+/*                 n = 0;
+                auto canvas = new TCanvas();
+                G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
+                std::ostringstream f;
+                f << root << runCounter-1 << ".root";
+                TFile *File = TFile::Open(f.str().data());
+                TTreeReader myReader("SiTelescope", File);
 
-                // TTreeReaderValue<Float_t> posx(myReader, "pos_x_det0");
-                // TTreeReaderValue<Float_t> posy(myReader, "pos_y_det0");
+                TTreeReaderValue<Float_t> posx(myReader, "pos_x_det0");
+                TTreeReaderValue<Float_t> posy(myReader, "pos_y_det0");
 
-                // G4double x[100], y[100];
+                G4double x[100], y[100];
 
-                // while (myReader.Next())
-                // {
-                //         x[n] = *posx;
-                //         y[n] = *posy;
-                //         n++;
-                // }
+                while (myReader.Next())
+                {
+                        x[n] = *posx;
+                        y[n] = *posy;
+                        n++;
+                }
 
-                // TGraph graph(n, x, y);
+                TGraph graph(n, x, y);
 
-                // graph.SetMarkerColor(kBlue);
-                // graph.SetMarkerStyle(kOpenCircle);
-                // graph.DrawClone("APE");
+                graph.SetMarkerColor(kBlue);
+                graph.SetMarkerStyle(kOpenCircle);
+                graph.DrawClone("APE");
 
-                // std::ostringstream fn;
-                // G4String Path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/";
-                // fn << Path << "posicao"
-                //    << "_run_" << runCounter << ".png";
-                // canvas->Print(fn.str().data());
+                std::ostringstream fn;
+                G4String Path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/";
+                fn << Path << "posicao"
+                   << "_run_" << runCounter << ".png";
+                canvas->Print(fn.str().data()); */
 
                 rootTree = 0;
                 delete[] Signal0;
@@ -349,13 +349,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 1)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal1[stripNum] += Econv;
@@ -368,13 +368,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 2)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal2[stripNum] += Econv;
@@ -387,13 +387,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 3)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal3[stripNum] += Econv;
@@ -406,13 +406,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 4)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal4[stripNum] += Econv;
@@ -425,13 +425,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 5)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal5[stripNum] += Econv;
@@ -444,13 +444,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 6)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal6[stripNum] += Econv;
@@ -463,13 +463,13 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         }
                         else if (planeNum == 7)
                         {
-                                if (hit->GetIsPrimary() == true)
-                                {
+                                // if (hit->GetIsPrimary() == true)
+                                // {
                                         Pos_x_det[planeNum] = x;
                                         Pos_y_det[planeNum] = y;
                                         Pos_z_det[planeNum] = z;
                                         T_sili[planeNum] = tiempo;
-                                }
+                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal7[stripNum] += Econv;

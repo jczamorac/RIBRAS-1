@@ -12,11 +12,11 @@
 /vis/drawVolume
 /vis/scene/add/axes 0 0 0 10 cm
 /vis/viewer/set/viewpointThetaPhi 180 90 deg
-#/vis/viewer/zoom 0.1
 /vis/scene/add/trajectories smooth
-
 /vis/modeling/trajectories/create/drawByParticleID
 /vis/modeling/trajectories/drawByParticleID-0/set B8 magenta
+/vis/modeling/trajectories/drawByParticleID-0/set He3 blue
+/vis/modeling/trajectories/drawByParticleID-0/set Be7 red
 
 #Turn On/Off the magnetic field
 /det/field 1
@@ -25,7 +25,7 @@
 /det/detector1/pos -7.5 0 -18.
 
 #Set Detector 2 position
-/det/detector2/pos -7.5 0 18.
+/det/detector2/pos 7.5 0 -18.
 
 #Define the target material
 /det/target/material G4_lH2
@@ -34,10 +34,10 @@
 /det/target/width 0.001
 
 #Define target position (x, y, z)(cm)
-/det/target/pos 0. 0. 301
+/det/target/pos 0. 0. 320.
 
 #Define the primary particle
-/det/primary/energy 40 MeV
+/det/primary/energy 18 MeV
 /det/primary/Z 5
 /det/primary/A 8
 /det/primary/pos 0. 0. -115
@@ -52,9 +52,10 @@
 
 #/vis/disable
 
-#/det/currentValue2 {corriente}
-/det/currentValue 24.5
-/det/currentValue2 34.6
+#Set current
+#/det/currentValue {corriente}
+/det/currentValue 27.6
+/det/currentValue2 28.
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents

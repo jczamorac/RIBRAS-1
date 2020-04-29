@@ -109,8 +109,9 @@ void BeamTestPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     // (pi/6) * G4UniformRand()               //0°  - 30°
     // (pi/48)*G4UniformRand()                //0°  - 15°
     // (pi/3) + ( (pi/6) * G4UniformRand() )  //60° - 90°
-    0.0872665 * G4UniformRand()            //0°  - 5°
-  ;}
+    // 0.0872665 * G4UniformRand()            //0°  - 5°
+    0.0349066 * G4UniformRand()            //0°  - 2°
+    ;}
 
     while(abs(theta) < 0.0349);
 

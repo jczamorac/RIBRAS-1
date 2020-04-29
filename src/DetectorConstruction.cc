@@ -365,10 +365,10 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 /* G4VPhysicalVolume * */ void DetectorConstruction::ConstructDetectors()
 {
   // Constructing detectors
-  Construct_D_0_0();
-  Construct_D_0_1();
-  Construct_D_0_2();
-  Construct_D_0_3();
+  // Construct_D_0_0();
+  // Construct_D_0_1();
+  // Construct_D_0_2();
+  // Construct_D_0_3();
   Construct_D_0_4();
   Construct_D_0_5();
   Construct_D_0_6();
@@ -383,10 +383,10 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   }
 
   // These commands sets the detectors sensitive
-  logicSensorStripD00->SetSensitiveDetector(sensitive);
-  logicSensorStripD01->SetSensitiveDetector(sensitive);
-  logicSensorStripD02->SetSensitiveDetector(sensitive);
-  logicSensorStripD03->SetSensitiveDetector(sensitive);
+  // logicSensorStripD00->SetSensitiveDetector(sensitive);
+  // logicSensorStripD01->SetSensitiveDetector(sensitive);
+  // logicSensorStripD02->SetSensitiveDetector(sensitive);
+  // logicSensorStripD03->SetSensitiveDetector(sensitive);
   logicSensorStripD04->SetSensitiveDetector(sensitive);
   logicSensorStripD05->SetSensitiveDetector(sensitive);
   logicSensorStripD06->SetSensitiveDetector(sensitive);
@@ -491,7 +491,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_1()
                                                         "Detector_1",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        1,
                                                         true);
 
   //////////////
@@ -534,7 +534,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
 {
 
   // Detector Position
-  G4ThreeVector posicao_detector2 = G4ThreeVector(7.5 * CLHEP::cm, 0., 18. * CLHEP::cm);
+  G4ThreeVector posicao_detector2 = G4ThreeVector(0., 7.5 *cm, -18. * CLHEP::cm);
 
   // Building detectors
   G4Box *detector2 = new G4Box("detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -543,6 +543,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
   // Rotating
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
   rotacaox->rotateY(90. * CLHEP::deg);
+  rotacaox->rotateX(90. * CLHEP::deg);
 
   // Placing detector
   G4VPhysicalVolume *DetectorPhys_2 = new G4PVPlacement(rotacaox,
@@ -551,7 +552,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
                                                         "Detector_2",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        2,
                                                         true);
   //////////////
   //  Strips  //
@@ -591,7 +592,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(7.5 * cm, 0., -18. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -7.5 *cm, -18. * cm);
 
   // Creating the detector
   G4Box *Detector_3 = new G4Box("Detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -600,6 +601,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
   // Rotating detector
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
   rotacaox->rotateY(90. * CLHEP::deg);
+  rotacaox->rotateX(90. *deg);
 
   // Placing detector 1
   G4VPhysicalVolume *DetectorPhys_3 = new G4PVPlacement(rotacaox,
@@ -608,7 +610,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
                                                         "Detector_3",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        3,
                                                         true);
   //////////////
   //  Strips  //
@@ -652,7 +654,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., 7.5 * cm, -18. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(0., 8. * cm, 22. * cm);
 
   // Creating the detector
   G4Box *Detector_4 = new G4Box("Detector4", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -670,7 +672,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
                                                         "Detector_4",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        4,
                                                         true);
   //////////////
   //  Strips  //
@@ -714,7 +716,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -7.5 * cm, -18. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -8. * cm, 22. * cm);
 
   // Creating the detector
   G4Box *Detector_5 = new G4Box("Detector5", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -732,7 +734,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
                                                         "Detector_5",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        5,
                                                         true);
   //////////////
   //  Strips  //
@@ -776,7 +778,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -7.5 * cm, 18. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(8 *cm, 0., 22. * cm);
 
   // Creating the detector
   G4Box *Detector_6 = new G4Box("Detector6", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -784,8 +786,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 
   // Rotating detector
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateX(90. * deg);
-  rotacaox->rotateZ(90. * deg);
+  rotacaox->rotateY(90. * deg);
 
   // Placing detector 1
   G4VPhysicalVolume *DetectorPhys_6 = new G4PVPlacement(rotacaox,
@@ -794,7 +795,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
                                                         "Detector_6",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        6,
                                                         true);
   //////////////
   //  Strips  //
@@ -838,7 +839,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., 7.5 * cm, 18. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(-8 *cm, 0., 22. * cm);
 
   // Creating the detector
   G4Box *Detector_7 = new G4Box("Detector7", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -846,8 +847,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
 
   // Rotating detector
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateX(90. * deg);
-  rotacaox->rotateZ(90. * deg);
+  rotacaox->rotateY(90. * deg);
 
   // Placing detector 1
   G4VPhysicalVolume *DetectorPhys_7 = new G4PVPlacement(rotacaox,
@@ -856,7 +856,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
                                                         "Detector_7",
                                                         Log_Magnet2,
                                                         false,
-                                                        0,
+                                                        7,
                                                         true);
   //////////////
   //  Strips  //
