@@ -28,7 +28,8 @@
 /det/target/width 0.001
 
 #Define target position (x, y, z)(cm)
-/det/target/pos 0. 0. 301.
+/det/target/pos 0. 0. 251.1
+#301.
 
 #Define the primary particle
 /det/primary/energy 18 MeV
@@ -49,7 +50,7 @@
 #Set current
 #/det/currentValue {corriente}
 #/det/currentValue2 {corrente}
-/det/currentValue 27.6
+/det/currentValue 15.72
 /det/currentValue2 28.
 
 /vis/scene/endOfEventAction accumulate

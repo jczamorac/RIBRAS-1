@@ -96,19 +96,19 @@ void MagneticField::InicializaMag()
 void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
 {
   Inputs* Inputs = &Inputs::GetInputs();
-  if(Point[2] > -105.*cm
-     && Point[2] < 421.*cm
-     && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) < rmin )
-  {
-    Bfield[0] = 0.;
-    Bfield[1] = 0.;
-    Bfield[2] = 0.;
-  }
+  // if(Point[2] > -105.*cm
+  //    && Point[2] < 421.*cm
+  //    && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) < rmin )
+  // {
+  //   Bfield[0] = 0.;
+  //   Bfield[1] = 0.;
+  //   Bfield[2] = 0.;
+  // }
 
   if(Point[2] > -105.*cm
      && Point[2] < 421.*cm
      && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) < rmax
-     && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) > rmin
+    //  && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) > rmin
      && Inputs->using_magneticfield)
   {
       G4double z_mas = Point[2]+l_med;

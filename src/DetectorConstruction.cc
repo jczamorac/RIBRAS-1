@@ -391,7 +391,7 @@ void DetectorConstruction::ConstructDetectors()
   // logicSensorStripD05->SetSensitiveDetector(sensitive);
   // logicSensorStripD06->SetSensitiveDetector(sensitive);
   // logicSensorStripD07->SetSensitiveDetector(sensitive);
-  // Log_Target->SetSensitiveDetector(sensitive);
+  Log_Target->SetSensitiveDetector(sensitive);
 }
 
 //--------------------------------------------------------------------------------------------------------------//

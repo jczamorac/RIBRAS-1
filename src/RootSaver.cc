@@ -214,11 +214,11 @@ void RootSaver::CloseTree()
                 currentFile->Close();
                 //The root is automatically deleted.
 
-                /*                 n = 0;
+/*                 n = 0;
                 auto canvas = new TCanvas();
                 G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
                 std::ostringstream f;
-                f << root << runCounter-1 << ".root";
+                f << root << runCounter - 1 << ".root";
                 TFile *File = TFile::Open(f.str().data());
                 TTreeReader myReader("SiTelescope", File);
 
