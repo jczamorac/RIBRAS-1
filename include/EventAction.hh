@@ -95,7 +95,7 @@ public:
         // string path = "/home/leo/Desktop/RIBRAS/";
         // string FileName = "mass_table.txt";
 
-        ifstream file("mass_table.txt"/* path + FileName */);
+        ifstream file("mass_table.txt" /* path + FileName */);
         string line;
 
         double mass;

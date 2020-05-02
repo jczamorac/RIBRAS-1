@@ -74,7 +74,7 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         }
 
         // Path to where ROOT should save the files
-        G4String Path = "/home/leo/Desktop/RIBRAS/RIBRAS/Example/ROOT/";
+        G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
 
         // Creating ROOT file
         std::ostringstream fn;
@@ -214,7 +214,7 @@ void RootSaver::CloseTree()
                 currentFile->Close();
                 //The root is automatically deleted.
 
-/*                 n = 0;
+                /*                 n = 0;
                 auto canvas = new TCanvas();
                 G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
                 std::ostringstream f;
@@ -340,151 +340,108 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal0[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 1)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal1[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 2)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal2[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 3)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal3[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 4)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal4[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 5)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal5[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 6)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal6[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else if (planeNum == 7)
                         {
                                 // if (hit->GetIsPrimary() == true)
                                 // {
-                                        Pos_x_det[planeNum] = x;
-                                        Pos_y_det[planeNum] = y;
-                                        Pos_z_det[planeNum] = z;
-                                        T_sili[planeNum] = tiempo;
+                                Pos_x_det[planeNum] = x;
+                                Pos_y_det[planeNum] = y;
+                                Pos_z_det[planeNum] = z;
+                                T_sili[planeNum] = tiempo;
                                 // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal7[stripNum] += Econv;
-                                G4cout.precision(7);
-                                G4cout << "Strip: " << stripNum << " ||"
-                                       << " Detector " << planeNum << " ||"
-                                       << " x: " << x << " ||"
-                                       << " y: " << y << " ||"
-                                       << " Hits: " << nHits << G4endl;
                         }
                         else
                         {
                                 G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
                                 continue;
                         }
+                        G4cout << "Strip: " << stripNum << " ||"
+                               << " Detector " << planeNum << " ||"
+                               << " x: " << x << " ||"
+                               << " y: " << y << " ||"
+                               << " Hits: " << nHits << G4endl;
                 }
         }
         else

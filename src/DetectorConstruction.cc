@@ -109,7 +109,7 @@ void DetectorConstruction::DefineMaterials()
 
   // Define POLYETHYLENE deuterado
   G4Element *deuteron = new G4Element(name = "Deuteron", symbol = "D", z = 1., a = 2. * CLHEP::g / CLHEP::mole);
-  CD2 = new G4Material(name = "CD2", 0.94 *g/cm3, ncomponents = 2, kStateSolid);/* , temperature, pressure); */
+  CD2 = new G4Material(name = "CD2", 0.94 * g / cm3, ncomponents = 2, kStateSolid); /* , temperature, pressure); */
   CD2->AddElement(elC, natoms = 1);
   CD2->AddElement(elHi, natoms = 2);
 
@@ -262,7 +262,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // Creating Solenoid 2 magnetic field
   G4double diametromag = 30.0 * cm;
-  G4double comprimentomag = 100/* 68.0 */ * cm; //coil length
+  G4double comprimentomag = 100 /* 68.0 */ * cm; //coil length
 
   Sol_Magnet2 = new G4Tubs("Sol_Magnet2", 0., diametromag / 2.0, comprimentomag / 2.0, 0., 360. * deg);
 
@@ -362,7 +362,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 // Detectors //
 ///////////////
 
-/* G4VPhysicalVolume * */ void DetectorConstruction::ConstructDetectors()
+void DetectorConstruction::ConstructDetectors()
 {
   // Constructing detectors
   // Construct_D_0_0();
@@ -391,7 +391,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // logicSensorStripD05->SetSensitiveDetector(sensitive);
   // logicSensorStripD06->SetSensitiveDetector(sensitive);
   // logicSensorStripD07->SetSensitiveDetector(sensitive);
-  Log_Target->SetSensitiveDetector(sensitive);
+  // Log_Target->SetSensitiveDetector(sensitive);
 }
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -402,12 +402,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_0()
 {
-
-  // Retrieving Inputs
-  Inputs *Inputs = &Inputs::GetInputs();
-
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = Inputs->detector1_pos;
+  G4ThreeVector posicao_detector1 = G4ThreeVector(-7.5 * cm, 0., -18 * cm);
 
   // Creating the detector
   G4Box *Detector_0 = new G4Box("Detector0", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -469,12 +465,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_0()
 
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_1()
 {
-
-  // Retrieving Inputs
-  Inputs *Inputs = &Inputs::GetInputs();
-
   // Detector position
-  G4ThreeVector posicao_detector1 = Inputs->detector2_pos;
+  G4ThreeVector posicao_detector1 = G4ThreeVector(7.5 * cm, 0., -18 * cm);
 
   // Creating Detector
   G4Box *solidSensor_D_0_1 = new G4Box("SensorD_0_1", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -534,7 +526,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
 {
 
   // Detector Position
-  G4ThreeVector posicao_detector2 = G4ThreeVector(0., 7.5 *cm, -18. * CLHEP::cm);
+  G4ThreeVector posicao_detector2 = G4ThreeVector(0., 7.5 * cm, -18. * CLHEP::cm);
 
   // Building detectors
   G4Box *detector2 = new G4Box("detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -592,7 +584,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -7.5 *cm, -18. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -7.5 * cm, -18. * cm);
 
   // Creating the detector
   G4Box *Detector_3 = new G4Box("Detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -601,7 +593,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
   // Rotating detector
   G4RotationMatrix *rotacaox = new G4RotationMatrix;
   rotacaox->rotateY(90. * CLHEP::deg);
-  rotacaox->rotateX(90. *deg);
+  rotacaox->rotateX(90. * deg);
 
   // Placing detector 1
   G4VPhysicalVolume *DetectorPhys_3 = new G4PVPlacement(rotacaox,
@@ -778,7 +770,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(8 *cm, 0., 22. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(8 * cm, 0., 22. * cm);
 
   // Creating the detector
   G4Box *Detector_6 = new G4Box("Detector6", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -839,7 +831,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(-8 *cm, 0., 22. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(-8 * cm, 0., 22. * cm);
 
   // Creating the detector
   G4Box *Detector_7 = new G4Box("Detector7", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);

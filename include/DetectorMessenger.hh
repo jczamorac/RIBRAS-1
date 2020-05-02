@@ -82,8 +82,7 @@ private:
   G4UIcmdWith3VectorAndUnit *primary_pos;
 
   // Commands for detectors
-  G4UIcmdWith3VectorAndUnit *detector1_pos;
-  G4UIcmdWith3VectorAndUnit *detector2_pos;
+  G4UIcmdWithABool *usingdetectors;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -180,8 +180,7 @@ public: // Primary beam
   G4ThreeVector primary_pos;                  // Primary beam vertex position
 
 public: // Detectors
-  G4ThreeVector detector1_pos;                
-  G4ThreeVector detector2_pos;
+  G4bool using_detectors;
 
 private:
   Inputs() : // Initializing parameters
@@ -194,8 +193,7 @@ private:
              ejectile_mass(0.0), ejectile_Ex(0.0),
              ejectile_A(0), ejectile_Z(0),
              primary_energy(0), primary_Z(0), primary_A(0),
-             primary_pos(0), RecoilParticle(0), EjectileParticle(0),
-             detector1_pos(0), detector2_pos(0){};
+             primary_pos(0), RecoilParticle(0), EjectileParticle(0){};
   Inputs(Inputs const &) = delete;
   void operator=(Inputs const &) = delete;
 };

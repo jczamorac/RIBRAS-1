@@ -133,41 +133,43 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   primary_pos->SetParameterName("X", "Y", "Z", true, true);
   primary_pos->SetDefaultUnit("cm");
 
-  //Switch for magnetic field
+  // Switch for magnetic field
   magneticfieldon = new G4UIcmdWithABool("/det/field", this);
   magneticfieldon->SetGuidance("Turn On (1), Turn Off (0)");
-
-  // Detector commands
-  detector1_pos = new G4UIcmdWith3VectorAndUnit("/det/detector1/pos", this);
-  detector1_pos->SetGuidance("Set detector 1 position");
-  detector1_pos->SetParameterName("X", "Y", "Z", true, true);
-  detector1_pos->SetDefaultUnit("cm");
-
-  detector2_pos = new G4UIcmdWith3VectorAndUnit("/det/detector2/pos", this);
-  detector2_pos->SetGuidance("Set detector 2 position");
-  detector2_pos->SetParameterName("X", "Y", "Z", true, true);
-  detector2_pos->SetDefaultUnit("cm");
 }
 
 DetectorMessenger::~DetectorMessenger()
 {
+  delete detDir;
+  delete targetDir;
+  delete recoilDir;
+  delete ejectileDir;
+  delete primaryDir;
   delete secondSensorDir;
+  delete magneticDir;
+
+  delete updateCmd;
+
   delete target_material;
   delete target_Z;
   delete target_A;
-  delete targetDir;
-  delete recoilDir;
+  delete target_mass;
+  delete target_pos;
+  delete target_width_cmd;
   delete recoil_mass;
+  delete recoil_Ex;
   delete recoil_A;
   delete recoil_Z;
-  delete recoil_Ex;
-  delete ejectileDir;
-  delete ejectile_Z;
   delete ejectile_mass;
   delete ejectile_Ex;
   delete ejectile_A;
-  delete updateCmd;
-  delete detDir;
+  delete ejectile_Z;
+  delete primary_energy;
+  delete primary_A;
+  delete primary_Z;
+  delete primary_pos;
+
+  delete magneticfieldon;
 }
 
 void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
@@ -258,14 +260,5 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
   else if (command == magneticfieldon)
   {
     Inputs->using_magneticfield = magneticfieldon->GetNewBoolValue(newValue);
-  }
-
-  else if (command == detector1_pos)
-  {
-    Inputs->detector1_pos = detector1_pos->GetNew3VectorValue(newValue);
-  }
-  else if (command == detector2_pos)
-  {
-    Inputs->detector2_pos = detector2_pos->GetNew3VectorValue(newValue);
   }
 }

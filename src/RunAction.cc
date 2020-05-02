@@ -28,9 +28,6 @@
 #include "G4DecayProducts.hh"
 #include "G4GenericIon.hh"
 
-#include "TGraphErrors.h"
-#include "TCanvas.h"
-
 using namespace std;
 
 RunAction::RunAction(EventAction *theEventAction) : eventAction(theEventAction)

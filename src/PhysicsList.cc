@@ -162,22 +162,28 @@ void PhysicsList::ConstructProcess()
 
   	// Cross Section Data set
   	G4NeutronHPElasticData* theHPElasticData = new G4NeutronHPElasticData();
+    // Setting verbose 0
+    theHPElasticData->SetVerboseLevel(0);
   	/* theHPElasticData->DumpPhysicsTable(*G4Neutron::NeutronDefinition()); */
   	theNeutronElasticProcess->AddDataSet( theHPElasticData );
 
   	// Model
   	G4NeutronHPElastic* theNeutronElasticModel = new G4NeutronHPElastic();
+    theNeutronElasticModel->SetVerboseLevel(0);
   	theNeutronElasticProcess->RegisterMe(theNeutronElasticModel);
 
   	G4NeutronInelasticProcess * theNeutronInelasticProcess = new G4NeutronInelasticProcess();
   	G4NeutronHPInelasticData* theHPInelasticData = new G4NeutronHPInelasticData();
+    theHPInelasticData->SetVerboseLevel(0);
   	//  theHPInelasticData->DumpPhysicsTable(*G4Neutron::Neutron());
   	theNeutronInelasticProcess->AddDataSet( theHPInelasticData );
 
   	G4NeutronHPInelastic* theNeutronInelasticModel = new G4NeutronHPInelastic();
+    theNeutronInelasticModel->SetVerboseLevel(0);
   	theNeutronInelasticProcess->RegisterMe(theNeutronInelasticModel);
 
   	G4ProcessManager* pmanager = G4Neutron::Neutron()->GetProcessManager();
+    pmanager->SetVerboseLevel(0);
   	pmanager->AddDiscreteProcess( theNeutronElasticProcess );
   	pmanager->AddDiscreteProcess( theNeutronInelasticProcess );
 }
@@ -189,6 +195,7 @@ void PhysicsList::ConstructEM()
 
   auto theParticleIterator = GetParticleIterator();
   G4PhysicsListHelper* ph = G4PhysicsListHelper::GetPhysicsListHelper();
+  ph->SetVerboseLevel(0);
 
   theParticleIterator->reset();
   while ((*theParticleIterator)()) {

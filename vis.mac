@@ -21,12 +21,6 @@
 #Turn On/Off the magnetic field
 /det/field 1
 
-#Set Detector 1 position
-/det/detector1/pos -7.5 0 -18.
-
-#Set Detector 2 position
-/det/detector2/pos 7.5 0 -18.
-
 #Define the target material
 /det/target/material G4_lH2
 /det/target/Z 1
@@ -34,7 +28,7 @@
 /det/target/width 0.001
 
 #Define target position (x, y, z)(cm)
-/det/target/pos 0. 0. 320.
+/det/target/pos 0. 0. 301.
 
 #Define the primary particle
 /det/primary/energy 18 MeV
@@ -53,10 +47,10 @@
 #/vis/disable
 
 #Set current
-/det/currentValue {corriente}
-/det/currentValue2 {corrente}
-#/det/currentValue 27.6
-#/det/currentValue2 28.
+#/det/currentValue {corriente}
+#/det/currentValue2 {corrente}
+/det/currentValue 27.6
+/det/currentValue2 28.
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents

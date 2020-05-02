@@ -52,12 +52,6 @@ using namespace std;
 #define N_inel 129
 using namespace CLHEP;
 
-//#include "kinematics.h"
-//#include "kinematics2.h"
-
-//#define N 258
-//#define N_inel 396
-
 G4ParticleGun* BeamTestPrimaryGeneratorAction::particleGun(0);
 
 //SeccionEff* BeamTestPrimaryGeneratorAction::apuntador(0);
