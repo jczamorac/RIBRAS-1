@@ -1,2 +1,2 @@
-ROOT/*
-build/*
+/ROOT/*.root
+/build/
