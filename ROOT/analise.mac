@@ -1,0 +1,43 @@
+#include <fstream>
+#include <sstream>
+#include <iostream>    
+
+using namespace std;
+
+void analise()
+{
+    int runCounter = 0;
+
+    TFile* f1;
+    TTree* a1;
+    TH2F* hT1C;
+    ofstream lista("RMS.txt");
+
+    for(runCounter = 0; runCounter<10000; runCounter++)
+    {
+        string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
+        ostringstream f;
+        f << root << runCounter << ".root";
+        cout << f.str().data() << endl;
+
+        f1 =  new TFile(f.str().data());                              // abrimos o arquivo
+        a1 = (TTree *)f1->Get("SiTelescope");                         // pegamos o tree
+        hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // definimos um histograma 2D
+
+	    a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          //escrevemos no histograma
+
+        double sigma_x = hT1C->GetRMS(1);
+        double sigma_y = hT1C->GetRMS(2);
+
+        lista << sigma_x << " " << sigma_y << " " << runCounter << " " << (sigma_x + sigma_y)/2 << endl;
+
+        string path = "/home/leo/Desktop/RIBRAS/Posicao/posicao_";
+        ostringstream fn;
+        fn << path << runCounter << ".png";
+
+        //hT1C->Draw(fn.str().data());
+        hT1C->Clear();
+    }
+
+    // hT1C->Draw();
+}
