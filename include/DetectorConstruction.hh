@@ -158,9 +158,9 @@ public: // Flags:
 
 public: // Target
   G4Material *TargetMaterial;                 // Target material
-  G4ThreeVector target_pos;                   // Target Position 
+  G4ThreeVector target_pos;                   // Target Position
   G4double width;                             // Target thickness
-  G4String g4_material_name;      
+  G4String g4_material_name;
   G4double target_mass;                       // Target Mass
   G4int target_A, target_Z;                   // Target A , Z
 
@@ -173,6 +173,16 @@ public: // Recoil / Ejectile
 
   G4ParticleDefinition *RecoilParticle;
   G4ParticleDefinition *EjectileParticle;
+
+public: // Decay products 1,2
+  G4double decayp1_mass, decayp1_Ex;
+  G4int decayp1_A, decayp1_Z;
+
+  G4double decayp2_mass, decayp2_Ex;
+  G4int decayp2_A, decayp2_Z;
+
+  G4ParticleDefinition *DecayParticle1;
+  G4ParticleDefinition *DecayParticle2;
 
 public: // Primary beam
   G4double primary_energy;                    // Primary beam energy
@@ -192,6 +202,9 @@ private:
              target_A(0), target_Z(0), target_pos(0),
              ejectile_mass(0.0), ejectile_Ex(0.0),
              ejectile_A(0), ejectile_Z(0),
+             decayp1_mass(0), decayp1_Ex(0), decayp1_A(0), decayp1_Z(0),
+             decayp2_mass(0), decayp2_Ex(0), decayp2_A(0), decayp2_Z(0),
+             DecayParticle1(0), DecayParticle2(0),
              primary_energy(0), primary_Z(0), primary_A(0),
              primary_pos(0), RecoilParticle(0), EjectileParticle(0){};
   Inputs(Inputs const &) = delete;

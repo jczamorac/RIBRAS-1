@@ -50,6 +50,14 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   ejectileDir = new G4UIdirectory("/det/ejectile/");
   ejectileDir->SetGuidance("ejectile control");
 
+  // Decay P1
+  decayprod1Dir = new G4UIdirectory("/det/decayp1/");
+  decayprod1Dir->SetGuidance("decayp1 control");
+
+  // Decay P2
+  decayprod2Dir = new G4UIdirectory("/det/decayp2/");
+  decayprod2Dir->SetGuidance("decayp2 control");
+
   // Primary Directory
   primaryDir = new G4UIdirectory("/det/primary/");
   primaryDir->SetGuidance("Primary Beam control");
@@ -118,6 +126,33 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   ejectile_Z = new G4UIcmdWithAnInteger("/det/ejectile/Z", this);
   ejectile_Z->SetGuidance("Specify a ejectile atomic number");
 
+  // Commands for decay particle 1
+  decayp1_mass = new G4UIcmdWithADoubleAndUnit("/det/decayp1/mass", this);
+  decayp1_mass->SetGuidance("(Optional) Specify an atomic  mass in MeV");
+
+  decayp1_Ex = new G4UIcmdWithADoubleAndUnit("/det/decayp1/Ex", this);
+  decayp1_Ex->SetGuidance("(Optional) Specify an excitation energy in MeV");
+
+  decayp1_A = new G4UIcmdWithAnInteger("/det/decayp1/A", this);
+  decayp1_A->SetGuidance("Specify a mass number");
+
+  decayp1_Z = new G4UIcmdWithAnInteger("/det/decayp1/Z", this);
+  decayp1_Z->SetGuidance("Specify an atomic number");
+
+
+  // Commands for decay particle 2
+  decayp2_mass = new G4UIcmdWithADoubleAndUnit("/det/decayp2/mass", this);
+  decayp2_mass->SetGuidance("(Optional) Specify an atomic  mass in MeV");
+
+  decayp2_Ex = new G4UIcmdWithADoubleAndUnit("/det/decayp2/Ex", this);
+  decayp2_Ex->SetGuidance("(Optional) Specify an excitation energy in MeV");
+
+  decayp2_A = new G4UIcmdWithAnInteger("/det/decayp2/A", this);
+  decayp2_A->SetGuidance("Specify a mass number");
+
+  decayp2_Z = new G4UIcmdWithAnInteger("/det/decayp2/Z", this);
+  decayp2_Z->SetGuidance("Specify an atomic number");
+
   // Commands for primary beam
   primary_energy = new G4UIcmdWithADoubleAndUnit("/det/primary/energy", this);
   primary_energy->SetGuidance("Set primary beam energy in MeV");
@@ -164,6 +199,14 @@ DetectorMessenger::~DetectorMessenger()
   delete ejectile_Ex;
   delete ejectile_A;
   delete ejectile_Z;
+  delete decayp1_mass;
+  delete decayp1_Ex;
+  delete decayp1_A;
+  delete decayp1_Z;
+  delete decayp2_mass;
+  delete decayp2_Ex;
+  delete decayp2_A;
+  delete decayp2_Z;
   delete primary_energy;
   delete primary_A;
   delete primary_Z;
@@ -238,6 +281,40 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
   else if (command == ejectile_Z)
   {
     Inputs->ejectile_Z = ejectile_Z->GetNewIntValue(newValue);
+  }
+
+  else if (command == decayp1_mass)
+  {
+    Inputs->decayp1_mass = decayp1_mass->GetNewDoubleValue(newValue);
+  }
+  else if (command == decayp1_Ex)
+  {
+    Inputs->decayp1_Ex = decayp1_Ex->GetNewDoubleValue(newValue);
+  }
+  else if (command == decayp1_A)
+  {
+    Inputs->decayp1_A = decayp1_A->GetNewIntValue(newValue);
+  }
+  else if (command == decayp1_Z)
+  {
+    Inputs->decayp1_Z = decayp1_Z->GetNewIntValue(newValue);
+  }
+
+  else if (command == decayp2_mass)
+  {
+    Inputs->decayp2_mass = decayp2_mass->GetNewDoubleValue(newValue);
+  }
+  else if (command == decayp2_Ex)
+  {
+    Inputs->decayp2_Ex = decayp2_Ex->GetNewDoubleValue(newValue);
+  }
+  else if (command == decayp2_A)
+  {
+    Inputs->decayp2_A = decayp2_A->GetNewIntValue(newValue);
+  }
+  else if (command == decayp2_Z)
+  {
+    Inputs->decayp2_Z = decayp2_Z->GetNewIntValue(newValue);
   }
 
   else if (command == primary_energy)

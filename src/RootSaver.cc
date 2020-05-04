@@ -4,7 +4,7 @@
   *
   * @date   17 Dec 2009
   * @author adotti
-  * 
+  *
   * @brief  Implements class RootSaver.
   */
 
@@ -74,7 +74,8 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         }
 
         // Path to where ROOT should save the files
-        G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
+        //G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
+        G4String Path = "ROOT/";
 
         // Creating ROOT file
         std::ostringstream fn;

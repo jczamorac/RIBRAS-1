@@ -38,12 +38,21 @@
 /det/primary/pos 0. 0. -115
 
 #Define the recoil particle
-/det/recoil/A 3
-/det/recoil/Z 2
+/det/recoil/A 2
+/det/recoil/Z 1
 
 #Define the ejectile particle
-/det/ejectile/A 7
-/det/ejectile/Z 4
+/det/ejectile/A 8
+/det/ejectile/Z 5
+
+#Define decay  particle 1
+/det/decayp1/A 1
+/det/decayp1/Z 1
+
+#Define decay particle 2
+/det/decayp2/A 7
+/det/decayp2/Z 4
+
 
 #/vis/disable
 

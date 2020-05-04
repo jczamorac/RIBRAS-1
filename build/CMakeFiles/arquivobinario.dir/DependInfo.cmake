@@ -4,55 +4,42 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/leo/Desktop/RIBRAS/Example.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/Example.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/BeamTestPrimaryGeneratorAction.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/BeamTestPrimaryGeneratorAction.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/BeamTestPrimaryGeneratorMessenger.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/BeamTestPrimaryGeneratorMessenger.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/DetectorConstruction.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/DetectorConstruction.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/DetectorMessenger.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/DetectorMessenger.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/EventAction.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/EventAction.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/MagneticField.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/MagneticField.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/MagneticFieldMessenger.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/PhysicsList.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/PhysicsListMessenger.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/Reaction.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/Reaction.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/RootSaver.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/RunAction.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/RunAction.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/SensitiveDetector.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/SiHit.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/SiHit.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/StepMax.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/StepMax.cc.o"
-  "/home/leo/Desktop/RIBRAS/src/StepMaxMessenger.cc" "/home/leo/Desktop/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/Example.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/Example.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/BeamTestPrimaryGeneratorAction.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/BeamTestPrimaryGeneratorAction.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/BeamTestPrimaryGeneratorMessenger.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/BeamTestPrimaryGeneratorMessenger.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/DetectorConstruction.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/DetectorConstruction.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/DetectorMessenger.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/DetectorMessenger.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/EventAction.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/EventAction.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/MagneticField.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/MagneticField.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/MagneticFieldMessenger.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/MagneticFieldMessenger.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/PhysicsList.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/PhysicsList.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/PhysicsListMessenger.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/PhysicsListMessenger.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/Reaction.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/Reaction.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/RootSaver.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/RootSaver.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/RunAction.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/RunAction.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/SensitiveDetector.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/SensitiveDetector.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/SiHit.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/SiHit.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/StepMax.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/StepMax.cc.o"
+  "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/src/StepMaxMessenger.cc" "/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir/src/StepMaxMessenger.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
-  "G4INTY_USE_QT"
-  "G4INTY_USE_XT"
-  "G4LIB_BUILD_DLL"
-  "G4UI_USE_QT"
+  "G4MULTITHREADED"
+  "G4UI_USE"
   "G4UI_USE_TCSH"
-  "G4VIS_USE_OPENGL"
-  "G4VIS_USE_OPENGLQT"
-  "G4VIS_USE_OPENGLX"
-  "QT_CORE_LIB"
-  "QT_GUI_LIB"
-  "QT_NO_DEBUG"
-  "QT_OPENGL_LIB"
+  "G4VERBOSE"
+  "G4VIS_USE"
+  "G4_STORE_TRAJECTORY"
   )
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/leo/CLHEP/CLHEP-install/lib/CLHEP-2.4.1.3/../../include"
   "../include"
-  "/home/leo/ROOT/build/include"
+  "/usr/local/root-6.10.08/builddir/include"
   "../"
-  "/home/leo/G4/geant4-install/include/Geant4"
-  "/home/leo/CLHEP/CLHEP-install/include"
-  "/usr/include/qt4/QtGui"
-  "/usr/include/qt4/QtCore"
-  "/usr/share/qt4/mkspecs/default"
-  "/usr/include/qt4"
-  "/usr/include/qt4/QtOpenGL"
+  "/usr/local/geant4_10.04-install/include/Geant4"
   )
 
 # Targets to which this target links.

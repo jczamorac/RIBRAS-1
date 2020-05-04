@@ -4,7 +4,7 @@
  *
  * @date   17 Dec 2009
  * @author adotti
- * 
+ *
  * @brief  Implements user class EventAction.
  */
 
@@ -131,6 +131,31 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 		part = ionTable->GetIon(Inputs->recoil_Z, Inputs->recoil_A, Inputs->ejectile_Ex);
 		Inputs->RecoilParticle = part;
 	}
+
+	//Decay particle 1
+	if(Inputs->decayp1_A>1 && Inputs->decayp1_Z>1){
+		G4IonTable *ionTable = G4IonTable::GetIonTable();
+		G4ParticleDefinition *part = 0;
+		part = ionTable->GetIon(Inputs->decayp1_Z, Inputs->decayp1_A, Inputs->decayp1_Ex);
+		Inputs->DecayParticle1 = part;
+	}
+	else{
+		if(Inputs->decayp1_A == 1 && Inputs->decayp1_Z == 1) Inputs->DecayParticle1 = G4Proton::Definition();
+		else if(Inputs->decayp1_A == 1 && Inputs->decayp1_Z == 0) Inputs->DecayParticle1 = G4Neutron::Definition();
+	}
+
+	//Decay particle 2
+	if(Inputs->decayp2_A>1 && Inputs->decayp2_Z>1){
+		G4IonTable *ionTable = G4IonTable::GetIonTable();
+		G4ParticleDefinition *part = 0;
+		part = ionTable->GetIon(Inputs->decayp2_Z, Inputs->decayp2_A, Inputs->decayp2_Ex);
+		Inputs->DecayParticle2 = part;
+	}
+	else{
+		if(Inputs->decayp2_A == 1 && Inputs->decayp2_Z == 1) Inputs->DecayParticle2 = G4Proton::Definition();
+		else if(Inputs->decayp2_A == 1 && Inputs->decayp2_Z == 0) Inputs->DecayParticle2 = G4Neutron::Definition();
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +200,22 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	G4double z = cos(CMScatteringAngle);
 	G4ThreeVector RecoilDirectionInCM(-x, -y, -z); // Updated these so that the ejectile is moving forward
 	G4ThreeVector EjectileDirectionInCM(x, y, z);  // Before the Ejectile was backward focused. I also
-												   // had to adjust the boost, as it was boosting with -beta, and it should have been +beta
+												   // had to adjust the boost, as it was boosting with -beta, and it should have been +bet
+	G4double ran_ex = 0;
+	G4double rand_dis = 0;
+
+
+	if(rDecayThisEvent){
+
+		// MC to distribute the events with the cross section
+		G4double Es = 0.136;
+                do{
+	                	rand_dis = 10.2*(CLHEP::RandFlat::shoot()) ;
+                    ran_ex = 5*( CLHEP::RandFlat::shoot() ) + Es;
+
+	        				}while( rand_dis > ExDistr(ran_ex, Es));
+	}
+
 
 	G4ThreeVector BeamDirection = BeamTrack.GetMomentumDirection();
 	G4ThreeVector BeamMomentum = BeamTrack.GetMomentum();
@@ -190,14 +230,15 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 							  : Inputs->target_mass;
 
 	G4double RecoilMass = (Inputs->recoil_mass == 0.0)
-							  ? getMass(Inputs->recoil_Z, Inputs->recoil_A) 	  // Atomic mass (without electrons) 
+							  ? getMass(Inputs->recoil_Z, Inputs->recoil_A) 	  // Atomic mass (without electrons)
 							  : Inputs->recoil_mass;
 	RecoilMass += Inputs->recoil_Ex;
 
 	G4double EjectileMass = (Inputs->ejectile_mass == 0.0)
 								? getMass(Inputs->ejectile_Z, Inputs->ejectile_A) // Isotopic mass (without electrons) */
 								: Inputs->ejectile_mass;
-	EjectileMass += Inputs->ejectile_Ex;
+	if(rDecayThisEvent) EjectileMass += ran_ex;
+	else  EjectileMass += Inputs->ejectile_Ex;
 
 	if (!TargetMass || !EjectileMass || !RecoilMass)
 	{
@@ -251,7 +292,7 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 G4DynamicParticle *EventAction::GetRecoilDynamicParticle(const G4Track &BeamTrack, const G4LorentzVector &Recoil4Vec)
 {	// Creating Recoil Particle
 
-	G4Event *anEvent;
+	//G4Event *anEvent;
 	Inputs *Inputs = &Inputs::GetInputs();
 
 	G4ThreeVector Vec = Recoil4Vec.getV().unit();
@@ -275,7 +316,7 @@ G4DynamicParticle *EventAction::GetEjectileDynamicParticle(const G4Track &BeamTr
 
 	G4ThreeVector Vec = Ejectile4Vec.getV().unit();
 
-	rEjectileTheta = acos(Vec.z() / Vec.r());
+	//rEjectileTheta = acos(Vec.z() / Vec.r());
 
 	G4double Mass = Ejectile4Vec.m();
 
@@ -287,3 +328,80 @@ G4DynamicParticle *EventAction::GetEjectileDynamicParticle(const G4Track &BeamTr
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
+
+
+void EventAction::DecayLab4Vectors(const G4LorentzVector &ParentLV,  G4LorentzVector &DecayOut1, G4LorentzVector &DecayOut2 )
+{
+	Inputs *Inputs = &Inputs::GetInputs();
+	G4double mass0 = ParentLV.m();
+	G4double mass1 = getMass(Inputs->decayp1_Z, Inputs->decayp1_A);
+	G4double mass2 = getMass(Inputs->decayp2_Z, Inputs->decayp2_A);
+  G4double S = mass0*mass0;
+	G4double Pcm = 0.5 * sqrt(pow(S, 2.0) + pow(mass1, 4.0) + pow(mass2, 4.0) - 2 * S * pow(mass1, 2.0) - 2 * pow(mass1, 2.0) * pow(mass2, 2.0) - 2 * S * pow(mass2, 2.0)) / sqrt(S);
+
+	G4double ThetaCM = pi*(2.0*CLHEP::RandFlat::shoot() - 1.0);
+	G4double PhiCM = CLHEP::RandFlat::shoot()*2*pi;
+	G4double x = sin(ThetaCM) * cos(PhiCM);
+	G4double y = sin(ThetaCM) * sin(PhiCM);
+	G4double z = cos(ThetaCM);
+	G4ThreeVector Decayp1DirectionInCM(-x, -y, -z);
+	Decayp1DirectionInCM = Decayp1DirectionInCM * Pcm;
+	G4ThreeVector Decayp2DirectionInCM(x, y, z);
+	Decayp2DirectionInCM = Decayp2DirectionInCM * Pcm;
+	G4double Decayp1CMEnergy = sqrt(pow(Pcm, 2.0) + pow(mass1, 2.0));
+	G4double Decayp2CMEnergy = sqrt(pow(Pcm, 2.0) + pow(mass2, 2.0));
+
+	G4LorentzVector CM_Decay1_4Vec(Decayp1CMEnergy, Decayp1DirectionInCM);
+	G4LorentzVector CM_Decay2_4Vec(Decayp2CMEnergy, Decayp2DirectionInCM);
+	G4double beta = ParentLV.beta();
+	G4ThreeVector Vec = ParentLV.getV().unit();
+
+	// Boost to Lab (parent direction)
+	DecayOut1 = CM_Decay1_4Vec.boost(Vec,beta);
+	DecayOut2 = CM_Decay2_4Vec.boost(Vec,beta);
+
+
+}
+
+G4DynamicParticle *EventAction::GetDecay1DynamicParticle(const G4LorentzVector &DecayP1_4Vec)
+{	// Creating Ejectile Particle
+
+	Inputs *Inputs = &Inputs::GetInputs();
+
+	G4ThreeVector Vec = DecayP1_4Vec.getV().unit();
+
+	//rEjectileTheta = acos(Vec.z() / Vec.r());
+
+	G4double Mass = DecayP1_4Vec.m();
+
+	G4double LabKineticEnergy = DecayP1_4Vec.e() - Mass;
+
+	G4DynamicParticle *par = new G4DynamicParticle(Inputs->DecayParticle1, Vec.unit(), LabKineticEnergy);
+
+	return par;
+}
+
+G4DynamicParticle *EventAction::GetDecay2DynamicParticle(const G4LorentzVector &DecayP2_4Vec)
+{	// Creating Ejectile Particle
+
+	Inputs *Inputs = &Inputs::GetInputs();
+
+	G4ThreeVector Vec = DecayP2_4Vec.getV().unit();
+
+	//rEjectileTheta = acos(Vec.z() / Vec.r());
+
+	G4double Mass = DecayP2_4Vec.m();
+
+	G4double LabKineticEnergy = DecayP2_4Vec.e() - Mass;
+
+	G4DynamicParticle *par = new G4DynamicParticle(Inputs->DecayParticle2, Vec.unit(), LabKineticEnergy);
+
+	return par;
+}
+
+
+G4double EventAction::ExDistr(G4double ex, G4double se){
+	//Dissociation Energy Distribution based on  Nakamura, Physics Letters B 331 (1994) 296-301
+	G4double f = pow(ex-se,1.5)/pow(ex,4.0);
+	return f;
+}
