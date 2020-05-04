@@ -34,6 +34,8 @@
 //#include "CrosstalkGenerator.hh"
 // #include "MeV2ChargeConverter.hh"
 
+#include "TEnv.h"
+
 using namespace CLHEP;
 using namespace std;
 
@@ -70,6 +72,8 @@ public:
     //! Set the RootSaver
     inline void SetRootSaver(RootSaver *saver) { rootSaver = saver; }
 
+    inline void SetMassMap(TEnv *newmap) { runmassMap = newmap; }
+
     //Methods for Reaction
     void CalculateLab4Vectors(const G4Track &BeamTrack, G4double CMScatteringAngle, G4double phi, G4LorentzVector &RecoilOut, G4LorentzVector &EjectileOut);
     //!Calculate Recoil Particle
@@ -97,47 +101,7 @@ public:
         rInteractionPointY = v.y();
         rInteractionPointZ = v.z();
     }
-
-    // This method get mass, in MeV, of particle
-    double getMass(int Z, int A)
-    {
-        // string path = "/home/leo/Desktop/RIBRAS/";
-        // string FileName = "mass_table.txt";
-
-        ifstream file("mass_table.txt" /* path + FileName */);
-        string line;
-
-        double mass;
-        int a = 0, z = 0;
-        bool found = false;
-
-        while (!file.eof())
-        {
-            getline(file, line);
-
-            if (line.length() != 0 && line[0] != '#')
-            {
-
-                istringstream ss(line);
-
-                ss >> z;    // extracts 1st col.
-                ss >> a;    // extracts 2nd col.
-                ss >> mass; // extracts 2nd col.
-
-                if (Z == z && A == a)
-                {
-                    found = true;
-                    break;
-                }
-            }
-        }
-
-        mass = mass * 931.494 - z * 0.511; //in MeV without electrons
-        if (found == false)
-            mass = -10;
-
-        return mass;
-    }
+  
 
 private:
     //! pointer to saver object
@@ -148,6 +112,8 @@ private:
     //G4String digitsCollName;
     //! Hits collection ID
     G4int hitsCollID;
+
+    TEnv* runmassMap;
 
     G4Ions *RecoilParticle;
     G4Ions *EjectileParticle;

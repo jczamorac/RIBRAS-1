@@ -33,6 +33,8 @@ using namespace std;
 RunAction::RunAction(EventAction *theEventAction) : eventAction(theEventAction)
 {
         eventAction->SetRootSaver(&saver);
+        MassMap = new TEnv("mass_table2.txt");
+        eventAction->SetMassMap(MassMap);
 }
 
 void RunAction::BeginOfRunAction(const G4Run *aRun)
@@ -40,9 +42,11 @@ void RunAction::BeginOfRunAction(const G4Run *aRun)
         G4cout << "Starting Run: " << aRun->GetRunID() << G4endl;
         // For each run a new TTree is created, with default names
         saver.CreateTree();
+
 }
 
 void RunAction::EndOfRunAction(const G4Run *aRun)
 {
         saver.CloseTree();
+        delete MassMap;
 }

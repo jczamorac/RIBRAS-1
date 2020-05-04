@@ -88,6 +88,8 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 	G4float ExOfEjectile = Inputs->ejectile_Ex;
 	G4float ExOfRecoil = Inputs->recoil_Ex;
 
+	//G4cout<<ZOfEjectile<<" "<<AOfEjectile<<"  "<<runmassMap->GetValue(Form("%i_%i", ZOfEjectile, AOfEjectile),-1000.0)<<G4endl;
+
 	//Check to see if the ejectile is a proton, neutron or ion
 	//If the Ejectile is a proton
 	if (ZOfEjectile == 1 && AOfEjectile == 1)
@@ -226,16 +228,17 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 
 	G4NistManager *nist = G4NistManager::Instance();
 	G4double TargetMass = (Inputs->target_mass == 0.0)
-							  ? nist->GetAtomicMass(Inputs->target_Z, Inputs->target_A)
+							  //? nist->GetAtomicMass(Inputs->target_Z, Inputs->target_A)
+								? 931.494*(runmassMap->GetValue(Form("%i_%i", Inputs->target_Z, Inputs->target_A),-1000.0)) - 0.511*Inputs->target_Z
 							  : Inputs->target_mass;
 
 	G4double RecoilMass = (Inputs->recoil_mass == 0.0)
-							  ? getMass(Inputs->recoil_Z, Inputs->recoil_A) 	  // Atomic mass (without electrons)
+								? 931.494*(runmassMap->GetValue(Form("%i_%i", Inputs->recoil_Z, Inputs->recoil_A),-1000.0)) - 0.511*Inputs->recoil_Z
 							  : Inputs->recoil_mass;
 	RecoilMass += Inputs->recoil_Ex;
 
 	G4double EjectileMass = (Inputs->ejectile_mass == 0.0)
-								? getMass(Inputs->ejectile_Z, Inputs->ejectile_A) // Isotopic mass (without electrons) */
+								? 931.494*(runmassMap->GetValue(Form("%i_%i", Inputs->ejectile_Z, Inputs->ejectile_A),-1000.0)) - 0.511*Inputs->ejectile_Z
 								: Inputs->ejectile_mass;
 	if(rDecayThisEvent) EjectileMass += ran_ex;
 	else  EjectileMass += Inputs->ejectile_Ex;
@@ -334,8 +337,8 @@ void EventAction::DecayLab4Vectors(const G4LorentzVector &ParentLV,  G4LorentzVe
 {
 	Inputs *Inputs = &Inputs::GetInputs();
 	G4double mass0 = ParentLV.m();
-	G4double mass1 = getMass(Inputs->decayp1_Z, Inputs->decayp1_A);
-	G4double mass2 = getMass(Inputs->decayp2_Z, Inputs->decayp2_A);
+	G4double mass1 =  931.494*(runmassMap->GetValue(Form("%i_%i", Inputs->decayp1_Z, Inputs->decayp1_A),-1000.0)) - 0.511*Inputs->decayp1_Z;
+	G4double mass2 =  931.494*(runmassMap->GetValue(Form("%i_%i", Inputs->decayp2_Z, Inputs->decayp2_A),-1000.0)) - 0.511*Inputs->decayp2_Z;
   G4double S = mass0*mass0;
 	G4double Pcm = 0.5 * sqrt(pow(S, 2.0) + pow(mass1, 4.0) + pow(mass2, 4.0) - 2 * S * pow(mass1, 2.0) - 2 * pow(mass1, 2.0) * pow(mass2, 2.0) - 2 * S * pow(mass2, 2.0)) / sqrt(S);
 
