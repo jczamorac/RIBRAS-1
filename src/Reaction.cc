@@ -51,8 +51,10 @@ G4VParticleChange* Reaction::PostStepDoIt( const G4Track& aTrack,
     G4ThreeVector pos(aTrack.GetPosition().getX(),aTrack.GetPosition().getY(),aTrack.GetPosition().getZ());
     gCESimulationManager->SetInteractionPoint(pos);
 
+    //G4cout<<ejectile4VecLab.e() - ejectile4VecLab.m()<<"  "<<recoil4VecLab.e()- recoil4VecLab.m()<<G4endl;
+
+    gCESimulationManager->SetDecayThisEvent(newdecay);
     if(newdecay){
-        gCESimulationManager->SetDecayThisEvent(newdecay);
         gCESimulationManager->DecayLab4Vectors(ejectile4VecLab,decayP1_4Vec,decayP2_4Vec);
         // Adding a the recoil particle as a secondary of this reaction
         aParticleChange.AddSecondary(gCESimulationManager->GetRecoilDynamicParticle(aTrack,recoil4VecLab),pos,true);
