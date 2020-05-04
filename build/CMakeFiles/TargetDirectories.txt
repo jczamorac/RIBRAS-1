@@ -1,7 +1,0 @@
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/install/strip.dir
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/edit_cache.dir
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/rebuild_cache.dir
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/list_install_components.dir
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/install/local.dir
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/arquivobinario.dir
-/home/juan/geant4_workdir/RIBRAS_Leo/RIBRAS/build/CMakeFiles/install.dir
