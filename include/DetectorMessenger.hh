@@ -44,6 +44,8 @@ private:
   G4UIdirectory *targetDir;
   G4UIdirectory *recoilDir;
   G4UIdirectory *ejectileDir;
+  G4UIdirectory *decayprod1Dir;
+  G4UIdirectory *decayprod2Dir;
   G4UIdirectory *primaryDir;
   G4UIdirectory *detectorDir;
   G4UIdirectory *magneticDir;
@@ -74,6 +76,18 @@ private:
   G4UIcmdWithADoubleAndUnit *ejectile_Ex;
   G4UIcmdWithAnInteger *ejectile_A;
   G4UIcmdWithAnInteger *ejectile_Z;
+
+  // Commands for decay particle 1
+  G4UIcmdWithADoubleAndUnit *decayp1_mass;
+  G4UIcmdWithADoubleAndUnit *decayp1_Ex;
+  G4UIcmdWithAnInteger *decayp1_A;
+  G4UIcmdWithAnInteger *decayp1_Z;
+
+  // Commands for decay particle 2
+  G4UIcmdWithADoubleAndUnit *decayp2_mass;
+  G4UIcmdWithADoubleAndUnit *decayp2_Ex;
+  G4UIcmdWithAnInteger *decayp2_A;
+  G4UIcmdWithAnInteger *decayp2_Z;
 
   // Commands for primary beam
   G4UIcmdWithADoubleAndUnit *primary_energy;
