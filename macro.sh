@@ -26,5 +26,3 @@ do
 	
 	done
 done
-#T="$(($(date +%s)-T))"
-#echo "Time in seconds: ${T}"
