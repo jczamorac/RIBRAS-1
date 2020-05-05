@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**",
                 "~/G4/geant4-install/include/Geant4",
                 "~/CLHEP/CLHEP-install/include/CLHEP/Random",
-                "~/ROOT/build/"
+                "~/ROOT/build/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang-6.0",

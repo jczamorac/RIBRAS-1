@@ -262,7 +262,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // Creating Solenoid 2 magnetic field
   G4double diametromag = 30.0 * cm;
-  G4double comprimentomag = 100 /* 68.0 */ * cm; //coil length
+  G4double comprimentomag = 68.0 * cm; //coil length
 
   Sol_Magnet2 = new G4Tubs("Sol_Magnet2", 0., diametromag / 2.0, comprimentomag / 2.0, 0., 360. * deg);
 
@@ -646,7 +646,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., 8. * cm, 22. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(0., 8. * cm, 18. * cm);
 
   // Creating the detector
   G4Box *Detector_4 = new G4Box("Detector4", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -708,7 +708,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -8. * cm, 22. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -8. * cm, 18. * cm);
 
   // Creating the detector
   G4Box *Detector_5 = new G4Box("Detector5", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -770,7 +770,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(8 * cm, 0., 22. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(8 * cm, 0., 18. * cm);
 
   // Creating the detector
   G4Box *Detector_6 = new G4Box("Detector6", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
@@ -831,7 +831,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
 G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
 {
   // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(-8 * cm, 0., 22. * cm);
+  G4ThreeVector posicao_detector1 = G4ThreeVector(-8 * cm, 0., 18. * cm);
 
   // Creating the detector
   G4Box *Detector_7 = new G4Box("Detector7", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);

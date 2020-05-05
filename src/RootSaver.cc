@@ -75,7 +75,7 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
 
         // Path to where ROOT should save the files
         //G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
-        G4String Path = "ROOT/";
+        G4String Path = "";
 
         // Creating ROOT file
         std::ostringstream fn;
@@ -215,37 +215,38 @@ void RootSaver::CloseTree()
                 currentFile->Close();
                 //The root is automatically deleted.
 
-/*                 n = 0;
-                auto canvas = new TCanvas();
-                G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
-                std::ostringstream f;
-                f << root << runCounter - 1 << ".root";
-                TFile *File = TFile::Open(f.str().data());
-                TTreeReader myReader("SiTelescope", File);
+                // n = 0;
+                // auto canvas = new TCanvas();
+                // G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
+                // std::ostringstream f;
+                // f << root << runCounter - 1 << ".root";
+                // TFile *File = TFile::Open(f.str().data());
+                // TTreeReader myReader("SiTelescope", File);
 
-                TTreeReaderValue<Float_t> posx(myReader, "pos_x_det0");
-                TTreeReaderValue<Float_t> posy(myReader, "pos_y_det0");
+                // TTreeReaderValue<Float_t> posx(myReader, "pos_x_det0");
+                // TTreeReaderValue<Float_t> posy(myReader, "pos_y_det0");
 
-                G4double x[100], y[100];
+                // G4double x[100], y[100];
 
-                while (myReader.Next())
-                {
-                        x[n] = *posx;
-                        y[n] = *posy;
-                        n++;
-                }
+                // while (myReader.Next())
+                // {
+                //         x[n] = *posx;
+                //         y[n] = *posy;
+                //         n++;
+                // }
 
-                TGraph graph(n, x, y);
+                // TGraph graph(n, x, y);
 
-                graph.SetMarkerColor(kBlue);
-                graph.SetMarkerStyle(kOpenCircle);
-                graph.DrawClone("APE");
+                // graph.SetTitle("Position");
+                // graph.SetMarkerColor(kRed);
+                // graph.SetMarkerStyle(21);
+                // graph.DrawClone("APE");
 
-                std::ostringstream fn;
-                G4String Path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/";
-                fn << Path << "posicao"
-                   << "_run_" << runCounter << ".png";
-                canvas->Print(fn.str().data()); */
+                // std::ostringstream fn;
+                // G4String Path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/";
+                // fn << Path << "posicao"
+                //    << "_run_" << runCounter << ".png";
+                // canvas->Print(fn.str().data());
 
                 rootTree = 0;
                 delete[] Signal0;
@@ -257,7 +258,8 @@ void RootSaver::CloseTree()
                 delete[] Signal6;
                 delete[] Signal7;
         }
-        G4cout << "Total of hits during simulation (including target): " << TotalHits << G4endl;
+
+        G4cout << "Total Hits: " << TotalHits << G4endl;
 }
 
 //-------------------------------------------------------------------------//
@@ -271,10 +273,10 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
         }
 
         // Store Hits information
-        if (hits)
+        if (hits->entries())
         {
+                hits;
                 G4int nHits = hits->entries();
-                TotalHits++;
                 // Set defaults values
                 Ekin_dssd2 = 0;
 
@@ -285,6 +287,8 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                 T_dssd = -1000;
 
                 StripNumber = -1000;
+
+                TotalHits++;
 
                 // Loop on all hits, consider only the hits with isPrimary flag
                 // Position is weighted average of hit x()
@@ -299,7 +303,6 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
 
                         // Same for detector
                         G4int planeNum = hit->GetPlaneNumber();
-                        // G4cout << planeNum << G4endl;
 
                         // Getting position of hit (detector reference)
                         G4ThreeVector pos = hit->GetPosition();
@@ -331,104 +334,80 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         // Saving information for each detector
                         if (planeNum == 0)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal0[stripNum] += Econv;
                         }
                         else if (planeNum == 1)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal1[stripNum] += Econv;
                         }
                         else if (planeNum == 2)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal2[stripNum] += Econv;
                         }
                         else if (planeNum == 3)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal3[stripNum] += Econv;
                         }
                         else if (planeNum == 4)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal4[stripNum] += Econv;
                         }
                         else if (planeNum == 5)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal5[stripNum] += Econv;
                         }
                         else if (planeNum == 6)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal6[stripNum] += Econv;
                         }
                         else if (planeNum == 7)
                         {
-                                // if (hit->GetIsPrimary() == true)
-                                // {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
-                                // }
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
                                 Signal7[stripNum] += Econv;
@@ -438,16 +417,18 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
                                 continue;
                         }
-                        G4cout << "Strip: " << stripNum << " ||"
-                               << " Detector " << planeNum << " ||"
-                               << " x: " << x << " ||"
-                               << " y: " << y << " ||"
-                               << " Hits: " << nHits << G4endl;
+                        // G4cout.precision(5);
+                        // G4cout << "Strip: " << stripNum << " ||"
+                        //        << " Detector " << planeNum << " ||"
+                        //        << " x: " << x << " ||"
+                        //        << " y: " << y << " ||"
+                        //        << " Hits: " << nHits << G4endl;
                 }
+                rootTree->Fill();
         }
         else
         {
-                G4cerr << "Error: No hits collection passed to RootSaver" << G4endl;
+                // G4cerr << "Error: No hits collection passed to RootSaver" << G4endl;
         }
         TruthPosx = static_cast<Float_t>(primPos.x());
         TruthPosy = static_cast<Float_t>(primPos.y());
@@ -470,8 +451,6 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
         //G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<G4endl;
         //if(TruthAngle_phi>7 && E_dssd2 > 0)G4cout<<"atan "<<std::abs(atan( primMom.y()/primMom.x() ))<<" en degree "<<TruthAngle_phi<<G4endl;
         //if(TruthAngle_phi>9 && E_dssd2 > 2)G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<" z mom "<< primMom.z()<<" pos x  "<<TruthPosx<<" pos y  "<<TruthPosy<<" pos z "<<TruthPosz<<" posy "<< Pos_y_dssd2<<G4endl;
-
-        rootTree->Fill();
 }
 
 //-------------------------------------------------------------------------//

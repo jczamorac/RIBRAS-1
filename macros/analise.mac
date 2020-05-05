@@ -1,0 +1,56 @@
+#include <fstream>
+#include <sstream>
+#include <iostream>    
+
+using namespace std;
+
+void analise()
+{
+    double Current1 = 0;
+    double Current2 = 0;
+
+    auto canvas = new TCanvas();
+    TFile* f1;
+    TTree* a1;
+    TH2F* hT1C;
+    ofstream lista("RMS.txt");
+
+    for(Current1 = 10.50; Current1<=30; Current1 += 0.5)
+    {
+        for(Current2 = 10.50; Current2<=30; Current2 += 0.5)
+        {
+            int n = 0;
+
+            string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
+
+            ostringstream f;
+            f.precision(2);
+            f.setf( std::ios::fixed, std::ios::floatfield );
+            f << root << "{" << Current1 << "}_" << "{" << Current2 << "}.root";
+
+            f1 =  new TFile(f.str().data());                              // Abrimos o arquivo
+            f.clear();
+
+            string path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/posicao_";
+            ostringstream fn;
+            fn << path << Current1 << "_" << Current2 << ".png";
+
+            a1 = (TTree *)f1->Get("SiTelescope");                         // Pegamos o tree
+            hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Definimos um histograma 2D
+
+            a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          // Escrevemos no histograma
+
+            double entries = hT1C->GetEntries();
+            double sigma_x = hT1C->GetRMS(1);
+            double sigma_y = hT1C->GetRMS(2);
+
+            lista << sigma_x << " || " << sigma_y << " || " << entries << " || " << Current1 << " || " << Current2 <<endl;
+
+            f.clear();
+            fn.clear();
+            hT1C->Clear();
+
+            //hT1C->Draw(fn.str().data());
+        }
+    }
+}

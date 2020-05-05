@@ -39,7 +39,9 @@ RunAction::RunAction(EventAction *theEventAction) : eventAction(theEventAction)
 
 void RunAction::BeginOfRunAction(const G4Run *aRun)
 {
-        G4cout << "Starting Run: " << aRun->GetRunID() << G4endl;
+        G4cout << " " << G4endl;
+        G4cout << "Starting Run" << G4endl;
+        G4cout << " " << G4endl;
         // For each run a new TTree is created, with default names
         saver.CreateTree();
 

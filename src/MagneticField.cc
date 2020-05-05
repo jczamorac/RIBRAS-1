@@ -96,19 +96,11 @@ void MagneticField::InicializaMag()
 void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
 {
   Inputs* Inputs = &Inputs::GetInputs();
-  // if(Point[2] > -105.*cm
-  //    && Point[2] < 421.*cm
-  //    && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) < rmin )
-  // {
-  //   Bfield[0] = 0.;
-  //   Bfield[1] = 0.;
-  //   Bfield[2] = 0.;
-  // }
 
   if(Point[2] > -105.*cm
      && Point[2] < 421.*cm
      && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) < rmax
-    //  && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) > rmin
+     && sqrt(Point[0]*Point[0]+Point[1]*Point[1]) > rmin
      && Inputs->using_magneticfield)
   {
       G4double z_mas = Point[2]+l_med;
@@ -122,7 +114,7 @@ void MagneticField::GetFieldValue(const double Point[3],double *Bfield) const
       G4double fr2_menos = (4*z_menos*z_menos-rmax*rmax)/(pow(z_menos*z_menos+rmax*rmax,3.5));
       G4double fz2_mas = (z_mas)/(pow(z_menos*z_menos+rmax*rmax,2.5));
       G4double fz2_menos = (z_menos)/(pow(z_mas*z_mas+rmax*rmax,2.5));
-      G4double factor = 0.945;
+      G4double factor = 0.945;   // 1/Amper
       G4double br = -0.5*r*k*current*factor*rmax*rmax*(fr_menos-fr_mas)+0.375*r*r*r*rmax*rmax*k*current*factor*(fr2_menos-fr2_mas);
 
       Bfield[2] = k*current*factor*(fz_menos-fz_mas)-0.75*r*r*rmax*rmax*k*current*factor*(fz2_mas-fz2_menos);
