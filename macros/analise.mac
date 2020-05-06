@@ -6,6 +6,7 @@ using namespace std;
 
 void analise()
 {
+
     double Current1 = 0;
     double Current2 = 0;
     double pos = 0;
@@ -16,11 +17,11 @@ void analise()
     TH2F* hT1C;
     ofstream lista("RMS.txt");
 
-    for(pos = 90, pos <= 115, pos +=5)
+    for(pos = 90; pos <= 115; pos +=5)
     {
-        for(Current1 = 10.50; Current1<=30; Current1 += 0.5)
+        for(Current1 = 30; Current1<=50; Current1 += 0.5)
         {
-            for(Current2 = 10.50; Current2<=30; Current2 += 0.5)
+            for(Current2 = 30; Current2<=50; Current2 += 0.5)
             {
                 int n = 0;
 
@@ -29,7 +30,7 @@ void analise()
                 ostringstream f;
                 f.precision(2);
                 f.setf( std::ios::fixed, std::ios::floatfield );
-                f << root << "{" << Current1 << "}_" << "{" << Current2 << "}" << "{" << pos << "}.root";
+                f << root << "{" << Current1 << "}_" << "{" << Current2 << "}_" << "{" << pos << "}.root";
 
                 f1 =  new TFile(f.str().data());                              // Abrimos o arquivo
                 f.clear();
@@ -47,11 +48,15 @@ void analise()
                 double sigma_x = hT1C->GetRMS(1);
                 double sigma_y = hT1C->GetRMS(2);
 
-                lista << sigma_x << " || " << sigma_y << " || " << entries << " || " << Current1 << " || " << Current2 <<endl;
+                if(entries>40)
+                {
+                    lista << sigma_x << " || " << sigma_y << " || " << entries << " || " << Current1 << " || " << Current2 <<  " || " <<  pos << endl;
+                }
 
                 f.clear();
                 fn.clear();
                 hT1C->Clear();
+                delete f1;
 
                 //hT1C->Draw(fn.str().data());
             }

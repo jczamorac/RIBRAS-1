@@ -42,6 +42,7 @@ int main(int argc,char** argv)
 {
   // Run manager
   G4RunManager * runManager = new G4RunManager();
+  runManager->SetVerboseLevel(0);
 
   // mandatory Initialization classes
   G4VUserDetectorConstruction* detector = new DetectorConstruction();
@@ -68,11 +69,13 @@ int main(int argc,char** argv)
   runManager->Initialize();
 
   G4VisManager* visManager = new G4VisExecutive();
+  visManager->SetVerboseLevel(0);
   visManager->Initialize();
 
   // Get the pointer to the User Interface manager
   //
   G4UImanager * UImanager = G4UImanager::GetUIpointer();
+  UImanager->SetVerboseLevel(0);
 
   if (argc!=1) {  // batch mode
 

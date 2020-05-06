@@ -14,7 +14,7 @@ do
 			echo -e "/control/verbose 0 \n/run/verbose 0 \n/vis/disable \n/det/field 1 \n/det/target/material G4_lH2 \n/det/target/Z 1 \n/det/target/A 2 \n/det/target/width 0.001 \n/det/target/pos 0. 0. 301. \n/det/primary/energy 30 MeV \n/det/primary/Z 5 \n/det/primary/A 8 \n/det/primary/pos 0. 0. -$r3 \n/det/recoil/A 3 \n/det/recoil/Z 2 \n/det/ejectile/A 7 \n/det/ejectile/Z 4" "\n/det/currentValue $r1" "\n/det/currentValue2 $r2" "\n/det/update" "\n/run/beamOn 100" > tmp.mac
 
 			## Printing current
-			echo $r1 $r2 > tmp.dat 
+			echo $r1 $r2 $r3 > tmp.dat 
 
 			## Run simulation
 			./arquivobinario tmp.mac
