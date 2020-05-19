@@ -27,6 +27,7 @@
 #include "MagneticField.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4ios.hh"
+#include "DetectorConstruction.hh"
 
 //---------------------------------------------------------------------//
 
@@ -56,13 +57,18 @@ MagneticFieldMessenger::~MagneticFieldMessenger()
 
 void MagneticFieldMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
 {
+  // Retrieving inputs
+  Inputs *Inputs = &Inputs::GetInputs();
+
   if (command == fieldCmd)
   {
     target->SetCurrent(fieldCmd->GetNewDoubleValue(newValue));
+    Inputs->Current1 = fieldCmd->GetNewDoubleValue(newValue);
   }
   if (command == fieldCmd2)
   {
     target->SetCurrent2(fieldCmd2->GetNewDoubleValue(newValue));
+    Inputs->Current2 = fieldCmd2->GetNewDoubleValue(newValue);
   }
 }
 //---------------------------------------------------------------------//

@@ -1,0 +1,99 @@
+#include <fstream>
+#include <sstream>
+#include <iostream>   
+#include <stdlib.h> 
+
+using namespace std;
+
+void analise3()
+{
+
+    // Initializing values
+    double Current1 = 0;
+    double Current2 = 0;
+
+    TFile* f1;
+    TTree* a1;
+    TH2F* hT1C;
+    ofstream lista("RMS.txt");
+
+    for(Current1 = 24; Current1<=25; Current1 += 0.2)
+    {
+        for(Current2 = 33; Current2<=34; Current2 += 0.2)
+        {
+            // Go to where are the root files
+            string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
+
+            // Getting all names
+            ostringstream f;
+            f.precision(2);
+            f.setf( std::ios::fixed, std::ios::floatfield );
+            f << root << Current1 << "_" << Current2 << ".root";
+
+            f1 =  new TFile(f.str().data());                              // Open root file
+            f.clear();                                                    // Clear root name
+
+            a1 = (TTree *)f1->Get("SiTelescope");                         // Getting tree
+
+            hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Define a 2D histogram
+
+            a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          // Drawing histogram
+
+            double entries = hT1C->GetEntries();                          // Getting number of hits
+            double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
+            double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
+
+            // Listing all data for high number of hits
+            if(entries == 100)
+            {
+                lista << (sigma_x + sigma_y)/2 << " " << " " << Current1 << " " << Current2 << endl;
+            }
+
+            // Cleaning everything
+            f.clear();
+            hT1C->Clear();
+            delete f1;
+        }
+    }
+
+    // Reading RMS.txt file
+    ifstream RMS("RMS.txt");
+    double RMSmed, Current_1, Current_2;
+    
+    // Initializing the biggest number
+    double alpha = DBL_MAX;
+
+    // Initializing currents
+    double c1 = 0;
+    double c2 = 0;
+
+    // Getting all values from RMS list
+    while (RMS >> RMSmed >> Current_1 >> Current_2)
+    {
+        // Getting absolute value of RMSmed
+        double n = abs(RMSmed);
+
+        // Getting smallest RMSmed
+        if(n < alpha)
+        {
+            alpha = RMSmed;
+            c1 = Current_1;
+            c2 = Current_2;
+        }
+    }
+
+    if(alpha == DBL_MAX)
+    {
+        cout << "------------------------------------" << endl;
+        cout << "Couldn't find any focus" << endl;
+        cout << "------------------------------------" << endl;
+    }
+    else
+    {
+        cout << "------------------------------------" << endl;
+        cout << "Smallest RMSmed: " << alpha << endl;
+        cout << "Value of current 1: " << c1 << endl;
+        cout << "Value of current 2: " << c2 << endl;
+        cout << "------------------------------------" << endl;
+    }
+}

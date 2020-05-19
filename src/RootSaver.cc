@@ -11,6 +11,7 @@
 // Local Headers
 #include "DetectorConstruction.hh"
 #include "RootSaver.hh"
+#include "MagneticField.hh"
 //#include "SiDigi.hh"
 #include "SiHit.hh"
 #include "G4DigiManager.hh"
@@ -67,19 +68,31 @@ RootSaver::~RootSaver()
 
 void RootSaver::CreateTree(const std::string &fileName, const std::string &treeName)
 {
+        // Retrieving inputs
+        Inputs *Inputs = &Inputs::GetInputs();
+
+        // Getting current values
+        G4double Current1 = Inputs->Current1 * 1000;
+        G4double Current2 = Inputs->Current2 * 1000;
+
         if (rootTree)
         {
                 std::cerr << "TTree already created, first call CloseTree" << std::endl;
                 return;
         }
 
+        // Total hits starts at zero
+        TotalHits = 0;
+
         // Path to where ROOT should save the files
-        //G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
-        G4String Path = "";
+        G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
+        // G4String Path = "";
 
         // Creating ROOT file
         std::ostringstream fn;
-        fn << Path << fileName << "_run_" << runCounter++ << ".root";
+        fn.precision(2);
+        fn.setf(std::ios::fixed, std::ios::floatfield);
+        fn << Path << fileName << "_" << Current1 << "_" << Current2 << ".root";
 
         // Create a new file and open it for writing, if the file already exists the file is overwritten
         TFile *rootFile = TFile::Open(fn.str().data(), "recreate");
@@ -202,6 +215,7 @@ void RootSaver::CloseTree()
         // from the TTree the current opened file
         if (rootTree)
         {
+                G4cout << "Total Hits: " << TotalHits << G4endl;
 
                 G4cout << "Writing ROOT TTree: " << rootTree->GetName() << G4endl;
                 //rootTree->Print();
@@ -215,39 +229,6 @@ void RootSaver::CloseTree()
                 currentFile->Close();
                 //The root is automatically deleted.
 
-                // n = 0;
-                // auto canvas = new TCanvas();
-                // G4String root = "/home/leo/Desktop/RIBRAS/ROOT/tree_run_";
-                // std::ostringstream f;
-                // f << root << runCounter - 1 << ".root";
-                // TFile *File = TFile::Open(f.str().data());
-                // TTreeReader myReader("SiTelescope", File);
-
-                // TTreeReaderValue<Float_t> posx(myReader, "pos_x_det0");
-                // TTreeReaderValue<Float_t> posy(myReader, "pos_y_det0");
-
-                // G4double x[100], y[100];
-
-                // while (myReader.Next())
-                // {
-                //         x[n] = *posx;
-                //         y[n] = *posy;
-                //         n++;
-                // }
-
-                // TGraph graph(n, x, y);
-
-                // graph.SetTitle("Position");
-                // graph.SetMarkerColor(kRed);
-                // graph.SetMarkerStyle(21);
-                // graph.DrawClone("APE");
-
-                // std::ostringstream fn;
-                // G4String Path = "/home/leo/Desktop/RIBRAS/Graficos_Posicao/";
-                // fn << Path << "posicao"
-                //    << "_run_" << runCounter << ".png";
-                // canvas->Print(fn.str().data());
-
                 rootTree = 0;
                 delete[] Signal0;
                 delete[] Signal1;
@@ -258,8 +239,6 @@ void RootSaver::CloseTree()
                 delete[] Signal6;
                 delete[] Signal7;
         }
-
-        G4cout << "Total Hits: " << TotalHits << G4endl;
 }
 
 //-------------------------------------------------------------------------//

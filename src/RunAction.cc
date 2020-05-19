@@ -44,11 +44,10 @@ void RunAction::BeginOfRunAction(const G4Run *aRun)
         G4cout << " " << G4endl;
         // For each run a new TTree is created, with default names
         saver.CreateTree();
-
 }
 
 void RunAction::EndOfRunAction(const G4Run *aRun)
 {
         saver.CloseTree();
-        delete MassMap;
+        // delete MassMap;
 }

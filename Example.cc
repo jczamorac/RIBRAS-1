@@ -50,16 +50,13 @@ int main(int argc,char** argv)
 
   // Local user Physics List
   G4VUserPhysicsList* physics = new PhysicsList();
-
-  // mandatory User class
   runManager->SetUserInitialization(physics);
 
   // mandatory User class
   G4VUserPrimaryGeneratorAction* gen_action = new BeamTestPrimaryGeneratorAction();
   runManager->SetUserAction(gen_action);
 
-
-  //Optional User Action classes
+  // Optional User Action classes
   EventAction* event_action = new EventAction();
   RunAction* run_action = new RunAction(event_action);
   runManager->SetUserAction( event_action );
