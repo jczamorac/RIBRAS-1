@@ -82,15 +82,15 @@ private:
   // -------------------------------------------------------------------------  //
 
   // Logical Volumes
-  G4LogicalVolume *logicWorld;          // World
+  G4LogicalVolume *logicWorld; // World
 
-  G4LogicalVolume *Log_Solenoid1;       // Solenoid 1
-  G4LogicalVolume *Log_Solenoid2;       // Solenoid 2
+  G4LogicalVolume *Log_Solenoid1; // Solenoid 1
+  G4LogicalVolume *Log_Solenoid2; // Solenoid 2
 
-  G4LogicalVolume *Log_Magnet1;         // Magnetic Field 1
-  G4LogicalVolume *Log_Magnet2;         // Magnetic Field 2
+  G4LogicalVolume *Log_Magnet1; // Magnetic Field 1
+  G4LogicalVolume *Log_Magnet2; // Magnetic Field 2
 
-  G4LogicalVolume *Log_Target;          // Target
+  G4LogicalVolume *Log_Target; // Target
 
   G4LogicalVolume *logicSensorStripD00; // Strips
   G4LogicalVolume *logicSensorStripD01;
@@ -104,20 +104,20 @@ private:
   // -------------------------------------------------------------------------  //
 
   // Physical Volumes
-  G4VPhysicalVolume *Phys_Solenoid1;    // Solenoid 1
-  G4VPhysicalVolume *Phys_Solenoid2;    // Solenoid 2
-  G4VPhysicalVolume *Phys_Magnet1;      // Magnetic Field 1
-  G4VPhysicalVolume *Phys_Magnet2;      // Magnetic Field 2
-  G4VPhysicalVolume *Phys_Target;       // Target
+  G4VPhysicalVolume *Phys_Solenoid1; // Solenoid 1
+  G4VPhysicalVolume *Phys_Solenoid2; // Solenoid 2
+  G4VPhysicalVolume *Phys_Magnet1;   // Magnetic Field 1
+  G4VPhysicalVolume *Phys_Magnet2;   // Magnetic Field 2
+  G4VPhysicalVolume *Phys_Target;    // Target
 
   // -------------------------------------------------------------------------  //
 
   // Solid Volumes
-  G4Tubs *Sol_Solenoid1;                // Solenoid 1
-  G4Tubs *Sol_Solenoid2;                // Solenoid 2
-  G4Tubs *Sol_Magnet1;                  // Magnetic Field 1
-  G4Tubs *Sol_Magnet2;                  // Magnetic Field 2
-  G4Box  *Sol_Target;                   // Target
+  G4Tubs *Sol_Solenoid1; // Solenoid 1
+  G4Tubs *Sol_Solenoid2; // Solenoid 2
+  G4Tubs *Sol_Magnet1;   // Magnetic Field 1
+  G4Tubs *Sol_Magnet2;   // Magnetic Field 2
+  G4Box *Sol_Target;     // Target
 
   // -------------------------------------------------------------------------  //
 
@@ -127,15 +127,15 @@ private:
   // -------------------------------------------------------------------------  //
 
   // Parameters
-  G4double halfWorldLength;             // World half length
-  G4int noOfSensorStrips;               // Number of Strips in each detector
+  G4double halfWorldLength; // World half length
+  G4int noOfSensorStrips;   // Number of Strips in each detector
 
   // -------------------------------------------------------------------------  //
 
   // Detectors parameters
-  G4double Lengthy_dssd_t1;             // Detectors height
-  G4double Thickness_dssd_t1;           // Detectors thickness
-  G4double Lengthx_dssd_t1;             // Detectors length
+  G4double Lengthy_dssd_t1;   // Detectors height
+  G4double Thickness_dssd_t1; // Detectors thickness
+  G4double Lengthx_dssd_t1;   // Detectors length
 
   // -------------------------------------------------------------------------  //
 };
@@ -156,20 +156,20 @@ public: // Flags:
   G4bool initialized;
   G4bool using_magneticfield;
 
-public: // Target
-  G4Material *TargetMaterial;                 // Target material
-  G4ThreeVector target_pos;                   // Target Position
-  G4double width;                             // Target thickness
+public:                       // Target
+  G4Material *TargetMaterial; // Target material
+  G4ThreeVector target_pos;   // Target Position
+  G4double width;             // Target thickness
   G4String g4_material_name;
-  G4double target_mass;                       // Target Mass
-  G4int target_A, target_Z;                   // Target A , Z
+  G4double target_mass;     // Target Mass
+  G4int target_A, target_Z; // Target A , Z
 
-public: // Recoil / Ejectile
-  G4double recoil_mass, recoil_Ex;            // Recoil particle mass, excitation energy
-  G4int recoil_A, recoil_Z;                   // Recoil particle A , Z
+public:                            // Recoil / Ejectile
+  G4double recoil_mass, recoil_Ex; // Recoil particle mass, excitation energy
+  G4int recoil_A, recoil_Z;        // Recoil particle A , Z
 
-  G4double ejectile_mass, ejectile_Ex;        // Ejectile particle mass, excitation energy
-  G4int ejectile_A, ejectile_Z;               // Ejectile particle A , Z
+  G4double ejectile_mass, ejectile_Ex; // Ejectile particle mass, excitation energy
+  G4int ejectile_A, ejectile_Z;        // Ejectile particle A , Z
 
   G4ParticleDefinition *RecoilParticle;
   G4ParticleDefinition *EjectileParticle;
@@ -184,13 +184,16 @@ public: // Decay products 1,2
   G4ParticleDefinition *DecayParticle1;
   G4ParticleDefinition *DecayParticle2;
 
-public: // Primary beam
-  G4double primary_energy;                    // Primary beam energy
-  G4int primary_Z, primary_A;                 // Primary beam Z , A
-  G4ThreeVector primary_pos;                  // Primary beam vertex position
+public:                       // Primary beam
+  G4double primary_energy;    // Primary beam energy
+  G4int primary_Z, primary_A; // Primary beam Z , A
+  G4ThreeVector primary_pos;  // Primary beam vertex position
 
 public: // Detectors
   G4bool using_detectors;
+
+public: // Magnetic Field
+  G4double Current1, Current2;
 
 private:
   Inputs() : // Initializing parameters
@@ -206,7 +209,8 @@ private:
              decayp2_mass(0), decayp2_Ex(0), decayp2_A(0), decayp2_Z(0),
              DecayParticle1(0), DecayParticle2(0),
              primary_energy(0), primary_Z(0), primary_A(0),
-             primary_pos(0), RecoilParticle(0), EjectileParticle(0){};
+             primary_pos(0), RecoilParticle(0), EjectileParticle(0),
+             Current1(0), Current2(0){};
   Inputs(Inputs const &) = delete;
   void operator=(Inputs const &) = delete;
 };

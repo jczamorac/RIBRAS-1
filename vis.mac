@@ -33,7 +33,7 @@
 /det/primary/energy 30 MeV
 /det/primary/Z 5
 /det/primary/A 8
-/det/primary/pos 0. 0. -90.
+/det/primary/pos 0. 0. -70.
 
 #Define the recoil particle
 /det/recoil/A 3
@@ -56,8 +56,8 @@
 #Set current
 #/det/currentValue {current}
 #/det/currentValue2 {current}
-/det/currentValue 31
-/det/currentValue2 41.
+/det/currentValue 24.40
+/det/currentValue2 34.00
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents
