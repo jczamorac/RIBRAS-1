@@ -1,0 +1,97 @@
+#include <fstream>
+#include <sstream>
+#include <iostream>   
+#include <stdlib.h> 
+
+using namespace std;
+
+void analise4()
+{
+    // Initializing values
+    double Current1 = 0;
+    double Current2 = 0;
+
+    TFile *f1;
+    TTree *a1;
+    TH2F *hT1C;
+    ofstream lista("Current.txt");
+
+    double lCurrent1 = DBL_MAX;
+    double lCurrent2 = DBL_MAX;
+
+    double bCurrent1 = DBL_MIN;
+    double bCurrent2 = DBL_MIN;
+
+    for(Current1 = 20; Current1<=35; Current1 ++)
+    {
+        for(Current2 = 20; Current2<=35; Current2 ++)
+        {
+            // Go to where are the root files
+            string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
+
+            // Getting all names
+            ostringstream f;
+            f.precision(2);
+            f.setf( std::ios::fixed, std::ios::floatfield );
+            f << root << Current1 << "_" << Current2 << ".root";
+
+            f1 =  new TFile(f.str().data());                              // Open root file
+            f.clear();                                                    // Clear root name
+
+            a1 = (TTree *)f1->Get("SiTelescope");                         // Getting tree
+
+            hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Define a 2D histogram
+
+            a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          // Drawing histogram
+
+            double entries = hT1C->GetEntries();                          // Getting number of hits
+            double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
+            double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
+
+            // Listing all simulations where are more than 90 hits on target
+            if(entries >= 80)
+            {
+                if(Current1 > bCurrent1)
+                {
+                    bCurrent1 = Current1;
+                }
+
+                if(Current2 > bCurrent2)
+                {
+                    bCurrent2 = Current2;
+                }
+
+                if(Current1 < lCurrent1)
+                {
+                    lCurrent1 = Current1;
+                }
+
+                if(Current2 < lCurrent2)
+                {
+                    lCurrent2 = Current2;
+                }
+            }
+
+            // Cleaning everything
+            f.clear();
+            hT1C->Clear();
+            delete f1;
+        }
+    }
+    if(bCurrent1 != DBL_MIN || bCurrent2 != DBL_MIN || lCurrent1 != DBL_MAX || lCurrent2 != DBL_MAX)
+    {
+    lista.precision(0);
+    lista.setf( std::ios::fixed, std::ios::floatfield );
+    lista << bCurrent1*10 << endl;
+    lista << bCurrent2*10 << endl;
+    lista << lCurrent1*10 << endl;
+    lista << lCurrent2*10 << endl;
+    }
+    else
+    {
+    lista << -1000 << endl;
+    lista << -1000 << endl;
+    lista << -1000 << endl;
+    lista << -1000 << endl;
+    }
+}

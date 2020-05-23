@@ -16,10 +16,11 @@ void analise3()
     TTree* a1;
     TH2F* hT1C;
     ofstream lista("RMS.txt");
+    ofstream lista2("data.txt");
 
-    for(Current1 = 24; Current1<=25; Current1 += 0.2)
+    for(Current1 = 20; Current1<=33; Current1 += 0.2)
     {
-        for(Current2 = 33; Current2<=34; Current2 += 0.2)
+        for(Current2 = 20; Current2<=35; Current2 += 0.2)
         {
             // Go to where are the root files
             string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
@@ -44,9 +45,12 @@ void analise3()
             double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
 
             // Listing all data for high number of hits
+
+            lista2 << entries << " " << Current1 << " " << Current2 << " " << (sigma_x + sigma_y)/2 << endl;
+
             if(entries == 100)
             {
-                lista << (sigma_x + sigma_y)/2 << " " << " " << Current1 << " " << Current2 << endl;
+                lista << (sigma_x + sigma_y)/2 << " " << Current1 << " " << Current2 << endl;
             }
 
             // Cleaning everything
@@ -55,6 +59,45 @@ void analise3()
             delete f1;
         }
     }
+    ////////////////////////////
+    // Creating 3-D histogram //
+    ////////////////////////////
+
+    // Creating Canvas
+    TCanvas *C1 = new TCanvas();
+    // TCanvas *C2 = new TCanvas();
+
+    // Reading data.txt file
+    ifstream data("data.txt");
+    Double_t nHits, iC1, iC2, iRMS;
+
+    // Creating a 3-D histogram
+    int nBins = 100;
+    TH3F *hist = new TH3F("hist", "nHits x Current", nBins, 20, 35, nBins, 20, 35, nBins, 0, 150);
+    TH3F *histRMS = new TH3F("histRMS", "RMS med x Current", nBins, 20, 35, nBins, 20, 35, nBins, 0, 150);
+
+    // Filling histogram
+    while(data >> nHits >> iC1 >> iC2 >> iRMS)
+    {
+        hist->Fill(iC1, iC2, nHits);
+        histRMS->Fill(iC1, iC2, iRMS);
+    }
+    // Drawing histogram RMS
+    histRMS->GetXaxis()->SetTitle("Current 1");
+    histRMS->GetYaxis()->SetTitle("Current 2");
+    histRMS->GetZaxis()->SetTitle("RMS Med");
+
+    // Drawing histogram
+    hist->GetXaxis()->SetTitle("Current 1");
+    hist->GetYaxis()->SetTitle("Current 2");
+    hist->GetZaxis()->SetTitle("Number of hits");
+
+    histRMS->Draw("LEGO");
+    //hist->Draw("LEGO");
+
+    //////////////////////////////////
+    // Searching for better current //
+    //////////////////////////////////
 
     // Reading RMS.txt file
     ifstream RMS("RMS.txt");
