@@ -29,14 +29,14 @@
 //
 // 
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+// ----------------------------------------------------------------------------- //
 
 #include "BeamTestPrimaryGeneratorMessenger.hh"
 
 #include "BeamTestPrimaryGeneratorAction.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+// ----------------------------------------------------------------------------- //
 
 BeamTestPrimaryGeneratorMessenger::BeamTestPrimaryGeneratorMessenger(BeamTestPrimaryGeneratorAction* BeamTestGun)
 :BeamTestAction(BeamTestGun)
@@ -50,14 +50,14 @@ BeamTestPrimaryGeneratorMessenger::BeamTestPrimaryGeneratorMessenger(BeamTestPri
 
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+// ----------------------------------------------------------------------------- //
 
 BeamTestPrimaryGeneratorMessenger::~BeamTestPrimaryGeneratorMessenger()
 {
   delete z_tarCmd;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+// ----------------------------------------------------------------------------- //
 
 void BeamTestPrimaryGeneratorMessenger::SetNewValue(G4UIcommand * command,G4String newValue)
 { 
@@ -65,5 +65,5 @@ void BeamTestPrimaryGeneratorMessenger::SetNewValue(G4UIcommand * command,G4Stri
    { 	BeamTestAction->SetZ_target(z_tarCmd->GetNewDoubleValue(newValue));}
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+// ----------------------------------------------------------------------------- //
 

@@ -26,12 +26,16 @@
 //  advanced example for Geant4
 // See more at: https://twiki.cern.ch/twiki/bin/view/Geant4/AdvancedExamples
 
+// Local headers
 #include "StepMaxMessenger.hh"
 #include "StepMax.hh"
+
+// Geant4 headers
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4SystemOfUnits.hh"
 
-/////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 StepMaxMessenger::StepMaxMessenger(StepMax* stepM)
 :stepMax(stepM)
 {
@@ -42,10 +46,11 @@ StepMaxMessenger::StepMaxMessenger(StepMax* stepM)
   StepMaxCmd->SetUnitCategory("Length");
 }
 
-/////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 StepMaxMessenger::~StepMaxMessenger()
 {
   delete StepMaxCmd;
 }
 
-/////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //

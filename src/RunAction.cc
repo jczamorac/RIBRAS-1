@@ -1,16 +1,10 @@
-// $Id: RunAction.cc 28 2010-01-12 10:24:06Z adotti $
-/**
-  * @file   RunAction.cc
-  *
-  * @date   17 Dec 2009
-  * @author adotti
-  *
-  * @brief  Implements user class RunAction.
-  */
+ // Local headers
 #include "RunAction.hh"
 #include "EventAction.hh"
-#include "G4Run.hh"
 #include "DetectorConstruction.hh"
+
+// Geant4 headers
+#include "G4Run.hh"
 #include "G4ParticleGun.hh"
 #include "G4ParticleDefinition.hh"
 #include "Randomize.hh"
@@ -30,24 +24,26 @@
 
 using namespace std;
 
+// -------------------------------------------------------------------------------//
 RunAction::RunAction(EventAction *theEventAction) : eventAction(theEventAction)
 {
         eventAction->SetRootSaver(&saver);
-        MassMap = new TEnv("mass_table2.txt");
-        eventAction->SetMassMap(MassMap);
 }
 
+// -------------------------------------------------------------------------------//
 void RunAction::BeginOfRunAction(const G4Run *aRun)
 {
-        G4cout << " " << G4endl;
-        G4cout << "Starting Run" << G4endl;
-        G4cout << " " << G4endl;
+        MassMap = new TEnv("mass_table2.txt");
+        eventAction->SetMassMap(MassMap);
+
         // For each run a new TTree is created, with default names
         saver.CreateTree();
 }
 
+// -------------------------------------------------------------------------------//
 void RunAction::EndOfRunAction(const G4Run *aRun)
 {
         saver.CloseTree();
-        // delete MassMap;
+        delete MassMap;
 }
+// -------------------------------------------------------------------------------//

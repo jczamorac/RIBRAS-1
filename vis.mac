@@ -65,4 +65,4 @@
 #This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 100
+/run/beamOn 10000

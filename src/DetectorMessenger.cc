@@ -30,6 +30,8 @@
 using namespace CLHEP;
 using namespace std;
 
+// ----------------------------------------------------------------------------- //
+
 DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
     : detector(det)
 {
@@ -172,6 +174,8 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   magneticfieldon->SetGuidance("Turn On (1), Turn Off (0)");
 }
 
+// ----------------------------------------------------------------------------- //
+
 DetectorMessenger::~DetectorMessenger()
 {
   delete detDir;
@@ -213,6 +217,8 @@ DetectorMessenger::~DetectorMessenger()
 
   delete magneticfieldon;
 }
+
+// ----------------------------------------------------------------------------- //
 
 void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
 {

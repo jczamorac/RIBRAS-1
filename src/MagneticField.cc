@@ -66,7 +66,8 @@
 #include "G4ThreeVector.hh"
 #include "G4RotationMatrix.hh"
 
-///////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 MagneticField::MagneticField()
 {
   // Retrieving Inputs
@@ -81,18 +82,21 @@ MagneticField::MagneticField()
   current2 = 50.;       //electric current [Amp] (tesla units are included just for B)
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 MagneticField::~MagneticField()
 {
   delete messenger;
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 void MagneticField::InicializaMag()
 {
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
 {
   Inputs *Inputs = &Inputs::GetInputs();
@@ -146,3 +150,4 @@ void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
     Bfield[1] = 0.;
   }
 }
+// ----------------------------------------------------------------------------- //

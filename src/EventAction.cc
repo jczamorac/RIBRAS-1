@@ -8,19 +8,14 @@
  * @brief  Implements user class EventAction.
  */
 
+// Local headers
 #include <fstream>
 #include "EventAction.hh"
 #include "RootSaver.hh"
-//#include "SiDigi.hh"
 #include "SiHit.hh"
-//#include "SiDigitizer.hh"
-#include "G4HCofThisEvent.hh"
-#include "G4SDManager.hh"
-// #include "G4DigiManager.hh"
-#include "G4Event.hh"
-#include "Randomize.hh"
 #include "DetectorConstruction.hh"
-//Include Geant4 Headers
+
+// Geant4 headers
 #include "G4ParticleGun.hh"
 #include "G4ParticleDefinition.hh"
 #include "Randomize.hh"
@@ -37,15 +32,21 @@
 #include "G4Gamma.hh"
 #include "G4DecayProducts.hh"
 #include "G4GenericIon.hh"
+#include "G4HCofThisEvent.hh"
+#include "G4SDManager.hh"
+#include "G4Event.hh"
+#include "Randomize.hh"
 
-//For debugging purposes
+// For debugging purposes
 #include <csignal>
+
 using namespace CLHEP;
 using namespace std;
 
 EventAction *gCESimulationManager = (EventAction *)0;
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 EventAction::EventAction() : rootSaver(0),
 							 hitsCollName("SiHitCollection"),
 							 //digitsCollName("SiDigitCollection"),
@@ -55,7 +56,9 @@ EventAction::EventAction() : rootSaver(0),
 		delete gCESimulationManager;
 	gCESimulationManager = this;
 }
-//////////////////////////////////////////////////////////////////////////////////////////
+
+// ----------------------------------------------------------------------------- //
+
 void EventAction::BeginOfEventAction(const G4Event *anEvent)
 {
 	Inputs *Inputs = &Inputs::GetInputs();
@@ -64,22 +67,22 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 	{
 		// G4cout << "Starting Event: " << anEvent->GetEventID() << G4endl;
 	}
-	//Retrieve the ID for the hit collection
+	// Retrieve the ID for the hit collection
 	if (hitsCollID == -1)
 	{
 		G4SDManager *SDman = G4SDManager::GetSDMpointer();
 		hitsCollID = SDman->GetCollectionID(hitsCollName);
 	}
 
-	//At the Beginning of each event set the flag to allow a Reaction to happen.
-	//This ensures that the reaction happens exactly once in each event.
-	//This is an issue because the Charge exchange process is added not to the beam
-	//particle specifically but to an "G4GeneriIon".  In the case of 16C(p,n)16N
-	//The 16N also has the CE process and will try to do this process.  Hence the
-	//flag.
+	// At the Beginning of each event set the flag to allow a Reaction to happen.
+	// This ensures that the reaction happens exactly once in each event.
+	// This is an issue because the Charge exchange process is added not to the beam
+	// particle specifically but to an "G4GeneriIon".  In the case of 16C(p,n)16N
+	// The 16N also has the CE process and will try to do this process.  Hence the
+	// flag.
 	rThereWasACEReactionThisEvent = false;
 
-	//Setting particle definitions
+	// Setting particle definitions
 	G4int ZOfEjectile = Inputs->ejectile_Z;
 	G4int AOfEjectile = Inputs->ejectile_A;
 	G4int ZOfRecoil = Inputs->recoil_Z;
@@ -87,22 +90,20 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 	G4float ExOfEjectile = Inputs->ejectile_Ex;
 	G4float ExOfRecoil = Inputs->recoil_Ex;
 
-	//G4cout<<ZOfEjectile<<" "<<AOfEjectile<<"  "<<runmassMap->GetValue(Form("%i_%i", ZOfEjectile, AOfEjectile),-1000.0)<<G4endl;
-
-	//Check to see if the ejectile is a proton, neutron or ion
-	//If the Ejectile is a proton
+	// Check to see if the ejectile is a proton, neutron or ion
+	// If the Ejectile is a proton
 	if (ZOfEjectile == 1 && AOfEjectile == 1)
 	{
 		Inputs->EjectileParticle = G4Proton::Definition();
 	}
 
-	//If the Ejectile is a neutron
+	// If the Ejectile is a neutron
 	else if (ZOfEjectile == 0 && AOfEjectile == 1)
 	{
 		Inputs->EjectileParticle = G4Neutron::Definition();
 	}
 
-	//If the Ejectile is a ion
+	// If the Ejectile is a ion
 	else
 	{
 		G4IonTable *ionTable = G4IonTable::GetIonTable();
@@ -111,20 +112,20 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 		Inputs->EjectileParticle = part;
 	}
 
-	//Check to see if the Recoil is a proton, neutron or ion
-	//If the Recoil is a Proton
+	// Check to see if the Recoil is a proton, neutron or ion
+	// If the Recoil is a Proton
 	if (ZOfRecoil == 1 && AOfRecoil == 1)
 	{
 		Inputs->RecoilParticle = G4Proton::Definition();
 	}
 
-	//If the Recoil is a neutron
+	// If the Recoil is a neutron
 	else if (ZOfRecoil == 0 && AOfRecoil == 1)
 	{
 		Inputs->RecoilParticle = G4Neutron::Definition();
 	}
 
-	//If the Recoil is a ion
+	// If the Recoil is a ion
 	else
 	{
 		G4IonTable *ionTable = G4IonTable::GetIonTable();
@@ -133,7 +134,7 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 		Inputs->RecoilParticle = part;
 	}
 
-	//Decay particle 1
+	// Decay particle 1
 	if (Inputs->decayp1_A > 1 && Inputs->decayp1_Z > 1)
 	{
 		G4IonTable *ionTable = G4IonTable::GetIonTable();
@@ -149,7 +150,7 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 			Inputs->DecayParticle1 = G4Neutron::Definition();
 	}
 
-	//Decay particle 2
+	// Decay particle 2
 	if (Inputs->decayp2_A > 1 && Inputs->decayp2_Z > 1)
 	{
 		G4IonTable *ionTable = G4IonTable::GetIonTable();
@@ -166,16 +167,14 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 void EventAction::EndOfEventAction(const G4Event *anEvent)
 {
-	//Store information
+	// Store information
 	if (rootSaver)
 	{
-		//Retrieve digits collection
-		//G4int digiCollID = digiManager->GetDigiCollectionID( digitsCollName );
-		//const SiDigiCollection* digits = static_cast<const SiDigiCollection*>( digiManager->GetDigiCollection(digiCollID) );
-		//Retrieve hits collections
+		// Retrieve hits collections
 		G4HCofThisEvent *hitsCollections = anEvent->GetHCofThisEvent();
 		SiHitCollection *hits = 0;
 		if (hitsCollections)
@@ -190,7 +189,8 @@ void EventAction::EndOfEventAction(const G4Event *anEvent)
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 									   G4double CMScatteringAngle,
 									   G4double phi,
@@ -234,7 +234,6 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 
 	G4NistManager *nist = G4NistManager::Instance();
 	G4double TargetMass = (Inputs->target_mass == 0.0)
-							  //? nist->GetAtomicMass(Inputs->target_Z, Inputs->target_A)
 							  ? 931.494 * (runmassMap->GetValue(Form("%i_%i", Inputs->target_Z, Inputs->target_A), -1000.0)) - 0.511 * Inputs->target_Z
 							  : Inputs->target_mass;
 
@@ -261,13 +260,13 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	G4double ELabBeam = BeamKineticEnergy + BeamMass;
 	G4double ELabTarget = TargetMass;
 
-	//  get COM parameters
+	// Get COM parameters
 	G4double beta_cm = BeamMomentum.z() / (ELabBeam + TargetMass);
 	G4double gamma_cm = 1.0 / sqrt(1.0 - pow(beta_cm, 2.0));
 	G4double S = 2. * ELabBeam * TargetMass + pow(BeamMass, 2.0) + pow(TargetMass, 2.0);
 	G4double Pcm = 0.5 * sqrt(pow(S, 2.0) + pow(RecoilMass, 4.0) + pow(EjectileMass, 4.0) - 2 * S * pow(RecoilMass, 2.0) - 2 * pow(RecoilMass, 2.0) * pow(EjectileMass, 2.0) - 2 * S * pow(EjectileMass, 2.0)) / sqrt(S);
 
-	//generate com  momenta (for now isotropic)
+	// Generate com momenta (for now isotropic)
 	RecoilDirectionInCM = RecoilDirectionInCM * Pcm;
 	G4double RecoilCMEnergy = sqrt(pow(Pcm, 2.0) + pow(RecoilMass, 2.0));
 	EjectileDirectionInCM = EjectileDirectionInCM * Pcm;
@@ -279,7 +278,7 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	RecoilOut = CMRecoil4Vec.boostZ(beta_cm);
 	EjectileOut = CMEjectile4Vec.boostZ(beta_cm);
 
-	// rotate back to the beam axis
+	// Rotate back to the beam axis
 	RecoilOut = RecoilOut.rotateUz(BeamDirection);
 	EjectileOut = EjectileOut.rotateUz(BeamDirection);
 
@@ -299,11 +298,11 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	*/
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 G4DynamicParticle *EventAction::GetRecoilDynamicParticle(const G4Track &BeamTrack, const G4LorentzVector &Recoil4Vec)
 { // Creating Recoil Particle
 
-	//G4Event *anEvent;
 	Inputs *Inputs = &Inputs::GetInputs();
 
 	G4ThreeVector Vec = Recoil4Vec.getV().unit();
@@ -319,15 +318,14 @@ G4DynamicParticle *EventAction::GetRecoilDynamicParticle(const G4Track &BeamTrac
 	return par;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 G4DynamicParticle *EventAction::GetEjectileDynamicParticle(const G4Track &BeamTrack, const G4LorentzVector &Ejectile4Vec)
 { // Creating Ejectile Particle
 
 	Inputs *Inputs = &Inputs::GetInputs();
 
 	G4ThreeVector Vec = Ejectile4Vec.getV().unit();
-
-	//rEjectileTheta = acos(Vec.z() / Vec.r());
 
 	G4double Mass = Ejectile4Vec.m();
 
@@ -338,7 +336,7 @@ G4DynamicParticle *EventAction::GetEjectileDynamicParticle(const G4Track &BeamTr
 	return par;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
 
 void EventAction::DecayLab4Vectors(const G4LorentzVector &ParentLV, G4LorentzVector &DecayOut1, G4LorentzVector &DecayOut2)
 {
@@ -371,14 +369,14 @@ void EventAction::DecayLab4Vectors(const G4LorentzVector &ParentLV, G4LorentzVec
 	DecayOut2 = CM_Decay2_4Vec.boost(Vec, beta);
 }
 
+// ----------------------------------------------------------------------------- //
+
 G4DynamicParticle *EventAction::GetDecay1DynamicParticle(const G4LorentzVector &DecayP1_4Vec)
 { // Creating Ejectile Particle
 
 	Inputs *Inputs = &Inputs::GetInputs();
 
 	G4ThreeVector Vec = DecayP1_4Vec.getV().unit();
-
-	//rEjectileTheta = acos(Vec.z() / Vec.r());
 
 	G4double Mass = DecayP1_4Vec.m();
 
@@ -389,14 +387,14 @@ G4DynamicParticle *EventAction::GetDecay1DynamicParticle(const G4LorentzVector &
 	return par;
 }
 
+// ----------------------------------------------------------------------------- //
+
 G4DynamicParticle *EventAction::GetDecay2DynamicParticle(const G4LorentzVector &DecayP2_4Vec)
 { // Creating Ejectile Particle
 
 	Inputs *Inputs = &Inputs::GetInputs();
 
 	G4ThreeVector Vec = DecayP2_4Vec.getV().unit();
-
-	//rEjectileTheta = acos(Vec.z() / Vec.r());
 
 	G4double Mass = DecayP2_4Vec.m();
 
@@ -407,9 +405,12 @@ G4DynamicParticle *EventAction::GetDecay2DynamicParticle(const G4LorentzVector &
 	return par;
 }
 
+// ----------------------------------------------------------------------------- //
+
 G4double EventAction::ExDistr(G4double ex, G4double se)
 {
-	//Dissociation Energy Distribution based on  Nakamura, Physics Letters B 331 (1994) 296-301
+	// Dissociation Energy Distribution based on  Nakamura, Physics Letters B 331 (1994) 296-301
 	G4double f = pow(ex - se, 1.5) / pow(ex, 4.0);
+
 	return f;
 }

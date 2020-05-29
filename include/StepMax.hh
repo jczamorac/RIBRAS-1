@@ -29,6 +29,7 @@
 #ifndef StepMax_h
 #define StepMax_h 1
 
+// Geant4 headers
 #include "globals.hh"
 #include "G4VDiscreteProcess.hh"
 #include "G4ParticleDefinition.hh"

@@ -27,7 +27,7 @@
 // $Id: BeamTestPrimaryGeneratorMessenger.hh,v 1.4 2006/06/29 16:33:33 gunter Exp $
 // GEANT4 tag $Name: geant4-09-02 $
 //
-// 
+//
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -43,18 +43,17 @@ class G4UIcmdWithADoubleAndUnit;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-class BeamTestPrimaryGeneratorMessenger: public G4UImessenger
+class BeamTestPrimaryGeneratorMessenger : public G4UImessenger
 {
-  public:
-    BeamTestPrimaryGeneratorMessenger(BeamTestPrimaryGeneratorAction*);
-   ~BeamTestPrimaryGeneratorMessenger();
-    
-    void SetNewValue(G4UIcommand*, G4String);
-    
-  private:
-    BeamTestPrimaryGeneratorAction* BeamTestAction; 
-    G4UIcmdWithADoubleAndUnit*  z_tarCmd;
+public:
+  BeamTestPrimaryGeneratorMessenger(BeamTestPrimaryGeneratorAction *);
+  ~BeamTestPrimaryGeneratorMessenger();
+
+  void SetNewValue(G4UIcommand *, G4String);
+
+private:
+  BeamTestPrimaryGeneratorAction *BeamTestAction;
+  G4UIcmdWithADoubleAndUnit *z_tarCmd;
 };
 
 #endif
-

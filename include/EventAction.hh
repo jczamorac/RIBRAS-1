@@ -98,14 +98,14 @@ public:
     bool GetWasThereACEReaction() { return rThereWasACEReactionThisEvent; }
 
     // Pedestrsian in-flight particle decay
-    void DecayLab4Vectors(const G4LorentzVector &ParentLV, G4LorentzVector &DecayOut1, G4LorentzVector &DecayOut2 );
+    void DecayLab4Vectors(const G4LorentzVector &ParentLV, G4LorentzVector &DecayOut1, G4LorentzVector &DecayOut2);
     void SetDecayThisEvent(bool val) { rDecayThisEvent = val; }
 
     G4double ExDistr(G4double ex, G4double se);
 
     //!Get Z of the reaction point
     inline G4double GetReactionZPoint() { return rZOfReactionInTarget; }
-    
+
     //!Set Interaction Point
     inline void SetInteractionPoint(G4ThreeVector v)
     {
@@ -113,7 +113,6 @@ public:
         rInteractionPointY = v.y();
         rInteractionPointZ = v.z();
     }
-  
 
 private:
     //! pointer to saver object
@@ -125,7 +124,7 @@ private:
     //! Hits collection ID
     G4int hitsCollID;
 
-    TEnv* runmassMap;
+    TEnv *runmassMap;
 
     G4Ions *RecoilParticle;
     G4Ions *EjectileParticle;
@@ -134,7 +133,7 @@ private:
 
     G4bool rThereWasACEReactionThisEvent = false;
 
-    G4bool rDecayThisEvent ;
+    G4bool rDecayThisEvent;
 
     double_t rZOfReactionInTarget;
 

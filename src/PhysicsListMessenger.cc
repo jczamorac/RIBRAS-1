@@ -55,6 +55,4 @@ PhysicsListMessenger::~PhysicsListMessenger()
 void PhysicsListMessenger::SetNewValue(G4UIcommand* command,
                                           G4String newValue)
 {
-   //     if( command == pListCmd )
-   // { pPhysicsList->AddPhysicsList(newValue);}
 }

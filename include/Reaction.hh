@@ -1,11 +1,10 @@
 #ifndef __REACTION_HH
 #define __REACTION_HH
 
-
+// Geant4 headers
 #include "G4ios.hh"
 #include "globals.hh"
 #include "G4VProcess.hh"
-
 #include "G4VParticleChange.hh"
 #include "G4ParticleChange.hh"
 #include "G4Track.hh"
@@ -18,57 +17,56 @@
 class Reaction : public G4VProcess
 {
 public:
+  // Flag for reaction
   G4bool reaction_here;
 
-  Reaction(const G4String& processName ="Reaction" );
+  // Constructor
+  Reaction(const G4String &processName = "Reaction");
 
+  // Destructor
   virtual ~Reaction();
 
+  // Methods used by Geant4 for every step
   virtual G4double PostStepGetPhysicalInteractionLength(
-							const G4Track& track,
-							G4double   previousStepSize,
-							G4ForceCondition* condition
-							);
+      const G4Track &track,
+      G4double previousStepSize,
+      G4ForceCondition *condition);
 
-  virtual G4VParticleChange* PostStepDoIt(
-					  const G4Track& ,
-					  const G4Step&
-					  );
+  virtual G4VParticleChange *PostStepDoIt(
+      const G4Track &,
+      const G4Step &);
 
-  //  no operation in  AtRestGPIL
-  virtual G4double AtRestGetPhysicalInteractionLength(const G4Track& ,G4ForceCondition* condition){
-    //G4cout<<"IN AT REST GPIL"<<G4endl;
-    *condition=NotForced;
+  //  This methods are called by Geant4 when a particle has kinect enery 0
+  virtual G4double AtRestGetPhysicalInteractionLength(const G4Track &, G4ForceCondition *condition)
+  {
+    *condition = NotForced;
+
     return 9999999999.0;
   }
 
-  //  no operation in  AtRestDoIt
-  virtual G4VParticleChange* AtRestDoIt(const G4Track& aTrack  ,const G4Step&){
-    //G4cout<<"AT REST DO IT "<<G4endl;
+  virtual G4VParticleChange *AtRestDoIt(const G4Track &aTrack, const G4Step &)
+  {
     aParticleChange.Initialize(aTrack);
-
-
     aParticleChange.ProposeTrackStatus(fStopAndKill);
 
     return &aParticleChange;
   };
 
-  //  no operation in  AlongStepGPIL
-  virtual G4double AlongStepGetPhysicalInteractionLength(const G4Track&,G4double,G4double,G4double&,G4GPILSelection*){
-    G4cout<<"In AlongStep GPIL"<<G4endl;
+  // No operation in AlongStepGPIL
+  virtual G4double AlongStepGetPhysicalInteractionLength(const G4Track &, G4double, G4double, G4double &, G4GPILSelection *)
+  {
     return -1.0;
   }
 
-  //  no operation in  AlongStepDoIt
-  virtual G4VParticleChange* AlongStepDoIt( const G4Track& , const G4Step&){
+  // No operation in AlongStepDoIt
+  virtual G4VParticleChange *AlongStepDoIt(const G4Track &, const G4Step &)
+  {
     return NULL;
   }
 
 private:
-
   // hide assignment operator as private
-  Reaction& operator=(const Reaction&){return *this;};
-
+  Reaction &operator=(const Reaction &) { return *this; };
 };
 
-#endif /* __REACTION_HH */
+#endif

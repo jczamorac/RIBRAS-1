@@ -22,83 +22,68 @@
 //
 // $Id:$
 // GEANT4 tag $Name:$
-// 
+//
 // T. Aso        Original author
-// 
+//
+
 #ifndef BEAMTESTPRIMARYGENERATORACTION_HH
 #define BEAMTESTPRIMARYGENERATORACTION_HH
 
+// Local headers
 #include "G4VUserPrimaryGeneratorAction.hh"
+
+// Geant4 headers
 #include "G4ThreeVector.hh"
 #include "globals.hh"
 #include <vector>
-//#include "spline.h"  //funcion externa que me hace interpolacion cubica entre dos puntos
 
 using std::vector;
 
 class G4ParticleGun;
 class G4Event;
-//class SeccionEff;
 class BeamTestPrimaryGeneratorMessenger;
 
-class BeamTestPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
-
+class BeamTestPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
+{
 
 public:
-
   // Constructor
-  BeamTestPrimaryGeneratorAction();    
+  BeamTestPrimaryGeneratorAction();
 
   // Destructor
   virtual ~BeamTestPrimaryGeneratorAction();
-  
+
   // Methods
+  void GeneratePrimaries(G4Event *);
 
-  //static void Set_theta(G4double* THETA) {theta_cross = THETA;}
-  //inline G4double* Get_theta() {return theta_cross;}
+  static G4ParticleGun *Gun() { return particleGun; }
 
-  void GeneratePrimaries(G4Event*);
-  
-  static G4ParticleGun* Gun() {return particleGun;}
+  void SetZ_target(G4double val) { Z_target = val; }
 
-   void SetZ_target(G4double val) { Z_target = val;}
-  
 private:
-
   // Data member
-  static G4ParticleGun* particleGun;
-  BeamTestPrimaryGeneratorMessenger* gunMessenger; //messenger of this class
+  static G4ParticleGun *particleGun;
+  BeamTestPrimaryGeneratorMessenger *gunMessenger; //messenger of this class
   G4double Z_target;
-  //const G4double valor;
-  //static G4double* theta_cross;
-  //static SeccionEff* apuntador;
 
+  G4ThreeVector fposition, posicao;
+  vector<double> X;
+  vector<double> Y;
 
+  vector<double> X2;
+  vector<double> Y2;
 
-   G4ThreeVector fposition, posicao;
-   vector<double> X; 
-   vector<double> Y;
-   //tk::spline s;
+  struct Seccion_eff
+  {
+    double angulo[128];
+    double secc[128];
+    double energia[128];
+    double angulo_inel[467];
+    double secc_inel[467];
+    double energia_inel[467];
+  };
 
-   vector<double> X2; 
-   vector<double> Y2;
-   //tk::spline s2;
-   
-
-   struct Seccion_eff{
-   	 double angulo[128];
-	 double secc[128];
-	 double energia[128];
-	 double angulo_inel[467];
-	 double secc_inel[467];
-	 double energia_inel[467];
-   };
-   
-   Seccion_eff datos;
-
-
+  Seccion_eff datos;
 };
 
 #endif
-
-

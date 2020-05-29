@@ -17,13 +17,13 @@ fCurrent2=500
 Primary_pos=-80
 
 # Primary beam energy (MeV)
-Primary_e=20
+Primary_e=40
 
 # Target z position (cm)
 ######################################################################
 # Second Solenoid's magnetic field starts at 267cm and ends at 335cm #
 ######################################################################
-Target_z=334
+Target_z=301
 
 # Changing analyse macro
 sed -i "s/^    for(Current1.*/    for(Current1 = $((iCurrent1/10)); Current1<=$((fCurrent1/10)); Current1 ++)/" macros/analise4.mac

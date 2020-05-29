@@ -12,7 +12,6 @@
 #include "DetectorConstruction.hh"
 #include "RootSaver.hh"
 #include "MagneticField.hh"
-//#include "SiDigi.hh"
 #include "SiHit.hh"
 #include "G4DigiManager.hh"
 
@@ -86,7 +85,6 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
 
         // Path to where ROOT should save the files
         G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
-        // G4String Path = "";
 
         // Creating ROOT file
         std::ostringstream fn;
@@ -271,7 +269,6 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
 
                 // Loop on all hits, consider only the hits with isPrimary flag
                 // Position is weighted average of hit x()
-
                 for (G4int h = 0; (h < nHits); ++h)
                 {
                         const SiHit *hit = static_cast<const SiHit *>(hits->GetHit(h));
@@ -396,22 +393,15 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
                                 continue;
                         }
-                        // G4cout.precision(5);
-                        // G4cout << "Strip: " << stripNum << " ||"
-                        //        << " Detector " << planeNum << " ||"
-                        //        << " x: " << x << " ||"
-                        //        << " y: " << y << " ||"
-                        //        << " Hits: " << nHits << G4endl;
                 }
+                // Then fill the root tree
                 rootTree->Fill();
         }
-        else
-        {
-                // G4cerr << "Error: No hits collection passed to RootSaver" << G4endl;
-        }
+
         TruthPosx = static_cast<Float_t>(primPos.x());
         TruthPosy = static_cast<Float_t>(primPos.y());
         TruthPosz = static_cast<Float_t>(primPos.z());
+
         //Measure angle of the beam in xz plane measured from z+ direction
         // -pi<Angle<=pi (positive when close to x positiove direction)
         Float_t sign_z = (primMom.z() >= 0) ? +1 : -1;
@@ -420,24 +410,16 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                               : sign_x * TMath::PiOver2(); //beam perpendicular to z
         TruthAngle_theta /= CLHEP::deg;
 
-        //Measure angle of the beam in xy. Phi
-        // -pi/2<Phi<=pi/2
-
         Float_t sign_y = (primMom.y() >= 0) ? +1 : -1;
         TruthAngle_phi = (primMom.x() != 0) ? sign_y * std::abs(atan(primMom.y() / primMom.x()))
                                             : sign_y * TMath::PiOver2(); //beam perpendicular to x
         TruthAngle_phi /= CLHEP::deg;
-        //G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<G4endl;
-        //if(TruthAngle_phi>7 && E_dssd2 > 0)G4cout<<"atan "<<std::abs(atan( primMom.y()/primMom.x() ))<<" en degree "<<TruthAngle_phi<<G4endl;
-        //if(TruthAngle_phi>9 && E_dssd2 > 2)G4cout<<"x mom "<<primMom.x()<<" y mom "<<primMom.y()<<" z mom "<< primMom.z()<<" pos x  "<<TruthPosx<<" pos y  "<<TruthPosy<<" pos z "<<TruthPosz<<" posy "<< Pos_y_dssd2<<G4endl;
 }
 
 //-------------------------------------------------------------------------//
 
 double RootSaver::Digital(double Eraw)
 {
-
-        //TRandom3* myRandom = new TRandom3();
         double ion_pot = 3.6e-6; //eV
         double fanofactor = 0.1;
         double sigmaElnoise = 11.75e-3; //keV
@@ -445,8 +427,6 @@ double RootSaver::Digital(double Eraw)
         Nelectrons = gRandom->Gaus(Nelectrons, sqrt(Nelectrons * fanofactor));
         double energypoint = Nelectrons * ion_pot;
         energypoint = gRandom->Gaus(energypoint, sigmaElnoise); //electronic noise
-
-        //delete myRandom;
 
         return energypoint;
 }

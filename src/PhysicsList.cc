@@ -69,7 +69,8 @@
 
 using namespace std;
 
-/////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 PhysicsList::PhysicsList() : G4VUserPhysicsList()
 {
   G4LossTableManager::Instance();
@@ -85,12 +86,14 @@ PhysicsList::PhysicsList() : G4VUserPhysicsList()
   fEmPhysicsList = new G4EmStandardPhysics_option4;
 }
 
-/////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 PhysicsList::~PhysicsList()
 {
 }
 
-/////////////////////////////////////////////////////////////////////////////
+// ----------------------------------------------------------------------------- //
+
 void PhysicsList::ConstructParticle()
 {
   G4BosonConstructor pBosonConstructor;
@@ -112,8 +115,9 @@ void PhysicsList::ConstructParticle()
   sLivedConstructor.ConstructParticle();
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//Geant4 classes need for adding physics processes to the simulation
+// ----------------------------------------------------------------------------- //
+
+// Geant4 classes need for adding physics processes to the simulation
 #include "G4PhysicsListHelper.hh"
 #include "G4ProcessManager.hh"
 
@@ -141,16 +145,16 @@ void PhysicsList::ConstructParticle()
 #include "G4ParticleTable.hh"
 
 /////////Neutron Stuff////////////
-//Neutron DATA
+// Neutron DATA
 #include "G4NeutronHPInelasticData.hh"
 #include "G4NeutronHPElasticData.hh"
 #include "G4Neutron.hh"
 
-//Processes for the neutrons
+// Processes for the neutrons
 #include "G4HadronElasticProcess.hh"
 #include "G4NeutronInelasticProcess.hh"
 
-//Models
+// Models
 #include "G4NeutronHPElastic.hh"
 #include "G4NeutronHPInelastic.hh"
 

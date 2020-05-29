@@ -37,18 +37,17 @@
 
 class MagneticFieldMessenger;
 
-
 class MagneticField : public G4MagneticField
 {
 
 public:
   MagneticField();
   ~MagneticField();
-  virtual void GetFieldValue( const  double Point[3],
-                               double *Bfield ) const;
+  virtual void GetFieldValue(const double Point[3],
+                             double *Bfield) const;
 
 private:
-  MagneticFieldMessenger* messenger;
+  MagneticFieldMessenger *messenger;
   G4double Bz;
   G4double rmax;
   G4double rmin;
@@ -63,7 +62,6 @@ public:
   inline G4double GetCurrent() const { return current; }
   inline G4double GetCurrent2() const { return current2; }
   void InicializaMag();
-
 };
 
 #endif
