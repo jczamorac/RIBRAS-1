@@ -18,22 +18,23 @@
 #ifndef EVENTACTION_HH_
 #define EVENTACTION_HH_
 
+// Local headers
+#include "DetectorConstruction.hh"
+#include <csignal>
+#include <fstream>
+#include <string>
+
+// Geant4 headers
 #include "G4UserEventAction.hh"
 #include "G4String.hh"
 #include "G4Types.hh"
 #include "G4ClassificationOfNewTrack.hh"
 #include "G4TrackStatus.hh"
 #include "G4LorentzVector.hh"
-#include "globals.hh"
-#include <csignal>
-#include <fstream>
-#include <string>
 #include "G4ParticleDefinition.hh"
-#include "DetectorConstruction.hh"
-//#include "NoiseGenerator.hh"
-//#include "CrosstalkGenerator.hh"
-// #include "MeV2ChargeConverter.hh"
+#include "globals.hh"
 
+// ROOT headers
 #include "TEnv.h"
 
 using namespace CLHEP;
@@ -52,6 +53,7 @@ class G4DynamicParticle;
 class G4DecayProducts;
 
 extern class EventAction *gCESimulationManager;
+
 class EventAction : public G4UserEventAction
 {
 public:
@@ -67,26 +69,35 @@ public:
     };
     //! Beginning of event
     void BeginOfEventAction(const G4Event *anEvent);
+
     //! Digitize hits and store information
     void EndOfEventAction(const G4Event *anEvent);
+
     //! Set the RootSaver
     inline void SetRootSaver(RootSaver *saver) { rootSaver = saver; }
 
     inline void SetMassMap(TEnv *newmap) { runmassMap = newmap; }
 
-    //Methods for Reaction
+    // Methods for Reaction
+
+    //! Calculate 4Vector
     void CalculateLab4Vectors(const G4Track &BeamTrack, G4double CMScatteringAngle, G4double phi, G4LorentzVector &RecoilOut, G4LorentzVector &EjectileOut);
-    //!Calculate Recoil Particle
+
+    //! Calculate Recoil Particle
     G4DynamicParticle *GetRecoilDynamicParticle(const G4Track &BeamTrack, const G4LorentzVector &);
-    //!Calculate Ejectile Particle
+
+    //! Calculate Ejectile Particle
     G4DynamicParticle *GetEjectileDynamicParticle(const G4Track &BeamTrack, const G4LorentzVector &);
-    //!Calculate Decay  Particle 1 and 2
+
+    //! Calculate Decay  Particle 1 and 2
     G4DynamicParticle *GetDecay1DynamicParticle(const G4LorentzVector &);
     G4DynamicParticle *GetDecay2DynamicParticle(const G4LorentzVector &);
-    //!Bool for Reaction
+
+    //! Bool for Reaction
     void ThereWasAReaction() { rThereWasACEReactionThisEvent = true; }
     bool GetWasThereACEReaction() { return rThereWasACEReactionThisEvent; }
-    //Pedestrsian in-flight particle decay
+
+    // Pedestrsian in-flight particle decay
     void DecayLab4Vectors(const G4LorentzVector &ParentLV, G4LorentzVector &DecayOut1, G4LorentzVector &DecayOut2 );
     void SetDecayThisEvent(bool val) { rDecayThisEvent = val; }
 
@@ -94,6 +105,7 @@ public:
 
     //!Get Z of the reaction point
     inline G4double GetReactionZPoint() { return rZOfReactionInTarget; }
+    
     //!Set Interaction Point
     inline void SetInteractionPoint(G4ThreeVector v)
     {

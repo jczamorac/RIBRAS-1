@@ -1,43 +1,62 @@
-#include "Reaction.hh"
-#include "globals.hh"
-#include "G4Proton.hh"
-#include "G4Neutron.hh"
-#include "G4GenericIon.hh"
+
+// Local Headers
 #include <fstream>
 #include <csignal>
 #include "EventAction.hh"
 #include "DetectorConstruction.hh"
+#include "Reaction.hh"
+
+// Geant4 Headers
+#include "globals.hh"
+#include "G4Proton.hh"
+#include "G4Neutron.hh"
+#include "G4GenericIon.hh"
 
 using namespace CLHEP;
 using namespace std;
 
-Reaction::Reaction(const G4String& aName)
-  : G4VProcess(aName){
+// --------------------------------------------------------------------------------------------------------------------------------- //
+Reaction::Reaction(const G4String &aName)
+    : G4VProcess(aName)
+{
 
-  if (verboseLevel>1) {
-    G4cout <<GetProcessName() << " is created "<< G4endl;
+  if (verboseLevel > 1)
+  {
+    G4cout << GetProcessName() << " is created " << G4endl;
   }
-  theProcessType=(G4ProcessType)6;       // Decay
-  theProcessSubType=(G4ProcessType)231;  //DecayExt
+  theProcessType = (G4ProcessType)6;      // Decay
+  theProcessSubType = (G4ProcessType)231; //DecayExt
 }
 
-Reaction::~Reaction(){
+// --------------------------------------------------------------------------------------------------------------------------------- //
+
+Reaction::~Reaction()
+{
 }
 
-G4VParticleChange* Reaction::PostStepDoIt( const G4Track& aTrack,
-					     const G4Step&){
+// --------------------------------------------------------------------------------------------------------------------------------- //
+// This method is called by Geant4 for every particle step, it tells the particle what to do next
+// Inside this method contains the reaction process only called if flag "reaction_here" is true
+// All used methods for calculate the 4Vectors can be found in EventAction.hh
 
+G4VParticleChange *Reaction::PostStepDoIt(const G4Track &aTrack,
+                                          const G4Step &)
+{
   // Stop the current particle, if requested by G4UserLimits
   aParticleChange.Initialize(aTrack);
 
-  if(reaction_here){// Here the physics of the Reaction is defined
+  // Reaction process
+  if (reaction_here)
+  { // Here the physics of the Reaction is defined
 
-    reaction_here=false;                                      // Set the flag so it does not do the reaction a second time
-    gCESimulationManager->ThereWasAReaction();                // A reaction ocurred
-    aParticleChange.ProposeTrackStatus(fStopAndKill);         // Kill the incident Particle
+    reaction_here = false;                            // Set the flag so it does not do the reaction a second time
+    gCESimulationManager->ThereWasAReaction();        // A reaction ocurred
+    aParticleChange.ProposeTrackStatus(fStopAndKill); // Kill the incident Particle
 
-    G4double ThetaInCM =(10*CLHEP::RandFlat::shoot())*degree;  // 0 - 50 deg from z
-    G4double randomPhiInCM = CLHEP::RandFlat::shoot()*2*pi;   // 0 - 2pi in transverse angle (azimuth)
+    G4double ThetaInCM = (10 * CLHEP::RandFlat::shoot()) * degree; // 0 - 50 deg from z
+    G4double randomPhiInCM = CLHEP::RandFlat::shoot() * 2 * pi;    // 0 - 2pi in transverse angle (azimuth)
+
+    // Lorentz Vectors for each particle: ejectile, recoil, decay1 and decay2
     G4LorentzVector recoil4VecLab;
     G4LorentzVector ejectile4VecLab;
     bool newdecay = false;
@@ -45,88 +64,103 @@ G4VParticleChange* Reaction::PostStepDoIt( const G4Track& aTrack,
     G4LorentzVector decayP2_4Vec;
 
     // Calculate the 4Vector for Ejectile and Recoil particles
-    gCESimulationManager->CalculateLab4Vectors(aTrack,ThetaInCM,randomPhiInCM,recoil4VecLab,ejectile4VecLab);
+    gCESimulationManager->CalculateLab4Vectors(aTrack, ThetaInCM, randomPhiInCM, recoil4VecLab, ejectile4VecLab);
 
     // Set the position of the interaction
-    G4ThreeVector pos(aTrack.GetPosition().getX(),aTrack.GetPosition().getY(),aTrack.GetPosition().getZ());
+    G4ThreeVector pos(aTrack.GetPosition().getX(), aTrack.GetPosition().getY(), aTrack.GetPosition().getZ());
     gCESimulationManager->SetInteractionPoint(pos);
 
-    //G4cout<<ejectile4VecLab.e() - ejectile4VecLab.m()<<"  "<<recoil4VecLab.e()- recoil4VecLab.m()<<G4endl;
-
+    // Decay event
     gCESimulationManager->SetDecayThisEvent(newdecay);
-    if(newdecay){
-        gCESimulationManager->DecayLab4Vectors(ejectile4VecLab,decayP1_4Vec,decayP2_4Vec);
-        // Adding a the recoil particle as a secondary of this reaction
-        aParticleChange.AddSecondary(gCESimulationManager->GetRecoilDynamicParticle(aTrack,recoil4VecLab),pos,true);
-        // Adding a the decay product 1 as a secondary of this reaction
-        aParticleChange.AddSecondary(gCESimulationManager->GetDecay1DynamicParticle(decayP1_4Vec),pos,true);
-        // Adding a the decay product 2 as a secondary of this reaction
-        aParticleChange.AddSecondary(gCESimulationManager->GetDecay2DynamicParticle(decayP2_4Vec),pos,true);
-    }
-    else{
+    if (newdecay)
+    {
+      // This method calculates the 4vector for decay particles
+      gCESimulationManager->DecayLab4Vectors(ejectile4VecLab, decayP1_4Vec, decayP2_4Vec);
       // Adding a the recoil particle as a secondary of this reaction
-      aParticleChange.AddSecondary(gCESimulationManager->GetRecoilDynamicParticle(aTrack,recoil4VecLab),pos,true);
+      aParticleChange.AddSecondary(gCESimulationManager->GetRecoilDynamicParticle(aTrack, recoil4VecLab), pos, true);
+      // Adding a the decay product 1 as a secondary of this reaction
+      aParticleChange.AddSecondary(gCESimulationManager->GetDecay1DynamicParticle(decayP1_4Vec), pos, true);
+      // Adding a the decay product 2 as a secondary of this reaction
+      aParticleChange.AddSecondary(gCESimulationManager->GetDecay2DynamicParticle(decayP2_4Vec), pos, true);
+    }
+    else
+    {
+      // Adding a the recoil particle as a secondary of this reaction
+      aParticleChange.AddSecondary(gCESimulationManager->GetRecoilDynamicParticle(aTrack, recoil4VecLab), pos, true);
 
       // Adding a the ejectile particle as a secondary of this reaction
-      aParticleChange.AddSecondary(gCESimulationManager->GetEjectileDynamicParticle(aTrack,ejectile4VecLab),pos,true);
+      aParticleChange.AddSecondary(gCESimulationManager->GetEjectileDynamicParticle(aTrack, ejectile4VecLab), pos, true);
     }
   }
   return &aParticleChange;
 }
+// --------------------------------------------------------------------------------------------------------------------------------- //
+// This method calculates the particle position and tells Geant4 if any reaction should occur
 
-G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track& aTrack,
-							  G4double,
-							  G4ForceCondition* condition){
+G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track &aTrack,
+                                                        G4double,
+                                                        G4ForceCondition *condition)
+{
 
-  Inputs* Inputs = &Inputs::GetInputs();
+  // Retrieving inputs
+  Inputs *Inputs = &Inputs::GetInputs();
 
-  G4double eps= 0.1 *cm;//Small number saying that we have made it to the reaction point
-                        //Ie when Zdiff < eps it is at the reaction point
+  //Small number saying that we have made it to the reaction point
+  //Ie when Zdiff < eps it is at the reaction point
+  G4double eps = 0.1 * cm;
 
-  reaction_here=false;
-  *condition=NotForced;
+  reaction_here = false;
+  *condition = NotForced;
 
+  // Getting logical name of the volume which the particle is passing through
   G4String name = aTrack.GetVolume()->GetLogicalVolume()->GetName();
 
-  if(name=="Log_Target" && gCESimulationManager->GetWasThereACEReaction()==false){
-
+  // If the volume is "Log_Target" (Target logical name), it means the particle is inside the target and the reaction should occur
+  if (name == "Log_Target" && gCESimulationManager->GetWasThereACEReaction() == false)
+  {
     // Get z position of the target
-    G4double ZCEReaction = Inputs->target_pos.getZ() + 301 *cm;    //301 cm correspods to the center of the second solenoid
+    // 301 cm correspods to the center of the second solenoid
+    G4double ZCEReaction = Inputs->target_pos.getZ() + 301 * cm; 
 
     // Get z position of the particle
     G4double ZCurrent = aTrack.GetPosition().getZ();
 
-    G4double Zdiff = ZCEReaction-ZCurrent;
+    G4double Zdiff = ZCEReaction - ZCurrent;
 
-    if(Zdiff<0){
+    if (Zdiff < 0)
+    {
       //If the current Z position is past the reaction point
       //don't do the reaction.  Return DBL_MAX to ensure that this
       //processes isn't called
       return DBL_MAX;
     }
-    if(Zdiff>eps){
+    if (Zdiff > eps)
+    {
       //if we are before the reaction point but not within eps of it
       //return the distance to the reaction point as the step length
       //NOTE:  unless the trajectory of the step is directly along the z-axis
       //it will have to make several jumps to get with eps of the reaction point.
 
-      G4ThreeVector dir=aTrack.GetMomentumDirection();
+      G4ThreeVector dir = aTrack.GetMomentumDirection();
 
-      dir*=(ZCEReaction-ZCurrent);
+      dir *= (ZCEReaction - ZCurrent);
 
       return dir.mag();
     }
-    if(Zdiff<= eps && Zdiff>=0){
+    if (Zdiff <= eps && Zdiff >= 0)
+    {
       //particle is now withing eps of reaction point.  Do reaction.
       //returns 0. to ensure that this process is called and defines the
       //length of the step.
-      reaction_here=true;
+      reaction_here = true;
       return 0.;
     }
   }
-  else {
-  //We are not within the target so return DBL_MAX to make sure
-  //process isn't invoked.
-  return DBL_MAX;
+  else
+  {
+    //We are not within the target so return DBL_MAX to make sure
+    //process isn't invoked.
+    return DBL_MAX;
   }
 }
+// --------------------------------------------------------------------------------------------------------------------------------- //

@@ -18,14 +18,14 @@ void analise3()
     ofstream lista("RMS.txt");
     ofstream lista2("data.txt");
 
-    for(Current1 = 20; Current1<=33; Current1 += 0.2)
+    for(Current1 = 15; Current1<=26; Current1 += 0.2)
     {
-        for(Current2 = 20; Current2<=35; Current2 += 0.2)
+        for(Current2 = 20; Current2<=50; Current2 += 0.2)
         {
             // Go to where are the root files
             string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
 
-            // Getting all names
+            // Getting all root file names
             ostringstream f;
             f.precision(2);
             f.setf( std::ios::fixed, std::ios::floatfield );
@@ -44,10 +44,10 @@ void analise3()
             double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
             double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
 
-            // Listing all data for high number of hits
-
+            // Listing all data (data.txt)
             lista2 << entries << " " << Current1 << " " << Current2 << " " << (sigma_x + sigma_y)/2 << endl;
 
+            // Listing all data for high number of hits (RMS.txt)
             if(entries == 100)
             {
                 lista << (sigma_x + sigma_y)/2 << " " << Current1 << " " << Current2 << endl;
@@ -73,7 +73,7 @@ void analise3()
 
     // Creating a 3-D histogram
     int nBins = 100;
-    TH3F *hist = new TH3F("hist", "nHits x Current", nBins, 20, 35, nBins, 20, 35, nBins, 0, 150);
+    TH3F *hist = new TH3F("hist", "nHits x Current", nBins, 10, 35, nBins, 10, 50, nBins, 0, 150);
     TH3F *histRMS = new TH3F("histRMS", "RMS med x Current", nBins, 20, 35, nBins, 20, 35, nBins, 0, 150);
 
     // Filling histogram
@@ -92,8 +92,8 @@ void analise3()
     hist->GetYaxis()->SetTitle("Current 2");
     hist->GetZaxis()->SetTitle("Number of hits");
 
-    histRMS->Draw("LEGO");
-    //hist->Draw("LEGO");
+    //histRMS->Draw("LEGO");
+    hist->Draw("LEGO");
 
     //////////////////////////////////
     // Searching for better current //
@@ -104,6 +104,7 @@ void analise3()
     double RMSmed, Current_1, Current_2;
     
     // Initializing the biggest number
+    // Alpha is going to be smallest RMSmed
     double alpha = DBL_MAX;
 
     // Initializing currents
@@ -134,7 +135,7 @@ void analise3()
     else
     {
         cout << "------------------------------------" << endl;
-        cout << "Smallest RMSmed: " << alpha << endl;
+        cout << "Smallest RMSmed: " << alpha << "mm" << endl;
         cout << "Value of current 1: " << c1 << endl;
         cout << "Value of current 2: " << c2 << endl;
         cout << "------------------------------------" << endl;

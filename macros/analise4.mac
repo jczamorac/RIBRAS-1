@@ -22,9 +22,9 @@ void analise4()
     double bCurrent1 = DBL_MIN;
     double bCurrent2 = DBL_MIN;
 
-    for(Current1 = 20; Current1<=35; Current1 ++)
+    for(Current1 = 15; Current1<=35; Current1 ++)
     {
-        for(Current2 = 20; Current2<=35; Current2 ++)
+        for(Current2 = 20; Current2<=50; Current2 ++)
         {
             // Go to where are the root files
             string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
@@ -48,7 +48,11 @@ void analise4()
             double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
             double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
 
-            // Listing all simulations where are more than 90 hits on target
+            // Listing all simulations where are more than 80 hits on target
+            // Getting a current interval where there are more than 80 hits
+            // lCurrent1 < Current1 < bCurrent1
+            // lCurrent2 < Current2 < bCurrent2
+
             if(entries >= 80)
             {
                 if(Current1 > bCurrent1)
@@ -78,20 +82,24 @@ void analise4()
             delete f1;
         }
     }
+
     if(bCurrent1 != DBL_MIN || bCurrent2 != DBL_MIN || lCurrent1 != DBL_MAX || lCurrent2 != DBL_MAX)
     {
-    lista.precision(0);
-    lista.setf( std::ios::fixed, std::ios::floatfield );
-    lista << bCurrent1*10 << endl;
-    lista << bCurrent2*10 << endl;
-    lista << lCurrent1*10 << endl;
-    lista << lCurrent2*10 << endl;
+        // Listing currents
+        
+        lista.precision(0);
+        lista.setf( std::ios::fixed, std::ios::floatfield );
+        lista << bCurrent1*10 << endl;
+        lista << bCurrent2*10 << endl;
+        lista << lCurrent1*10 << endl;
+        lista << lCurrent2*10 << endl;
     }
-    else
+    else     // If any current equals to DBL_MAX or DBL_MIN, it means that there weren't any simulation with more than 80 hits (entries)
     {
-    lista << -1000 << endl;
-    lista << -1000 << endl;
-    lista << -1000 << endl;
-    lista << -1000 << endl;
+        // Flag for bash script || If Current = -1000, the simutilation won't proceed
+        lista << -1000 << endl;
+        lista << -1000 << endl;
+        lista << -1000 << endl;
+        lista << -1000 << endl;
     }
 }

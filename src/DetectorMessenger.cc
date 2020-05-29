@@ -139,7 +139,6 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   decayp1_Z = new G4UIcmdWithAnInteger("/det/decayp1/Z", this);
   decayp1_Z->SetGuidance("Specify an atomic number");
 
-
   // Commands for decay particle 2
   decayp2_mass = new G4UIcmdWithADoubleAndUnit("/det/decayp2/mass", this);
   decayp2_mass->SetGuidance("(Optional) Specify an atomic  mass in MeV");

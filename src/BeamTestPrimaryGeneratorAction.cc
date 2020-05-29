@@ -25,13 +25,17 @@
 //
 // T. Aso        Original author
 //
+
+// Local headers
 #include "BeamTestPrimaryGeneratorAction.hh"
 #include "BeamTestPrimaryGeneratorMessenger.hh"
+#include<iostream>
+#include<fstream>
+#include<cmath>
+#include<string>
+#include <stdlib.h>
 
-/*#include "G4UnitsTable.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4PhysicalConstants.hh"*/
-
+// Geant4 headers
 #include "G4Event.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4ParticleGun.hh"
@@ -41,21 +45,15 @@
 #include "G4ThreeVector.hh"
 #include "DetectorConstruction.hh"
 
-#include<iostream>
-#include<fstream>
-#include<cmath>
-#include<string>
-#include <stdlib.h>
-using namespace std;
 #define pi 3.141592
 #define N 465
 #define N_inel 129
 using namespace CLHEP;
+using namespace std;
 
 G4ParticleGun* BeamTestPrimaryGeneratorAction::particleGun(0);
 
-//SeccionEff* BeamTestPrimaryGeneratorAction::apuntador(0);
-
+// ----------------------------------------------------------------------------- //
 BeamTestPrimaryGeneratorAction::BeamTestPrimaryGeneratorAction()
 {
   G4int n_particle = 1;
@@ -63,6 +61,7 @@ BeamTestPrimaryGeneratorAction::BeamTestPrimaryGeneratorAction()
   gunMessenger = new BeamTestPrimaryGeneratorMessenger(this);
 }
 
+// ----------------------------------------------------------------------------- //
 
 BeamTestPrimaryGeneratorAction::~BeamTestPrimaryGeneratorAction()
 {
@@ -70,7 +69,7 @@ BeamTestPrimaryGeneratorAction::~BeamTestPrimaryGeneratorAction()
   delete gunMessenger;
 }
 
-
+// ----------------------------------------------------------------------------- //
 
 void BeamTestPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
