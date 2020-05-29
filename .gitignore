@@ -1,6 +1,5 @@
 /ROOT/*.root
 /build/*
 /cmake/*
-/Graficos_Posicao/*
 arquivobinario
 G4Data0.heprep
