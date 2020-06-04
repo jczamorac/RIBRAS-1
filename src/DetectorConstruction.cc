@@ -238,7 +238,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //  Solenoid 2  //
   ///////////////////
 
-  // Solenoid 2 parameters
+/*   // Solenoid 2 parameters
   G4double raiointerno = 30.05 * CLHEP::cm;
   G4double raioexterno = 100.0 * CLHEP::cm;
   G4double comprimento = 100.0 * CLHEP::cm;
@@ -279,7 +279,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // Set "user limits" for drawing smooth curve
   G4UserLimits *limiteuser = new G4UserLimits(1.e-5 * mm);
-  Log_Magnet2->SetUserLimits(limiteuser);
+  Log_Magnet2->SetUserLimits(limiteuser); */
 
   //------- Building Target -------//
 
@@ -303,7 +303,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   Log_Target = new G4LogicalVolume(Sol_Target, CD2, "Log_Target");
 
   // Placing Target
-  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet2, false, 0, true);
+  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet1, false, 0, true);
 
   // Color
   Log_Target->SetVisAttributes(new G4VisAttributes(red));

@@ -27,13 +27,13 @@
 /det/target/width 0.001
 
 #Define target position (x, y, z)(cm)
-/det/target/pos 0. 0. 334.
+/det/target/pos 0. 0. 0.
 
 #Define the primary particle
 /det/primary/energy 20 MeV
 /det/primary/Z 5
 /det/primary/A 8
-/det/primary/pos 0. 0. -75.
+/det/primary/pos 0. 0. -115.
 
 #Define the recoil particle
 /det/recoil/A 3
@@ -55,9 +55,7 @@
 
 #Set current
 #/det/currentValue {current}
-#/det/currentValue2 {current}
-/det/currentValue 22.60
-/det/currentValue2 27.60
+/det/currentValue 80
 
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents
@@ -65,4 +63,4 @@
 #This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 10000
+/run/beamOn 100

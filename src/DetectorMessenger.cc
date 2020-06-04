@@ -243,7 +243,7 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
   }
   else if (command == target_pos)
   {
-    Inputs->target_pos = target_pos->GetNew3VectorValue(newValue) - G4ThreeVector(0., 0., 301 * cm);
+    Inputs->target_pos = target_pos->GetNew3VectorValue(newValue) /* - G4ThreeVector(0., 0., 301 * cm) */;
   }
   else if (command == target_width_cmd)
   {

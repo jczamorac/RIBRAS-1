@@ -101,7 +101,7 @@ void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
 {
   Inputs *Inputs = &Inputs::GetInputs();
 
-  if (Point[2] > -105. * cm && Point[2] < 421. * cm && sqrt(Point[0] * Point[0] + Point[1] * Point[1]) < rmax && sqrt(Point[0] * Point[0] + Point[1] * Point[1]) > rmin && Inputs->using_magneticfield)
+  if (Point[2] > -105. * cm && Point[2] < 421. * cm && sqrt(Point[0] * Point[0] + Point[1] * Point[1]) < rmax && /* sqrt(Point[0] * Point[0] + Point[1] * Point[1]) > rmin &&  */Inputs->using_magneticfield)
   {
     G4double z_mas = Point[2] + l_med;
     G4double z_menos = Point[2] - l_med;
@@ -120,7 +120,7 @@ void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
     Bfield[2] = k * current * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current * factor * (fz2_mas - fz2_menos);
     Bfield[0] = br * Point[0] / r;
     Bfield[1] = br * Point[1] / r;
-
+/* 
     if (Point[2] > 181. * cm)
     {
 
@@ -137,10 +137,11 @@ void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
       fz2_menos = (z_menos) / (pow(z_mas * z_mas + rmax * rmax, 2.5));
       br = -0.5 * r * k * current2 * factor * rmax * rmax * (fr_menos - fr_mas) + 0.375 * r * r * r * rmax * rmax * k * current2 * factor * (fr2_menos - fr2_mas);
 
-      Bfield[2] = /* Bfield[2] +  */ k * current * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current * factor * (fz2_mas - fz2_menos);
-      Bfield[0] = /* Bfield[0] +  */ br * Point[0] / r;
-      Bfield[1] = /* Bfield[1] +  */ br * Point[1] / r;
+      Bfield[2] = Bfield[2] +  k * current * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current * factor * (fz2_mas - fz2_menos);
+      Bfield[0] = Bfield[0] +  br * Point[0] / r;
+      Bfield[1] = Bfield[1] +  br * Point[1] / r;
     }
+     */
   }
 
   else

@@ -103,13 +103,14 @@ void BeamTestPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     // (pi/48)*G4UniformRand()                //0°  - 15°
     // (pi/3) + ( (pi/6) * G4UniformRand() )  //60° - 90°
     // 0.0872665 * G4UniformRand()            //0°  - 5°
-    (4 * G4UniformRand() + 2) * pi/180            //0°  - 2°
+    (4 * G4UniformRand() + 2) * pi/180            //2°  - 6°
 
     ;}
 
     while(abs(theta) < 0.0349);
 
     // theta = 0.;
+    
   particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta)));
   particleGun->GeneratePrimaryVertex(anEvent);
 
