@@ -9,7 +9,6 @@ void analise4()
 {
     // Initializing values
     double Current1 = 0;
-    double Current2 = 0;
 
     TFile *f1;
     TTree *a1;
@@ -17,88 +16,68 @@ void analise4()
     ofstream lista("Current.txt");
 
     double lCurrent1 = DBL_MAX;
-    double lCurrent2 = DBL_MAX;
-
     double bCurrent1 = DBL_MIN;
-    double bCurrent2 = DBL_MIN;
 
-    for(Current1 = 15; Current1<=35; Current1 ++)
+    for(Current1 = 0; Current1<=50; Current1 ++)
     {
-        for(Current2 = 20; Current2<=50; Current2 ++)
+        // Go to where are the root files
+        string root = "/home/leo/Desktop/RIBRAS-1S/RIBRAS-1S/ROOT/tree_";
+
+        // Getting all names
+        ostringstream f;
+        f.precision(2);
+        f.setf( std::ios::fixed, std::ios::floatfield );
+        f << root << Current1 << ".root";
+
+        f1 =  new TFile(f.str().data());                              // Open root file
+        f.clear();                                                    // Clear root name
+
+        a1 = (TTree *)f1->Get("SiTelescope");                         // Getting tree
+
+        hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Define a 2D histogram
+
+        a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          // Drawing histogram
+
+        double entries = hT1C->GetEntries();                          // Getting number of hits
+        double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
+        double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
+
+        // Listing all simulations where are more than 80 hits on target
+        // Getting a current interval where there are more than 80 hits
+        // lCurrent1 < Current1 < bCurrent1
+        // lCurrent2 < Current2 < bCurrent2
+
+        if(entries >= 100)
         {
-            // Go to where are the root files
-            string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
-
-            // Getting all names
-            ostringstream f;
-            f.precision(2);
-            f.setf( std::ios::fixed, std::ios::floatfield );
-            f << root << Current1 << "_" << Current2 << ".root";
-
-            f1 =  new TFile(f.str().data());                              // Open root file
-            f.clear();                                                    // Clear root name
-
-            a1 = (TTree *)f1->Get("SiTelescope");                         // Getting tree
-
-            hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Define a 2D histogram
-
-            a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          // Drawing histogram
-
-            double entries = hT1C->GetEntries();                          // Getting number of hits
-            double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
-            double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
-
-            // Listing all simulations where are more than 80 hits on target
-            // Getting a current interval where there are more than 80 hits
-            // lCurrent1 < Current1 < bCurrent1
-            // lCurrent2 < Current2 < bCurrent2
-
-            if(entries >= 80)
+            if(Current1 > bCurrent1)
             {
-                if(Current1 > bCurrent1)
-                {
-                    bCurrent1 = Current1;
-                }
-
-                if(Current2 > bCurrent2)
-                {
-                    bCurrent2 = Current2;
-                }
-
-                if(Current1 < lCurrent1)
-                {
-                    lCurrent1 = Current1;
-                }
-
-                if(Current2 < lCurrent2)
-                {
-                    lCurrent2 = Current2;
-                }
+                bCurrent1 = Current1;
             }
 
-            // Cleaning everything
-            f.clear();
-            hT1C->Clear();
-            delete f1;
+            if(Current1 < lCurrent1)
+            {
+                lCurrent1 = Current1;
+            }
         }
+
+        // Cleaning everything
+        f.clear();
+        hT1C->Clear();
+        delete f1;
     }
 
-    if(bCurrent1 != DBL_MIN || bCurrent2 != DBL_MIN || lCurrent1 != DBL_MAX || lCurrent2 != DBL_MAX)
+    if(bCurrent1 != DBL_MIN || lCurrent1 != DBL_MAX)
     {
         // Listing currents
         
         lista.precision(0);
         lista.setf( std::ios::fixed, std::ios::floatfield );
         lista << bCurrent1*10 << endl;
-        lista << bCurrent2*10 << endl;
         lista << lCurrent1*10 << endl;
-        lista << lCurrent2*10 << endl;
     }
     else     // If any current equals to DBL_MAX or DBL_MIN, it means that there weren't any simulation with more than 80 hits (entries)
     {
         // Flag for bash script || If Current = -1000, the simutilation won't proceed
-        lista << -1000 << endl;
-        lista << -1000 << endl;
         lista << -1000 << endl;
         lista << -1000 << endl;
     }

@@ -18,54 +18,53 @@ void analise3()
     ofstream lista("RMS.txt");
     ofstream lista2("data.txt");
 
-    for(Current1 = 15; Current1<=26; Current1 += 0.2)
+    for(Current1 = 0; Current1<=50; Current1 += 0.1)
     {
-        for(Current2 = 20; Current2<=50; Current2 += 0.2)
+        // Go to where are the root files
+        string root = "/home/leo/Desktop/RIBRAS-1S/RIBRAS-1S/ROOT/tree_";
+
+        // Getting all root file names
+        ostringstream f;
+        f.precision(2);
+        f.setf( std::ios::fixed, std::ios::floatfield );
+        f << root << Current1 << ".root";
+
+        f1 =  new TFile(f.str().data());                              // Open root file
+        f.clear();                                                    // Clear root name
+
+        TVectorD *v = (TVectorD*) f1->Get("Total Hits");              // Opening TVector where data about number of hits are stored, (v*)[0] is number of hits on target and (v*)[1] hits on detector
+
+        a1 = (TTree *)f1->Get("SiTelescope");                         // Getting tree
+
+        hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Define a 2D histogram
+
+        a1->Draw("pos_y_target:pos_x_target >> hit","", "goff");          // Drawing histogram
+
+        double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
+        double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
+        double HitsOnTarget = (*v)[0];
+        double HitsOnDetector = (*v)[1];
+
+        // Listing all data (data.txt)
+        lista2 << HitsOnTarget << " " << Current1 << " " << Current2 << " " << (sigma_x + sigma_y)/2 << endl;
+
+        // Listing all data for high number of hits (RMS.txt)
+        if(HitsOnTarget >= 100)
         {
-            // Go to where are the root files
-            string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
-
-            // Getting all root file names
-            ostringstream f;
-            f.precision(2);
-            f.setf( std::ios::fixed, std::ios::floatfield );
-            f << root << Current1 << "_" << Current2 << ".root";
-
-            f1 =  new TFile(f.str().data());                              // Open root file
-            f.clear();                                                    // Clear root name
-
-            a1 = (TTree *)f1->Get("SiTelescope");                         // Getting tree
-
-            hT1C = new TH2F("hit","pos_y",500, -75.,75, 500, -75., 75.);  // Define a 2D histogram
-
-            a1->Draw("pos_y_det0:pos_x_det0 >> hit","", "goff");          // Drawing histogram
-
-            double entries = hT1C->GetEntries();                          // Getting number of hits
-            double sigma_x = hT1C->GetRMS(1);                             // Getting sigma x
-            double sigma_y = hT1C->GetRMS(2);                             // Getting sigma y
-
-            // Listing all data (data.txt)
-            lista2 << entries << " " << Current1 << " " << Current2 << " " << (sigma_x + sigma_y)/2 << endl;
-
-            // Listing all data for high number of hits (RMS.txt)
-            if(entries == 100)
-            {
-                lista << (sigma_x + sigma_y)/2 << " " << Current1 << " " << Current2 << endl;
-            }
-
-            // Cleaning everything
-            f.clear();
-            hT1C->Clear();
-            delete f1;
+            lista << (sigma_x + sigma_y)/2 << " " << Current1 << " " << Current2 << " " << HitsOnDetector << endl;
         }
+
+        // Cleaning everything
+        f.clear();
+        hT1C->Clear();
+        delete f1;
     }
     ////////////////////////////
     // Creating 3-D histogram //
     ////////////////////////////
 
     // Creating Canvas
-    TCanvas *C1 = new TCanvas();
-    // TCanvas *C2 = new TCanvas();
+    // TCanvas *C1 = new TCanvas();
 
     // Reading data.txt file
     ifstream data("data.txt");
@@ -93,7 +92,7 @@ void analise3()
     hist->GetZaxis()->SetTitle("Number of hits");
 
     //histRMS->Draw("LEGO");
-    hist->Draw("LEGO");
+    //hist->Draw("LEGO");
 
     //////////////////////////////////
     // Searching for better current //
@@ -101,28 +100,38 @@ void analise3()
 
     // Reading RMS.txt file
     ifstream RMS("RMS.txt");
-    double RMSmed, Current_1, Current_2;
+    double RMSmed, Current_1, Current_2, NoOfHits;
     
     // Initializing the biggest number
     // Alpha is going to be smallest RMSmed
     double alpha = DBL_MAX;
 
+    // Initializing the smallest number
+    // Beta is going to be highest number of hits on detector
+    double beta = DBL_MIN;
+
     // Initializing currents
     double c1 = 0;
-    double c2 = 0;
+    double C1 = 0;
 
     // Getting all values from RMS list
-    while (RMS >> RMSmed >> Current_1 >> Current_2)
+    while (RMS >> RMSmed >> Current_1 >> Current_2 >> NoOfHits)
     {
         // Getting absolute value of RMSmed
         double n = abs(RMSmed);
+
+        // Getting biggest NoOfHits
+        if(NoOfHits > beta)
+        {
+            beta = NoOfHits;
+            C1 = Current_1;
+        }
 
         // Getting smallest RMSmed
         if(n < alpha)
         {
             alpha = RMSmed;
             c1 = Current_1;
-            c2 = Current_2;
         }
     }
 
@@ -137,7 +146,11 @@ void analise3()
         cout << "------------------------------------" << endl;
         cout << "Smallest RMSmed: " << alpha << "mm" << endl;
         cout << "Value of current 1: " << c1 << endl;
-        cout << "Value of current 2: " << c2 << endl;
+        cout << "------------------------------------" << endl;
+        cout << " " << endl;
+        cout << "------------------------------------" << endl;
+        cout << "Highest number of hits: " << beta << endl;
+        cout << "Value of current 1: " << C1 << endl;
         cout << "------------------------------------" << endl;
     }
 }

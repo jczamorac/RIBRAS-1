@@ -15,6 +15,7 @@
 #include <TTree.h>
 #include <fstream>
 #include "SiHit.hh"
+#include "TVectorD.h"
 class TFile;
 class RootSaver
 {
@@ -35,12 +36,12 @@ public:
   virtual double Digital(double Eraw);
 
 private:
-  TTree *rootTree;         // Pointer to the ROOT TTree
+  TTree *rootTree; // Pointer to the ROOT TTree
 
   unsigned int runCounter; // Run counter to uniquely identify ROOT file
 
-  G4int TotalHits = 0;     // Total hits counter
-  G4int n = 0;             
+  Double_t HitsOnDetector = 0;
+  Double_t HitsOnTarget = 0;
 
   // Number of strips of each module
   Int_t nStrips;
@@ -59,6 +60,10 @@ private:
   Float_t Pos_x_det[8] = {0};
   Float_t Pos_y_det[8] = {0};
   Float_t Pos_z_det[8] = {0};
+
+  Float_t Pos_x_target = 0;
+  Float_t Pos_y_target = 0;
+  Float_t Pos_z_target = 0;
 
   // Sum of Hits Edep in module
   Float_t E_det[8] = {0};

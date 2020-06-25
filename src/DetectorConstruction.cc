@@ -238,7 +238,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //  Solenoid 2  //
   ///////////////////
 
-/*   // Solenoid 2 parameters
+  /*   // Solenoid 2 parameters
   G4double raiointerno = 30.05 * CLHEP::cm;
   G4double raioexterno = 100.0 * CLHEP::cm;
   G4double comprimento = 100.0 * CLHEP::cm;
@@ -294,7 +294,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4Material *TargetMaterial = G4NistManager::Instance()->FindOrBuildMaterial(Inputs->g4_material_name);
   Inputs->TargetMaterial = TargetMaterial;
 
-  // Rotataing target
+  // Rotating target
   G4RotationMatrix *rotation = new G4RotationMatrix;
   rotation->rotateZ(180. * CLHEP::deg);
 
@@ -303,7 +303,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   Log_Target = new G4LogicalVolume(Sol_Target, CD2, "Log_Target");
 
   // Placing Target
-  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet1, false, 0, true);
+  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet1, false, 8, true);
 
   // Color
   Log_Target->SetVisAttributes(new G4VisAttributes(red));
@@ -365,14 +365,14 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 void DetectorConstruction::ConstructDetectors()
 {
   // Constructing detectors
-  // Construct_D_0_0();
-  // Construct_D_0_1();
-  // Construct_D_0_2();
-  // Construct_D_0_3();
-  // Construct_D_0_4();
-  // Construct_D_0_5();
-  // Construct_D_0_6();
-  // Construct_D_0_7();
+  Construct_D_0_0();
+  Construct_D_0_1();
+  Construct_D_0_2();
+  Construct_D_0_3();
+  Construct_D_0_4();
+  Construct_D_0_5();
+  Construct_D_0_6();
+  Construct_D_0_7();
 
   static SensitiveDetector *sensitive = 0;
   if (!sensitive)
@@ -383,14 +383,14 @@ void DetectorConstruction::ConstructDetectors()
   }
 
   // These commands sets the detectors sensitive
-  // logicSensorStripD00->SetSensitiveDetector(sensitive);
-  // logicSensorStripD01->SetSensitiveDetector(sensitive);
-  // logicSensorStripD02->SetSensitiveDetector(sensitive);
-  // logicSensorStripD03->SetSensitiveDetector(sensitive);
-  // logicSensorStripD04->SetSensitiveDetector(sensitive);
-  // logicSensorStripD05->SetSensitiveDetector(sensitive);
-  // logicSensorStripD06->SetSensitiveDetector(sensitive);
-  // logicSensorStripD07->SetSensitiveDetector(sensitive);
+  logicSensorStripD00->SetSensitiveDetector(sensitive);
+  logicSensorStripD01->SetSensitiveDetector(sensitive);
+  logicSensorStripD02->SetSensitiveDetector(sensitive);
+  logicSensorStripD03->SetSensitiveDetector(sensitive);
+  logicSensorStripD04->SetSensitiveDetector(sensitive);
+  logicSensorStripD05->SetSensitiveDetector(sensitive);
+  logicSensorStripD06->SetSensitiveDetector(sensitive);
+  logicSensorStripD07->SetSensitiveDetector(sensitive);
   Log_Target->SetSensitiveDetector(sensitive);
 }
 
@@ -418,7 +418,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_0()
                                                         posicao_detector1,
                                                         DetectorLog_0,
                                                         "Detector_0",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         0,
                                                         true);
@@ -481,7 +481,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_1()
                                                         posicao_detector1,
                                                         logicSensorPlane,
                                                         "Detector_1",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         1,
                                                         true);
@@ -542,7 +542,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
                                                         posicao_detector2,
                                                         detector2log,
                                                         "Detector_2",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         2,
                                                         true);
@@ -600,7 +600,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
                                                         posicao_detector1,
                                                         DetectorLog_3,
                                                         "Detector_3",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         3,
                                                         true);
@@ -662,7 +662,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
                                                         posicao_detector1,
                                                         DetectorLog_4,
                                                         "Detector_4",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         4,
                                                         true);
@@ -724,7 +724,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
                                                         posicao_detector1,
                                                         DetectorLog_5,
                                                         "Detector_5",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         5,
                                                         true);
@@ -785,7 +785,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
                                                         posicao_detector1,
                                                         DetectorLog_6,
                                                         "Detector_6",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         6,
                                                         true);
@@ -846,7 +846,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
                                                         posicao_detector1,
                                                         DetectorLog_7,
                                                         "Detector_7",
-                                                        Log_Magnet2,
+                                                        Log_Magnet1,
                                                         false,
                                                         7,
                                                         true);
@@ -899,5 +899,8 @@ void DetectorConstruction::UpdateGeometry()
   G4PhysicalVolumeStore::GetInstance()->Clean();
   G4LogicalVolumeStore::GetInstance()->Clean();
   G4SolidStore::GetInstance()->Clean();
+
+  // Reconstruct world with new parameters
   G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
 }
+//--------------------------------------------------------------------------------------------------------------//

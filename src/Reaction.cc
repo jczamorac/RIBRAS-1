@@ -19,11 +19,7 @@ using namespace std;
 Reaction::Reaction(const G4String &aName)
     : G4VProcess(aName)
 {
-
-  if (verboseLevel > 1)
-  {
-    G4cout << GetProcessName() << " is created " << G4endl;
-  }
+  // G4cout << GetProcessName() << " is created " << G4endl;
   theProcessType = (G4ProcessType)6;      // Decay
   theProcessSubType = (G4ProcessType)231; //DecayExt
 }

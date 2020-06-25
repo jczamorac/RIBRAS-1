@@ -51,6 +51,14 @@ public:
   inline void SetIncidenceKineticEnergy(G4double ekin) { fIKEnergy = ekin; }
   inline G4double GetIncidenceKineticEnergy() const { return fIKEnergy; }
 
+  // Hit on Detector
+  inline void SetHitOnDetector() { HitOnDetector = true; }
+  G4bool GetHitOnDetector() const { return HitOnDetector; }
+
+  // Hit on Target
+  inline void SetHitOnTarget() { HitOnTarget = true; }
+  G4bool GetHitOnTarget() const { return HitOnTarget; }
+
   G4double GetEdep() const { return eDep; }
   G4ThreeVector GetPosition() const { return position; }
   G4int GetStripNumber() const { return stripNumber; }
@@ -58,15 +66,17 @@ public:
   G4bool GetIsPrimary() const { return isPrimary; }
 
 private:
-  const G4int           stripNumber, planeNumber;
-  G4double              eDep;
-  G4ThreeVector         position;
-  const G4bool          isPrimary;
-  G4double              fITime;
-  G4ThreeVector         fIMomentumD;
-  G4double              fIKEnergy;
+  const G4int stripNumber, planeNumber;
+  G4double eDep;
+  G4ThreeVector position;
+  const G4bool isPrimary;
+  G4bool HitOnDetector = false;
+  G4bool HitOnTarget = false;
+  G4double fITime;
+  G4ThreeVector fIMomentumD;
+  G4double fIKEnergy;
 
-  G4RotationMatrix      fRotation;
+  G4RotationMatrix fRotation;
   const G4LogicalVolume *pLogicalVolume;
 };
 

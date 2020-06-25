@@ -8,12 +8,17 @@
   * @brief  Implements class RootSaver.
   */
 
-// Local Headers
+// Local headers
 #include "DetectorConstruction.hh"
 #include "RootSaver.hh"
 #include "MagneticField.hh"
 #include "SiHit.hh"
+#include "EventAction.hh"
+
+// Geant4 headers
 #include "G4DigiManager.hh"
+#include "G4UserSteppingAction.hh"
+#include "G4VSolid.hh"
 
 // Root headers
 #include "TTree.h"
@@ -27,6 +32,8 @@
 #include "TGraphErrors.h"
 #include "TH1F.h"
 #include "TGraph.h"
+#include "TObject.h"
+#include "TVectorD.h"
 
 // Default headers
 #include <fstream>
@@ -72,7 +79,10 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
 
         // Getting current values
         G4double Current1 = Inputs->Current1 * 1000;
-        G4double Current2 = Inputs->Current2 * 1000;
+
+        // Total hits starts at zero
+        HitsOnDetector = 0;
+        HitsOnTarget = 0;
 
         if (rootTree)
         {
@@ -80,17 +90,14 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
                 return;
         }
 
-        // Total hits starts at zero
-        TotalHits = 0;
-
         // Path to where ROOT should save the files
-        G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
+        G4String Path = "/home/leo/Desktop/RIBRAS-1S/RIBRAS-1S/ROOT/";
 
         // Creating ROOT file
         std::ostringstream fn;
         fn.precision(2);
         fn.setf(std::ios::fixed, std::ios::floatfield);
-        fn << Path << fileName << "_" << Current1 << "_" << Current2 << ".root";
+        fn << Path << fileName << "_" << Current1 << ".root";
 
         // Create a new file and open it for writing, if the file already exists the file is overwritten
         TFile *rootFile = TFile::Open(fn.str().data(), "recreate");
@@ -169,6 +176,10 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         rootTree->Branch("pos_x_det7", &Pos_x_det[7]);
         rootTree->Branch("pos_y_det7", &Pos_y_det[7]);
         rootTree->Branch("pos_z_det7", &Pos_z_det[7]);
+
+        rootTree->Branch("pos_x_target", &Pos_x_target);
+        rootTree->Branch("pos_y_target", &Pos_z_target);
+        rootTree->Branch("pos_z_target", &Pos_z_target);
         //-------------------------------------------//
 
         //------- Total energy in the detector-------//
@@ -211,12 +222,21 @@ void RootSaver::CloseTree()
         // Note that if a TFile goes above 2GB a new file
         // will be automatically opened. We have thus to get,
         // from the TTree the current opened file
+
         if (rootTree)
         {
-                G4cout << "Total Hits: " << TotalHits << G4endl;
+                G4cout << " " << G4endl;
+                G4cout << "Total hits on detector: " << HitsOnDetector << G4endl;
+                G4cout << "Total hits on target: " << HitsOnTarget << G4endl;
+                G4cout << " " << G4endl;
+
+                TVectorD TotalHits(2);
+                TotalHits[0] = HitsOnTarget;
+                TotalHits[1] = HitsOnDetector;
+                TotalHits.Write("Total Hits");
 
                 G4cout << "Writing ROOT TTree: " << rootTree->GetName() << G4endl;
-                //rootTree->Print();
+
                 rootTree->Write();
                 TFile *currentFile = rootTree->GetCurrentFile();
                 if (currentFile == 0 || currentFile->IsZombie())
@@ -243,7 +263,7 @@ void RootSaver::CloseTree()
 
 void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector &primPos, const G4ThreeVector &primMom)
 {
-        //If root TTree is not created ends
+        // If root TTree is not created ends
         if (rootTree == 0)
         {
                 return;
@@ -252,26 +272,42 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
         // Store Hits information
         if (hits->entries())
         {
-                hits;
+                // Getting number of hits
                 G4int nHits = hits->entries();
+
                 // Set defaults values
+                // Kinect energy
                 Ekin_dssd2 = 0;
 
+                // Momentum
                 Px_dssd = -1000;
                 Py_dssd = -1000;
                 Pz_dssd = -1000;
 
+                // Time
                 T_dssd = -1000;
 
+                // Strip Number
                 StripNumber = -1000;
 
-                TotalHits++;
-
-                // Loop on all hits, consider only the hits with isPrimary flag
+                // Loop on all hits, consider only the hits for secondary particles
                 // Position is weighted average of hit x()
                 for (G4int h = 0; (h < nHits); ++h)
                 {
                         const SiHit *hit = static_cast<const SiHit *>(hits->GetHit(h));
+
+                        // Hit on detector or on target
+                        if (hit->GetHitOnTarget())
+                        {
+                                HitsOnTarget++;
+                        }
+                        else if (hit->GetHitOnDetector())
+                        {
+                                HitsOnDetector++;
+                        }
+
+                        // Getting logical name of the detector
+                        G4String DetectorName = hit->GetLogicalVolume()->GetName();
 
                         // Getting what strip ocurred a hit
                         G4int stripNum = hit->GetStripNumber();
@@ -308,7 +344,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         edep /= CLHEP::MeV;
 
                         // Saving information for each detector
-                        if (planeNum == 0)
+                        if (DetectorName == "SensorStripD00" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -318,7 +354,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal0[stripNum] += Econv;
                         }
-                        else if (planeNum == 1)
+                        else if (DetectorName == "SensorStripD01" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -328,7 +364,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal1[stripNum] += Econv;
                         }
-                        else if (planeNum == 2)
+                        else if (DetectorName == "SensorStripD02" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -338,7 +374,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal2[stripNum] += Econv;
                         }
-                        else if (planeNum == 3)
+                        else if (DetectorName == "SensorStripD03" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -348,7 +384,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal3[stripNum] += Econv;
                         }
-                        else if (planeNum == 4)
+                        else if (DetectorName == "SensorStripD04" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -358,7 +394,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal4[stripNum] += Econv;
                         }
-                        else if (planeNum == 5)
+                        else if (DetectorName == "SensorStripD05" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -368,7 +404,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal5[stripNum] += Econv;
                         }
-                        else if (planeNum == 6)
+                        else if (DetectorName == "SensorStripD06" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -378,7 +414,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal6[stripNum] += Econv;
                         }
-                        else if (planeNum == 7)
+                        else if (DetectorName == "SensorStripD07" && hit->GetIsPrimary() == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -388,9 +424,15 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 E_det[planeNum] += Econv;
                                 Signal7[stripNum] += Econv;
                         }
+                        else if (DetectorName == "Log_Target")
+                        {
+                                Pos_x_target = x;
+                                Pos_y_target = y;
+                                Pos_z_target = z;
+                        }
                         else
                         {
-                                G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
+                                // G4cerr << "Hit Error: Plane number " << planeNum << " expected max value: 8" << G4endl;
                                 continue;
                         }
                 }
