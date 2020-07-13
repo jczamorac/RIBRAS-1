@@ -40,10 +40,9 @@ class G4VPhysicsConstructor;
 class StepMax;
 class PhysicsListMessenger;
 
-class PhysicsList: public G4VUserPhysicsList
+class PhysicsList : public G4VUserPhysicsList
 {
 public:
-
     PhysicsList();
     virtual ~PhysicsList();
 
@@ -55,7 +54,7 @@ public:
     void AddPhysicsPhysics();
     void ConstructProcess();
     void AddStepMax();
-    void AddPackage(const G4String& name);
+    void AddPackage(const G4String &name);
 
 private:
     void ConstructEM();
@@ -64,11 +63,10 @@ private:
     G4double cutForElectron;
     G4double cutForPositron;
 
-    G4String      emName;
-    PhysicsListMessenger* pMessenger;
+    G4String emName;
+    PhysicsListMessenger *pMessenger;
 
-    G4VPhysicsConstructor* fEmPhysicsList;
-
+    G4VPhysicsConstructor *fEmPhysicsList;
 };
 
 #endif

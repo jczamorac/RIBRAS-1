@@ -61,6 +61,7 @@ EventAction::EventAction() : rootSaver(0),
 
 void EventAction::BeginOfEventAction(const G4Event *anEvent)
 {
+	// Retrieving inputs
 	Inputs *Inputs = &Inputs::GetInputs();
 
 	if (anEvent->GetEventID() % 1000000 == 0)
@@ -230,7 +231,8 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 
 	G4double BeamKineticEnergy = BeamTrack.GetKineticEnergy();
 	rInteractionPointBeamEnergy = BeamKineticEnergy;
-	G4double BeamMass = BeamTrack.GetParticleDefinition()->GetPDGMass();
+
+	G4double BeamMass = 931.494 * (runmassMap->GetValue(Form("%i_%i", Inputs->primary_Z, Inputs->primary_A), -1000.0)) - 0.511 * Inputs->primary_Z;
 
 	G4NistManager *nist = G4NistManager::Instance();
 	G4double TargetMass = (Inputs->target_mass == 0.0)
@@ -245,6 +247,7 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	G4double EjectileMass = (Inputs->ejectile_mass == 0.0)
 								? 931.494 * (runmassMap->GetValue(Form("%i_%i", Inputs->ejectile_Z, Inputs->ejectile_A), -1000.0)) - 0.511 * Inputs->ejectile_Z
 								: Inputs->ejectile_mass;
+
 	if (rDecayThisEvent)
 		EjectileMass += ran_ex;
 	else
@@ -262,9 +265,13 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 
 	// Get COM parameters
 	G4double beta_cm = BeamMomentum.z() / (ELabBeam + TargetMass);
+
 	G4double gamma_cm = 1.0 / sqrt(1.0 - pow(beta_cm, 2.0));
+
 	G4double S = 2. * ELabBeam * TargetMass + pow(BeamMass, 2.0) + pow(TargetMass, 2.0);
-	G4double Pcm = 0.5 * sqrt(pow(S, 2.0) + pow(RecoilMass, 4.0) + pow(EjectileMass, 4.0) - 2 * S * pow(RecoilMass, 2.0) - 2 * pow(RecoilMass, 2.0) * pow(EjectileMass, 2.0) - 2 * S * pow(EjectileMass, 2.0)) / sqrt(S);
+
+	// fabs() included because for low kinect energy (< 5 MeV) the program crash
+	G4double Pcm = 0.5 * sqrt(fabs(pow(S, 2.0) + pow(RecoilMass, 4.0) + pow(EjectileMass, 4.0) - 2 * S * pow(RecoilMass, 2.0) - 2 * pow(RecoilMass, 2.0) * pow(EjectileMass, 2.0) - 2 * S * pow(EjectileMass, 2.0))) / sqrt(S);
 
 	// Generate com momenta (for now isotropic)
 	RecoilDirectionInCM = RecoilDirectionInCM * Pcm;
@@ -282,20 +289,14 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	RecoilOut = RecoilOut.rotateUz(BeamDirection);
 	EjectileOut = EjectileOut.rotateUz(BeamDirection);
 
-	/*
 	rRecoilKineticEnergy = RecoilOut.e() - RecoilOut.m();
 	G4ThreeVector Vec = RecoilOut.getV();
-	G4double recoangle = acos(Vec.z()/Vec.r());
+	G4double recoangle = acos(Vec.z() / Vec.r());
 
 	G4double rEjeKineticEnergy = EjectileOut.e() - EjectileOut.m();
 	G4ThreeVector Vec2 = EjectileOut.getV();
-	G4double ejeangle = acos(Vec2.z()/Vec2.r());
-	G4double bangle = acos(BeamDirection.z()/BeamDirection.r());
-
-
-	//G4cout<<recoangle/deg<<"  "<<ejeangle/deg<<"  "<<bangle/deg<<"  "<<CMScatteringAngle/deg<<G4endl;
-	G4cout<<Vec2<<"  "<<EjectileOut<<G4endl;
-	*/
+	G4double ejeangle = acos(Vec2.z() / Vec2.r());
+	G4double bangle = acos(BeamDirection.z() / BeamDirection.r());
 }
 
 // ----------------------------------------------------------------------------- //
@@ -315,6 +316,9 @@ G4DynamicParticle *EventAction::GetRecoilDynamicParticle(const G4Track &BeamTrac
 
 	G4DynamicParticle *par = new G4DynamicParticle(Inputs->RecoilParticle, Vec.unit(), LabKineticEnergy);
 
+	Inputs->rTheta = rRecoilTheta / deg;
+	Inputs->rKinectEnergy = LabKineticEnergy;
+
 	return par;
 }
 
@@ -328,6 +332,8 @@ G4DynamicParticle *EventAction::GetEjectileDynamicParticle(const G4Track &BeamTr
 	G4ThreeVector Vec = Ejectile4Vec.getV().unit();
 
 	G4double Mass = Ejectile4Vec.m();
+
+	rEjectileTheta = acos(Vec.z() / Vec.r());
 
 	G4double LabKineticEnergy = Ejectile4Vec.e() - Mass;
 

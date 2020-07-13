@@ -1,3 +1,4 @@
+# Verbose
 /control/verbose 0
 /run/verbose 0
 /process/verbose 0
@@ -6,64 +7,62 @@
 /event/verbose 0
 /tracking/verbose 0
 
-#Visual
+# Visual
 /vis/scene/add/hits
+/vis/scene/add/axes 0 0 0 10 m
 /vis/open HepRepFile
 /vis/drawVolume
 /vis/viewer/set/viewpointThetaPhi 180 90 deg
 /vis/scene/add/trajectories smooth
-/vis/modeling/trajectories/create/drawByParticleID
-/vis/modeling/trajectories/drawByParticleID-0/set alpha magenta
-/vis/modeling/trajectories/drawByParticleID-0/set C12 blue
-/vis/modeling/trajectories/drawByParticleID-0/set N14 red
+/vis/modeling/trajectories/create/drawByCharge
+/vis/scene/endOfEventAction accumulate
+/vis/reviewKeptEvents
 
-#Turn On/Off the magnetic field
+# Turn On/Off the magnetic field
 /det/field 1
 
-#Define the target material
-/det/target/material G4_lH2
-#G4_LITHIUM_FLUORIDE
+# Define the target material
+/det/target/material G4_LITHIUM_FLUORIDE
 /det/target/Z 3
 /det/target/A 6
-/det/target/width 0.001
+/det/target/width 1.89e-4
 
-#Define target position (x, y, z)(cm)
+# Define target position (x, y, z)(cm)
 /det/target/pos 0. 0. 0.
 
-#Define the primary particle
-/det/primary/energy 20 MeV
+# Define the primary particle
+/det/primary/energy 30 MeV
 /det/primary/Z 6
 /det/primary/A 12
 /det/primary/pos 0. 0. -115.
 
-# C12(p,p)C12
+############################################
+### Recoil must be the lighest particle! ###  
+############################################
 
-#Define the recoil particle
+# Define the recoil particle
 /det/recoil/A 4
 /det/recoil/Z 2
 
-#Define the ejectile particle
+# Define the ejectile particle
 /det/ejectile/A 14
 /det/ejectile/Z 7
+/det/ejectile/Ex 3.94810 MeV
 
-#Define decay particle 1
+# Define decay particle 1
 #/det/decayp1/A 1
 #/det/decayp1/Z 1
 
-#Define decay particle 2
+# Define decay particle 2
 #/det/decayp2/A 7
 #/det/decayp2/Z 4
 
 #/vis/disable
 
-#Set current
-#/det/currentValue {current}
-/det/currentValue 1.
+# Set current
+/det/currentValue 45
 
-/vis/scene/endOfEventAction accumulate
-/vis/reviewKeptEvents
-
-#This this command updates the geometry with all the inputs above
+# This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 100
+/run/beamOn 200

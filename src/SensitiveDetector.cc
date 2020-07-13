@@ -1,5 +1,6 @@
 // Local headers
 #include "SensitiveDetector.hh"
+#include "DetectorConstruction.hh"
 
 // Geant4 headers
 #include "G4Step.hh"
@@ -7,6 +8,7 @@
 #include "G4HCofThisEvent.hh"
 #include "G4HCtable.hh"
 #include "G4SDManager.hh"
+#include "G4UserSteppingAction.hh"
 
 // ------------------------------------------------------------------------------------- //
 
@@ -30,6 +32,9 @@ SensitiveDetector::~SensitiveDetector()
 
 G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
 {
+  // Retrieving inputs
+  Inputs *Inputs = &Inputs::GetInputs();
+
   // Step is guaranteed to be in Strip volume : no need to check for volume
   G4TouchableHandle touchable = step->GetPreStepPoint()->GetTouchableHandle();
 
@@ -46,6 +51,9 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
 
   // Get hit time
   G4double tiempo = step->GetPreStepPoint()->GetGlobalTime();
+
+  // Get Particle ID
+  G4int ParticleID = step->GetTrack()->GetTrackID();
 
   // Getting logical volume where occured the hit
   G4LogicalVolume *LogicalVolume = step->GetTrack()->GetVolume()->GetLogicalVolume();
@@ -78,9 +86,10 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   hit->SetLogicalVolume(LogicalVolume);
   hit->AddEdep(edep);
   hit->SetIncidenceTime(tiempo);
+  hit->SetParticleID(ParticleID);
 
   // Setting hit bools
-  if (LogicalName == "Log_Target")            // If this happen, it means that the hit was on target
+  if (LogicalName == "Log_Target") // If this happen, it means that the hit was on target
   {
     hit->SetHitOnTarget();
   }
@@ -91,15 +100,13 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
            LogicalName == "SensorStripD04" ||
            LogicalName == "SensorStripD05" ||
            LogicalName == "SensorStripD06" ||
-           LogicalName == "SensorStripD07")   // Else, hit on detector
+           LogicalName == "SensorStripD07") // Else, hit on detector
   {
     hit->SetHitOnDetector();
   }
-
-  // Return true means that a hit ocurred
-  return true;
+    // Return true means that a hit ocurred
+    return true;
 }
-
 // ------------------------------------------------------------------------------------- //
 
 void SensitiveDetector::Initialize(G4HCofThisEvent *HCE)

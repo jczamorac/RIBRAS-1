@@ -13,6 +13,9 @@
 #include "G4ThreeVector.hh"
 #include "G4Box.hh"
 #include "G4Tubs.hh"
+#include "G4Color.hh"
+#include "G4RotationMatrix.hh"
+#include "G4SDManager.hh"
 
 class MagneticField;
 class MagneticField2;
@@ -45,16 +48,6 @@ private:
   void ConstructDetectors();
   // Construct geometry of the Device-under-test
   void ConstructSetup(void);
-
-  // Function to construct detectors
-  G4VPhysicalVolume *Construct_D_0_0();
-  G4VPhysicalVolume *Construct_D_0_1();
-  G4VPhysicalVolume *Construct_D_0_2();
-  G4VPhysicalVolume *Construct_D_0_3();
-  G4VPhysicalVolume *Construct_D_0_4();
-  G4VPhysicalVolume *Construct_D_0_5();
-  G4VPhysicalVolume *Construct_D_0_6();
-  G4VPhysicalVolume *Construct_D_0_7();
 
 private:
   // -------------------------------------------------------------------------  //
@@ -137,6 +130,8 @@ private:
   G4double Thickness_dssd_t1; // Detectors thickness
   G4double Lengthx_dssd_t1;   // Detectors length
 
+  // Detector position
+  G4ThreeVector DetectorPosition[8];
   // -------------------------------------------------------------------------  //
 };
 
@@ -172,6 +167,8 @@ public:                            // Recoil / Ejectile
   G4int ejectile_A, ejectile_Z;        // Ejectile particle A , Z
 
   G4ParticleDefinition *RecoilParticle;
+  G4double rTheta;
+  G4double rKinectEnergy;
   G4ParticleDefinition *EjectileParticle;
 
 public: // Decay products 1,2
@@ -210,8 +207,42 @@ private:
              DecayParticle1(0), DecayParticle2(0),
              primary_energy(0), primary_Z(0), primary_A(0),
              primary_pos(0), RecoilParticle(0), EjectileParticle(0),
+             rTheta(0), rKinectEnergy(0),
              Current1(0), Current2(0){};
   Inputs(Inputs const &) = delete;
   void operator=(Inputs const &) = delete;
 };
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+// This class builds all detectors, you must create an object, define its parameters, rotate or not, set color and position, and them construct it.
+class Detector
+{
+public:
+  // Constructor
+  Detector(const G4int DetectorNumber, const G4double Height, const G4double Lenght, const G4double Width, G4int nStrips);
+
+  // Destructor
+  ~Detector();
+
+public:
+  // Construct Detector
+  G4VPhysicalVolume *Construct(G4LogicalVolume *LogicalMother);
+
+  void SetPosition(G4ThreeVector Pos) { Position = Pos; }
+
+  void SetColor(G4Color Colour) { Color = Colour; }
+
+  void Rotate(G4double RotX, G4double RotY, G4double RotZ);
+
+private:
+  const G4int rDetector;
+  const G4double rHeight, rLenght, rWidth;
+  G4int rStrips;
+  G4Color Color;
+  G4ThreeVector Position;
+  G4String DetectorName, StripsName;
+  G4RotationMatrix *RotationMatrix = new G4RotationMatrix;
+};
+
 #endif

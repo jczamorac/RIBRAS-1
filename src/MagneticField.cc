@@ -120,28 +120,7 @@ void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
     Bfield[2] = k * current * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current * factor * (fz2_mas - fz2_menos);
     Bfield[0] = br * Point[0] / r;
     Bfield[1] = br * Point[1] / r;
-/* 
-    if (Point[2] > 181. * cm)
-    {
 
-      r = sqrt(Point[0] * Point[0] + Point[1] * Point[1]);
-      z_mas = (Point[2] - 301 * cm) + l_med;
-      z_menos = (Point[2] - 301 * cm) - l_med;
-      fr_mas = 1.0 / (pow(z_mas * z_mas + rmax * rmax, 1.5));
-      fr_menos = 1.0 / (pow(z_menos * z_menos + rmax * rmax, 1.5));
-      fz_mas = (z_mas) / (sqrt(z_mas * z_mas + rmax * rmax));
-      fz_menos = (z_menos) / (sqrt(z_menos * z_menos + rmax * rmax));
-      fr2_mas = (4 * z_mas * z_mas - rmax * rmax) / (pow(z_mas * z_mas + rmax * rmax, 3.5));
-      fr2_menos = (4 * z_menos * z_menos - rmax * rmax) / (pow(z_menos * z_menos + rmax * rmax, 3.5));
-      fz2_mas = (z_mas) / (pow(z_menos * z_menos + rmax * rmax, 2.5));
-      fz2_menos = (z_menos) / (pow(z_mas * z_mas + rmax * rmax, 2.5));
-      br = -0.5 * r * k * current2 * factor * rmax * rmax * (fr_menos - fr_mas) + 0.375 * r * r * r * rmax * rmax * k * current2 * factor * (fr2_menos - fr2_mas);
-
-      Bfield[2] = Bfield[2] +  k * current * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current * factor * (fz2_mas - fz2_menos);
-      Bfield[0] = Bfield[0] +  br * Point[0] / r;
-      Bfield[1] = Bfield[1] +  br * Point[1] / r;
-    }
-     */
   }
 
   else

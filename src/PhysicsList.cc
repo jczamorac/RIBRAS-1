@@ -202,6 +202,7 @@ void PhysicsList::ConstructEM()
 
   auto theParticleIterator = GetParticleIterator();
   G4PhysicsListHelper *ph = G4PhysicsListHelper::GetPhysicsListHelper();
+  ph->CheckParticleList();
   ph->SetVerboseLevel(0);
 
   theParticleIterator->reset();
@@ -240,19 +241,15 @@ void PhysicsList::ConstructEM()
 
     // }
     // else if (particleName == "proton" ||
-    //   particleName == "pi-" ||
-    //   particleName == "pi+") {
+    //          particleName == "pi-" ||
+    //          particleName == "pi+")
+    // {
     //   //proton
+    //   ph->RegisterProcess(new Reaction, particle);
     //   ph->RegisterProcess(new G4hMultipleScattering, particle);
     //   ph->RegisterProcess(new G4hIonisation, particle);
     //   ph->RegisterProcess(new G4hBremsstrahlung, particle);
     //   ph->RegisterProcess(new G4hPairProduction, particle);
-    // }
-    // else if (particleName == "alpha" ||
-    //   particleName == "He3") {
-    //   //alpha
-    //   ph->RegisterProcess(new G4hMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4ionIonisation, particle);
     // }
   }
 }

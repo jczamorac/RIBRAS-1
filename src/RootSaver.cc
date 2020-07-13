@@ -77,12 +77,26 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         // Retrieving inputs
         Inputs *Inputs = &Inputs::GetInputs();
 
+        // Open a list
+        // Name
+        stringstream f;
+        f << "Data for " << Inputs->ejectile_Ex << "MeV"
+          << ".txt";
+
+        // Creating a list
+        list.open(f.str().data(), ios_base::app);
+
         // Getting current values
         G4double Current1 = Inputs->Current1 * 1000;
 
         // Total hits starts at zero
         HitsOnDetector = 0;
         HitsOnTarget = 0;
+        for (int i = 0; i <= 7; i++)
+        {
+                RecoilHit[i] = 0;
+                EjectileHit[i] = 0;
+        }
 
         if (rootTree)
         {
@@ -223,21 +237,80 @@ void RootSaver::CloseTree()
         // will be automatically opened. We have thus to get,
         // from the TTree the current opened file
 
+        // Retrieving inputs
+        Inputs *Inputs = &Inputs::GetInputs();
+
+        G4int TotalRecoilHits = 0;
+        G4int TotalEjectileHits = 0;
+        G4int verbose = 1;
+
         if (rootTree)
         {
-                G4cout << " " << G4endl;
-                G4cout << "Total hits on detector: " << HitsOnDetector << G4endl;
-                G4cout << "Total hits on target: " << HitsOnTarget << G4endl;
-                G4cout << " " << G4endl;
+                if (verbose > 0)
+                {
+                        G4cout << " " << G4endl;
+                        G4cout << " --------- Efficiency --------- " << G4endl;
+                        for (int i = 0; i <= 7; i++)
+                        {
+                                if (i == 0)
+                                        G4cout << " ------- Rear Detectors -------" << G4endl;
+                                if (i == 4)
+                                        G4cout << " ------- Frontal Detectors -------" << G4endl;
 
+                                G4cout << "Detector " << i << ":" << G4endl;
+                                G4cout << "    "
+                                       << "Recoil particle: " << RecoilHit[i] * 100 / HitsOnTarget << "%" << G4endl;
+                                G4cout << "    "
+                                       << "Ejectile particle: " << EjectileHit[i] * 100 / HitsOnTarget << "%" << G4endl;
+
+                                TotalRecoilHits = TotalRecoilHits + RecoilHit[i];
+                                TotalEjectileHits = TotalEjectileHits + EjectileHit[i];
+                        }
+
+                        G4cout << "Total: " << HitsOnDetector * 100 / HitsOnTarget << "%" << G4endl;
+                        G4cout << "Recoil particles: " << TotalRecoilHits * 100 / HitsOnTarget << "%" << G4endl;
+                        G4cout << "Ejectile particles: " << TotalEjectileHits * 100 / HitsOnTarget << "%" << G4endl;
+                        G4cout << " " << G4endl;
+                }
+
+                // Saving data to a txt
+                list << " " << G4endl;
+                list << "Current: " << Inputs->Current1 * 1000 << G4endl;
+                list << " --------- Efficiency --------- " << G4endl;
+                for (int i = 0; i <= 7; i++)
+                {
+                        if (i == 0)
+                                list << " ------- Rear Detectors -------" << G4endl;
+                        if (i == 4)
+                                list << " ------- Frontal Detectors -------" << G4endl;
+
+                        list << "Detector " << i << ":" << G4endl;
+                        list << "    "
+                             << "Recoil particle: " << RecoilHit[i] * 100 / HitsOnTarget << "%" << G4endl;
+                        list << "    "
+                             << "Ejectile particle: " << EjectileHit[i] * 100 / HitsOnTarget << "%" << G4endl;
+
+                        TotalRecoilHits = TotalRecoilHits + RecoilHit[i];
+                        TotalEjectileHits = TotalEjectileHits + EjectileHit[i];
+                }
+
+                list << "Total: " << HitsOnDetector * 100 / HitsOnTarget << "%" << G4endl;
+                list << "Recoil particles: " << TotalRecoilHits * 100 / HitsOnTarget << "%" << G4endl;
+                list << "Ejectile particles: " << TotalEjectileHits * 100 / HitsOnTarget << "%" << G4endl;
+                list << "  --------------------------------- " << G4endl;
+
+                list.close();
+
+                // Saving total of hits on a vector
                 TVectorD TotalHits(2);
                 TotalHits[0] = HitsOnTarget;
                 TotalHits[1] = HitsOnDetector;
                 TotalHits.Write("Total Hits");
 
-                G4cout << "Writing ROOT TTree: " << rootTree->GetName() << G4endl;
-
+                // Write root file
                 rootTree->Write();
+
+                // Checking if there's a file
                 TFile *currentFile = rootTree->GetCurrentFile();
                 if (currentFile == 0 || currentFile->IsZombie())
                 {
@@ -245,8 +318,8 @@ void RootSaver::CloseTree()
                         return;
                 }
                 currentFile->Close();
-                //The root is automatically deleted.
 
+                //The root is automatically deleted.
                 rootTree = 0;
                 delete[] Signal0;
                 delete[] Signal1;
@@ -263,6 +336,9 @@ void RootSaver::CloseTree()
 
 void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector &primPos, const G4ThreeVector &primMom)
 {
+        // Retrieving Inputs
+        Inputs *Inputs = &Inputs::GetInputs();
+
         // If root TTree is not created ends
         if (rootTree == 0)
         {
@@ -290,24 +366,48 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                 // Strip Number
                 StripNumber = -1000;
 
+                // Flags
+                G4bool HitOnTargetCouted = false;
+                G4bool HitOnDecCounted = false;
+
                 // Loop on all hits, consider only the hits for secondary particles
                 // Position is weighted average of hit x()
                 for (G4int h = 0; (h < nHits); ++h)
                 {
                         const SiHit *hit = static_cast<const SiHit *>(hits->GetHit(h));
 
-                        // Hit on detector or on target
-                        if (hit->GetHitOnTarget())
-                        {
-                                HitsOnTarget++;
-                        }
-                        else if (hit->GetHitOnDetector())
-                        {
-                                HitsOnDetector++;
-                        }
-
                         // Getting logical name of the detector
                         G4String DetectorName = hit->GetLogicalVolume()->GetName();
+
+                        // Hit on detector or on target
+                        if (hit->GetHitOnTarget() && !HitOnTargetCouted)
+                        {
+                                HitsOnTarget++;
+                                HitOnTargetCouted = true;
+                        }
+
+                        if (hit->GetHitOnDetector() && !HitOnDecCounted)
+                        {
+                                HitsOnDetector++;
+                                HitOnDecCounted = true;
+
+                                // Getting particle ID
+                                G4int particleID = hit->GetParticleID();
+
+                                // Getting detector ID
+                                G4int detectorID = hit->GetPlaneNumber();
+
+                                for (int i = 0; i <= 7; i++)
+                                {
+                                        if (detectorID == i)
+                                        {
+                                                if (particleID == 2)
+                                                        RecoilHit[detectorID]++;
+                                                if (particleID == 3)
+                                                        EjectileHit[detectorID]++;
+                                        }
+                                }
+                        }
 
                         // Getting what strip ocurred a hit
                         G4int stripNum = hit->GetStripNumber();

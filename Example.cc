@@ -1,16 +1,13 @@
-// $Id: task2.cc 26 2010-01-06 08:09:34Z schaelic $
-/**
-* @file
-* @brief Main program. lol
-*/
-
+// Default headers
 #include <fstream>
+
+// Geant4 headers
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
-
 #include "G4Version.hh"
-
 #include "G4VisExecutive.hh"
+#include "G4ScoringManager.hh"
+
 #if  G4VERSION_NUMBER>=930
 #include "G4UIExecutive.hh"
 #else
@@ -18,26 +15,19 @@
 #include "G4UItcsh.hh"
 #endif
 
+// Local headers
 #include "DetectorConstruction.hh"
 #include "BeamTestPrimaryGeneratorAction.hh"
-
 #include "PhysicsList.hh"
-
-#include "FTFP_BERT.hh"
-#include "QGSP_BERT.hh"
 #include "EventAction.hh"
 #include "RunAction.hh"
 
+// Physics list (Geant4 pre-made)
+#include "FTFP_BERT.hh"
+#include "QGSP_BERT.hh"
+
 using namespace std;
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-
-/*!
-\brief Main program
-
-\callgraph
-
-*/
 int main(int argc,char** argv)
 {
   // Run manager
@@ -65,12 +55,16 @@ int main(int argc,char** argv)
   // Initialize G4 kernel
   runManager->Initialize();
 
+  // Visualization manager
   G4VisManager* visManager = new G4VisExecutive();
   visManager->SetVerboseLevel(0);
   visManager->Initialize();
 
+  // Scoring
+  G4ScoringManager *ScoreManager = G4ScoringManager::GetScoringManager();
+
   // Get the pointer to the User Interface manager
-  //
+
   G4UImanager * UImanager = G4UImanager::GetUIpointer();
   UImanager->SetVerboseLevel(0);
 

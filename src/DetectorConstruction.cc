@@ -9,6 +9,9 @@
 #include "MagneticField.hh"
 #include "SensitiveDetector.hh"
 
+// Default headers
+#include <sstream>
+
 // Geant4 headers
 #include "G4ThreeVector.hh"
 #include "G4Material.hh"
@@ -54,6 +57,8 @@
 using namespace std;
 using namespace CLHEP;
 
+SensitiveDetector *Sensitive = (SensitiveDetector *)0;
+
 //--------------------------------------------------------------------------------------------------------------//
 
 DetectorConstruction::DetectorConstruction()
@@ -75,6 +80,101 @@ DetectorConstruction::DetectorConstruction()
 DetectorConstruction::~DetectorConstruction()
 {
   delete messenger;
+}
+
+//--------------------------------------------------------------------------------------------------------------//
+
+Detector::Detector(const G4int DetectorNumber, const G4double Height, const G4double Lenght, const G4double Width, G4int nStrips)
+    : rDetector(DetectorNumber), rHeight(Height), rLenght(Lenght), rWidth(Width), rStrips(nStrips)
+{
+  // Getting Detector Name
+  // e.g
+  // Detector number is X so its name is going to be Detector_X and its strips SensorStripD0X
+  ostringstream DetectorN, StripsN;
+
+  DetectorN << "Detector " << rDetector;
+  StripsN << "SensorStripD0" << rDetector;
+
+  DetectorName = DetectorN.str().data();
+  StripsName = StripsN.str().data();
+}
+
+//--------------------------------------------------------------------------------------------------------------//
+
+Detector::~Detector()
+{
+}
+
+//--------------------------------------------------------------------------------------------------------------//
+
+void Detector::Rotate(G4double RotX, G4double RotY, G4double RotZ)
+{
+  // Angles in degree
+  RotationMatrix->rotateX(RotX * deg);
+  RotationMatrix->rotateY(RotY * deg);
+  RotationMatrix->rotateZ(RotZ * deg);
+}
+
+//--------------------------------------------------------------------------------------------------------------//
+
+G4VPhysicalVolume *Detector::Construct(G4LogicalVolume *LogicalMother)
+{
+  // Detector Material
+  G4Material *Material = G4NistManager::Instance()->FindOrBuildMaterial("G4_Si");
+
+  // Creating a Physical Volume
+  G4Box *DetectorBox = new G4Box(DetectorName, rLenght / 2, rHeight / 2, rWidth / 2);
+
+  // Creating a Logical Volume
+  G4LogicalVolume *LogVolume = new G4LogicalVolume(DetectorBox, Material, DetectorName);
+
+  // Placing Detector
+  G4VPhysicalVolume *PhysicalVolume = new G4PVPlacement(RotationMatrix, // Rotation Matrix
+                                                        Position,       // Position
+                                                        LogVolume,      // Respective Logical Volume
+                                                        DetectorName,   // Name
+                                                        LogicalMother,  // Logical Mother Volume
+                                                        false,          // No Boolean Operation
+                                                        rDetector,      // Copy Number
+                                                        true);          // IDK
+
+  // Strips parameters
+  G4double StripHeight = rHeight / 2;
+  G4double StripLenght = rLenght / (2 * rStrips);
+  G4double StripWidth = rWidth / 2;
+
+  // Creating Physical Volume
+  G4Box *StripsBox = new G4Box(StripsName, StripLenght, StripHeight, StripWidth);
+
+  // Creating LogicalVolume
+  G4LogicalVolume *LogStripVolume = new G4LogicalVolume(StripsBox, Material, StripsName);
+
+  //Placing Strips
+  G4VPhysicalVolume *PhysicalStripsVolume = new G4PVReplica(StripsName,
+                                                            LogStripVolume,
+                                                            LogVolume,
+                                                            kXAxis,
+                                                            rStrips,
+                                                            2.0 * StripLenght);
+
+  // Set "User Limits"
+  G4UserLimits *userLimits = new G4UserLimits(0.1 * mm);
+  LogStripVolume->SetUserLimits(userLimits);
+
+  // Setting Detector Sensitive
+  if (!Sensitive)
+  {
+    Sensitive = new SensitiveDetector("/myDet/SiStripSD");
+    //We register now the SD with the manager
+    G4SDManager::GetSDMpointer()->AddNewDetector(Sensitive);
+  }
+  LogStripVolume->SetSensitiveDetector(Sensitive);
+
+  // Color
+  LogStripVolume->SetVisAttributes(new G4VisAttributes(Color));
+
+  // Return Your Beaultiful Detector
+  return PhysicalVolume;
 }
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -123,7 +223,6 @@ void DetectorConstruction::DefineMaterials()
   vacuum = man->FindOrBuildMaterial("G4_Galactic");
   steel = man->FindOrBuildMaterial("G4_STAINLESS-STEEL");
   tungsten = man->FindOrBuildMaterial("G4_W");
-  //lead  = man->FindOrBuildMaterial("G4_Pb");
   tantalum = man->FindOrBuildMaterial("G4_Ta");
   sio2 = man->FindOrBuildMaterial("G4_SILICON_DIOXIDE");
   CH2 = man->FindOrBuildMaterial("G4_POLYETHYLENE");
@@ -141,9 +240,25 @@ void DetectorConstruction::ComputeParameters()
   noOfSensorStrips = 60;
 
   // Detector Parameters
-  Lengthy_dssd_t1 = 10.0 * CLHEP::cm;
+  Lengthy_dssd_t1 = 14 * CLHEP::cm;
+  Lengthx_dssd_t1 = 20 * CLHEP::cm;
   Thickness_dssd_t1 = 300. * CLHEP::um;
-  Lengthx_dssd_t1 = 30.0 * CLHEP::cm;
+
+  // Detector position
+
+  G4double rPosition_z = -10;
+
+  // Rear detectors
+  DetectorPosition[0] = G4ThreeVector(-9., 0., rPosition_z) * cm;
+  DetectorPosition[1] = G4ThreeVector(9., 0., rPosition_z) * cm;
+  DetectorPosition[2] = G4ThreeVector(0., -9., rPosition_z) * cm;
+  DetectorPosition[3] = G4ThreeVector(0., 9., rPosition_z) * cm;
+
+  // Front detectors
+  DetectorPosition[4] = G4ThreeVector(0., 10, 20.) * cm;
+  DetectorPosition[5] = G4ThreeVector(0., -10, 20.) * cm;
+  DetectorPosition[6] = G4ThreeVector(10, 0., 20.) * cm;
+  DetectorPosition[7] = G4ThreeVector(-10, 0., 20.) * cm;
 }
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -157,12 +272,14 @@ void DetectorConstruction::ConstructSetup(void)
 G4VPhysicalVolume *DetectorConstruction::Construct()
 {
   Inputs *Inputs = &Inputs::GetInputs();
+  G4NistManager *man = G4NistManager::Instance();
+  man->SetVerbose(0);
 
   // Available colors
   G4Color green(0.0, 1.0, 0.0),
       red(1.0, 0.0, 0.0),
       yellow(1.0, 1.0, 0.0),
-      orange(1.0, 1.0, 0.5),
+      cyan(0.2, 0.5, 0.5),
       blue(0.0, 0.0, 1.0);
 
   //---- This function is called by G4 when the detector has to be created -----//
@@ -232,55 +349,6 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   G4UserLimits *userLimits = new G4UserLimits(1.e-5 * mm);
   Log_Magnet1->SetUserLimits(userLimits);
 
-  //------ Building Second Solenoid ------//
-
-  ///////////////////
-  //  Solenoid 2  //
-  ///////////////////
-
-  /*   // Solenoid 2 parameters
-  G4double raiointerno = 30.05 * CLHEP::cm;
-  G4double raioexterno = 100.0 * CLHEP::cm;
-  G4double comprimento = 100.0 * CLHEP::cm;
-
-  // Solenoid 2 Position
-  G4ThreeVector position = G4ThreeVector(0., 0., 301. * CLHEP::cm);
-
-  // Creating Solenoid 2
-  Sol_Solenoid2 = new G4Tubs("Sol_Solenoid2", raiointerno / 2.0, raioexterno / 2.0, comprimento / 2.0, 0., 360. * CLHEP::deg);
-  Log_Solenoid2 = new G4LogicalVolume(Sol_Solenoid2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe"), "Log_Solenoid2");
-
-  // Placing Splenoid 2
-  Phys_Solenoid2 = new G4PVPlacement(0, position, Log_Solenoid2, "Solenoid 2", logicWorld, false, 0, true);
-
-  // Color
-  Log_Solenoid2->SetVisAttributes(new G4VisAttributes(green));
-
-  ///////////////////////////////
-  /// Magnetic field region 2 ///
-  ///////////////////////////////
-
-  // Creating Solenoid 2 magnetic field
-  G4double diametromag = 30.0 * cm;
-  G4double comprimentomag = 68.0 * cm; //coil length
-
-  Sol_Magnet2 = new G4Tubs("Sol_Magnet2", 0., diametromag / 2.0, comprimentomag / 2.0, 0., 360. * deg);
-
-  Log_Magnet2 = new G4LogicalVolume(Sol_Magnet2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "Log_Magnet2");
-
-  Phys_Magnet2 = new G4PVPlacement(0,
-                                   position,
-                                   Log_Magnet2,
-                                   "Magnetic Field 2",
-                                   logicWorld,
-                                   false,
-                                   0,
-                                   true);
-
-  // Set "user limits" for drawing smooth curve
-  G4UserLimits *limiteuser = new G4UserLimits(1.e-5 * mm);
-  Log_Magnet2->SetUserLimits(limiteuser); */
-
   //------- Building Target -------//
 
   //////////////
@@ -299,14 +367,17 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   rotation->rotateZ(180. * CLHEP::deg);
 
   // Creating Target
-  Sol_Target = new G4Box("Sol_Target", 7.5 * CLHEP::cm, 7.5 * CLHEP::cm, Inputs->width * CLHEP::mm);
-  Log_Target = new G4LogicalVolume(Sol_Target, CD2, "Log_Target");
+  Sol_Target = new G4Box("Sol_Target", 1.5 * CLHEP::cm, 1.5 * CLHEP::cm, Inputs->width / 2 * mm);
+  Log_Target = new G4LogicalVolume(Sol_Target, man->FindOrBuildMaterial("G4_LITHIUM_FLUORIDE"), "Log_Target");
 
   // Placing Target
   Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet1, false, 8, true);
 
   // Color
   Log_Target->SetVisAttributes(new G4VisAttributes(red));
+
+  // Setting target sensitive
+  Log_Target->SetSensitiveDetector(Sensitive);
 
   //--------- Setting magnetic field ---------//
 
@@ -334,8 +405,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     G4Mag_UsualEqRhs *fEquation = new G4Mag_UsualEqRhs(magneticField);
 
     // Note that for magnetic field that do not vary with time,
-    fStepper = new G4HelixExplicitEuler(fEquation); // mais indicado para campos intensos e não suaves
-    //fStepper = new G4ClassicalRK4( fEquation );       // integrador mais usado
+    fStepper = new G4HelixExplicitEuler(fEquation);
 
     fieldMgr->SetDeltaIntersection(0.1 * mm);
     fieldMgr->SetAccuraciesWithDeltaOneStep(0.01 * mm);
@@ -344,545 +414,64 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     fieldIsInitialized = true;
   }
 
-  //--------- Building All Detectors -----------//
+  //-------------------------------------- Building All Detectors ----------------------------------------//
 
   ///////////////
   // Detectors //
   ///////////////
 
-  // This method create the detectors
-  ConstructDetectors();
+  Detector Detector_0(0, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_0.Rotate(0., 90., 0.);
+  Detector_0.SetPosition(DetectorPosition[0]);
+  Detector_0.SetColor(cyan);
+  Detector_0.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
 
+  Detector Detector_1(1, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_1.Rotate(0., 90., 0.);
+  Detector_1.SetPosition(DetectorPosition[1]);
+  Detector_1.SetColor(cyan);
+  Detector_1.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  Detector Detector_2(2, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_2.Rotate(90., 0., 90.);
+  Detector_2.SetPosition(DetectorPosition[2]);
+  Detector_2.SetColor(cyan);
+  Detector_2.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  Detector Detector_3(3, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_3.Rotate(90., 0., 90.);
+  Detector_3.SetPosition(DetectorPosition[3]);
+  Detector_3.SetColor(cyan);
+  Detector_3.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  Detector Detector_4(4, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_4.Rotate(90., 0., 90.);
+  Detector_4.SetPosition(DetectorPosition[4]);
+  Detector_4.SetColor(cyan);
+  Detector_4.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  Detector Detector_5(5, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_5.Rotate(90., 0., 90.);
+  Detector_5.SetPosition(DetectorPosition[5]);
+  Detector_5.SetColor(cyan);
+  Detector_5.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  Detector Detector_6(6, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_6.Rotate(00., 90., 0.);
+  Detector_6.SetPosition(DetectorPosition[6]);
+  Detector_6.SetColor(cyan);
+  Detector_6.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  Detector Detector_7(7, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
+  Detector_7.Rotate(0., 90., 0.);
+  Detector_7.SetPosition(DetectorPosition[7]);
+  Detector_7.SetColor(cyan);
+  Detector_7.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+
+  //--------------------------------------------------------------------------------------------------------------//
+
+  // Return World!
   return physiWorld;
-}
-
-//--------------------------------------------------------------------------------------------------------------//
-
-///////////////
-// Detectors //
-///////////////
-
-void DetectorConstruction::ConstructDetectors()
-{
-  // Constructing detectors
-  Construct_D_0_0();
-  Construct_D_0_1();
-  Construct_D_0_2();
-  Construct_D_0_3();
-  Construct_D_0_4();
-  Construct_D_0_5();
-  Construct_D_0_6();
-  Construct_D_0_7();
-
-  static SensitiveDetector *sensitive = 0;
-  if (!sensitive)
-  {
-    sensitive = new SensitiveDetector("/myDet/SiStripSD");
-    //We register now the SD with the manager
-    G4SDManager::GetSDMpointer()->AddNewDetector(sensitive);
-  }
-
-  // These commands sets the detectors sensitive
-  logicSensorStripD00->SetSensitiveDetector(sensitive);
-  logicSensorStripD01->SetSensitiveDetector(sensitive);
-  logicSensorStripD02->SetSensitiveDetector(sensitive);
-  logicSensorStripD03->SetSensitiveDetector(sensitive);
-  logicSensorStripD04->SetSensitiveDetector(sensitive);
-  logicSensorStripD05->SetSensitiveDetector(sensitive);
-  logicSensorStripD06->SetSensitiveDetector(sensitive);
-  logicSensorStripD07->SetSensitiveDetector(sensitive);
-  Log_Target->SetSensitiveDetector(sensitive);
-}
-
-//--------------------------------------------------------------------------------------------------------------//
-
-////////////////
-/////////////////////////////// Detector 0 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_0()
-{
-  // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(-7.5 * cm, 0., -18 * cm);
-
-  // Creating the detector
-  G4Box *Detector_0 = new G4Box("Detector0", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *DetectorLog_0 = new G4LogicalVolume(Detector_0, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector1");
-
-  // Rotating detector
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateY(90. * CLHEP::deg);
-
-  // Placing detector 1
-  G4VPhysicalVolume *DetectorPhys_0 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        DetectorLog_0,
-                                                        "Detector_0",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        0,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips
-  // Strips parameters
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  // Creating physical strips
-  G4Box *solidSensorStripD00 = new G4Box("SensorStripD00", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-  logicSensorStripD00 = new G4LogicalVolume(solidSensorStripD00, silicon, "SensorStripD00");
-
-  // Placing Strips
-  G4VPhysicalVolume *physiSensorStripD_0_0 = new G4PVReplica("SensorStripD00",    //its name
-                                                             logicSensorStripD00, //its logical volume
-                                                             DetectorLog_0,       //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // Set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD00->SetUserLimits(userLimits);
-
-  // Colors
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  DetectorLog_0->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD00->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_0;
-}
-
-//--------------------------------------------------------------------------------------------------------------//
-
-////////////////
-/////////////////////////////// Detector 1 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_1()
-{
-  // Detector position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(7.5 * cm, 0., -18 * cm);
-
-  // Creating Detector
-  G4Box *solidSensor_D_0_1 = new G4Box("SensorD_0_1", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *logicSensorPlane = new G4LogicalVolume(solidSensor_D_0_1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "SensorL_D_0_1");
-
-  // Rotating detectors
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateY(90.0 * CLHEP::deg);
-
-  // Placing Detector 2
-  G4VPhysicalVolume *DetectorPhys_1 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        logicSensorPlane,
-                                                        "Detector_1",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        1,
-                                                        true);
-
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips for the second detector
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  G4Box *solidSensorStripD01 = new G4Box("SensorStripD01", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-
-  logicSensorStripD01 = new G4LogicalVolume(solidSensorStripD01, silicon, "SensorStripD01");
-
-  G4VPhysicalVolume *PhysiSensorStripD_0_1 = new G4PVReplica("SensorStripD01",    //its name
-                                                             logicSensorStripD01, //its logical volume
-                                                             logicSensorPlane,    //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);              //witdth of replica
-
-  // set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD01->SetUserLimits(userLimits);
-
-  G4Color red(1.0, 0.0, 0.0), yellow(1.0, 1.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  logicSensorPlane->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD01->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_1;
-}
-
-////////////////
-/////////////////////////////// Detector 2 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_2()
-{
-
-  // Detector Position
-  G4ThreeVector posicao_detector2 = G4ThreeVector(0., 7.5 * cm, -18. * CLHEP::cm);
-
-  // Building detectors
-  G4Box *detector2 = new G4Box("detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *detector2log = new G4LogicalVolume(detector2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector2");
-
-  // Rotating
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateY(90. * CLHEP::deg);
-  rotacaox->rotateX(90. * CLHEP::deg);
-
-  // Placing detector
-  G4VPhysicalVolume *DetectorPhys_2 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector2,
-                                                        detector2log,
-                                                        "Detector_2",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        2,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  G4Box *solidSensorStripD02 = new G4Box("SensorStripD02", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-
-  logicSensorStripD02 = new G4LogicalVolume(solidSensorStripD02, silicon, "SensorStripD02");
-
-  G4VPhysicalVolume *physiSensorStripD_0_2 = new G4PVReplica("SensorStripD02",    //its name
-                                                             logicSensorStripD02, //its logical volume
-                                                             detector2log,        //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD02->SetUserLimits(userLimits);
-
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  detector2log->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD02->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_2;
-}
-
-////////////////
-/////////////////////////////// Detector 3 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_3()
-{
-  // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -7.5 * cm, -18. * cm);
-
-  // Creating the detector
-  G4Box *Detector_3 = new G4Box("Detector3", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *DetectorLog_3 = new G4LogicalVolume(Detector_3, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector3");
-
-  // Rotating detector
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateY(90. * CLHEP::deg);
-  rotacaox->rotateX(90. * deg);
-
-  // Placing detector 1
-  G4VPhysicalVolume *DetectorPhys_3 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        DetectorLog_3,
-                                                        "Detector_3",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        3,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips
-  // Strips parameters
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  // Creating physical strips
-  G4Box *solidSensorStripD03 = new G4Box("SensorStripD03", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-  logicSensorStripD03 = new G4LogicalVolume(solidSensorStripD03, silicon, "SensorStripD03");
-
-  // Placing Strips
-  G4VPhysicalVolume *physiSensorStripD_0_3 = new G4PVReplica("SensorStripD03",    //its name
-                                                             logicSensorStripD03, //its logical volume
-                                                             DetectorLog_3,       //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // Set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD03->SetUserLimits(userLimits);
-
-  // Colors
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  DetectorLog_3->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD03->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_3;
-}
-
-////////////////
-/////////////////////////////// Detector 4 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_4()
-{
-  // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., 8. * cm, 18. * cm);
-
-  // Creating the detector
-  G4Box *Detector_4 = new G4Box("Detector4", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *DetectorLog_4 = new G4LogicalVolume(Detector_4, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector4");
-
-  // Rotating detector
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateX(90. * deg);
-  rotacaox->rotateZ(90. * deg);
-
-  // Placing detector 1
-  G4VPhysicalVolume *DetectorPhys_4 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        DetectorLog_4,
-                                                        "Detector_4",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        4,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips
-  // Strips parameters
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  // Creating physical strips
-  G4Box *solidSensorStripD04 = new G4Box("SensorStripD04", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-  logicSensorStripD04 = new G4LogicalVolume(solidSensorStripD04, silicon, "SensorStripD04");
-
-  // Placing Strips
-  G4VPhysicalVolume *physiSensorStripD_0_4 = new G4PVReplica("SensorStripD04",    //its name
-                                                             logicSensorStripD04, //its logical volume
-                                                             DetectorLog_4,       //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // Set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD04->SetUserLimits(userLimits);
-
-  // Colors
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  DetectorLog_4->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD04->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_4;
-}
-
-////////////////
-/////////////////////////////// Detector 5 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_5()
-{
-  // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(0., -8. * cm, 18. * cm);
-
-  // Creating the detector
-  G4Box *Detector_5 = new G4Box("Detector5", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *DetectorLog_5 = new G4LogicalVolume(Detector_5, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector5");
-
-  // Rotating detector
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateX(90. * deg);
-  rotacaox->rotateZ(90. * deg);
-
-  // Placing detector 1
-  G4VPhysicalVolume *DetectorPhys_5 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        DetectorLog_5,
-                                                        "Detector_5",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        5,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips
-  // Strips parameters
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  // Creating physical strips
-  G4Box *solidSensorStripD05 = new G4Box("SensorStripD05", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-  logicSensorStripD05 = new G4LogicalVolume(solidSensorStripD05, silicon, "SensorStripD05");
-
-  // Placing Strips
-  G4VPhysicalVolume *physiSensorStripD_0_5 = new G4PVReplica("SensorStripD05",    //its name
-                                                             logicSensorStripD05, //its logical volume
-                                                             DetectorLog_5,       //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // Set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD05->SetUserLimits(userLimits);
-
-  // Colors
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  DetectorLog_5->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD05->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_5;
-}
-
-////////////////
-/////////////////////////////// Detector 6 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_6()
-{
-  // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(8 * cm, 0., 18. * cm);
-
-  // Creating the detector
-  G4Box *Detector_6 = new G4Box("Detector6", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *DetectorLog_6 = new G4LogicalVolume(Detector_6, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector6");
-
-  // Rotating detector
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateY(90. * deg);
-
-  // Placing detector 1
-  G4VPhysicalVolume *DetectorPhys_6 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        DetectorLog_6,
-                                                        "Detector_6",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        6,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips
-  // Strips parameters
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  // Creating physical strips
-  G4Box *solidSensorStripD06 = new G4Box("SensorStripD06", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-  logicSensorStripD06 = new G4LogicalVolume(solidSensorStripD06, silicon, "SensorStripD06");
-
-  // Placing Strips
-  G4VPhysicalVolume *physiSensorStripD_0_6 = new G4PVReplica("SensorStripD06",    //its name
-                                                             logicSensorStripD06, //its logical volume
-                                                             DetectorLog_6,       //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // Set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD06->SetUserLimits(userLimits);
-
-  // Colors
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  DetectorLog_6->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD06->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_6;
-}
-
-////////////////
-/////////////////////////////// Detector 7 ///////////////////////////////////
-////////////////
-
-G4VPhysicalVolume *DetectorConstruction::Construct_D_0_7()
-{
-  // Detector 1 position
-  G4ThreeVector posicao_detector1 = G4ThreeVector(-8 * cm, 0., 18. * cm);
-
-  // Creating the detector
-  G4Box *Detector_7 = new G4Box("Detector7", Lengthx_dssd_t1 / 2., Lengthy_dssd_t1 / 2., Thickness_dssd_t1 / 2.);
-  G4LogicalVolume *DetectorLog_7 = new G4LogicalVolume(Detector_7, G4NistManager::Instance()->FindOrBuildMaterial("G4_Si"), "logdetector7");
-
-  // Rotating detector
-  G4RotationMatrix *rotacaox = new G4RotationMatrix;
-  rotacaox->rotateY(90. * deg);
-
-  // Placing detector 1
-  G4VPhysicalVolume *DetectorPhys_7 = new G4PVPlacement(rotacaox,
-                                                        posicao_detector1,
-                                                        DetectorLog_7,
-                                                        "Detector_7",
-                                                        Log_Magnet1,
-                                                        false,
-                                                        7,
-                                                        true);
-  //////////////
-  //  Strips  //
-  //////////////
-
-  // Creating Strips
-  // Strips parameters
-  G4double halfSensorStripSizeX = Lengthx_dssd_t1 / (2.0 * noOfSensorStrips);
-  G4double halfSensorStripSizeY = Lengthy_dssd_t1 / 2.;
-  G4double halfSensorStripSizeZ = Thickness_dssd_t1 / 2.;
-
-  // Creating physical strips
-  G4Box *solidSensorStripD07 = new G4Box("SensorStripD07", halfSensorStripSizeX, halfSensorStripSizeY, halfSensorStripSizeZ);
-  logicSensorStripD07 = new G4LogicalVolume(solidSensorStripD07, silicon, "SensorStripD07");
-
-  // Placing Strips
-  G4VPhysicalVolume *physiSensorStripD_0_7 = new G4PVReplica("SensorStripD07",    //its name
-                                                             logicSensorStripD07, //its logical volume
-                                                             DetectorLog_7,       //its mother
-                                                             kXAxis,              //axis of replication
-                                                             noOfSensorStrips,    //number of replica
-                                                             2.0 * halfSensorStripSizeX);
-  //                                      Lengthx_sili);          //witdth of replica
-
-  // Set "user limits" StepSize
-  G4UserLimits *userLimits = new G4UserLimits(0.1 * CLHEP::mm);
-  logicSensorStripD07->SetUserLimits(userLimits);
-
-  // Colors
-  G4Color yellow(1.0, 1.0, 0.0), red(1.0, 0.0, 0.0), orange(1.0, 1.0, 0.5), blue(0.0, 0.0, 1.0), green(0.0, 1.0, 0.0);
-  DetectorLog_7->SetVisAttributes(new G4VisAttributes(yellow));
-  logicSensorStripD07->SetVisAttributes(new G4VisAttributes(green));
-
-  return DetectorPhys_7;
 }
 
 //--------------------------------------------------------------------------------------------------------------//

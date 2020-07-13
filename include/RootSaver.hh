@@ -11,11 +11,20 @@
 #ifndef ROOTSAVER_HH_
 #define ROOTSAVER_HH_
 
-#include <string>
-#include <TTree.h>
-#include <fstream>
+// Local headers
 #include "SiHit.hh"
+
+// Geant4 headers
 #include "TVectorD.h"
+#include <TTree.h>
+
+// Default headers
+#include <string>
+#include <fstream>
+#include <iostream>
+
+using namespace std;
+
 class TFile;
 class RootSaver
 {
@@ -36,7 +45,8 @@ public:
   virtual double Digital(double Eraw);
 
 private:
-  TTree *rootTree; // Pointer to the ROOT TTree
+  // Pointer to the ROOT TTree
+  TTree *rootTree;
 
   unsigned int runCounter; // Run counter to uniquely identify ROOT file
 
@@ -45,6 +55,10 @@ private:
 
   // Number of strips of each module
   Int_t nStrips;
+
+  // Number of hits in each detector
+  G4int RecoilHit[8] = {0};
+  G4int EjectileHit[8] = {0};
 
   // Signal (energy) in each strip for first module
   Float_t *Signal0;
@@ -89,6 +103,8 @@ private:
   Float_t T_sili[8] = {0};
 
   Int_t StripNumber;
+
+  ofstream list;
 };
 
 #endif

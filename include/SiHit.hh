@@ -51,6 +51,10 @@ public:
   inline void SetIncidenceKineticEnergy(G4double ekin) { fIKEnergy = ekin; }
   inline G4double GetIncidenceKineticEnergy() const { return fIKEnergy; }
 
+  // Particle ID
+  inline void SetParticleID(int i){ParticleID = i;}
+  int GetParticleID() const {return ParticleID;}
+
   // Hit on Detector
   inline void SetHitOnDetector() { HitOnDetector = true; }
   G4bool GetHitOnDetector() const { return HitOnDetector; }
@@ -75,6 +79,7 @@ private:
   G4double fITime;
   G4ThreeVector fIMomentumD;
   G4double fIKEnergy;
+  G4int ParticleID;
 
   G4RotationMatrix fRotation;
   const G4LogicalVolume *pLogicalVolume;
