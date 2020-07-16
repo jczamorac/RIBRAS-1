@@ -25,7 +25,7 @@
 /det/target/material G4_LITHIUM_FLUORIDE
 /det/target/Z 3
 /det/target/A 6
-/det/target/width 1.89e-4
+/det/target/width 1.89e-5
 
 # Define target position (x, y, z)(cm)
 /det/target/pos 0. 0. 0.
@@ -47,7 +47,7 @@
 # Define the ejectile particle
 /det/ejectile/A 14
 /det/ejectile/Z 7
-/det/ejectile/Ex 3.94810 MeV
+/det/ejectile/Ex 0 MeV
 
 # Define decay particle 1
 #/det/decayp1/A 1
@@ -57,12 +57,12 @@
 #/det/decayp2/A 7
 #/det/decayp2/Z 4
 
-#/vis/disable
+ /vis/disable
 
 # Set current
-/det/currentValue 45
+/det/currentValue 40
 
 # This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 200
+/run/beamOn 10000

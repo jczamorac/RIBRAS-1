@@ -1,12 +1,18 @@
-// $Id: DetectorMessenger.cc 94 2010-01-26 13:18:30Z adotti $
-/**
-* @file
-* @brief Implements class DetectorMessenger.
-*/
+// Geant4 headers
+#include "G4UIdirectory.hh"
+#include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4UIcmdWithoutParameter.hh"
+#include "G4UIcmdWithABool.hh"
+#include "G4UIcmdWithAnInteger.hh"
+#include "G4UIcmdWith3VectorAndUnit.hh"
+#include "G4ThreeVector.hh"
 
+// Local headers
 #include "DetectorMessenger.hh"
 #include "DetectorConstruction.hh"
 
+// Default headers
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -17,15 +23,6 @@
 #include <map>
 #include <cstdio>
 #include <iomanip>
-
-#include "G4UIdirectory.hh"
-#include "G4UIcmdWithAString.hh"
-#include "G4UIcmdWithADoubleAndUnit.hh"
-#include "G4UIcmdWithoutParameter.hh"
-#include "G4UIcmdWithABool.hh"
-#include "G4UIcmdWithAnInteger.hh"
-#include "G4UIcmdWith3VectorAndUnit.hh"
-#include "G4ThreeVector.hh"
 
 using namespace CLHEP;
 using namespace std;

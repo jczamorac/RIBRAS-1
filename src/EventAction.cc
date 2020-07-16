@@ -43,6 +43,7 @@
 using namespace CLHEP;
 using namespace std;
 
+// Global Pointer
 EventAction *gCESimulationManager = (EventAction *)0;
 
 // ----------------------------------------------------------------------------- //

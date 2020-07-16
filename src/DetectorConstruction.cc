@@ -241,24 +241,24 @@ void DetectorConstruction::ComputeParameters()
 
   // Detector Parameters
   Lengthy_dssd_t1 = 14 * CLHEP::cm;
-  Lengthx_dssd_t1 = 20 * CLHEP::cm;
+  Lengthx_dssd_t1 = 25 * CLHEP::cm;
   Thickness_dssd_t1 = 300. * CLHEP::um;
 
   // Detector position
 
-  G4double rPosition_z = -10;
+  G4double rPosition_z = -12.5;
 
   // Rear detectors
-  DetectorPosition[0] = G4ThreeVector(-9., 0., rPosition_z) * cm;
-  DetectorPosition[1] = G4ThreeVector(9., 0., rPosition_z) * cm;
-  DetectorPosition[2] = G4ThreeVector(0., -9., rPosition_z) * cm;
-  DetectorPosition[3] = G4ThreeVector(0., 9., rPosition_z) * cm;
+  DetectorPosition[0] = G4ThreeVector(-8., 0., rPosition_z) * cm;
+  DetectorPosition[1] = G4ThreeVector(8., 0., rPosition_z) * cm;
+  DetectorPosition[2] = G4ThreeVector(0., -8., rPosition_z) * cm;
+  DetectorPosition[3] = G4ThreeVector(0., 8., rPosition_z) * cm;
 
   // Front detectors
-  DetectorPosition[4] = G4ThreeVector(0., 10, 20.) * cm;
-  DetectorPosition[5] = G4ThreeVector(0., -10, 20.) * cm;
-  DetectorPosition[6] = G4ThreeVector(10, 0., 20.) * cm;
-  DetectorPosition[7] = G4ThreeVector(-10, 0., 20.) * cm;
+  DetectorPosition[4] = G4ThreeVector(0., 10, 17.) * cm;
+  DetectorPosition[5] = G4ThreeVector(0., -10, 17.) * cm;
+  DetectorPosition[6] = G4ThreeVector(10, 0., 17.) * cm;
+  DetectorPosition[7] = G4ThreeVector(-10, 0., 17.) * cm;
 }
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -271,7 +271,9 @@ void DetectorConstruction::ConstructSetup(void)
 
 G4VPhysicalVolume *DetectorConstruction::Construct()
 {
+  // Retrieving inputs
   Inputs *Inputs = &Inputs::GetInputs();
+
   G4NistManager *man = G4NistManager::Instance();
   man->SetVerbose(0);
 
@@ -289,7 +291,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // World - Aqui o "mundo" é criado. O mundo é Lógico. //
   //----------------------------------------------------//
 
-  G4GeometryManager::GetInstance()->SetWorldMaximumExtent(2. * halfWorldLength);
+  G4GeometryManager::GetInstance()->SetWorldMaximumExtent(2.0 * halfWorldLength);
 
   G4Box *solidWorld = new G4Box("world", halfWorldLength, halfWorldLength, halfWorldLength);
   logicWorld = new G4LogicalVolume(solidWorld, vacuum, "World", 0, 0, 0);
@@ -457,7 +459,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   Detector_5.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
 
   Detector Detector_6(6, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
-  Detector_6.Rotate(00., 90., 0.);
+  Detector_6.Rotate(0., 90., 0.);
   Detector_6.SetPosition(DetectorPosition[6]);
   Detector_6.SetColor(cyan);
   Detector_6.Construct(Log_Magnet1); // This method requires a Logical Mother Volume

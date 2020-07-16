@@ -84,6 +84,17 @@ private:
 
   Float_t Ekin_dssd2;
 
+  // Kinect Energy per strip
+  Float_t *Ekin0;
+  Float_t *Ekin1;
+  Float_t *Ekin2;
+  Float_t *Ekin3;
+  Float_t *Ekin4;
+  Float_t *Ekin5;
+  Float_t *Ekin6;
+  Float_t *Ekin7;
+
+
   // X of the primary at origin
   Float_t TruthPosx;
   Float_t TruthPosy;
@@ -103,8 +114,6 @@ private:
   Float_t T_sili[8] = {0};
 
   Int_t StripNumber;
-
-  ofstream list;
 };
 
 #endif

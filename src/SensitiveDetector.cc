@@ -56,8 +56,14 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   G4int ParticleID = step->GetTrack()->GetTrackID();
 
   // Getting logical volume where occured the hit
-  G4LogicalVolume *LogicalVolume = step->GetTrack()->GetVolume()->GetLogicalVolume();
+  G4LogicalVolume *LogicalVolume = step->GetTrack()->GetVolume()->GetMotherLogical();
   G4String LogicalName = LogicalVolume->GetName();
+
+  if (LogicalName == "Log_Magnet1")
+  {
+    LogicalVolume = step->GetTrack()->GetVolume()->GetLogicalVolume();
+    LogicalName = LogicalVolume->GetName();
+  }
 
   // Get step points in world coordinate system
   G4ThreeVector point1 = step->GetPreStepPoint()->GetPosition();
@@ -93,19 +99,19 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   {
     hit->SetHitOnTarget();
   }
-  else if (LogicalName == "SensorStripD00" ||
-           LogicalName == "SensorStripD01" ||
-           LogicalName == "SensorStripD02" ||
-           LogicalName == "SensorStripD03" ||
-           LogicalName == "SensorStripD04" ||
-           LogicalName == "SensorStripD05" ||
-           LogicalName == "SensorStripD06" ||
-           LogicalName == "SensorStripD07") // Else, hit on detector
+  else if (LogicalName == "Detector 0" ||
+           LogicalName == "Detector 1" ||
+           LogicalName == "Detector 2" ||
+           LogicalName == "Detector 3" ||
+           LogicalName == "Detector 4" ||
+           LogicalName == "Detector 5" ||
+           LogicalName == "Detector 6" ||
+           LogicalName == "Detector 7") // Else, hit on detector
   {
     hit->SetHitOnDetector();
   }
-    // Return true means that a hit ocurred
-    return true;
+  // Return true means that a hit ocurred
+  return true;
 }
 // ------------------------------------------------------------------------------------- //
 
@@ -134,13 +140,6 @@ void SensitiveDetector::Initialize(G4HCofThisEvent *HCE)
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *)
 {
-  /*   // test output of hits
-  G4cout << "EndOfEvent method of SD `" << GetName() << "' called." << G4endl;
-  for (size_t i = 0; i < hitCollection->GetSize(); ++i)
-  {
-    (*hitCollection)[i]->Print();
-    G4cout << " " << G4endl;
-  } */
 }
 
 // ------------------------------------------------------------------------------------- //

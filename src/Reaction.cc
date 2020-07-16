@@ -1,10 +1,12 @@
 
 // Local Headers
-#include <fstream>
-#include <csignal>
 #include "EventAction.hh"
 #include "DetectorConstruction.hh"
 #include "Reaction.hh"
+
+// Default Headers
+#include <fstream>
+#include <csignal>
 
 // Geant4 Headers
 #include "globals.hh"
