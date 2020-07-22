@@ -41,6 +41,9 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   // Energy deposit in this step
   G4double edep = step->GetTotalEnergyDeposit();
 
+  // Recoil Theta CM
+
+
   // If edep <= 0, return false, it means there wasn't a hit
   if (edep <= 0.)
     return false;
@@ -93,6 +96,7 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   hit->AddEdep(edep);
   hit->SetIncidenceTime(tiempo);
   hit->SetParticleID(ParticleID);
+  hit->SetRecoilThetaCM(Inputs->rTheta);
 
   // Setting hit bools
   if (LogicalName == "Log_Target") // If this happen, it means that the hit was on target

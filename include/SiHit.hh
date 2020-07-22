@@ -28,8 +28,13 @@ public:
   inline void operator delete(void *aHit);
 
 public:
+  // Deposited energy
   void AddEdep(const double e) { eDep += e; }
+  G4double GetEdep() const { return eDep; }
+
+  // Hit Coordinates
   void SetPosition(const G4ThreeVector &pos) { position = pos; }
+  G4ThreeVector GetPosition() const { return position; }
 
   // Rotation matrix
   inline void SetRotation(G4RotationMatrix rotation) { fRotation = rotation; }
@@ -52,8 +57,8 @@ public:
   inline G4double GetIncidenceKineticEnergy() const { return fIKEnergy; }
 
   // Particle ID
-  inline void SetParticleID(int i){ParticleID = i;}
-  int GetParticleID() const {return ParticleID;}
+  inline void SetParticleID(int i) { ParticleID = i; }
+  int GetParticleID() const { return ParticleID; }
 
   // Hit on Detector
   inline void SetHitOnDetector() { HitOnDetector = true; }
@@ -63,8 +68,11 @@ public:
   inline void SetHitOnTarget() { HitOnTarget = true; }
   G4bool GetHitOnTarget() const { return HitOnTarget; }
 
-  G4double GetEdep() const { return eDep; }
-  G4ThreeVector GetPosition() const { return position; }
+  // Recoil Theta CM
+  inline void SetRecoilThetaCM( G4double T ){ RecoilThetaCM = T; }
+  G4double GetRecoilThetaCM() const { return RecoilThetaCM; }
+  
+  // This variables are initialized and saved in the constructor
   G4int GetStripNumber() const { return stripNumber; }
   G4int GetPlaneNumber() const { return planeNumber; }
   G4bool GetIsPrimary() const { return isPrimary; }
@@ -80,6 +88,7 @@ private:
   G4ThreeVector fIMomentumD;
   G4double fIKEnergy;
   G4int ParticleID;
+  G4double RecoilThetaCM;
 
   G4RotationMatrix fRotation;
   const G4LogicalVolume *pLogicalVolume;

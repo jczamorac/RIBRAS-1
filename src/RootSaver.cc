@@ -56,8 +56,7 @@ RootSaver::RootSaver() : //Initializing parameters
                          TruthPosx(0), TruthPosy(0), TruthPosz(0),
                          TruthAngle_theta(0), TruthAngle_phi(0),
                          Px_dssd(0), Py_dssd(0), Pz_dssd(0),
-                         T_dssd(0),
-                         Ekin_dssd2(0), StripNumber(0)
+                         T_dssd(0), StripNumber(0)
 {
 }
 
@@ -115,9 +114,13 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
                 return;
         }
 
+        // Creating root tree
         rootTree = new TTree(treeName.data(), treeName.data());
 
+        // Number of Strips in a detector
         nStrips = 60;
+
+        // Deposited energy in a strip
         Signal0 = new Float_t[nStrips];
         Signal1 = new Float_t[nStrips];
         Signal2 = new Float_t[nStrips];
@@ -127,6 +130,7 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         Signal6 = new Float_t[nStrips];
         Signal7 = new Float_t[nStrips];
 
+        // Incident kinect energy in a strip
         Ekin0 = new Float_t[nStrips];
         Ekin1 = new Float_t[nStrips];
         Ekin2 = new Float_t[nStrips];
@@ -135,6 +139,16 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         Ekin5 = new Float_t[nStrips];
         Ekin6 = new Float_t[nStrips];
         Ekin7 = new Float_t[nStrips];
+
+        // Recoil Theta CM of the incident particle
+        rThetaCM0 = new Float_t[nStrips];
+        rThetaCM1 = new Float_t[nStrips];
+        rThetaCM2 = new Float_t[nStrips];
+        rThetaCM3 = new Float_t[nStrips];
+        rThetaCM4 = new Float_t[nStrips];
+        rThetaCM5 = new Float_t[nStrips];
+        rThetaCM6 = new Float_t[nStrips];
+        rThetaCM7 = new Float_t[nStrips];
 
         for (Int_t strip = 0; strip < nStrips; ++strip)
         {
@@ -155,6 +169,15 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
                 Ekin5[strip] = 0;
                 Ekin6[strip] = 0;
                 Ekin7[strip] = 0;
+
+                rThetaCM0[strip] = 0;
+                rThetaCM1[strip] = 0;
+                rThetaCM2[strip] = 0;
+                rThetaCM3[strip] = 0;
+                rThetaCM4[strip] = 0;
+                rThetaCM5[strip] = 0;
+                rThetaCM6[strip] = 0;
+                rThetaCM7[strip] = 0;
         }
 
         // Digits variables
@@ -229,6 +252,34 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         rootTree->Branch("ener_det7", &E_det[8]);
         //--------------------------------------------//
 
+        //-------------- Recoil Theta CM per strip ---------------//
+        rootTree->Branch("rThetaCM0", rThetaCM0, "rThetaCM0[60]/F");
+        rootTree->Branch("rThetaCM1", rThetaCM1, "rThetaCM1[60]/F");
+        rootTree->Branch("rThetaCM2", rThetaCM2, "rThetaCM2[60]/F");
+        rootTree->Branch("rThetaCM3", rThetaCM3, "rThetaCM3[60]/F");
+        rootTree->Branch("rThetaCM4", rThetaCM4, "rThetaCM4[60]/F");
+        rootTree->Branch("rThetaCM5", rThetaCM5, "rThetaCM5[60]/F");
+        rootTree->Branch("rThetaCM6", rThetaCM6, "rThetaCM6[60]/F");
+        rootTree->Branch("rThetaCM7", rThetaCM7, "rThetaCM7[60]/F");
+        //--------------------------------------------------------//
+
+        //-------------- Time ----------------//
+        rootTree->Branch("t_sili0", &T_sili[0]);
+        rootTree->Branch("t_sili1", &T_sili[1]);
+        rootTree->Branch("t_sili2", &T_sili[2]);
+        rootTree->Branch("t_sili3", &T_sili[3]);
+        rootTree->Branch("t_sili4", &T_sili[4]);
+        rootTree->Branch("t_sili5", &T_sili[5]);
+        rootTree->Branch("t_sili6", &T_sili[6]);
+        rootTree->Branch("t_sili7", &T_sili[7]);
+        //------------------------------------//
+
+        //------------ Momentum -------------//
+        rootTree->Branch("px_dssd", &Px_dssd);
+        rootTree->Branch("py_dssd", &Py_dssd);
+        rootTree->Branch("pz_dssd", &Pz_dssd);
+        //-----------------------------------//
+
         rootTree->Branch("truthPosx", &TruthPosx);
         rootTree->Branch("truthPosy", &TruthPosy);
         rootTree->Branch("truthPosz", &TruthPosz);
@@ -236,15 +287,9 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         rootTree->Branch("truthAngle_theta", &TruthAngle_theta);
         rootTree->Branch("truthAngle_phi", &TruthAngle_phi);
 
-        rootTree->Branch("px_dssd", &Px_dssd);
-        rootTree->Branch("py_dssd", &Py_dssd);
-        rootTree->Branch("pz_dssd", &Pz_dssd);
-
         rootTree->Branch("t_dssd", &T_dssd);
-        rootTree->Branch("t_sili1", &T_sili[1]);
-        rootTree->Branch("t_sili2", &T_sili[2]);
         rootTree->Branch("t_dssd2", &T_dssd);
-        rootTree->Branch("Ekin_dssd2", &Ekin_dssd2);
+        rootTree->Branch("Etot", &Etot);
 
         rootTree->Branch("Strip_Number", &StripNumber);
 }
@@ -344,10 +389,23 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
         {
                 // Getting number of hits
                 G4int nHits = hits->entries();
+                for (int i = 0; i <= 60; i++)
+                {
+                        Signal0[i] = 0;
+                        Signal1[i] = 0;
+                        Signal2[i] = 0;
+                        Signal3[i] = 0;
+                        Signal4[i] = 0;
+                        Signal5[i] = 0;
+                        Signal6[i] = 0;
+                        Signal7[i] = 0;
+                }
+                for (int i = 0; i <= 7; i++)
+                {
+                        E_det[i] = 0;
+                }
 
-                // Set defaults values
-                // Kinect energy
-                Ekin_dssd2 = 0;
+                Etot = 0;
 
                 // Momentum
                 Px_dssd = -1000;
@@ -403,6 +461,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 }
                         }
 
+                        // Getting Recoil Theta CM
+                        G4double rThetaCM = hit->GetRecoilThetaCM() / deg;
+
                         // Getting what strip ocurred a hit
                         G4int stripNum = hit->GetStripNumber();
                         StripNumber = stripNum;
@@ -411,7 +472,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         G4int planeNum = hit->GetPlaneNumber();
 
                         // Kinect Energy
-                        G4double Ekin = hit->GetIncidenceKineticEnergy() / MeV;
+                        G4double Ekin = Inputs->rKinectEnergy / MeV;
 
                         // Getting position of hit (detector reference)
                         G4ThreeVector pos = hit->GetPosition();
@@ -448,9 +509,10 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Pos_z_det[planeNum] = z;
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
-                                E_det[planeNum] += Econv;
-                                Signal0[stripNum] = Econv / MeV;
+                                E_det[planeNum] += Econv / MeV;
+                                Signal0[stripNum] += Econv / MeV;
                                 Ekin0[stripNum] = Ekin / MeV;
+                                rThetaCM0[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 1")
                         {
@@ -460,8 +522,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal1[stripNum] = Econv;
+                                Signal1[stripNum] += Econv;
                                 Ekin1[stripNum] = Ekin / MeV;
+                                rThetaCM1[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 2")
                         {
@@ -471,8 +534,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal2[stripNum] = Econv;
+                                Signal2[stripNum] += Econv;
                                 Ekin2[stripNum] = Ekin / MeV;
+                                rThetaCM2[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 3")
                         {
@@ -482,8 +546,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal3[stripNum] = Econv;
+                                Signal3[stripNum] += Econv;
                                 Ekin3[stripNum] = Ekin / MeV;
+                                rThetaCM3[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 4")
                         {
@@ -493,8 +558,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal4[stripNum] = Econv;
+                                Signal4[stripNum] += Econv;
                                 Ekin4[stripNum] = Ekin / MeV;
+                                rThetaCM4[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 5")
                         {
@@ -504,8 +570,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal5[stripNum] = Econv;
+                                Signal5[stripNum] += Econv;
                                 Ekin5[stripNum] = Ekin / MeV;
+                                rThetaCM5[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 6")
                         {
@@ -515,8 +582,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal6[stripNum] = Econv;
+                                Signal6[stripNum] += Econv;
                                 Ekin6[stripNum] = Ekin / MeV;
+                                rThetaCM6[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Detector 7")
                         {
@@ -526,8 +594,9 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 T_sili[planeNum] = tiempo;
                                 double Econv = Digital(edep);
                                 E_det[planeNum] += Econv;
-                                Signal7[stripNum] = Econv;
+                                Signal7[stripNum] += Econv;
                                 Ekin7[stripNum] = Ekin / MeV;
+                                rThetaCM7[stripNum] = rThetaCM;
                         }
                         else if (DetectorName == "Log_Target")
                         {

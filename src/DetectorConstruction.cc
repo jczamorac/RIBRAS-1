@@ -240,7 +240,7 @@ void DetectorConstruction::ComputeParameters()
   noOfSensorStrips = 60;
 
   // Detector Parameters
-  Lengthy_dssd_t1 = 14 * CLHEP::cm;
+  Lengthy_dssd_t1 = 15 * CLHEP::cm;
   Lengthx_dssd_t1 = 25 * CLHEP::cm;
   Thickness_dssd_t1 = 300. * CLHEP::um;
 
@@ -249,16 +249,16 @@ void DetectorConstruction::ComputeParameters()
   G4double rPosition_z = -12.5;
 
   // Rear detectors
-  DetectorPosition[0] = G4ThreeVector(-8., 0., rPosition_z) * cm;
-  DetectorPosition[1] = G4ThreeVector(8., 0., rPosition_z) * cm;
-  DetectorPosition[2] = G4ThreeVector(0., -8., rPosition_z) * cm;
-  DetectorPosition[3] = G4ThreeVector(0., 8., rPosition_z) * cm;
+  DetectorPosition[0] = G4ThreeVector(-9., 0., rPosition_z) * cm;
+  DetectorPosition[1] = G4ThreeVector(9., 0., rPosition_z) * cm;
+  DetectorPosition[2] = G4ThreeVector(0., -9, rPosition_z) * cm;
+  DetectorPosition[3] = G4ThreeVector(0., 9, rPosition_z) * cm;
 
   // Front detectors
-  DetectorPosition[4] = G4ThreeVector(0., 10, 17.) * cm;
-  DetectorPosition[5] = G4ThreeVector(0., -10, 17.) * cm;
-  DetectorPosition[6] = G4ThreeVector(10, 0., 17.) * cm;
-  DetectorPosition[7] = G4ThreeVector(-10, 0., 17.) * cm;
+  DetectorPosition[4] = G4ThreeVector(0., 10, 15.) * cm;
+  DetectorPosition[5] = G4ThreeVector(0., -10, 15.) * cm;
+  DetectorPosition[6] = G4ThreeVector(10, 0., 15.) * cm;
+  DetectorPosition[7] = G4ThreeVector(-10, 0., 15.) * cm;
 }
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -370,7 +370,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // Creating Target
   Sol_Target = new G4Box("Sol_Target", 1.5 * CLHEP::cm, 1.5 * CLHEP::cm, Inputs->width / 2 * mm);
-  Log_Target = new G4LogicalVolume(Sol_Target, man->FindOrBuildMaterial("G4_LITHIUM_FLUORIDE"), "Log_Target");
+  Log_Target = new G4LogicalVolume(Sol_Target, TargetMaterial, "Log_Target");
 
   // Placing Target
   Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet1, false, 8, true);

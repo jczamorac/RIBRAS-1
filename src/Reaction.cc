@@ -54,7 +54,7 @@ G4VParticleChange *Reaction::PostStepDoIt(const G4Track &aTrack,
 
     aParticleChange.ProposeTrackStatus(fStopAndKill); // Kill the incident Particle
 
-    G4double ThetaInCM = (40 * CLHEP::RandFlat::shoot() + 10) * degree; // 0 - 10 deg from z
+    G4double ThetaInCM = (180 * CLHEP::RandFlat::shoot()) * degree;
     G4double randomPhiInCM = CLHEP::RandFlat::shoot() * 2 * pi;    // 0 - 2pi in transverse angle (azimuth)
 
     // Lorentz Vectors for each particle: ejectile, recoil, decay1 and decay2

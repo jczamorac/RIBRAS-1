@@ -3,3 +3,57 @@
 /cmake/*
 arquivobinario
 G4Data0.heprep
+ROOT/Analysis_C_ACLiC_dict_rdict.pcm
+ROOT/Analysis_C.d
+ROOT/Analysis_C.so
+ROOT/Analysis.C
+ROOT/Analysis.h
+ROOT/Canvas_1.jpg
+ROOT/Configuracao
+ROOT/rootlogon.C
+ROOT/2H(18O,1H)19O/20 MeV/Energia vs Strip - Det. Frontais.png
+ROOT/2H(18O,1H)19O/20 MeV/Energia vs Strip - Det. Traseiros.png
+ROOT/2H(18O,1H)19O/20 MeV/Histogramas-20MeV.root
+ROOT/2H(18O,1H)19O/20 MeV/HistogramasSomados.root
+ROOT/2H(18O,1H)19O/20 MeV/Estado base/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/20 MeV/Estado base/tree_30.00.root
+ROOT/2H(18O,1H)19O/20 MeV/Primeiro estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/20 MeV/Primeiro estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/20 MeV/Quarto estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/20 MeV/Quarto estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/20 MeV/Segundo estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/20 MeV/Segundo estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/20 MeV/Terceiro estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/20 MeV/Terceiro estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/40 MeV/Energia vs Strip - Det. Frontais.png
+ROOT/2H(18O,1H)19O/40 MeV/Energia vs Strip - Det. Traseiros.png
+ROOT/2H(18O,1H)19O/40 MeV/Histogramas-40MeV.root
+ROOT/2H(18O,1H)19O/40 MeV/HistogramasSomados.root
+ROOT/2H(18O,1H)19O/40 MeV/Estado base/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/40 MeV/Estado base/tree_30.00.root
+ROOT/2H(18O,1H)19O/40 MeV/Primeiro estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/40 MeV/Primeiro estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/40 MeV/Quarto estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/40 MeV/Quarto estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/40 MeV/Segundo estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/40 MeV/Segundo estado/tree_30.00.root
+ROOT/2H(18O,1H)19O/40 MeV/Terceiro estado/Histograms2D - 30A.root
+ROOT/2H(18O,1H)19O/40 MeV/Terceiro estado/tree_30.00.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Histogramas-20MeV.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Estado base/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Estado base/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Primeiro estado/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Primeiro estado/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Segundo estado/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Segundo estado/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Terceiro estado/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/20 MeV/Terceiro estado/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Histogramas-40MeV.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Estado base/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Estado base/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Primeiro estado/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Primeiro estado/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Segundo estado/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Segundo estado/tree_50.00.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Terceiro estado/Histograms2D - 50A.root
+ROOT/6Li(12C, 4He)14Ni/40 MeV/Terceiro estado/tree_50.00.root

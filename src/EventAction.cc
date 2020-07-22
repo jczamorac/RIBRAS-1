@@ -214,6 +214,8 @@ void EventAction::CalculateLab4Vectors(const G4Track &BeamTrack,
 	G4double ran_ex = 0;
 	G4double rand_dis = 0;
 
+	Inputs->rTheta = CMScatteringAngle;
+
 	if (rDecayThisEvent)
 	{
 
@@ -317,7 +319,7 @@ G4DynamicParticle *EventAction::GetRecoilDynamicParticle(const G4Track &BeamTrac
 
 	G4DynamicParticle *par = new G4DynamicParticle(Inputs->RecoilParticle, Vec.unit(), LabKineticEnergy);
 
-	Inputs->rTheta = rRecoilTheta / deg;
+	// Inputs->rTheta = rRecoilTheta;
 	Inputs->rKinectEnergy = LabKineticEnergy;
 
 	return par;

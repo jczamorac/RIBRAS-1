@@ -70,6 +70,26 @@ private:
   Float_t *Signal6;
   Float_t *Signal7;
 
+  // Kinect Energy per strip
+  Float_t *Ekin0;
+  Float_t *Ekin1;
+  Float_t *Ekin2;
+  Float_t *Ekin3;
+  Float_t *Ekin4;
+  Float_t *Ekin5;
+  Float_t *Ekin6;
+  Float_t *Ekin7;
+
+  // Recoil Theta CM per strip
+  Float_t *rThetaCM0;
+  Float_t *rThetaCM1;
+  Float_t *rThetaCM2;
+  Float_t *rThetaCM3;
+  Float_t *rThetaCM4;
+  Float_t *rThetaCM5;
+  Float_t *rThetaCM6;
+  Float_t *rThetaCM7;
+
   // "Truth" position of module
   Float_t Pos_x_det[8] = {0};
   Float_t Pos_y_det[8] = {0};
@@ -81,19 +101,6 @@ private:
 
   // Sum of Hits Edep in module
   Float_t E_det[8] = {0};
-
-  Float_t Ekin_dssd2;
-
-  // Kinect Energy per strip
-  Float_t *Ekin0;
-  Float_t *Ekin1;
-  Float_t *Ekin2;
-  Float_t *Ekin3;
-  Float_t *Ekin4;
-  Float_t *Ekin5;
-  Float_t *Ekin6;
-  Float_t *Ekin7;
-
 
   // X of the primary at origin
   Float_t TruthPosx;
@@ -112,6 +119,9 @@ private:
   //tof
   Float_t T_dssd;
   Float_t T_sili[8] = {0};
+
+  // Etot
+  Float_t Etot;
 
   Int_t StripNumber;
 };

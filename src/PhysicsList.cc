@@ -218,39 +218,39 @@ void PhysicsList::ConstructEM()
       ph->RegisterProcess(new G4hMultipleScattering, particle);
       ph->RegisterProcess(new G4ionIonisation, particle);
     }
-    // else if (particleName == "gamma") {
-    //   // gamma
-    //   ph->RegisterProcess(new G4PhotoElectricEffect, particle);
-    //   ph->RegisterProcess(new G4ComptonScattering, particle);
-    //   ph->RegisterProcess(new G4GammaConversion, particle);
+    else if (particleName == "gamma") {
+      // gamma
+      ph->RegisterProcess(new G4PhotoElectricEffect, particle);
+      ph->RegisterProcess(new G4ComptonScattering, particle);
+      ph->RegisterProcess(new G4GammaConversion, particle);
 
-    // }
-    // else if (particleName == "e-") {
-    //   //electron
-    //   ph->RegisterProcess(new G4eMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4eIonisation, particle);
-    //   ph->RegisterProcess(new G4eBremsstrahlung, particle);
+    }
+    else if (particleName == "e-") {
+      //electron
+      ph->RegisterProcess(new G4eMultipleScattering, particle);
+      ph->RegisterProcess(new G4eIonisation, particle);
+      ph->RegisterProcess(new G4eBremsstrahlung, particle);
 
-    // }
-    // else if (particleName == "e+") {
-    //   //positron
-    //   ph->RegisterProcess(new G4eMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4eIonisation, particle);
-    //   ph->RegisterProcess(new G4eBremsstrahlung, particle);
-    //   ph->RegisterProcess(new G4eplusAnnihilation, particle);
+    }
+    else if (particleName == "e+") {
+      //positron
+      ph->RegisterProcess(new G4eMultipleScattering, particle);
+      ph->RegisterProcess(new G4eIonisation, particle);
+      ph->RegisterProcess(new G4eBremsstrahlung, particle);
+      ph->RegisterProcess(new G4eplusAnnihilation, particle);
 
-    // }
-    // else if (particleName == "proton" ||
-    //          particleName == "pi-" ||
-    //          particleName == "pi+")
-    // {
-    //   //proton
-    //   ph->RegisterProcess(new Reaction, particle);
-    //   ph->RegisterProcess(new G4hMultipleScattering, particle);
-    //   ph->RegisterProcess(new G4hIonisation, particle);
-    //   ph->RegisterProcess(new G4hBremsstrahlung, particle);
-    //   ph->RegisterProcess(new G4hPairProduction, particle);
-    // }
+    }
+    else if (particleName == "proton" ||
+             particleName == "pi-" ||
+             particleName == "pi+")
+    {
+      //proton
+      ph->RegisterProcess(new Reaction, particle);
+      ph->RegisterProcess(new G4hMultipleScattering, particle);
+      ph->RegisterProcess(new G4hIonisation, particle);
+      ph->RegisterProcess(new G4hBremsstrahlung, particle);
+      ph->RegisterProcess(new G4hPairProduction, particle);
+    }
   }
 }
 
