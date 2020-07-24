@@ -62,6 +62,7 @@ private:
   G4Material *silicon;
   G4Material *vacuum;
   G4Material *H2;
+  G4Material *He4;
   G4Material *AlN;
   G4Material *steel;
   G4Material *tungsten;

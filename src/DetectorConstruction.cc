@@ -217,7 +217,6 @@ void DetectorConstruction::DefineMaterials()
   G4NistManager *man = G4NistManager::Instance();
   man->SetVerbose(0);
 
-<<<<<<< HEAD
   G4Element *Helio4 = new G4Element(name = "Helio4", symbol = "He4", z = 2., 4 * CLHEP::g / CLHEP::mole);
   G4double He4Density = 2.18e-5 * CLHEP::g / CLHEP::cm3;
   G4double He4Pressure = 0.13 * CLHEP::atmosphere;
@@ -226,8 +225,6 @@ void DetectorConstruction::DefineMaterials()
                        kStateGas, He4Temperature, He4Pressure);
   He4->AddElement(Helio4, natoms = 1);
 
-=======
->>>>>>> parent of f4992f8... Dados coletados
   // Define NIST materials
   air = man->FindOrBuildMaterial("G4_AIR");
   silicon = man->FindOrBuildMaterial("G4_Si");
@@ -265,7 +262,7 @@ void DetectorConstruction::ComputeParameters()
   Solenoid2_inner_diameter = 30.05 * CLHEP::cm;
   Solenoid2_outer_diameter = 100.0 * CLHEP::cm;
   Solenoid2_lenght = 100.0 * CLHEP::cm;
-  Solenoid_pos[1] = G4ThreeVector(0., 0., 301. - 10.) * cm;
+  Solenoid_pos[1] = G4ThreeVector(0., 0., 301.) * cm;
 
   // Solenoid 3 parameters
   Solenoid3_lenght = 150.0 * CLHEP::cm;
@@ -275,15 +272,15 @@ void DetectorConstruction::ComputeParameters()
 
   // Magnetic field parameters
   Mag1_diameter = 30.0 * cm;
-  Mag1_lenght = 100.0 * cm;
+  Mag1_lenght = 140.0 * cm;
   Mag2_diameter = 30.0 * cm;
-  Mag2_lenght = 68.0 * cm;
+  Mag2_lenght = 140.0 * cm;
   Mag3_diameter = 50.0 * cm;
   Mag3_lenght = 90.0 * cm;
 
   // Target parameters
-  Target_height = 5 *cm;
-  Target_lenght = 5 *cm;
+  Target_height = 10 * cm;
+  Target_lenght = 10 * cm;
 
   // Detector position
   G4double rPosition_z = -12.5;
@@ -356,11 +353,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //////////////////
 
   // Creating Solenoid 1
-<<<<<<< HEAD
   Sol_Solenoid1 = new G4Tubs("Sol_Solenoid1", Solenoid1_inner_diameter / 2.0, Solenoid1_outer_diameter / 2.0, Solenoid1_lenght / 2.0, 0., 360. * CLHEP::deg);
-=======
-  Sol_Solenoid1 = new G4Tubs("Sol_Solenoid1", Solenoid_diameter_inner / 2.0, Solenoid_diameter_outer / 2.0, Solenoid_length / 2.0, 0., 360. * CLHEP::deg);
->>>>>>> parent of f4992f8... Dados coletados
   Log_Solenoid1 = new G4LogicalVolume(Sol_Solenoid1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe"), "Log_Solenoid1");
 
   // Placing Solenoid 1
@@ -376,12 +369,13 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // Creating Solenoid 1 magnetic field
 
   Sol_Magnet1 = new G4Tubs("Sol_Magnet1", 0., Mag1_diameter / 2.0, Mag1_lenght / 2.0, 0., 360. * deg);
-  Log_Magnet1 = new G4LogicalVolume(Sol_Magnet1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "Log_Magnet1", 0, 0, 0);
+  Log_Magnet1 = new G4LogicalVolume(Sol_Magnet1, vacuum, "Log_Magnet1", 0, 0, 0);
   Phys_Magnet1 = new G4PVPlacement(0, Solenoid_pos[0], Log_Magnet1, "Magnetic Field 1", logicWorld, false, 0, true);
 
   // Set "user limits" for drawing smooth curve
   G4UserLimits *userLimits = new G4UserLimits(1.e-5 * mm);
   Log_Magnet1->SetUserLimits(userLimits);
+  Log_Magnet1->SetVisAttributes(G4VisAttributes::Invisible);
 
   //------ Building Second Solenoid ------//
 
@@ -406,12 +400,13 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   // Creating Solenoid 2 magnetic field
 
   Sol_Magnet2 = new G4Tubs("Sol_Magnet2", 0., Mag2_diameter / 2.0, Mag2_lenght / 2.0, 0., 360. * deg);
-  Log_Magnet2 = new G4LogicalVolume(Sol_Magnet2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "Log_Magnet2");
+  Log_Magnet2 = new G4LogicalVolume(Sol_Magnet2, vacuum, "Log_Magnet2");
   Phys_Magnet2 = new G4PVPlacement(0, Solenoid_pos[1], Log_Magnet2, "Magnetic Field 2", logicWorld, false, 0, true);
 
   // Set "user limits" for drawing smooth curve
   G4UserLimits *limiteuser = new G4UserLimits(1.e-5 * mm);
   Log_Magnet2->SetUserLimits(limiteuser);
+  Log_Magnet2->SetVisAttributes(G4VisAttributes::Invisible);
 
   //////////////////
   //  Solenoid 3  //
@@ -493,24 +488,28 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     fieldMgr->SetDetectorField(magneticField);
     fieldMgr->CreateChordFinder(magneticField);
 
-    G4double minEps = 1.0e-10 * cm; //   Minimum & value for smallest steps
-    G4double maxEps = 1.0e-8 * cm;  //   Maximum & value for largest steps
+    G4double minEps = 1.0e-9 * cm; //   Minimum & value for smallest steps
+    G4double maxEps = 1.0e-8 * cm; //   Maximum & value for largest steps
 
     fieldMgr->SetMinimumEpsilonStep(minEps);
     fieldMgr->SetMaximumEpsilonStep(maxEps);
 
-    fieldMgr->GetChordFinder()->SetDeltaChord(0.001 * mm);
+    // fieldMgr->GetChordFinder()->SetDeltaChord(0.001 * mm);
 
     G4Mag_UsualEqRhs *fEquation = new G4Mag_UsualEqRhs(magneticField);
 
     // Note that for magnetic field that do not vary with time,
     fStepper = new G4ClassicalRK4(fEquation);
 
-    fieldMgr->SetDeltaIntersection(0.1 * mm);
-    fieldMgr->SetAccuraciesWithDeltaOneStep(0.01 * mm);
+    // fieldMgr->SetDeltaIntersection(0.1 * mm);
+    // fieldMgr->SetAccuraciesWithDeltaOneStep(0.01 * mm);
     fieldMgr->SetDeltaOneStep(0.5e-3 * mm); // 0.5 micrometer
 
-    Log_Magnet1->SetFieldManager(fieldMgr, true);
+    // G4FieldManager *localFieldMgr = new G4FieldManager(magneticField);
+
+    // logicWorld->SetFieldManager(localFieldMgr, true);
+    // Log_Magnet2->SetFieldManager(localFieldMgr, true);
+    // Log_Magnet3->SetFieldManager(localFieldMgr, true);
 
     fieldIsInitialized = true;
   }

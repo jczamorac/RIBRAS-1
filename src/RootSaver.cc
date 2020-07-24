@@ -86,7 +86,7 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         G4double Current2 = Inputs->Current2 * 1000;
 
         // Open histogram
-        hist = new TH2F("RMS", " ", 100, 0, 0, 100, 0, 0);
+        hist = new TH2F(/* " ", " ", 60, 0., 0., 60., 0., 0. */);
 
         // Total hits starts at zero
         HitsOnDetector = 0;
@@ -316,7 +316,7 @@ void RootSaver::CloseTree()
 
         G4int TotalRecoilHits = 0;
         G4int TotalEjectileHits = 0;
-        G4int verbose = 1;
+        G4int verbose = 0;
 
         // Write histogram
         hist->Write();

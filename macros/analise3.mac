@@ -17,13 +17,9 @@ void analise3()
     ofstream lista("RMS.txt");
     ofstream lista2("data.txt");
 
-<<<<<<< HEAD
-    for(Current1 = 25; Current1<=40; Current1 += 0.2)
-=======
-    for(Current1 = 15; Current1<=26; Current1 += 0.2)
->>>>>>> parent of f4992f8... Dados coletados
+    for(Current1 = 30; Current1<=40; Current1 += 0.2)
     {
-        for(Current2 = 63; Current2<=90; Current2 += 0.2)
+        for(Current2 = 60; Current2<=90; Current2 += 0.2)
         {
             // Go to where are the root files
             string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";

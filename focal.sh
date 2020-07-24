@@ -6,7 +6,7 @@ rm *.root
 cd ..
 
 # Interval for Current1
-iCurrent1=200
+iCurrent1=300
 fCurrent1=400
 
 # Interval for Current2
@@ -14,10 +14,9 @@ iCurrent2=600
 fCurrent2=900
 
 # Primary beam position (cm)
-Primary_pos=-105
+Primary_pos=-115
 
 # Primary beam energy (MeV)
-<<<<<<< HEAD
 Primary_e=30
 
 # Target definition
@@ -35,9 +34,6 @@ Recoil_A=2
 # Ejectile particles
 Ejectile_Z=3
 Ejectile_A=8
-=======
-Primary_e=40
->>>>>>> parent of f4992f8... Dados coletados
 
 # Target z position (cm)
 Target_z=0
