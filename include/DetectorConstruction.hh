@@ -79,9 +79,11 @@ private:
 
   G4LogicalVolume *Log_Solenoid1; // Solenoid 1
   G4LogicalVolume *Log_Solenoid2; // Solenoid 2
+  G4LogicalVolume *Log_Solenoid3; // Solenoid 3
 
   G4LogicalVolume *Log_Magnet1; // Magnetic Field 1
   G4LogicalVolume *Log_Magnet2; // Magnetic Field 2
+  G4LogicalVolume *Log_Magnet3; // Magnetic Field 3
 
   G4LogicalVolume *Log_Target; // Target
 
@@ -99,8 +101,10 @@ private:
   // Physical Volumes
   G4VPhysicalVolume *Phys_Solenoid1; // Solenoid 1
   G4VPhysicalVolume *Phys_Solenoid2; // Solenoid 2
+  G4VPhysicalVolume *Phys_Solenoid3; // Solenoid 3
   G4VPhysicalVolume *Phys_Magnet1;   // Magnetic Field 1
   G4VPhysicalVolume *Phys_Magnet2;   // Magnetic Field 2
+  G4VPhysicalVolume *Phys_Magnet3;   // Magnetic Field 3
   G4VPhysicalVolume *Phys_Target;    // Target
 
   // -------------------------------------------------------------------------  //
@@ -108,8 +112,10 @@ private:
   // Solid Volumes
   G4Tubs *Sol_Solenoid1; // Solenoid 1
   G4Tubs *Sol_Solenoid2; // Solenoid 2
+  G4Tubs *Sol_Solenoid3; // Solenoid 3
   G4Tubs *Sol_Magnet1;   // Magnetic Field 1
   G4Tubs *Sol_Magnet2;   // Magnetic Field 2
+  G4Tubs *Sol_Magnet3;   // Magnetic Field 3
   G4Box *Sol_Target;     // Target
 
   // -------------------------------------------------------------------------  //
@@ -122,6 +128,21 @@ private:
   // Parameters
   G4double halfWorldLength; // World half length
   G4int noOfSensorStrips;   // Number of Strips in each detector
+
+  // Solenoid parameters
+  G4double Solenoid1_lenght, Solenoid2_lenght, Solenoid3_lenght;
+  G4double Solenoid1_inner_diameter, Solenoid2_inner_diameter, Solenoid3_inner_diameter;
+  G4double Solenoid1_outer_diameter, Solenoid2_outer_diameter, Solenoid3_outer_diameter;
+
+  // Magnetic field parameters
+  G4double Mag1_lenght, Mag2_lenght, Mag3_lenght;
+  G4double Mag1_diameter, Mag2_diameter, Mag3_diameter;
+
+  // Solenoid position
+  G4ThreeVector Solenoid_pos[3];
+
+  // Target parameters
+  G4double Target_lenght, Target_height;
 
   // -------------------------------------------------------------------------  //
 
@@ -195,8 +216,8 @@ public: // Magnetic Field
 private:
   Inputs() : // Initializing parameters
              initialized(false),
-             using_magneticfield(false), TargetMaterial(nullptr),
-             width(1), g4_material_name(""),
+             using_magneticfield(true), TargetMaterial(nullptr),
+             width(1), g4_material_name("G4_POLYETHYLENE"),
              recoil_mass(0.0), recoil_Ex(0.0),
              recoil_A(0), recoil_Z(0), target_mass(0),
              target_A(0), target_Z(0), target_pos(0),

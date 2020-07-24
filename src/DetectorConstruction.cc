@@ -217,6 +217,17 @@ void DetectorConstruction::DefineMaterials()
   G4NistManager *man = G4NistManager::Instance();
   man->SetVerbose(0);
 
+<<<<<<< HEAD
+  G4Element *Helio4 = new G4Element(name = "Helio4", symbol = "He4", z = 2., 4 * CLHEP::g / CLHEP::mole);
+  G4double He4Density = 2.18e-5 * CLHEP::g / CLHEP::cm3;
+  G4double He4Pressure = 0.13 * CLHEP::atmosphere;
+  G4double He4Temperature = 293. * CLHEP::kelvin;
+  He4 = new G4Material(name = "Helio4 gas", He4Density, ncomponents = 1,
+                       kStateGas, He4Temperature, He4Pressure);
+  He4->AddElement(Helio4, natoms = 1);
+
+=======
+>>>>>>> parent of f4992f8... Dados coletados
   // Define NIST materials
   air = man->FindOrBuildMaterial("G4_AIR");
   silicon = man->FindOrBuildMaterial("G4_Si");
@@ -244,15 +255,44 @@ void DetectorConstruction::ComputeParameters()
   Lengthx_dssd_t1 = 25 * CLHEP::cm;
   Thickness_dssd_t1 = 300. * CLHEP::um;
 
-  // Detector position
+  // Solenoid 1 parameters
+  Solenoid1_lenght = 100.0 * CLHEP::cm;
+  Solenoid1_inner_diameter = 30.05 * CLHEP::cm;
+  Solenoid1_outer_diameter = 100.0 * CLHEP::cm;
+  Solenoid_pos[0] = G4ThreeVector(0., 0., 0.) * cm;
 
+  // Solenoid 2 parameters
+  Solenoid2_inner_diameter = 30.05 * CLHEP::cm;
+  Solenoid2_outer_diameter = 100.0 * CLHEP::cm;
+  Solenoid2_lenght = 100.0 * CLHEP::cm;
+  Solenoid_pos[1] = G4ThreeVector(0., 0., 301. - 10.) * cm;
+
+  // Solenoid 3 parameters
+  Solenoid3_lenght = 150.0 * CLHEP::cm;
+  Solenoid3_inner_diameter = 50.05 * CLHEP::cm;
+  Solenoid3_outer_diameter = 70.0 * CLHEP::cm;
+  Solenoid_pos[2] = G4ThreeVector(0., 0., 501.) * cm;
+
+  // Magnetic field parameters
+  Mag1_diameter = 30.0 * cm;
+  Mag1_lenght = 100.0 * cm;
+  Mag2_diameter = 30.0 * cm;
+  Mag2_lenght = 68.0 * cm;
+  Mag3_diameter = 50.0 * cm;
+  Mag3_lenght = 90.0 * cm;
+
+  // Target parameters
+  Target_height = 5 *cm;
+  Target_lenght = 5 *cm;
+
+  // Detector position
   G4double rPosition_z = -12.5;
 
   // Rear detectors
-  DetectorPosition[0] = G4ThreeVector(-9., 0., rPosition_z) * cm;
-  DetectorPosition[1] = G4ThreeVector(9., 0., rPosition_z) * cm;
-  DetectorPosition[2] = G4ThreeVector(0., -9, rPosition_z) * cm;
-  DetectorPosition[3] = G4ThreeVector(0., 9, rPosition_z) * cm;
+  DetectorPosition[0] = G4ThreeVector(-10., 0., rPosition_z) * cm;
+  DetectorPosition[1] = G4ThreeVector(10., 0., rPosition_z) * cm;
+  DetectorPosition[2] = G4ThreeVector(0., -10, rPosition_z) * cm;
+  DetectorPosition[3] = G4ThreeVector(0., 10, rPosition_z) * cm;
 
   // Front detectors
   DetectorPosition[4] = G4ThreeVector(0., 10, 15.) * cm;
@@ -315,20 +355,16 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   //  Solenoid 1  //
   //////////////////
 
-  // Solenoid 1 parameters
-  G4double Solenoid_length = 100.0 * CLHEP::cm;
-  G4double Solenoid_diameter_inner = 30.05 * CLHEP::cm;
-  G4double Solenoid_diameter_outer = 100.0 * CLHEP::cm;
-
-  // Position
-  G4ThreeVector Pos_Solenoid = G4ThreeVector();
-
   // Creating Solenoid 1
+<<<<<<< HEAD
+  Sol_Solenoid1 = new G4Tubs("Sol_Solenoid1", Solenoid1_inner_diameter / 2.0, Solenoid1_outer_diameter / 2.0, Solenoid1_lenght / 2.0, 0., 360. * CLHEP::deg);
+=======
   Sol_Solenoid1 = new G4Tubs("Sol_Solenoid1", Solenoid_diameter_inner / 2.0, Solenoid_diameter_outer / 2.0, Solenoid_length / 2.0, 0., 360. * CLHEP::deg);
+>>>>>>> parent of f4992f8... Dados coletados
   Log_Solenoid1 = new G4LogicalVolume(Sol_Solenoid1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe"), "Log_Solenoid1");
 
   // Placing Solenoid 1
-  Phys_Solenoid1 = new G4PVPlacement(0, Pos_Solenoid, Log_Solenoid1, "Solenoid 1", logicWorld, false, 0, true);
+  Phys_Solenoid1 = new G4PVPlacement(0, Solenoid_pos[0], Log_Solenoid1, "Solenoid 1", logicWorld, false, 0, true);
 
   // Setting Solenoid 1 color
   Log_Solenoid1->SetVisAttributes(new G4VisAttributes(green));
@@ -338,18 +374,73 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   ///////////////////////////////
 
   // Creating Solenoid 1 magnetic field
-  G4double Mag_diameter = 30.0 * cm;
-  G4double Mag_length = 68.0 * cm; //coil length
 
-  Sol_Magnet1 = new G4Tubs("Sol_Magnet1", 0., Mag_diameter / 2.0, Mag_length / 2.0, 0., 360. * deg);
-
+  Sol_Magnet1 = new G4Tubs("Sol_Magnet1", 0., Mag1_diameter / 2.0, Mag1_lenght / 2.0, 0., 360. * deg);
   Log_Magnet1 = new G4LogicalVolume(Sol_Magnet1, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "Log_Magnet1", 0, 0, 0);
-
-  Phys_Magnet1 = new G4PVPlacement(0, Pos_Solenoid, Log_Magnet1, "Magnetic Field 1", logicWorld, false, 0, true);
+  Phys_Magnet1 = new G4PVPlacement(0, Solenoid_pos[0], Log_Magnet1, "Magnetic Field 1", logicWorld, false, 0, true);
 
   // Set "user limits" for drawing smooth curve
   G4UserLimits *userLimits = new G4UserLimits(1.e-5 * mm);
   Log_Magnet1->SetUserLimits(userLimits);
+
+  //------ Building Second Solenoid ------//
+
+  ///////////////////
+  //  Solenoid 2  //
+  ///////////////////
+
+  // Creating Solenoid 2
+  Sol_Solenoid2 = new G4Tubs("Sol_Solenoid2", Solenoid2_inner_diameter / 2.0, Solenoid2_outer_diameter / 2.0, Solenoid2_lenght / 2.0, 0., 360. * CLHEP::deg);
+  Log_Solenoid2 = new G4LogicalVolume(Sol_Solenoid2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe"), "Log_Solenoid2");
+
+  // Placing Splenoid 2
+  Phys_Solenoid2 = new G4PVPlacement(0, Solenoid_pos[1], Log_Solenoid2, "Solenoid 2", logicWorld, false, 0, true);
+
+  // Color
+  Log_Solenoid2->SetVisAttributes(new G4VisAttributes(green));
+
+  ///////////////////////////////
+  /// Magnetic field region 2 ///
+  ///////////////////////////////
+
+  // Creating Solenoid 2 magnetic field
+
+  Sol_Magnet2 = new G4Tubs("Sol_Magnet2", 0., Mag2_diameter / 2.0, Mag2_lenght / 2.0, 0., 360. * deg);
+  Log_Magnet2 = new G4LogicalVolume(Sol_Magnet2, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "Log_Magnet2");
+  Phys_Magnet2 = new G4PVPlacement(0, Solenoid_pos[1], Log_Magnet2, "Magnetic Field 2", logicWorld, false, 0, true);
+
+  // Set "user limits" for drawing smooth curve
+  G4UserLimits *limiteuser = new G4UserLimits(1.e-5 * mm);
+  Log_Magnet2->SetUserLimits(limiteuser);
+
+  //////////////////
+  //  Solenoid 3  //
+  //////////////////
+
+  // // Position
+  // G4ThreeVector Pos_Solenoid = G4ThreeVector();
+
+  // // Creating Solenoid 3
+  // Sol_Solenoid3 = new G4Tubs("Sol_Solenoid3", Solenoid3_inner_diameter / 2.0, Solenoid3_outer_diameter / 2.0, Solenoid3_lenght / 2.0, 0., 360. * CLHEP::deg);
+  // Log_Solenoid3 = new G4LogicalVolume(Sol_Solenoid3, G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe"), "Log_Solenoid3");
+
+  // // Placing Solenoid 3
+  // Phys_Solenoid3 = new G4PVPlacement(0, Solenoid_pos[2], Log_Solenoid3, "Solenoid 3", logicWorld, false, 0, true);
+
+  // // Setting Solenoid 3 color
+  // Log_Solenoid3->SetVisAttributes(new G4VisAttributes(yellow));
+
+  // ///////////////////////////////
+  // /// Magnetic field region 3 ///
+  // ///////////////////////////////
+
+  // Sol_Magnet3 = new G4Tubs("Sol_Magnet3", 0., Mag3_diameter / 2.0, Mag3_lenght / 2.0, 0., 360. * deg);
+  // Log_Magnet3 = new G4LogicalVolume(Sol_Magnet3, G4NistManager::Instance()->FindOrBuildMaterial("G4_Galactic"), "Log_Magnet3", 0, 0, 0);
+  // Phys_Magnet3 = new G4PVPlacement(0, Solenoid_pos[2], Log_Magnet3, "Magnetic Field 3", logicWorld, false, 0, true);
+
+  // // Set "user limits" for drawing smooth curve
+  // G4UserLimits *userLimits3 = new G4UserLimits(1.e-5 * mm);
+  // Log_Magnet3->SetUserLimits(userLimits3);
 
   //------- Building Target -------//
 
@@ -369,16 +460,22 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   rotation->rotateZ(180. * CLHEP::deg);
 
   // Creating Target
-  Sol_Target = new G4Box("Sol_Target", 1.5 * CLHEP::cm, 1.5 * CLHEP::cm, Inputs->width / 2 * mm);
+  Sol_Target = new G4Box("Sol_Target", Target_height / 2, Target_lenght / 2, Inputs->width / 2 * mm);
   Log_Target = new G4LogicalVolume(Sol_Target, TargetMaterial, "Log_Target");
 
   // Placing Target
-  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet1, false, 8, true);
+  Phys_Target = new G4PVPlacement(rotation, Target_pos, Log_Target, "Target", Log_Magnet2, false, 8, true);
 
   // Color
   Log_Target->SetVisAttributes(new G4VisAttributes(red));
 
   // Setting target sensitive
+  if (!Sensitive)
+  {
+    Sensitive = new SensitiveDetector("/myDet/SiStripSD");
+    //We register now the SD with the manager
+    G4SDManager::GetSDMpointer()->AddNewDetector(Sensitive);
+  }
   Log_Target->SetSensitiveDetector(Sensitive);
 
   //--------- Setting magnetic field ---------//
@@ -407,11 +504,13 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     G4Mag_UsualEqRhs *fEquation = new G4Mag_UsualEqRhs(magneticField);
 
     // Note that for magnetic field that do not vary with time,
-    fStepper = new G4HelixExplicitEuler(fEquation);
+    fStepper = new G4ClassicalRK4(fEquation);
 
     fieldMgr->SetDeltaIntersection(0.1 * mm);
     fieldMgr->SetAccuraciesWithDeltaOneStep(0.01 * mm);
-    fieldMgr->SetDeltaOneStep(0.01 * mm); // 0.5 micrometer
+    fieldMgr->SetDeltaOneStep(0.5e-3 * mm); // 0.5 micrometer
+
+    Log_Magnet1->SetFieldManager(fieldMgr, true);
 
     fieldIsInitialized = true;
   }
@@ -426,49 +525,49 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   Detector_0.Rotate(0., 90., 0.);
   Detector_0.SetPosition(DetectorPosition[0]);
   Detector_0.SetColor(cyan);
-  Detector_0.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_0.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_1(1, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_1.Rotate(0., 90., 0.);
   Detector_1.SetPosition(DetectorPosition[1]);
   Detector_1.SetColor(cyan);
-  Detector_1.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_1.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_2(2, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_2.Rotate(90., 0., 90.);
   Detector_2.SetPosition(DetectorPosition[2]);
   Detector_2.SetColor(cyan);
-  Detector_2.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_2.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_3(3, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_3.Rotate(90., 0., 90.);
   Detector_3.SetPosition(DetectorPosition[3]);
   Detector_3.SetColor(cyan);
-  Detector_3.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_3.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_4(4, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_4.Rotate(90., 0., 90.);
   Detector_4.SetPosition(DetectorPosition[4]);
   Detector_4.SetColor(cyan);
-  Detector_4.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_4.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_5(5, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_5.Rotate(90., 0., 90.);
   Detector_5.SetPosition(DetectorPosition[5]);
   Detector_5.SetColor(cyan);
-  Detector_5.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_5.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_6(6, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_6.Rotate(0., 90., 0.);
   Detector_6.SetPosition(DetectorPosition[6]);
   Detector_6.SetColor(cyan);
-  Detector_6.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_6.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   Detector Detector_7(7, Lengthy_dssd_t1, Lengthx_dssd_t1, Thickness_dssd_t1, noOfSensorStrips);
   Detector_7.Rotate(0., 90., 0.);
   Detector_7.SetPosition(DetectorPosition[7]);
   Detector_7.SetColor(cyan);
-  Detector_7.Construct(Log_Magnet1); // This method requires a Logical Mother Volume
+  Detector_7.Construct(Log_Magnet2); // This method requires a Logical Mother Volume
 
   //--------------------------------------------------------------------------------------------------------------//
 

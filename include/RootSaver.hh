@@ -14,14 +14,15 @@
 // Local headers
 #include "SiHit.hh"
 
-// Geant4 headers
-#include "TVectorD.h"
-#include <TTree.h>
-
 // Default headers
 #include <string>
 #include <fstream>
 #include <iostream>
+
+// ROOT headers
+#include "TH2F.h"
+#include "TVectorD.h"
+#include <TTree.h>
 
 using namespace std;
 
@@ -47,6 +48,9 @@ public:
 private:
   // Pointer to the ROOT TTree
   TTree *rootTree;
+
+  // 2D histogram
+  TH2F *hist;
 
   unsigned int runCounter; // Run counter to uniquely identify ROOT file
 

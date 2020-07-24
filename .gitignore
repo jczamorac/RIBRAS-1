@@ -3,6 +3,10 @@
 /cmake/*
 arquivobinario
 G4Data0.heprep
+<<<<<<< HEAD
+<<<<<<< HEAD
+/macros/*.txt
+=======
 ROOT/Analysis_C_ACLiC_dict_rdict.pcm
 ROOT/Analysis_C.d
 ROOT/Analysis_C.so
@@ -57,3 +61,6 @@ ROOT/6Li(12C, 4He)14Ni/40 MeV/Segundo estado/Histograms2D - 50A.root
 ROOT/6Li(12C, 4He)14Ni/40 MeV/Segundo estado/tree_50.00.root
 ROOT/6Li(12C, 4He)14Ni/40 MeV/Terceiro estado/Histograms2D - 50A.root
 ROOT/6Li(12C, 4He)14Ni/40 MeV/Terceiro estado/tree_50.00.root
+>>>>>>> origin/RIBRAS1S
+=======
+>>>>>>> parent of f4992f8... Dados coletados

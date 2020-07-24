@@ -60,11 +60,7 @@ int main(int argc,char** argv)
   visManager->SetVerboseLevel(0);
   visManager->Initialize();
 
-  // Scoring
-  G4ScoringManager *ScoreManager = G4ScoringManager::GetScoringManager();
-
   // Get the pointer to the User Interface manager
-
   G4UImanager * UImanager = G4UImanager::GetUIpointer();
   UImanager->SetVerboseLevel(0);
 

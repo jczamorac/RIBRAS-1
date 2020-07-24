@@ -70,16 +70,12 @@
 
 MagneticField::MagneticField()
 {
-  // Retrieving Inputs
-  Inputs *Inputs = &Inputs::GetInputs();
-
   messenger = new MagneticFieldMessenger(this);
-  k = 0.04078336599;    //constant of RIBRAS solenoids
-  rmax = 19.2034 * cm;  // coil radiusBz
-  rmin = 1. * mm;       // mini tube
-  l_med = 33.9979 * cm; // half coil length
-  current = 25.;        //electric current [Amp] (tesla units are included just for B)
-  current2 = 50.;       //electric current [Amp] (tesla units are included just for B)
+  k = 0.04078336599; //constant of RIBRAS solenoids 
+  rmax = 19.2034*cm; // coil radius
+  l_med = 33.9979*cm;// half coil length
+  current = 37. *tesla;        //electric current [Amp] (tesla units are included just for B)
+  current2 = 22. *tesla;       //electric current [Amp] (tesla units are included just for B)
 }
 
 // ----------------------------------------------------------------------------- //
@@ -101,28 +97,47 @@ void MagneticField::GetFieldValue(const double Point[3], double *Bfield) const
 {
   Inputs *Inputs = &Inputs::GetInputs();
 
-  if (Point[2] > -105. * cm && Point[2] < 421. * cm && sqrt(Point[0] * Point[0] + Point[1] * Point[1]) < rmax && /* sqrt(Point[0] * Point[0] + Point[1] * Point[1]) > rmin &&  */Inputs->using_magneticfield)
+  if (Point[2] > -105. * cm && Point[2] < 450. * cm && sqrt(Point[0] * Point[0] + Point[1] * Point[1]) < rmax && Inputs->using_magneticfield)
   {
-    G4double z_mas = Point[2] + l_med;
-    G4double z_menos = Point[2] - l_med;
-    G4double r = sqrt(Point[0] * Point[0] + Point[1] * Point[1]);
-    G4double fr_mas = 1.0 / (pow(z_mas * z_mas + rmax * rmax, 1.5));
-    G4double fr_menos = 1.0 / (pow(z_menos * z_menos + rmax * rmax, 1.5));
-    G4double fz_mas = (z_mas) / (sqrt(z_mas * z_mas + rmax * rmax));
-    G4double fz_menos = (z_menos) / (sqrt(z_menos * z_menos + rmax * rmax));
-    G4double fr2_mas = (4 * z_mas * z_mas - rmax * rmax) / (pow(z_mas * z_mas + rmax * rmax, 3.5));
-    G4double fr2_menos = (4 * z_menos * z_menos - rmax * rmax) / (pow(z_menos * z_menos + rmax * rmax, 3.5));
-    G4double fz2_mas = (z_mas) / (pow(z_menos * z_menos + rmax * rmax, 2.5));
-    G4double fz2_menos = (z_menos) / (pow(z_mas * z_mas + rmax * rmax, 2.5));
-    G4double factor = 0.945;
-    G4double br = -0.5 * r * k * current * factor * rmax * rmax * (fr_menos - fr_mas) + 0.375 * r * r * r * rmax * rmax * k * current * factor * (fr2_menos - fr2_mas);
+      G4double z_mas = Point[2]+l_med;
+      G4double z_menos = Point[2]-l_med;
+      G4double r = sqrt(Point[0]*Point[0]+Point[1]*Point[1]);
+      G4double fr_mas = 1.0/(pow(z_mas*z_mas+rmax*rmax,1.5));
+      G4double fr_menos = 1.0/(pow(z_menos*z_menos+rmax*rmax,1.5));
+      G4double fz_mas = (z_mas)/(sqrt(z_mas*z_mas+rmax*rmax));
+      G4double fz_menos = (z_menos)/(sqrt(z_menos*z_menos+rmax*rmax));
+      G4double fr2_mas = (4*z_mas*z_mas-rmax*rmax)/(pow(z_mas*z_mas+rmax*rmax,3.5));
+      G4double fr2_menos = (4*z_menos*z_menos-rmax*rmax)/(pow(z_menos*z_menos+rmax*rmax,3.5));
+      G4double fz2_mas = (z_mas)/(pow(z_menos*z_menos+rmax*rmax,2.5));
+      G4double fz2_menos = (z_menos)/(pow(z_mas*z_mas+rmax*rmax,2.5));
+      G4double factor = 0.945;	
+      G4double br = -0.5*r*k*current*factor*rmax*rmax*(fr_menos-fr_mas)+0.375*r*r*r*rmax*rmax*k*current*factor*(fr2_menos-fr2_mas);
+  
 
-    Bfield[2] = k * current * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current * factor * (fz2_mas - fz2_menos);
-    Bfield[0] = br * Point[0] / r;
-    Bfield[1] = br * Point[1] / r;
+      Bfield[2] = k*current*factor*(fz_menos-fz_mas)-0.75*r*r*rmax*rmax*k*current*factor*(fz2_mas-fz2_menos); 
+      Bfield[0] = br*Point[0]/r;
+      Bfield[1] = br*Point[1]/r;
 
+    if (Point[2] > 181. * cm)
+    {
+      r = sqrt(Point[0] * Point[0] + Point[1] * Point[1]);
+      z_mas = (Point[2] - (301 - 10) * cm) + l_med;
+      z_menos = (Point[2] - (301 - 10) * cm) - l_med;
+      fr_mas = 1.0 / (pow(z_mas * z_mas + rmax * rmax, 1.5));
+      fr_menos = 1.0 / (pow(z_menos * z_menos + rmax * rmax, 1.5));
+      fz_mas = (z_mas) / (sqrt(z_mas * z_mas + rmax * rmax));
+      fz_menos = (z_menos) / (sqrt(z_menos * z_menos + rmax * rmax));
+      fr2_mas = (4 * z_mas * z_mas - rmax * rmax) / (pow(z_mas * z_mas + rmax * rmax, 3.5));
+      fr2_menos = (4 * z_menos * z_menos - rmax * rmax) / (pow(z_menos * z_menos + rmax * rmax, 3.5));
+      fz2_mas = (z_mas) / (pow(z_menos * z_menos + rmax * rmax, 2.5));
+      fz2_menos = (z_menos) / (pow(z_mas * z_mas + rmax * rmax, 2.5));
+      br = -0.5 * r * k * current2 * factor * rmax * rmax * (fr_menos - fr_mas) + 0.375 * r * r * r * rmax * rmax * k * current2 * factor * (fr2_menos - fr2_mas);
+
+      Bfield[2] = Bfield[2] + k * current2 * factor * (fz_menos - fz_mas) - 0.75 * r * r * rmax * rmax * k * current2 * factor * (fz2_mas - fz2_menos);
+      Bfield[0] = Bfield[0] + br * Point[0] / r;
+      Bfield[1] = Bfield[1] + br * Point[1] / r;
+    }
   }
-
   else
   {
     Bfield[2] = 0.;

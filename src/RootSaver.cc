@@ -53,6 +53,9 @@ RootSaver::RootSaver() : //Initializing parameters
                          Signal7(0),
                          Ekin0(0), Ekin1(0), Ekin2(0), Ekin3(0),
                          Ekin4(0), Ekin5(0), Ekin6(0), Ekin7(0),
+                         rThetaCM0(0), rThetaCM1(0), rThetaCM2(0),
+                         rThetaCM3(0), rThetaCM4(0), rThetaCM5(0),
+                         rThetaCM6(0), rThetaCM7(0),
                          TruthPosx(0), TruthPosy(0), TruthPosz(0),
                          TruthAngle_theta(0), TruthAngle_phi(0),
                          Px_dssd(0), Py_dssd(0), Pz_dssd(0),
@@ -80,6 +83,10 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
 
         // Getting current values
         G4double Current1 = Inputs->Current1 * 1000;
+        G4double Current2 = Inputs->Current2 * 1000;
+
+        // Open histogram
+        hist = new TH2F("RMS", " ", 100, 0, 0, 100, 0, 0);
 
         // Total hits starts at zero
         HitsOnDetector = 0;
@@ -97,13 +104,13 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         }
 
         // Path to where ROOT should save the files
-        G4String Path = "/home/leo/Desktop/RIBRAS-1S/RIBRAS-1S/ROOT/";
+        G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
 
         // Creating ROOT file
         std::ostringstream fn;
         fn.precision(2);
         fn.setf(std::ios::fixed, std::ios::floatfield);
-        fn << Path << fileName << "_" << Current1 << ".root";
+        fn << Path << fileName << "_" << Current1 << "_" << Current2 << ".root";
 
         // Create a new file and open it for writing, if the file already exists the file is overwritten
         TFile *rootFile = TFile::Open(fn.str().data(), "recreate");
@@ -311,6 +318,11 @@ void RootSaver::CloseTree()
         G4int TotalEjectileHits = 0;
         G4int verbose = 1;
 
+        // Write histogram
+        hist->Write();
+        double sigma_x = hist->GetRMS(1);
+        double sigma_y = hist->GetRMS(2);
+
         if (rootTree)
         {
                 if (verbose > 0)
@@ -338,9 +350,13 @@ void RootSaver::CloseTree()
                         G4cout << "Recoil particles: " << TotalRecoilHits * 100 / HitsOnTarget << "%" << G4endl;
                         G4cout << "Ejectile particles: " << TotalEjectileHits * 100 / HitsOnTarget << "%" << G4endl;
                         G4cout << " " << G4endl;
+                        G4cout << "Sigma X: " << sigma_x << G4endl;
+                        G4cout << "Sigma Y: " << sigma_y << G4endl;
+                        G4cout << "Mean Sigma: " << (sigma_x + sigma_y) / 2.0 << G4endl;
+                        G4cout << " " << G4endl;
                 }
 
-                // Saving total of hits on a vector
+                //Saving total of hits on a vector
                 TVectorD TotalHits(2);
                 TotalHits[0] = HitsOnTarget;
                 TotalHits[1] = HitsOnDetector;
@@ -368,6 +384,24 @@ void RootSaver::CloseTree()
                 delete[] Signal5;
                 delete[] Signal6;
                 delete[] Signal7;
+
+                delete[] Ekin0;
+                delete[] Ekin1;
+                delete[] Ekin2;
+                delete[] Ekin3;
+                delete[] Ekin4;
+                delete[] Ekin5;
+                delete[] Ekin6;
+                delete[] Ekin7;
+
+                delete[] rThetaCM0;
+                delete[] rThetaCM1;
+                delete[] rThetaCM2;
+                delete[] rThetaCM3;
+                delete[] rThetaCM4;
+                delete[] rThetaCM5;
+                delete[] rThetaCM6;
+                delete[] rThetaCM7;
         }
 }
 
@@ -431,36 +465,6 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         // Getting logical name of the detector
                         G4String DetectorName = hit->GetLogicalVolume()->GetName();
 
-                        // Hit on detector or on target
-                        if (hit->GetHitOnTarget() && !HitOnTargetCouted)
-                        {
-                                HitsOnTarget++;
-                                HitOnTargetCouted = true;
-                        }
-
-                        if (hit->GetHitOnDetector() && !HitOnDecCounted)
-                        {
-                                HitsOnDetector++;
-                                HitOnDecCounted = true;
-
-                                // Getting particle ID
-                                G4int particleID = hit->GetParticleID();
-
-                                // Getting detector ID
-                                G4int detectorID = hit->GetPlaneNumber();
-
-                                for (int i = 0; i <= 7; i++)
-                                {
-                                        if (detectorID == i)
-                                        {
-                                                if (particleID == 2)
-                                                        RecoilHit[detectorID]++;
-                                                if (particleID == 3)
-                                                        EjectileHit[detectorID]++;
-                                        }
-                                }
-                        }
-
                         // Getting Recoil Theta CM
                         G4double rThetaCM = hit->GetRecoilThetaCM() / deg;
 
@@ -501,8 +505,41 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                         Float_t edep = static_cast<Float_t>(hit->GetEdep());
                         edep /= CLHEP::MeV;
 
+                        // Hit on detector or on target
+                        if (hit->GetHitOnTarget() && !HitOnTargetCouted)
+                        {
+                                HitsOnTarget++;
+                                HitOnTargetCouted = true;
+                                hist->Fill(x, y);
+                        }
+
+                        if (hit->GetHitOnDetector() && !HitOnDecCounted)
+                        {
+                                HitsOnDetector++;
+                                HitOnDecCounted = true;
+
+                                // Getting particle ID
+                                G4int particleID = hit->GetParticleID();
+
+                                // cout << particleID << endl;
+
+                                // Getting detector ID
+                                G4int detectorID = hit->GetPlaneNumber();
+
+                                for (int i = 0; i <= 7; i++)
+                                {
+                                        if (detectorID == i)
+                                        {
+                                                if (particleID == 2)
+                                                        RecoilHit[detectorID]++;
+                                                if (particleID == 3)
+                                                        EjectileHit[detectorID]++;
+                                        }
+                                }
+                        }
+
                         // Saving information for each detector
-                        if (DetectorName == "Detector 0")
+                        if (planeNum == 0)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -514,7 +551,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin0[stripNum] = Ekin / MeV;
                                 rThetaCM0[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 1")
+                        else if (planeNum == 1)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -526,7 +563,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin1[stripNum] = Ekin / MeV;
                                 rThetaCM1[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 2")
+                        else if (planeNum == 2)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -538,7 +575,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin2[stripNum] = Ekin / MeV;
                                 rThetaCM2[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 3")
+                        else if (planeNum == 3)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -550,7 +587,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin3[stripNum] = Ekin / MeV;
                                 rThetaCM3[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 4")
+                        else if (planeNum == 4)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -562,7 +599,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin4[stripNum] = Ekin / MeV;
                                 rThetaCM4[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 5")
+                        else if (planeNum == 5)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -574,7 +611,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin5[stripNum] = Ekin / MeV;
                                 rThetaCM5[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 6")
+                        else if (planeNum == 6)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;
@@ -586,7 +623,7 @@ void RootSaver::AddEvent(const SiHitCollection *const hits, const G4ThreeVector 
                                 Ekin6[stripNum] = Ekin / MeV;
                                 rThetaCM6[stripNum] = rThetaCM;
                         }
-                        else if (DetectorName == "Detector 7")
+                        else if (planeNum == 7)
                         {
                                 Pos_x_det[planeNum] = x;
                                 Pos_y_det[planeNum] = y;

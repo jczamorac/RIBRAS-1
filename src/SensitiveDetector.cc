@@ -43,7 +43,6 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
 
   // Recoil Theta CM
 
-
   // If edep <= 0, return false, it means there wasn't a hit
   if (edep <= 0.)
     return false;
@@ -62,7 +61,8 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   G4LogicalVolume *LogicalVolume = step->GetTrack()->GetVolume()->GetMotherLogical();
   G4String LogicalName = LogicalVolume->GetName();
 
-  if (LogicalName == "Log_Magnet1")
+  // If LogicalName is Log_Magnet2, it means it's the target
+  if (LogicalName == "Log_Magnet2")
   {
     LogicalVolume = step->GetTrack()->GetVolume()->GetLogicalVolume();
     LogicalName = LogicalVolume->GetName();
@@ -103,17 +103,17 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *)
   {
     hit->SetHitOnTarget();
   }
-  else if (LogicalName == "Detector 0" ||
-           LogicalName == "Detector 1" ||
-           LogicalName == "Detector 2" ||
-           LogicalName == "Detector 3" ||
-           LogicalName == "Detector 4" ||
-           LogicalName == "Detector 5" ||
-           LogicalName == "Detector 6" ||
-           LogicalName == "Detector 7") // Else, hit on detector
+  else
   {
-    hit->SetHitOnDetector();
+    for (int i = 0; i <= 7; i++)
+    {
+      if (planeCopyNo == i)
+      {
+        hit->SetHitOnDetector();
+      }
+    }
   }
+
   // Return true means that a hit ocurred
   return true;
 }
