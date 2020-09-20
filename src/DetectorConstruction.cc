@@ -279,8 +279,8 @@ void DetectorConstruction::ComputeParameters()
   Mag3_lenght = 90.0 * cm;
 
   // Target parameters
-  Target_height = 10 * cm;
-  Target_lenght = 10 * cm;
+  Target_height = 3 * cm;
+  Target_lenght = 3 * cm;
 
   // Detector position
   G4double rPosition_z = -12.5;

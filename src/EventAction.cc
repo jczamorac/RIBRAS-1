@@ -46,12 +46,12 @@ using namespace std;
 // Global Pointer
 EventAction *gCESimulationManager = (EventAction *)0;
 
-// ----------------------------------------------------------------------------- //
+	// ----------------------------------------------------------------------------- //
 
-EventAction::EventAction() : rootSaver(0),
-							 hitsCollName("SiHitCollection"),
-							 //digitsCollName("SiDigitCollection"),
-							 hitsCollID(-1)
+	EventAction::EventAction() : rootSaver(0),
+								 hitsCollName("SiHitCollection"),
+								 //digitsCollName("SiDigitCollection"),
+								 hitsCollID(-1)
 {
 	if (gCESimulationManager)
 		delete gCESimulationManager;
@@ -64,6 +64,8 @@ void EventAction::BeginOfEventAction(const G4Event *anEvent)
 {
 	// Retrieving inputs
 	Inputs *Inputs = &Inputs::GetInputs();
+
+	list.open("Theta.txt", std::ios_base::app);
 
 	if (anEvent->GetEventID() % 1000000 == 0)
 	{
@@ -189,6 +191,7 @@ void EventAction::EndOfEventAction(const G4Event *anEvent)
 		const G4ThreeVector &mom = anEvent->GetPrimaryVertex()->GetPrimary()->GetMomentum();
 		rootSaver->AddEvent(hits, pos, mom);
 	}
+	list.close();
 }
 
 // ----------------------------------------------------------------------------- //
@@ -321,6 +324,8 @@ G4DynamicParticle *EventAction::GetRecoilDynamicParticle(const G4Track &BeamTrac
 
 	// Inputs->rTheta = rRecoilTheta;
 	Inputs->rKinectEnergy = LabKineticEnergy;
+
+	list << rRecoilTheta / deg << " " << Inputs->rTheta / deg<< endl;
 
 	return par;
 }

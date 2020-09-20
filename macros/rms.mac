@@ -1,0 +1,32 @@
+#include <fstream>
+#include <iostream>
+
+using namespace std;
+
+void rms()
+{
+    TFile *f1;
+    TTree *a1;
+    TH2F *hT1C;
+    ifstream lista("RMS.txt");
+    Double_t RMSmed, C1, C2;
+
+    // Creating Canvas
+    TCanvas *Canvas = new TCanvas();
+
+    // Creating a 3-D histogram
+    int nBins = 100;
+    TH3F *hist = new TH3F("hist", "", nBins, 14, 19, nBins, 50, 70, nBins, 0, 30);
+
+    while(lista >> RMSmed >> C1 >> C2)
+    {
+        if (RMSmed > 0)
+            hist->Fill(C1, C2, RMSmed);
+    }
+
+    // Drawing histogram RMS
+    hist->GetXaxis()->SetTitle("Corrente 1 (A)");
+    hist->GetYaxis()->SetTitle("Corrente 2 (A)");
+    hist->GetZaxis()->SetTitle("RMS Med.");
+    hist->Draw("BOX2");
+}

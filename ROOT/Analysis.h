@@ -43,8 +43,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <numeric>   // std::iota
-#include <algorithm> // std::sort
+#include <numeric> // std::iota
 
 // Header file for the classes stored in the TTree if any.
 
@@ -73,6 +72,14 @@ public:
    Float_t EKin5[60];
    Float_t EKin6[60];
    Float_t EKin7[60];
+   Float_t rThetaCM0[60];
+   Float_t rThetaCM1[60];
+   Float_t rThetaCM2[60];
+   Float_t rThetaCM3[60];
+   Float_t rThetaCM4[60];
+   Float_t rThetaCM5[60];
+   Float_t rThetaCM6[60];
+   Float_t rThetaCM7[60];
    Float_t pos_x_det0;
    Float_t pos_y_det0;
    Float_t pos_z_det0;
@@ -117,11 +124,25 @@ public:
    Float_t py_dssd;
    Float_t pz_dssd;
    Float_t t_dssd;
+   Float_t t_sili0;
    Float_t t_sili1;
    Float_t t_sili2;
+   Float_t t_sili3;
+   Float_t t_sili4;
+   Float_t t_sili5;
+   Float_t t_sili6;
+   Float_t t_sili7;
+   Int_t Strip_Number0;
+   Int_t Strip_Number1;
+   Int_t Strip_Number2;
+   Int_t Strip_Number3;
+   Int_t Strip_Number4;
+   Int_t Strip_Number5;
+   Int_t Strip_Number6;
+   Int_t Strip_Number7;
+
    Float_t t_dssd2;
-   Float_t Ekin_dssd2;
-   Int_t Strip_Number;
+   Float_t ETot;
 
    // List of branches
    TBranch *b_E0;               //!
@@ -140,6 +161,14 @@ public:
    TBranch *b_EKin5;            //!
    TBranch *b_EKin6;            //!
    TBranch *b_EKin7;            //!
+   TBranch *b_rThetaCM0;        //!
+   TBranch *b_rThetaCM1;        //!
+   TBranch *b_rThetaCM2;        //!
+   TBranch *b_rThetaCM3;        //!
+   TBranch *b_rThetaCM4;        //!
+   TBranch *b_rThetaCM5;        //!
+   TBranch *b_rThetaCM6;        //!
+   TBranch *b_rThetaCM7;        //!
    TBranch *b_pos_x_det0;       //!
    TBranch *b_pos_y_det0;       //!
    TBranch *b_pos_z_det0;       //!
@@ -184,26 +213,97 @@ public:
    TBranch *b_py_dssd;          //!
    TBranch *b_pz_dssd;          //!
    TBranch *b_t_dssd;           //!
+   TBranch *b_t_sili0;          //!
    TBranch *b_t_sili1;          //!
    TBranch *b_t_sili2;          //!
+   TBranch *b_t_sili3;          //!
+   TBranch *b_t_sili4;          //!
+   TBranch *b_t_sili5;          //!
+   TBranch *b_t_sili6;          //!
+   TBranch *b_t_sili7;          //!
    TBranch *b_t_dssd2;          //!
-   TBranch *b_Ekin_dssd2;       //!
-   TBranch *b_Strip_Number;     //!
+   TBranch *b_ETot;             //!
+   TBranch *b_Strip_Number0;    //!
+   TBranch *b_Strip_Number1;    //!
+   TBranch *b_Strip_Number2;    //!
+   TBranch *b_Strip_Number3;    //!
+   TBranch *b_Strip_Number4;    //!
+   TBranch *b_Strip_Number5;    //!
+   TBranch *b_Strip_Number6;    //!
+   TBranch *b_Strip_Number7;    //!
 
    // 2D Histograms
-   TH2F *EvS0 = new TH2F("Energy vs Strip 0", // Histogram's name
-                         "Energy vs Strip",   // Histogram's title
-                         60,                  // Bins on X
-                         0,                   // Initial X
-                         60,                  // Final X
-                         60,                  // Bins on Y
-                         0,                   // Initial Y
-                         0);                  // Final Y
-   TH2F *EvS1 = new TH2F("Energy vs Strip 1", "Energy vs Strip", 60, 0, 60, 60, 0, 0);
-   TH2F *EvS2 = new TH2F("Energy vs Strip 2", "Energy vs Strip", 60, 0, 60, 60, 0, 0);
-   TH2F *EvS3 = new TH2F("Energy vs Strip 3", "Energy vs Strip", 60, 0, 60, 60, 0, 0);
-   TH2F *Ekin55 = new TH2F("Energy vs Ekin", "Energy vs Ekin", 60, 0, 60, 60, 0, 0);
-   TH3F *Teste = new TH3F("Energy vs Ekin", "Energy vs Ekin", 60, 0, 60, 60, 0, 0, 60, 0, 0);
+   TH2F *EvS0 = new TH2F("Energy vs Strip 0", "Energy vs Strip", 60, 0, 60, 1000, 0, 20);
+   TH2F *EvS1 = new TH2F("Energy vs Strip 1", "Energy vs Strip", 60, 0, 60, 1000, 0, 20);
+   TH2F *EvS2 = new TH2F("Energy vs Strip 2", "Energy vs Strip", 60, 0, 60, 1000, 0, 20);
+   TH2F *EvS3 = new TH2F("Energy vs Strip 3", "Energy vs Strip", 60, 0, 60, 1000, 0, 20);
+   TH2F *EvS4 = new TH2F("Energy vs Strip 4", "Energy vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EvS5 = new TH2F("Energy vs Strip 5", "Energy vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EvS6 = new TH2F("Energy vs Strip 6", "Energy vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EvS7 = new TH2F("Energy vs Strip 7", "Energy vs Strip", 60, 0, 60, 1000, 0, 45);
+
+   TH2F *EvThetaCM0 = new TH2F("Energy vs ThetaCM0", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM1 = new TH2F("Energy vs ThetaCM1", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM2 = new TH2F("Energy vs ThetaCM2", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM3 = new TH2F("Energy vs ThetaCM3", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM4 = new TH2F("Energy vs ThetaCM4", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM5 = new TH2F("Energy vs ThetaCM5", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM6 = new TH2F("Energy vs ThetaCM6", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EvThetaCM7 = new TH2F("Energy vs ThetaCM7", "Energy vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+
+   TH2F *EkinvTheta0 = new TH2F("Ekin vs ThetaCM 0", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta1 = new TH2F("Ekin vs ThetaCM 1", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta2 = new TH2F("Ekin vs ThetaCM 2", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta3 = new TH2F("Ekin vs ThetaCM 3", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta4 = new TH2F("Ekin vs ThetaCM 4", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta5 = new TH2F("Ekin vs ThetaCM 5", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta6 = new TH2F("Ekin vs ThetaCM 6", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+   TH2F *EkinvTheta7 = new TH2F("Ekin vs ThetaCM 7", "Ekin vs ThetaCM", 180, 0, 180, 1000, 0, 40);
+
+   TH2F *EKinvS0 = new TH2F("Ekin vs Strip 0", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS1 = new TH2F("Ekin vs Strip 1", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS2 = new TH2F("Ekin vs Strip 2", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS3 = new TH2F("Ekin vs Strip 3", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS4 = new TH2F("Ekin vs Strip 4", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS5 = new TH2F("Ekin vs Strip 5", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS6 = new TH2F("Ekin vs Strip 6", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+   TH2F *EKinvS7 = new TH2F("Ekin vs Strip 7", "Ekin vs Strip", 60, 0, 60, 1000, 0, 45);
+
+   TH2F *TimevS0 = new TH2F("Tempo de voo vs Strip 0", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS1 = new TH2F("Tempo de voo vs Strip 1", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS2 = new TH2F("Tempo de voo vs Strip 2", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS3 = new TH2F("Tempo de voo vs Strip 3", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS4 = new TH2F("Tempo de voo vs Strip 4", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS5 = new TH2F("Tempo de voo vs Strip 5", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS6 = new TH2F("Tempo de voo vs Strip 6", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+   TH2F *TimevS7 = new TH2F("Tempo de voo vs Strip 7", "Tempo de voo vs Strip", 60, 0, 60, 1000, 0, 400);
+
+   TH2F *ThetavS0 = new TH2F("Strip vs Theta 0", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS1 = new TH2F("Strip vs Theta 1", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS2 = new TH2F("Strip vs Theta 2", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS3 = new TH2F("Strip vs Theta 3", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS4 = new TH2F("Strip vs Theta 4", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS5 = new TH2F("Strip vs Theta 5", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS6 = new TH2F("Strip vs Theta 6", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+   TH2F *ThetavS7 = new TH2F("Strip vs Theta 7", "Strip vs Theta", 60, 0, 60, 180, 0, 180);
+
+   TH2F *TvEkin0 = new TH2F("Tempo de voo vs Energia cinetica 0", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin1 = new TH2F("Tempo de voo vs Energia cinetica 1", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin2 = new TH2F("Tempo de voo vs Energia cinetica 2", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin3 = new TH2F("Tempo de voo vs Energia cinetica 3", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin4 = new TH2F("Tempo de voo vs Energia cinetica 4", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin5 = new TH2F("Tempo de voo vs Energia cinetica 5", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin6 = new TH2F("Tempo de voo vs Energia cinetica 6", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvEkin7 = new TH2F("Tempo de voo vs Energia cinetica 7", "Tempo de voo vs Energia cinetica", 60, 0, 45, 1000, 0, 400);
+
+   TH2F *TvE0 = new TH2F("Tempo de voo vs Energia depositada 0", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE1 = new TH2F("Tempo de voo vs Energia depositada 1", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE2 = new TH2F("Tempo de voo vs Energia depositada 2", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE3 = new TH2F("Tempo de voo vs Energia depositada 3", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE4 = new TH2F("Tempo de voo vs Energia depositada 4", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE5 = new TH2F("Tempo de voo vs Energia depositada 5", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE6 = new TH2F("Tempo de voo vs Energia depositada 6", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
+   TH2F *TvE7 = new TH2F("Tempo de voo vs Energia depositada 7", "Tempo de voo vs Energia Depositada", 60, 0, 45, 1000, 0, 400);
 
    Analysis(TTree *tree = 0);
    virtual ~Analysis();
@@ -214,6 +314,10 @@ public:
    virtual void Loop();
    virtual Bool_t Notify();
    virtual void Show(Long64_t entry = -1);
+   void Soma();
+   void MergeRootfile(TDirectory *target, TList *sourcelist);
+   double Current1 = 16.80;
+   double Current2 = 60.40;
 };
 
 #endif
@@ -237,11 +341,19 @@ Analysis::Analysis(TTree *tree) : fChain(0)
       f->GetObject("SiTelescope", tree);
 
 #else  // SINGLE_TREE
+      stringstream filename;
 
+      // Go to where are the root files
+      string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";
+
+      // File
+      filename.precision(2);
+      filename.setf(std::ios::fixed, std::ios::floatfield);
+      filename << root << Analysis::Current1 << "_" << Analysis::Current2 << ".root";
       // The following code should be used if you want this class to access a chain
       // of trees.
       TChain *chain = new TChain("SiTelescope", "");
-      chain->Add("tree_40.00.root/SiTelescope");
+      chain->Add(filename.str().data());
       tree = chain;
 #endif // SINGLE_TREE
    }
@@ -311,6 +423,14 @@ void Analysis::Init(TTree *tree)
    fChain->SetBranchAddress("EKin5", EKin5, &b_EKin5);
    fChain->SetBranchAddress("EKin6", EKin6, &b_EKin5);
    fChain->SetBranchAddress("EKin7", EKin7, &b_EKin7);
+   fChain->SetBranchAddress("rThetaCM0", &rThetaCM0, &b_rThetaCM0);
+   fChain->SetBranchAddress("rThetaCM1", &rThetaCM1, &b_rThetaCM1);
+   fChain->SetBranchAddress("rThetaCM2", &rThetaCM2, &b_rThetaCM2);
+   fChain->SetBranchAddress("rThetaCM3", &rThetaCM3, &b_rThetaCM3);
+   fChain->SetBranchAddress("rThetaCM4", &rThetaCM4, &b_rThetaCM4);
+   fChain->SetBranchAddress("rThetaCM5", &rThetaCM5, &b_rThetaCM5);
+   fChain->SetBranchAddress("rThetaCM6", &rThetaCM6, &b_rThetaCM6);
+   fChain->SetBranchAddress("rThetaCM7", &rThetaCM7, &b_rThetaCM7);
    fChain->SetBranchAddress("pos_x_det0", &pos_x_det0, &b_pos_x_det0);
    fChain->SetBranchAddress("pos_y_det0", &pos_y_det0, &b_pos_y_det0);
    fChain->SetBranchAddress("pos_z_det0", &pos_z_det0, &b_pos_z_det0);
@@ -355,11 +475,24 @@ void Analysis::Init(TTree *tree)
    fChain->SetBranchAddress("py_dssd", &py_dssd, &b_py_dssd);
    fChain->SetBranchAddress("pz_dssd", &pz_dssd, &b_pz_dssd);
    fChain->SetBranchAddress("t_dssd", &t_dssd, &b_t_dssd);
+   fChain->SetBranchAddress("t_sili0", &t_sili0, &b_t_sili0);
    fChain->SetBranchAddress("t_sili1", &t_sili1, &b_t_sili1);
    fChain->SetBranchAddress("t_sili2", &t_sili2, &b_t_sili2);
+   fChain->SetBranchAddress("t_sili3", &t_sili3, &b_t_sili3);
+   fChain->SetBranchAddress("t_sili4", &t_sili4, &b_t_sili4);
+   fChain->SetBranchAddress("t_sili5", &t_sili5, &b_t_sili5);
+   fChain->SetBranchAddress("t_sili6", &t_sili6, &b_t_sili6);
+   fChain->SetBranchAddress("t_sili7", &t_sili7, &b_t_sili7);
    fChain->SetBranchAddress("t_dssd2", &t_dssd2, &b_t_dssd2);
-   fChain->SetBranchAddress("Ekin_dssd2", &Ekin_dssd2, &b_Ekin_dssd2);
-   fChain->SetBranchAddress("Strip_Number", &Strip_Number, &b_Strip_Number);
+   fChain->SetBranchAddress("Etot", &ETot, &b_ETot);
+   fChain->SetBranchAddress("Strip_Number0", &Strip_Number0, &b_Strip_Number0);
+   fChain->SetBranchAddress("Strip_Number1", &Strip_Number1, &b_Strip_Number1);
+   fChain->SetBranchAddress("Strip_Number2", &Strip_Number2, &b_Strip_Number2);
+   fChain->SetBranchAddress("Strip_Number3", &Strip_Number3, &b_Strip_Number3);
+   fChain->SetBranchAddress("Strip_Number4", &Strip_Number4, &b_Strip_Number4);
+   fChain->SetBranchAddress("Strip_Number5", &Strip_Number5, &b_Strip_Number5);
+   fChain->SetBranchAddress("Strip_Number6", &Strip_Number6, &b_Strip_Number6);
+   fChain->SetBranchAddress("Strip_Number7", &Strip_Number7, &b_Strip_Number7);
    Notify();
 }
 

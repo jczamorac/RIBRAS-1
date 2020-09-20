@@ -18,14 +18,19 @@
 /vis/scene/endOfEventAction accumulate
 /vis/reviewKeptEvents
 
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/set Ne19 blue
+/vis/modeling/trajectories/drawByParticleID-0/set F17 red
+/vis/modeling/trajectories/drawByParticleID-0/set alpha orange
+
 # Turn On/Off the magnetic field
 /det/field 1
 
 # Define the target material
-/det/target/material G4_POLYETHYLENE
+/det/target/material G4_LITHIUM_FLUORIDE
 #G4_POLYETHYLENE
-/det/target/Z 1
-/det/target/A 1
+/det/target/Z 3
+/det/target/A 6
 /det/target/width 1.89e-3
 
 # Define target position (x, y, z)(cm)
@@ -33,9 +38,9 @@
 
 # Define the primary particle
 /det/primary/energy 30 MeV
-/det/primary/Z 3
-/det/primary/A 8
-/det/primary/pos 0. 0. -120.
+/det/primary/Z 9
+/det/primary/A 17
+/det/primary/pos 0. 0. -115.
 
 #10Be(2H, 2H)10Be 35MeV
 
@@ -44,12 +49,12 @@
 ############################################
 
 # Define the recoil particle
-/det/recoil/A 2
-/det/recoil/Z 1
+/det/recoil/A 4
+/det/recoil/Z 2
 
 # Define the ejectile particle
-/det/ejectile/A 7
-/det/ejectile/Z 3
+/det/ejectile/A 19
+/det/ejectile/Z 10
 /det/ejectile/Ex 0 MeV
 
 # Define decay particle 1
@@ -63,10 +68,11 @@
 #/vis/disable
 
 # Set current
-/det/currentValue 30
-/det/currentValue2 90
+/det/currentValue 16.8
+/det/currentValue2 60.40
 
 # This this command updates the geometry with all the inputs above
 /det/update
 
-/run/beamOn 500
+/run/beamOn 40
+

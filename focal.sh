@@ -6,12 +6,12 @@ rm *.root
 cd ..
 
 # Interval for Current1
-iCurrent1=300
-fCurrent1=400
+iCurrent1=150
+fCurrent1=180
 
 # Interval for Current2
-iCurrent2=600
-fCurrent2=900
+iCurrent2=500
+fCurrent2=700
 
 # Primary beam position (cm)
 Primary_pos=-115
@@ -20,20 +20,20 @@ Primary_pos=-115
 Primary_e=30
 
 # Target definition
-Target_Z=1
-Target_A=2
+Target_Z=3
+Target_A=6
 
 # Primary beam particles
-Primary_Z=3
-Primary_A=8
+Primary_Z=9
+Primary_A=17
 
 # Recoil particles
 Recoil_Z=1
 Recoil_A=2
 
 # Ejectile particles
-Ejectile_Z=3
-Ejectile_A=8
+Ejectile_Z=11
+Ejectile_A=21
 
 # Target z position (cm)
 Target_z=0
@@ -132,12 +132,19 @@ root -l <<-EOF
 EOF
 
     cd ..
+    cd ROOT
+    rm *.root
+    cd ..
 else
 echo " "
 echo "-----------------------------"
 echo "-- Couldn't find any focus --"
 echo "-----------------------------"
 echo " "
+cd ..
+cd ROOT
+rm *.root
+cd ..
 fi
 
 # Print simulation time

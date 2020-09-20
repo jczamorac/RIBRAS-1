@@ -22,9 +22,9 @@ void analise4()
     double bCurrent1 = DBL_MIN;
     double bCurrent2 = DBL_MIN;
 
-    for(Current1 = 30; Current1<=40; Current1 ++)
+    for(Current1 = 15; Current1<=18; Current1 ++)
     {
-        for(Current2 = 60; Current2<=90; Current2 ++)
+        for(Current2 = 50; Current2<=70; Current2 ++)
         {
             // Go to where are the root files
             string root = "/home/leo/Desktop/RIBRAS/ROOT/tree_";

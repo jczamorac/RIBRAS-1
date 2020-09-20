@@ -127,7 +127,15 @@ private:
   // Etot
   Float_t Etot;
 
-  Int_t StripNumber;
+  // Strip number for each detector
+  Int_t StripNumber0;
+  Int_t StripNumber1;
+  Int_t StripNumber2;
+  Int_t StripNumber3;
+  Int_t StripNumber4;
+  Int_t StripNumber5;
+  Int_t StripNumber6;
+  Int_t StripNumber7;
 };
 
 #endif

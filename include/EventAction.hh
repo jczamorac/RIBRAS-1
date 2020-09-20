@@ -124,6 +124,8 @@ private:
     //! Hits collection ID
     G4int hitsCollID;
 
+	ofstream list;
+
     TEnv *runmassMap;
 
     G4Ions *RecoilParticle;

@@ -60,75 +60,75 @@ void BeamTestPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
 
   // ---------------------- Primary beam as a dot ------------------------- //
 
-  G4double phi = 2 * pi * G4UniformRand();
-  G4double theta;
-  do
-  {
-    theta =
-        0.066667 * pi * (G4UniformRand() - 0.5)
-        // pi/2                                   //90°
-        // pi/3                                   //60°
-        // pi/6                                   //30°
-        // (pi/6) + ( (pi/3) * G4UniformRand() )  //30° - 90°
-        // (pi/6) + ( 0.261799 * G4UniformRand() )//30° - 45°
-        // (pi/6) * G4UniformRand()               //0°  - 30°
-        // (pi/48)*G4UniformRand()                //0°  - 15°
-        // (pi/3) + ( (pi/6) * G4UniformRand() )  //60° - 90°
-        // 0.0872665 * G4UniformRand()            //0°  - 5°
-        // (1 * G4UniformRand() + 2) * pi / 180 //2°  - 6°
+  // G4double phi = 2 * pi * G4UniformRand();
+  // G4double theta;
+  // do
+  // {
+  //   theta =
+  //       0.066667 * pi * (G4UniformRand() - 0.5)
+  //       // pi/2                                   //90°
+  //       // pi/3                                   //60°
+  //       // pi/6                                   //30°
+  //       // (pi/6) + ( (pi/3) * G4UniformRand() )  //30° - 90°
+  //       // (pi/6) + ( 0.261799 * G4UniformRand() )//30° - 45°
+  //       // (pi/6) * G4UniformRand()               //0°  - 30°
+  //       // (pi/48)*G4UniformRand()                //0°  - 15°
+  //       // (pi/3) + ( (pi/6) * G4UniformRand() )  //60° - 90°
+  //       // 0.0872665 * G4UniformRand()            //0°  - 5°
+  //       // (1 * G4UniformRand() + 2) * pi / 180 //2°  - 6°
 
-        ;
-  }
+  //       ;
+  // }
 
-  while (abs(theta) < 0.0349);
+  // while (abs(theta) < 0.0349);
 
-  particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)));
+  // particleGun->SetParticleMomentumDirection(G4ThreeVector(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)));
 
   // ----------------------------------------------------------------------- //
 
-  //------------- Primary beam as a elipse -------------//
+  //------------- Primary beam as a Gaussian -------------//
 
-  // G4double x, y, z;
-  // G4double sigma_beam;
-  // G4double x0, y0, z0;
+  G4double x, y, z;
+  G4double sigma_beam;
+  G4double x0, y0, z0;
 
-  // x = 0. * mm;
-  // y = 0. * mm;
-  // z = 0. * mm;
+  x = 0. * mm;
+  y = 0. * mm;
+  z = 0. * mm;
 
-  // sigma_beam = 5 * mm / 2.35; // alta intensidad 3mm-sigma
+  sigma_beam = 5 * mm / 2.35; // alta intensidad 3mm-sigma
 
-  // y0 = 0. * mm;
-  // x0 = 0. * mm;
-  // z0 = -115. * cm;
+  y0 = 0. * mm;
+  x0 = 0. * mm;
+  z0 = -115. * cm;
 
-  // G4double a = 0.5 * mm, b = 1.0 * mm;
+  G4double a = 0.5 * mm, b = 1.0 * mm;
 
-  // for (;;)
-  // {
-  //   x = G4RandGauss::shoot(x0, sigma_beam);
-  //   y = G4RandGauss::shoot(y0, sigma_beam);
-  //   z = z0;
+  for (;;)
+  {
+    x = G4RandGauss::shoot(x0, sigma_beam);
+    y = G4RandGauss::shoot(y0, sigma_beam);
+    z = z0;
 
-  //   if (abs(x) < 3 * (abs(x0) + sigma_beam) && abs(y) < 3 * (abs(y0) + sigma_beam))
-  //   {
-  //     break;
-  //   }
+    if (abs(x) < 3 * (abs(x0) + sigma_beam) && abs(y) < 3 * (abs(y0) + sigma_beam))
+    {
+      break;
+    }
 
-  //   if ((((double)(x / a) * (x / a)) + (double)(y / b) * (y / b) <= 1))
-  //   {
-  //     break;
-  //   }
-  // }
-  // G4ThreeVector fposition = G4ThreeVector(x, y, z);
+    if ((((double)(x / a) * (x / a)) + (double)(y / b) * (y / b) <= 1))
+    {
+      break;
+    }
+  }
+  G4ThreeVector fposition = G4ThreeVector(x, y, z);
 
-  // G4double theta;
-  // G4double phi = 2 * pi * G4UniformRand();
+  G4double theta;
+  G4double phi = 2 * pi * G4UniformRand();
 
-  // do
-  // {
-  //   theta = /* (4 * G4UniformRand() + 2) * pi / 180 */0.066667*pi*(G4UniformRand()-0.5);
-  // } while (abs(theta) < 0.0349);
+  do
+  {
+    theta = /* (4 * G4UniformRand() + 2) * pi / 180 */0.066667*pi*(G4UniformRand()-0.5);
+  } while (abs(theta) < 0.0349);
 
   //-----------------------------------------------------------------------------//
 
