@@ -54,7 +54,10 @@ G4VParticleChange *Reaction::PostStepDoIt(const G4Track &aTrack,
 
     aParticleChange.ProposeTrackStatus(fStopAndKill); // Kill the incident Particle
 
-    G4double ThetaInCM = (180 * CLHEP::RandFlat::shoot()) * degree;
+    G4double ThetaInCM = 0 * degree;
+    if(Inputs->using_xsection) ThetaInCM = GetTheta_Xsec();
+    else ThetaInCM = (180 * CLHEP::RandFlat::shoot()) * degree;
+
     G4double randomPhiInCM = CLHEP::RandFlat::shoot() * 2 * pi;    // 0 - 2pi in transverse angle (azimuth)
 
     // Lorentz Vectors for each particle: ejectile, recoil, decay1 and decay2
@@ -124,7 +127,7 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track &aTrack,
   {
     // Get z position of the target
     // 301 cm correspods to the center of the second solenoid
-    G4double ZCEReaction = Inputs->target_pos.getZ() + (301) * cm; 
+    G4double ZCEReaction = Inputs->target_pos.getZ() + (301) * cm;
 
     // Get z position of the particle
     G4double ZCurrent = aTrack.GetPosition().getZ();
@@ -166,5 +169,30 @@ G4double Reaction::PostStepGetPhysicalInteractionLength(const G4Track &aTrack,
     //process isn't invoked.
     return DBL_MAX;
   }
+}
+
+G4double Reaction::GetTheta_Xsec(){
+
+  // Retrieving inputs
+  Inputs *Inputs = &Inputs::GetInputs();
+  G4double newTheta;
+  G4double maxYval = Inputs->ymax;
+  G4double minx = Inputs->xmin;
+  G4double maxx = Inputs->xmax;
+  G4double ranX;
+  xsectable =  Inputs->xsection_graph ; //This is the Xsection table
+
+  do{
+        newTheta = (maxx - minx)*G4UniformRand() + minx;
+        ranX = maxYval* G4UniformRand();
+
+      }while(  ranX > xsectable->Eval(newTheta) );
+
+  //G4cout<<xsectable->GetX(0)<<"  "<<xsectable->GetX(xsectable->GetN()-1)<<G4endl;
+  //G4cout<<Inputs->ymax<<G4endl;
+
+
+  return newTheta * degree;
+
 }
 // --------------------------------------------------------------------------------------------------------------------------------- //

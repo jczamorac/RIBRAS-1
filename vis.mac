@@ -45,7 +45,7 @@
 #10Be(2H, 2H)10Be 35MeV
 
 ############################################
-### Recoil must be the lighest particle! ###  
+### Recoil must be the lighest particle! ###
 ############################################
 
 # Define the recoil particle
@@ -71,8 +71,11 @@
 /det/currentValue 16.8
 /det/currentValue2 60.40
 
+##Set external Xsection
+/det/xsec/ext_xsec 1
+/det/xsec/filename xsections/example_Xs.dat
+
 # This this command updates the geometry with all the inputs above
 /det/update
 
 /run/beamOn 40
-

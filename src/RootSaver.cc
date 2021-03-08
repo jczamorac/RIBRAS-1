@@ -104,7 +104,7 @@ void RootSaver::CreateTree(const std::string &fileName, const std::string &treeN
         }
 
         // Path to where ROOT should save the files
-        G4String Path = "/home/leo/Desktop/RIBRAS/ROOT/";
+        G4String Path = "ROOT/"; //setting a directory for saving the ROOT outputs
 
         // Creating ROOT file
         std::ostringstream fn;

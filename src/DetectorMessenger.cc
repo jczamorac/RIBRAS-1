@@ -23,6 +23,9 @@
 #include <map>
 #include <cstdio>
 #include <iomanip>
+#include <vector>
+
+
 
 using namespace CLHEP;
 using namespace std;
@@ -169,6 +172,13 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction *det)
   // Switch for magnetic field
   magneticfieldon = new G4UIcmdWithABool("/det/field", this);
   magneticfieldon->SetGuidance("Turn On (1), Turn Off (0)");
+
+  // Define Xsection file
+  usingXsec = new G4UIcmdWithABool("/det/xsec/ext_xsec", this);
+  usingXsec->SetGuidance("Turn On (1), Turn Off (0)");
+  xsecfile = new G4UIcmdWithAString("/det/xsec/filename", this);
+  xsecfile->SetGuidance("Specify the filename of the Xsection located in the folder xsections");
+
 }
 
 // ----------------------------------------------------------------------------- //
@@ -213,6 +223,8 @@ DetectorMessenger::~DetectorMessenger()
   delete primary_pos;
 
   delete magneticfieldon;
+  delete usingXsec;
+  delete xsecfile;
 }
 
 // ----------------------------------------------------------------------------- //
@@ -341,4 +353,46 @@ void DetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue)
   {
     Inputs->using_magneticfield = magneticfieldon->GetNewBoolValue(newValue);
   }
+
+  else if (command == usingXsec)
+  {
+    Inputs->using_xsection = usingXsec->GetNewBoolValue(newValue);
+  }
+
+  else if (command == xsecfile)
+  {
+
+    ifstream fXS(newValue);
+		G4double theta=0, Xsecval=0;
+		std::vector<double>  Theta;
+    std::vector<double> Xsec;
+
+		for (string line; getline(fXS, line);) {
+			stringstream parse_xs(line);
+			parse_xs >> theta >> Xsecval;
+			Theta.push_back(theta);
+			Xsec.push_back(Xsecval);
+		}
+		fXS.close();
+		int v_size = Theta.size();
+		float X[v_size];
+		float Y[v_size];
+    float Ymax = 0;
+		for(int i=0; i<v_size; i++){
+			X[i]=Theta.at(i); // in deg
+			Y[i]=Xsec.at(i)*2.0*3.1415*sin(X[i]*3.1415/180.);
+      if(Y[i] > Ymax) Ymax = Y[i];
+			//cout<<X[i]<<" "<<Y[i]<<endl;
+		}
+
+		graphtable = new TGraph(v_size,X,Y);
+
+    Inputs->xsection_graph = graphtable;
+    Inputs->xmin = X[0];
+    Inputs->xmax = X[v_size-1];
+    Inputs->ymax = Ymax;
+
+    //G4cout<<graphtable->GetN()<<"  "<<Ymax<<"  "<<Y[v_size-1]<<G4endl;
+  }
+
 }

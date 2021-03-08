@@ -13,12 +13,19 @@
 #include "G4UserLimits.hh"
 #include "G4DynamicParticle.hh"
 #include "G4ParticleTable.hh"
+#include "Randomize.hh"
+
+#include "TGraph.h"
+
 
 class Reaction : public G4VProcess
 {
 public:
   // Flag for reaction
   G4bool reaction_here;
+
+  //X section ionTable
+  TGraph * xsectable;
 
   // Constructor
   Reaction(const G4String &processName = "Reaction");
@@ -35,6 +42,8 @@ public:
   virtual G4VParticleChange *PostStepDoIt(
       const G4Track &,
       const G4Step &);
+
+  G4double GetTheta_Xsec();
 
   //  This methods are called by Geant4 when a particle has kinect enery 0
   virtual G4double AtRestGetPhysicalInteractionLength(const G4Track &, G4ForceCondition *condition)

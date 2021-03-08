@@ -13,6 +13,7 @@
 #include "globals.hh"
 #include "G4UImessenger.hh"
 #include "G4UIcmdWithAnInteger.hh"
+#include "TGraph.h"
 
 class DetectorConstruction;
 class G4UIdirectory;
@@ -49,6 +50,7 @@ private:
   G4UIdirectory *primaryDir;
   G4UIdirectory *detectorDir;
   G4UIdirectory *magneticDir;
+  G4UIdirectory *xsectionDir;
 
   G4UIcmdWithoutParameter *updateCmd;
 
@@ -97,6 +99,14 @@ private:
 
   // Commands for detectors
   G4UIcmdWithABool *usingdetectors;
+
+  // Commands for external Xsection
+  G4UIcmdWithABool *usingXsec;
+  G4UIcmdWithAString *xsecfile;
+
+public:
+  TGraph * graphtable;
+
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

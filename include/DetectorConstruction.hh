@@ -17,6 +17,8 @@
 #include "G4RotationMatrix.hh"
 #include "G4SDManager.hh"
 
+#include "TGraph.h"
+
 class MagneticField;
 class MagneticField2;
 class G4LogicalVolume;
@@ -214,6 +216,14 @@ public: // Detectors
 public: // Magnetic Field
   G4double Current1, Current2;
 
+public: //External Xsection
+  G4bool using_xsection;
+  TGraph * xsection_graph;
+  G4double xmin;
+  G4double xmax;
+  G4double ymax;
+
+
 private:
   Inputs() : // Initializing parameters
              initialized(false),
@@ -230,7 +240,7 @@ private:
              primary_energy(0), primary_Z(0), primary_A(0),
              primary_pos(0), RecoilParticle(0), EjectileParticle(0),
              rTheta(0), rKinectEnergy(0),
-             Current1(0), Current2(0){};
+             Current1(0), Current2(0), using_xsection(false), xsection_graph(nullptr), xmin(0), xmax(0), ymax(0){};
   Inputs(Inputs const &) = delete;
   void operator=(Inputs const &) = delete;
 };
