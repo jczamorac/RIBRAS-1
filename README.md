@@ -2,6 +2,12 @@
 
 Essa é uma simulação do RIBRAS (Radioactive Ion Beam In Brazil) feita com a ferramenta GEANT4. Foi o projeto de iniciação científica de alunos de graduação em física da USP. O programa visa simular a física de uma reação nuclear.
 
+L.E. Tamayose, J.C. Zamora, G.F. Fortino  and D. Flechas.\
+Simulation of the RIBRAS Facility with GEANT4.\
+Braz J Phys 52, 89 (2022)\
+https://doi.org/10.1007/s13538-022-01090-y
+#### (If this project was helpful for your research, please cite this paper)
+
 ### Requisitos
 
 Entre os requisitos estão as ferramentas:
@@ -30,6 +36,5 @@ Esse comando criará um arquivo chamado `arquivobinario` usado para inicializar 
 ```
 
 para rodar o programa. Após finalizado, é necessário abrir o arquivo `G4Data0.heprep` com o programa HepRApp para a visualização do evento. Os dados da simulação são guardados dentro da pasta `/ROOT` no formato `.root`.
-
 
 
